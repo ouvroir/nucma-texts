@@ -4,24 +4,28 @@
       <fileDesc>
          <titleStmt>
             <title xml:lang="fr" type="main">Liste des auteurs et des autrices</title>
-            <title xml:lang="en" type="main">List of authors</title>
+            <title xml:lang="en" type="main">List of Authors</title>
          </titleStmt>
          <publicationStmt>
-            <publisher>CIÉCO</publisher>
-            <date when="2021">2021</date>
-            <idno type="doi">10.400/nucma/authors</idno>
+            <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+            <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+            <date when="2026">2026</date>
+            <idno type="URI">https://www.nucma.ca</idno>
+            <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
-                  <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution
-                     4.0.</p>
+                  <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0.</p>
                </licence>
             </availability>
          </publicationStmt>
          <seriesStmt>
-            <title xml:lang="fr" type="main">Encyclopédie des nouveaux usages des collections dans
-               les musées d’art</title>
-            <title xml:lang="en" type="main">Encyclopedia of New Uses of Collections</title>
+            <title xml:lang="fr" type="main">NUCMA</title>
+            <title xml:lang="fr" type="sub"
+               >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
+            <title xml:lang="en" type="main">NUCMA</title>
+            <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
             <idno type="URI">http://www.nucma.ca</idno>
+            <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
          <sourceDesc xml:id="nucma-authors">
             <p>Fichier nativement numérique</p>
@@ -30,84 +34,39 @@
       <profileDesc>
          <langUsage>
             <language ident="fr"/>
+            <language ident="en"/>
          </langUsage>
-         <textClass>
-            <!--may not be necessary here, only in chapters and articles-->
+         <!--<textClass>
+            <!-\-may not be necessary here, only in chapters and articles-\->
             <keywords xml:lang="fr">
-               <term>architecture</term>
                <term>société</term>
             </keywords>
-         </textClass>
+         </textClass>-->
       </profileDesc>
+      <revisionDesc>
+         <change when="2026-03" who="#ECD">Restructuration du fichier</change>
+         <change when="2025">Création du fichier</change>
+      </revisionDesc>
    </teiHeader>
    <text>
       <body>
-
-         <!-- Liste de Julie -->
          <listPerson>
             <head xml:lang="fr">Liste des auteurs et des autrices</head>
             <head xml:lang="en">List of authors</head>
-            <person xml:id="emmanuelChateauDutier">
+            <person xml:id="alaryJulie">
                <persName>
-                  <forename>Emmanuel</forename>
-                  <surname>Château-Dutier</surname>
+                  <forename>Julie Alary</forename>
+                  <surname>Lavallée</surname>
                </persName>
-               <note xml:lang="fr">
-                  <p>Emmanuel Château-Dutier est historien de l’architecture et professeur agrégé en
-                     muséologie numérique à l’Université de Montréal. Ses recherches portent sur
-                     l’administration de l’architecture publique en France au XIX<hi
-                        rend="superscript">e</hi> siècle, la muséologie et l’histoire de l’art
-                     numériques. Il est responsable de l’axe numérique du Partenariat <title>Des
-                        nouveaux usages des collections dans les musées d’art</title> (la collection
-                     partagée) et assure la co-direction scientifique de l’<ref
-                        target="https://ouvroir.umontreal.ca">Ouvroir d’histoire de l’art et de
-                        muséologie numériques</ref> qui l’accompagne. Il est spécialisé dans le
-                     domaine des métadonnées culturelles, les éditions structurées, les technologies
-                     XML, le web sémantique et le web de données ouvertes et liées. Signataire du
-                        <title>Manifeste des humanités numériques</title> en 2010, Emmanuel Château
-                     a pris une part active dans la constitution d’une communauté francophone des
-                     humanités numériques. Membre fondateur d’Humanistica et de la revue
-                        <title>Humanités Numériques</title>, il est également vice-président
-                     francophone de la Société canadienne des humanités numériques.</p>
-               </note>
-               <note xml:lang="en">
-                  <p>Emmanuel Château-Dutier is an architectural historian and associate professor
-                     of digital museology at the University of Montreal. His research focuses on the
-                     administration of public architecture in France in the 19<hi rend="superscript"
-                        >th</hi> century, museology and digital art history. He is responsible for
-                     the digital axis of the Partnership <title>New uses of collections in art
-                        museums</title> (the shared collection) and ensures the scientific
-                     co-direction of the <ref target="https://ouvroir.umontreal.ca">d’histoire de
-                        l’art et de muséologie numériques</ref> the laboratory supporting this
-                     research. He specializes in the field of cultural metadata, structured
-                     editions, XML technologies, the semantic web and the web of open and linked
-                     data. Signatory of the <title>Digital Humanities Manifesto</title> in 2010,
-                     Emmanuel Château took an active part in the creation of a French-speaking
-                     digital humanities community. A founding member of Humanistica and the journal
-                        <title>Humanités Numériques</title>, he is also French-speaking
-                     vice-president of the Canadian Society for Digital Humanities.</p>
-               </note>
-               <affiliation>Université de Montréal</affiliation>
-               <idno type="orcid">https://orcid.org/0000-0003-4092-4569</idno>
+               <note xml:lang="fr"/>
+               <affiliation>Musée d’art de Joliette</affiliation>
             </person>
             <person xml:id="bawinJulie">
                <persName>
                   <forename>Julie</forename>
                   <surname>Bawin</surname>
                   <note xml:lang="fr">
-                     <p>Julie Bawin est professeure d’histoire de l’art contemporain à l’Université
-                        de Liège où elle dirige l’ensemble des enseignements et de la recherche dans
-                        le domaine. Spécialisée dans l’étude des collections et des expositions
-                        d’artistes, elle a publié, en 2014, un ouvrage de référence sur L’artiste
-                        commissaire (Paris : Éditions des archives contemporaines). Membre de
-                        nombreux groupes de recherche et de sociétés savantes, elle est
-                        présidente-fondatrice du groupe de recherche FNRS « Musées et art
-                        contemporain » et elle dirige, depuis 2017, le Musée en Plein Air du Sart
-                        Tilman à Liège. À la croisée de l’histoire de l’art et de la muséologie, ses
-                        travaux portent sur l’art dans l’espace public, la muséalisation de la
-                        performance et les expositions d’auteur. Elle est cochercheuse au sein du
-                        Partenariat Des nouveaux usages des collections dans les musées d’art,
-                        initié par le Groupe de recherche et de réflexion CIÉCO.</p>
+                     <p>Julie Bawin est professeure d’histoire de l’art contemporain à l’Université de Liège où elle dirige l’ensemble des enseignements et de la recherche dans le domaine. Spécialisée dans l’étude des collections et des expositions d’artistes, elle a publié, en 2014, un ouvrage de référence sur L’artiste commissaire (Paris : Éditions des archives contemporaines). Membre de nombreux groupes de recherche et de sociétés savantes, elle est présidente-fondatrice du groupe de recherche FNRS « Musées et art contemporain » et elle dirige, depuis 2017, le Musée en Plein Air du Sart Tilman à Liège. À la croisée de l’histoire de l’art et de la muséologie, ses travaux portent sur l’art dans l’espace public, la muséalisation de la performance et les expositions d’auteur. Elle est cochercheuse au sein du Partenariat Des nouveaux usages des collections dans les musées d’art, initié par le Groupe de recherche et de réflexion CIÉCO.</p>
                   </note>
                   <affiliation>Université de Liège</affiliation>
                   <idno type="orcid">https://orcid.org/0009-0003-5973-042X<!-- @todo --></idno>
@@ -119,36 +78,22 @@
                   <surname>Beaudry</surname>
                </persName>
                <note xml:lang="fr">
-                  <p>Historienne de l’art et muséologue, Eve-Lyne Beaudry est conservatrice de l’art
-                     contemporain au Musée national des beaux-arts du Québec depuis 2010. Son champ
-                     de spécialisation est la muséologie de l’art contemporain appliquée aux
-                     pratiques artistiques québécoises des années 1960 à ce jour. Elle a réalisé une
-                     vingtaine d’expositions et de publications pour différentes institutions
-                     québécoises et a été conservatrice de l’art contemporain au Musée d’art de
-                     Joliette de 2006 à 2010.</p>
+                  <p>Historienne de l’art et muséologue, Eve-Lyne Beaudry est conservatrice de l’art contemporain au Musée national des beaux-arts du Québec depuis 2010. Son champ de spécialisation est la muséologie de l’art contemporain appliquée aux pratiques artistiques québécoises des années 1960 à ce jour. Elle a réalisé une vingtaine d’expositions et de publications pour différentes institutions québécoises et a été conservatrice de l’art contemporain au Musée d’art de Joliette de 2006 à 2010.</p>
                </note>
                <affiliation>Musée national des beaux-arts du Québec</affiliation>
                <idno type="orcid">https://orcid.org/0009-0003-5973-042X<!-- @todo --></idno>
             </person>
-            <person xml:id="boucherMelanie">
+            <person xml:id="beaupreMarieEve">
                <persName>
-                  <forename>Mélanie</forename>
-                  <surname>Boucher</surname>
+                  <forename>Marie-Eve</forename>
+                  <surname>Beaupré</surname>
                </persName>
                <note xml:lang="fr">
-                  <p>Mélanie Boucher est professeure en muséologie et en histoire de l’art à
-                     l’Université du Québec en Outaouais. Co-fondatrice de CIÉCO et chercheuse
-                     principale du groupe Origine et actualité du devenir objet du sujet : se
-                     recréer au musée, dans les expositions (CRSH 2018-2022), ses recherches
-                     actuelles portent sur les pratiques performatives et leur muséalisation de même
-                     que sur l’exposition et les modalités de présentation induites par l’art
-                     contemporain. En tant que commissaire, elle a notamment réalisé
-                     Intrus/Intruders (2008-2009), le premier projet d’envergure canadien de
-                     réactualisation des collections par l’art contemporain, au Musée national des
-                     beaux-arts du Québec.</p>
+                  <p><!--#RC très bon texte sur https://fondationguidomolinari.org/a-propos/equipe/--></p>
                </note>
-               <affiliation>Université du Québec en Outaouais</affiliation>
-               <idno type="orcid">https://orcid.org/0009-0003-5973-042X<!-- @todo --></idno>
+               <affiliation>Fondation Guido Molinari</affiliation>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q110413936</idno>
+               <idno type="insi">https://isni.org/isni/0000000072677986</idno>
             </person>
             <person xml:id="benichouAnne">
                <persName>
@@ -158,6 +103,88 @@
                <note xml:lang="fr"/>
                <affiliation>Université du Québec à Montréal</affiliation>
                <idno type="ORCID">0000-0003-3761-608X</idno>
+            </person>
+            <person xml:id="benSalahHend">
+               <persName>
+                  <forename>Hend</forename>
+                  <surname>Ben Salah</surname>
+               </persName>
+               <note xml:lang="fr"/>
+               <affiliation>Université du Québec à Montréal</affiliation>
+               <idno type="ORCID">https://orcid.org/0009-0008-1924-5143</idno>
+            </person>
+            <person xml:id="blaisChristine">
+               <persName>
+                  <forename>Christine</forename>
+                  <surname>Blais</surname>
+               </persName>
+               <affiliation>Université de Montréal</affiliation>
+               <idno><!-- #RC aucun idno trouvé--></idno>
+            </person>
+            <person xml:id="boucherMelanie">
+               <persName>
+                  <forename>Mélanie</forename>
+                  <surname>Boucher</surname>
+               </persName>
+               <note xml:lang="fr">
+                  <p>Mélanie Boucher est professeure en muséologie et en histoire de l’art à l’Université du Québec en Outaouais. Co-fondatrice de CIÉCO et chercheuse principale du groupe Origine et actualité du devenir objet du sujet : se recréer au musée, dans les expositions (CRSH 2018-2022), ses recherches actuelles portent sur les pratiques performatives et leur muséalisation de même que sur l’exposition et les modalités de présentation induites par l’art contemporain. En tant que commissaire, elle a notamment réalisé Intrus/Intruders (2008-2009), le premier projet d’envergure canadien de réactualisation des collections par l’art contemporain, au Musée national des beaux-arts du Québec.</p>
+               </note>
+               <affiliation>Université du Québec en Outaouais</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0003-5973-042X<!-- @todo --></idno>
+            </person>
+            <person xml:id="bouralyLisa">
+               <persName>
+                  <forename>Lisa</forename>
+                  <surname>Bouraly</surname>
+               </persName>
+               <note xml:lang="fr"/>
+               <affiliation>Université du Québec à Montréal, Université Paris 8</affiliation>
+               <idno type="isni">https://isni.org/isni/0000000483281505</idno>
+               <idno type="ORCID">https://orcid.org/0009-0007-7747-0077</idno>
+            </person>
+            <person xml:id="casemajorNathalie">
+               <persName>
+                  <forename>Nathalie</forename>
+                  <surname>Casemajor</surname>
+               </persName>
+               <note xml:lang="fr"/>
+               <affiliation>Institut national de la recherche scientifique</affiliation>
+               <idno type="orcid">https://orcid.org/0000-0001-7901-4859</idno>
+            </person>
+            <person xml:id="ECD">
+               <persName>
+                  <forename>Emmanuel</forename>
+                  <surname>Château-Dutier</surname>
+               </persName>
+               <note xml:lang="fr">
+                  <p>Emmanuel Château-Dutier est historien de l’architecture et professeur agrégé en muséologie numérique à l’Université de Montréal. Ses recherches portent sur l’administration de l’architecture publique en France au XIX<hi rend="superscript">e</hi> siècle, la muséologie et l’histoire de l’art numériques. Il est responsable de l’axe numérique du Partenariat <title>Des nouveaux usages des collections dans les musées d’art</title> (la collection partagée) et assure la co-direction scientifique de l’<ref target="https://ouvroir.umontreal.ca">Ouvroir d’histoire de l’art et de muséologie numériques</ref> qui l’accompagne. Il est spécialisé dans le domaine des métadonnées culturelles, les éditions structurées, les technologies XML, le web sémantique et le web de données ouvertes et liées. Signataire du <title>Manifeste des humanités numériques</title> en 2010, Emmanuel Château a pris une part active dans la constitution d’une communauté francophone des humanités numériques. Membre fondateur d’Humanistica et de la revue <title>Humanités Numériques</title>, il est également vice-président francophone de la Société canadienne des humanités numériques.</p>
+               </note>
+               <note xml:lang="en">
+                  <p>Emmanuel Château-Dutier is an architectural historian and associate professor of digital museology at the University of Montreal. His research focuses on the administration of public architecture in France in the 19<hi rend="superscript">th</hi> century, museology and digital art history. He is responsible for the digital axis of the Partnership <title>New uses of collections in art museums</title> (the shared collection) and ensures the scientific co-direction of the <ref target="https://ouvroir.umontreal.ca">d’histoire de l’art et de muséologie numériques</ref> the laboratory supporting this research. He specializes in the field of cultural metadata, structured editions, XML technologies, the semantic web and the web of open and linked data. Signatory of the <title>Digital Humanities Manifesto</title> in 2010, Emmanuel Château took an active part in the creation of a French-speaking digital humanities community. A founding member of Humanistica and the journal <title>Humanités Numériques</title>, he is also French-speaking vice-president of the Canadian Society for Digital Humanities.</p>
+               </note>
+               <affiliation>Université de Montréal</affiliation>
+               <idno type="orcid">https://orcid.org/0000-0003-4092-4569</idno>
+            </person>
+            <person xml:id="drouinBriseboisJosee">
+               <persName>
+                  <forename>Josée</forename>
+                  <surname>Drouin-Brisebois</surname>
+               </persName>
+               <note xml:lang="fr">
+                  <p/>
+               </note>
+               <affiliation>Musée des beaux-arts du Canada</affiliation>
+               <idno type="isni">ttps://isni.org/isni/0000000073687692</idno>
+            </person>
+            <person xml:id="fraserMarie">
+               <persName>
+                  <forename>Marie</forename>
+                  <surname>Fraser</surname>
+               </persName>
+               <note xml:lang="fr"/>
+               <affiliation>Université du Québec à Montréal</affiliation>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q99877534</idno>
+               <idno type="ORCID">https://orcid.org/0000-0002-5509-6025</idno>
             </person>
             <person xml:id="gagnierRichard">
                <persName>
@@ -175,104 +202,6 @@
                <note xml:lang="fr"/>
                <affiliation>Université du Québec à Montréal</affiliation>
             </person>
-            <person xml:id="oBrienMariah">
-               <persName>
-                  <forename>Mariah</forename>
-                  <surname>O’Brien</surname>
-               </persName>
-               <note xml:lang="fr"/>
-               <affiliation>Université de Montréal</affiliation>
-            </person>
-            <person xml:id="alaryJulie">
-               <persName>
-                  <forename>Julie Alary</forename>
-                  <surname>Lavallée</surname>
-               </persName>
-               <note xml:lang="fr"/>
-               <affiliation>Musée d’art de Joliette</affiliation>
-            </person>
-            <person xml:id="benSalahHend">
-               <persName>
-                  <forename>Hend</forename>
-                  <surname>Ben Salah</surname>
-               </persName>
-               <note xml:lang="fr"/>
-               <affiliation>Université du Québec à Montréal</affiliation>
-               <idno type="ORCID">https://orcid.org/0009-0008-1924-5143</idno>
-            </person>
-            <person xml:id="bouralyLisa">
-               <persName>
-                  <forename>Lisa</forename>
-                  <surname>Bouraly</surname>
-               </persName>
-               <note xml:lang="fr"/>
-               <affiliation>Université du Québec à Montréal, Université Paris 8</affiliation>
-               <idno type="isni">https://isni.org/isni/0000000483281505</idno>
-               <idno type="ORCID">https://orcid.org/0009-0007-7747-0077</idno>
-            </person>
-            <person xml:id="fraserMarie">
-               <persName>
-                  <forename>Marie</forename>
-                  <surname>Fraser</surname>
-               </persName>
-               <note xml:lang="fr"/>
-               <affiliation>Université du Québec à Montréal</affiliation>
-               <idno type="wikidata">https://www.wikidata.org/wiki/Q99877534</idno>
-               <idno type="ORCID">https://orcid.org/0000-0002-5509-6025</idno>
-            </person>
-            <person xml:id="CasemajorNathalie">
-               <persName>
-                  <forename>Nathalie</forename>
-                  <surname>Casemajor</surname>
-               </persName>
-               <note xml:lang="fr"/>
-               <affiliation>Institut national de la recherche scientifique</affiliation>
-               <idno type="orcid">https://orcid.org/0000-0001-7901-4859</idno>
-            </person>
-            <person xml:id="HerrmannSophie">
-               <persName>
-                  <forename>Sophie</forename>
-                  <surname>Herrmann</surname>
-               </persName>
-               <note xml:lang="fr"/>
-               <affiliation>Institut national de la recherche scientifique et Université du Québec en Outaouais</affiliation>
-               <idno type="orcid">https://orcid.org/0009-0005-0844-3230</idno>
-            </person>
-         </listPerson>
-         
-         <!--liste de Rosa -->
-         <listPerson>
-            <head xml:lang="fr">Liste des auteurs et des autrices</head>
-            <head xml:lang="en">List of authors</head>
-            <person xml:id="drouinBriseboisJosee">
-               <persName>
-                  <forename>Josée</forename>
-                  <surname>Drouin-Brisebois</surname>
-               </persName>
-               <note xml:lang="fr"><p/></note>
-               <affiliation>Musée des beaux-arts du Canada</affiliation>
-               <idno type="isni">ttps://isni.org/isni/0000000073687692</idno>
-            </person>
-            <person xml:id="minierJessica">
-               <persName>
-                  <forename>Jessica</forename>
-                  <surname>Minier</surname>
-               </persName>
-               <affiliation>Université du Québec en Outaouais</affiliation>
-               <idno><!-- aucun idno trouvé #RC--></idno>
-            </person>
-            <person xml:id="beaupreMarieEve">
-               <persName>
-                  <forename>Marie-Eve</forename>
-                  <surname>Beaupré</surname>
-               </persName>
-               <note xml:lang="fr">
-                  <p><!--#RC très bon texte sur https://fondationguidomolinari.org/a-propos/equipe/--></p>
-               </note>
-               <affiliation>Fondation Guido Molinari</affiliation>
-               <idno type="wikidata">https://www.wikidata.org/wiki/Q110413936</idno>
-               <idno type="insi">https://isni.org/isni/0000000072677986</idno>
-            </person>
             <person xml:id="guzinLukicNada">
                <persName>
                   <forename>Nada</forename>
@@ -285,6 +214,31 @@
                <idno type="wikidata">https://www.wikidata.org/wiki/Q124425775</idno>
                <idno type="insi">https://isni.org/isni/0000000076333187</idno>
             </person>
+            <person xml:id="HerrmannSophie">
+               <persName>
+                  <forename>Sophie</forename>
+                  <surname>Herrmann</surname>
+               </persName>
+               <note xml:lang="fr"/>
+               <affiliation>Institut national de la recherche scientifique et Université du Québec en Outaouais</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0005-0844-3230</idno>
+            </person>
+            <person xml:id="minierJessica">
+               <persName>
+                  <forename>Jessica</forename>
+                  <surname>Minier</surname>
+               </persName>
+               <affiliation>Université du Québec en Outaouais</affiliation>
+               <idno><!-- aucun idno trouvé #RC--></idno>
+            </person>
+            <person xml:id="oBrienMariah">
+               <persName>
+                  <forename>Mariah</forename>
+                  <surname>O’Brien</surname>
+               </persName>
+               <note xml:lang="fr"/>
+               <affiliation>Université de Montréal</affiliation>
+            </person>
             <person xml:id="uzelJean-Philippe">
                <persName>
                   <forename>Jean-Philippe</forename>
@@ -294,13 +248,18 @@
                <idno type="isni">https://isni.org/isni/0000000075897239</idno>
                <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb15080007x</idno>
             </person>
-            <person xml:id="blaisChristine">
+         </listPerson>
+         <listPerson>
+            <head xml:lang="fr">Autres contributeurs</head>
+            <head xml:lang="en">Other contributors</head>
+            <!-- @todo ajouter autre auxiliaire -->
+            <person xml:id="RC">
                <persName>
-                  <forename>Christine</forename>
-                  <surname>Blais</surname>
+                  <forename>Rosalie</forename>
+                  <surname>Chartrand</surname>
                </persName>
                <affiliation>Université de Montréal</affiliation>
-               <idno><!-- #RC aucun idno trouvé--></idno>
+               <!-- @todo demander la création d’un INSI -->
             </person>
          </listPerson>
       </body>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schemas/nucma.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="main">Mise à vue thématique et nouvelles orientations des
+                    acquisitions</title>
+                <title type="sub">Nouvelle orientation</title>
+                <author ref="#benSalahHend">
+                    <persName>
+                        <forename>Hend</forename>
+                        <surname>Ben Salah</surname>
+                    </persName>
+                    <idno type="ORCID">https://orcid.org/0009-0008-1924-5143</idno>
+                </author>
+                <author ref="#bouralyLisa">
+                    <persName>
+                        <forename>Lisa</forename>
+                        <surname>Bouraly</surname>
+                    </persName>
+                    <idno type="isni">https://isni.org/isni/0000000483281505</idno>
+                </author>
+                <author ref="#fraserMarie">
+                    <persName>
+                        <forename>Marie</forename>
+                        <surname>Fraser</surname>
+                    </persName>
+                    <idno type="wikidata">https://www.wikidata.org/wiki/Q99877534</idno>
+                </author>
+
+            </titleStmt>
+            <publicationStmt>
+                <publisher/>
+                <date when=""/>
+                <idno type="DOI"><!-- @todo --></idno>
+                <availability>
+                    <licence target="https://creativecommons.org/licenses/by/4.0/">
+                        <p>Ce contenu est mis à disposition sous licence Creative Commons
+                            Attribution 4.0.</p>
+                    </licence>
+                </availability>
+            </publicationStmt>
+
+            <seriesStmt>
+                <title xml:lang="fr" type="main">Acquisition</title>
+                <title xml:lang="fr" type="sub">Encyclopédie des nouveaux usages des collections
+                    dans les musées d’art</title>
+                <title xml:lang="en" type="main">Acquisition</title>
+                <title xml:lang="en" type="sub">Encyclopedia of New Uses of Collections</title>
+                <idno type="URI">http://www.nucma.ca</idno>
+            </seriesStmt>
+
+            <sourceDesc xml:id="nucma-acquisition-Encadre_Titrage">
+                <p>Fichier nativement numérique</p>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="fr"/>
+            </langUsage>
+            <textClass>
+                <keywords xml:lang="fr">
+                    <term/>
+                    <term/>
+                </keywords>
+            </textClass>
+        </profileDesc>
+        <revisionDesc>
+            <change when="2025-07" type="v1">première version par #RC</change>
+        </revisionDesc>
+    </teiHeader>
+    <text xml:lang="fr">
+        <body>
+            <div>
+                <p>Un autre mode d’exposition des acquisitions attire l’attention : le recours à des
+                    thématiques qui ne cadrent pas avec l’orientation donnée aux collections. Si les
+                    acquisitions forment un des principaux moteurs de l’exposition des collections
+                    depuis les années 1960, le travail curatorial sur les collections contribue de
+                    plus en plus à réorienter les choix d’acquisitions. C’est comme si c’était
+                    l’exposition des collections qui influençait et orientait désormais les
+                    acquisitions. Deux expositions récentes, <title ref="#mnam002"
+                        >elles@centrepompidou</title> présentée de 2009 à 2011 au <orgName
+                        ref="#cnacgp">Centre Pompidou</orgName>, et l’accrochage permanent <title
+                        ref="#mbam001">Les arts du Tout–Monde</title>, au <orgName ref="#mbam">Musée
+                        des beaux-arts de Montréal</orgName> en 2019, permettent d’examiner de plus
+                    près cette transformation et de montrer l’impact des expositions sur les
+                    acquisitions.</p>
+                <div>
+                    <head><title>elles@centrepompidou. Artistes femmes dans les collections du Musée
+                            national d’art moderne</title>, 27 mai 2009 – 21 février 2011</head>
+                    <p><title>elles@centrepompidou</title> représente une des premières tentatives
+                        curatoriales de redéployer une collection en exposant exclusivement des
+                        artistes femmes. L’équipe et plus particulièrement <persName
+                            ref="#camilleMorineau">Camille Morineau</persName>, conservatrice du
+                        patrimoine et commissaire d’exposition, sont parties du constat que, pour
+                        mettre sur pied une exposition sur l’histoire de l’art moderne et
+                        contemporain uniquement à partir d’œuvres d’artistes femmes, le <orgName
+                            ref="#mnam">MNAM</orgName> devait s’engager dans un important travail de
+                        rattrapage historique. Une analyse basée sur le catalogue de l'exposition
+                        révèle que 94 œuvres ont été acquises sur une période de cinq ans avant
+                        l’ouverture de l’exposition, soit entre 2004 et 2009, ce qui représente
+                        40,7% des œuvres exposées. La quasi-totalité des œuvres illustrées dans le
+                        catalogue sont également des acquisitions récentes : en effet, sur les 231
+                        œuvres reproduites, 210 viennent d’entrer au Musée tandis que 21 sont des
+                        prêts en attente d’être intégrées aux collections.</p>
+                    <p>Nos observations rejoignent celles de <persName ref="#bernadetteDufrene"
+                            >Bernadette Dufrêne</persName>, qui estime, d’après des données
+                        institutionnelles, que plus de 38% des œuvres exposées dans
+                            <title>elles@centrepompidou</title> ont été acquises entre 2004 et 2009,
+                        et que 51% des artistes représentées sont entrées dans les collections
+                        durant cette même période <bibl
+                            ref="https://www.zotero.org/groups/4971115/items/GFK2DNNK">Dufrêne,
+                            2014, p. 5</bibl>. Malgré cet effort de rattrapage, <persName
+                            ref="#nathalieErnoult">Nathalie Ernoult</persName> et
+                            <persName>Catherine Gonnard</persName> soulignent que l’inégalité de
+                        représentation entre les sexes demeure toujours importante. Les femmes
+                        représentaient au moment de leur investigation moins de 20% des collections
+                        du <orgName>MNAM</orgName> et seulement 30% des acquisitions réalisées de
+                        2004 à 2009. De plus, les autrices dénoncent l'absence d’une stratégie
+                        d’acquisition pérenne en faveur des artistes femmes soulignant qu'il ne
+                        suffit pas d'acquérir quelques œuvres isolées, mais qu’il est nécessaire de
+                        constituer un corpus représentatif <bibl
+                            ref="https://www.zotero.org/groups/4971115/items/ALCQE6AT">Ernoult et
+                            Gonnard, 2009, p. 193</bibl>.</p>
+                    <p>En 2015, <persName ref="#mauraReilly">Maura Reilly</persName> confirme cette
+                        analyse dans son article <bibl
+                            ref="https://www.zotero.org/groups/4971115/items/3SHBFGRK"><title xml:lang="en">Taking
+                                the Measure of Sexism: Facts, Figures, and Fixes</title>
+                            (2015)</bibl><!--référence biblio paraphrasée, n'existait pas dans la biliothèque zotero nucma je l'ai ajouté #RC--><!-- peut-on mettre une <titlel> dans une <bibl> ?-->.
+                        Elle évalue que 40% des œuvres exposées dans
+                            <title>elles@centrepompidou</title> ont été acquises au cours des cinq
+                        années précédant l’accrochage. Elle précise qu'après ce redéploiement,
+                        seules 10 % des œuvres exposées dans les salles permanentes étaient signées
+                        par des artistes femmes, un pourcentage équivalent à celui d’avant. Le
+                        chiffre 10% pourrait même signifier une baisse de 3 % par rapport aux
+                        accrochages précédents, si l’on se fie aux statistiques compilées par
+                            <persName>Nathalie Ernoult</persName> et <persName>Catherine
+                            Gonnard</persName>, qui démontrent qu’un accrochage classique des
+                        collections contemporaines au <orgName>Musée national d’art
+                            moderne</orgName> n’accueille que 13% d’artistes femmes <bibl>Ernoult et
+                            Gonnard, 2009, p. 190</bibl>.</p>
+                    <p><persName>Maura Reilly</persName> note également que les fonds alloués aux
+                        acquisitions d’œuvres d’artistes femmes ont rapidement diminué après
+                        l’exposition. L'augmentation des acquisitions d'œuvres d'artistes femmes
+                        dans le contexte d’une initiative ponctuelle plutôt que d’une stratégie
+                        globale et pérenne en faveur de la parité n’a pas impacté durablement leur
+                        représentation au sein des collections. Ainsi, bien que les statistiques
+                        varient selon les sources, il existe un consensus quant à l’impact limité de
+                        cette initiative sur le long terme.</p>
+                </div>
+                <div>
+                    <head><title>Les arts du Tout-Monde</title>, <orgName>Musée des beaux-arts de
+                            Montréal</orgName>, depuis 2019</head>
+                    <p>En 2019, le <orgName>Musée des beaux-arts de Montréal</orgName> présente un
+                        redéploiement thématique de ses collections historiques non occidentales à
+                        partir du concept de <q>Tout-monde</q> du poète et philosophe martiniquais
+                            <persName ref="#glissantEdouart">Édouard Glissant</persName>
+                        (1928-2011). Dans une dizaine de galeries, quelques 1 200 œuvres et objets
+                        de tous les continents remontant jusqu’au 4<hi rend="sub">e</hi> millénaire
+                        AEC sont rassemblés sous le titre <title>Les arts du Tout-Monde</title>.
+                        Modifiée quelques années plus tard en 2023, l’approche curatoriale conserve
+                        la même intention de décloisonner et de déhiérarchiser les cultures
+                        représentées dans la collection ethnographique en la juxtaposant à des
+                        œuvres modernes et contemporaines. La consultation de la documentation de
+                        l’exposition ainsi qu’une étude sur le terrain comprenant un relevé des
+                        nouvelles acquisitions à partir des cartels ont permis de révéler l’usage
+                        des nouvelles acquisitions. Constituant plus du tiers de l’accrochage, les
+                        nouvelles acquisitions ont joué un rôle majeur dans la conception de
+                        l’exposition ainsi que dans l’enrichissement de la collection. Parmi les 655
+                        objets ou œuvres historiques exposés, 182 ont été acquises après 2010, soit
+                        27,7%. On recense également 85 œuvres d’art moderne et contemporain, dont
+                        67% ont été acquises spécialement pour l’exposition au cours de la même
+                        période. Entre 2010 et 2019, c’est quelque 239 œuvres qui ont été acquises
+                        au total, soit 32% de l’accrochage.</p>
+                    <p>L’insertion anachronique et temporaire de l’art contemporain dans les
+                        accrochages historiques ou ethnographiques est de plus en plus courante
+                        depuis les années 1990. Les chiffres sur les acquisitions que nous avons
+                        compilés à partir des cartels des œuvres et des objets exposés dans les
+                        salles témoignent également d’une tentative de réorienter les collections.
+                        Les acquisitions ne viennent pas seulement combler des absences ou des
+                        vides, elles s’inscrivent dans un projet curatorial visant à changer la
+                        vision ou le narratif de la collection ethnographique par leur
+                        exposition.</p>
+                </div>
+            </div>
+        </body>
+        <back>
+            <div>
+                <head>Bibliographie:</head>
+
+                <p>Dufrêne, Bernadette. (2014). La place des femmes dans le patrimoine. Revue
+                    française des sciences de l’information et de la communication, 4, 1‑7.
+                    https://doi.org/10.4000/rfsic.977</p>
+                <p>Ernoult, Nathalie et Gonnard, Catherine. (2009). Regards croisés sur
+                    « elles@centrepompidou ». Diogène, 225(1), 189‑193.
+                    https://doi.org/10.3917/dio.225.0189 </p>
+                <p>Morineau, Camille (commiss.), Musée national d’art moderne/Centre de création
+                    industrielle (France). (2009). Elles@centrepompidou: artistes femmes dans la
+                    collection du Musée national d’art moderne, Centre de création industrielle.
+                    Centre Pompidou [Catalogue d’exposition].</p>
+                <p>Reilly, Maura. (2015, 26 mai). Taking the Measure of Sexism: Facts, Figures, and
+                    Fixes. ARTnews.com.
+                    https://www.artnews.com/art-news/news/taking-the-measure-of-sexism-facts-figures-and-fixes-4111/ </p>
+                <p>Reilly, Maura. (2018). Curatorial Activism: Towards an Ethics of Curating.
+                    Londres : Thames and Hudson.</p>
+                <!-- Dans le google doc, l'auteure demande d'éliminer cette reference de la bibliographie, mais l'article est cité dans le texte  #RC 
+                    Maura Reilly, « Taking the Measure of Sexism: Facts, Figures, and Fixes » (2015)
+                    J'ai ajouté ci-bas la ref chicago 17th, au cas où on doive la mettre-->
+                <p>Reilly, Maura. 2015. « Taking the Measure of Sexism: Facts, Figures, and Fixes ».
+                    ARTnews 114 (juin):39‑47.</p>
+            </div>
+        </back>
+    </text>
+</TEI>

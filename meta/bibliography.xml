@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../schemas/tei_jteiCustomOk.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="../../schemas/tei_jteiCustomOk.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-stylesheet type="text/xsl" href="../xsl/teiJ2html.xsl"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
     <teiHeader>
         <fileDesc>
@@ -10,9 +7,11 @@
                 <title xml:lang="en" type="main">Bibliography</title>
             </titleStmt>
             <publicationStmt>
-                <publisher/>
-                <date when="2021">2021</date>
-                <idno type="DOI">10.400/nucma/biblio</idno>
+                <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+                <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+                <date when="2026">2026</date>
+                <idno type="URI">https://www.nucma.ca</idno>
+                <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
                 <availability>
                     <licence target="https://creativecommons.org/licenses/by/4.0/">
                         <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0.</p>
@@ -20,27 +19,34 @@
                 </availability>
             </publicationStmt>
             <seriesStmt>
-                <title xml:lang="fr" type="main"
-                    >Encyclopédie des nouveaux usages des collections dans les musées d’art</title>
-                <title xml:lang="en" type="main">Encyclopedia of New Uses of Collections</title>
+                <title xml:lang="fr" type="main">NUCMA</title>
+                <title xml:lang="fr" type="sub"
+                    >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
+                <title xml:lang="en" type="main">NUCMA</title>
+                <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
                 <idno type="URI">http://www.nucma.ca</idno>
+                <!-- @todo <idno type="DOI">...</idno> -->
             </seriesStmt>
-            <sourceDesc xml:id="nucma-biblio">
+            <sourceDesc xml:id="nucma-authors">
                 <p>Fichier nativement numérique</p>
             </sourceDesc>
         </fileDesc>
         <profileDesc>
             <langUsage>
                 <language ident="fr"/>
+                <language ident="en"/>
             </langUsage>
-            <textClass>
-                <!--may not be necessary here, only in chapters and articles-->
-                <keywords xml:lang="fr">
-                    <term>architecture</term>
-                    <term>société</term>
-                </keywords>
-            </textClass>
+            <!--<textClass>
+            <!-\-may not be necessary here, only in chapters and articles-\->
+            <keywords xml:lang="fr">
+               <term>société</term>
+            </keywords>
+         </textClass>-->
         </profileDesc>
+        <revisionDesc>
+            <change when="2026-03" who="#ECD">Restructuration du fichier</change>
+            <change when="2025">Création du fichier</change>
+        </revisionDesc>
     </teiHeader>
     <text>
         <body>

@@ -1,3 +1,47 @@
-# README
+# NUCMA – Encyclopédie des Nouveaux usages des collections dans les musées d’art
 
-Ceci est un répertoire de test.
+Organisation des fichiers
+
+```bash
+nucma/
+├── _corpus.xml
+├── fr
+│   ├── _corpus.xml
+│   ├── acquisition
+│   │   ├── _corpus.xml
+│   │   ├── coacquisition.xml
+│   │   ├── protocoles.xml
+│   │   └── ...
+│   ├── documentation
+│   ├── mise-a-vue
+│   ├── mediation
+│   ├── circulation
+│   ├── alienation
+│   └── complements
+├── en
+│   ├── _corpus.xml
+│   ├── acquisition
+│   ├── documentation
+│   ├── display
+│   ├── interpretation/
+│   ├── circulation/
+│   ├── deaccessioning/
+│   └── supplements/
+├── meta/
+│   ├── _corpus.xml
+│   ├── authors.xml
+│   ├── artworks.xml
+│   ├── bibliography.xml
+│   ├── exhibitions.xml
+│   ├── medias.xml
+│   ├── names.xml
+│   ├── places.xml
+│   └── ...
+
+├── schemas/
+│   ├── odd
+│   └── ...
+├── LICENCE
+└── README.md
+```
+

@@ -3,42 +3,50 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title xml:lang="fr" type="main">Index des noms</title>
-            <title xml:lang="en" type="main">Name index</title>
+            <title xml:lang="fr" type="main">Index des œuvres</title>
+            <title xml:lang="en" type="main">Index of Works</title>
          </titleStmt>
          <publicationStmt>
-            <publisher>CIÉCO</publisher>
-            <date when="2024">2025</date>
-            <idno type="doi"><!-- @todo 10.400/nucma/names --></idno>
+            <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+            <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+            <date when="2026">2026</date>
+            <idno type="URI">https://www.nucma.ca</idno>
+            <!-- @todo <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
-                  <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution
-                     4.0.</p>
+                  <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0.</p>
                </licence>
             </availability>
          </publicationStmt>
          <seriesStmt>
-            <title xml:lang="fr" type="main">Encyclopédie des nouveaux usages des collections dans
-               les musées d’art</title>
-            <title xml:lang="en" type="main">Encyclopedia of New Uses of Collections</title>
+            <title xml:lang="fr" type="main">NUCMA</title>
+            <title xml:lang="fr" type="sub"
+               >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
+            <title xml:lang="en" type="main">NUCMA</title>
+            <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
             <idno type="URI">http://www.nucma.ca</idno>
+            <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
-         <sourceDesc xml:id="nucma-authors">
+         <sourceDesc xml:id="nucma.authors">
             <p>Fichier nativement numérique</p>
          </sourceDesc>
       </fileDesc>
       <profileDesc>
          <langUsage>
             <language ident="fr"/>
+            <language ident="en"/>
          </langUsage>
-         <textClass>
-            <!--may not be necessary here, only in chapters and articles-->
+         <!--<textClass>
+            <!-\-may not be necessary here, only in chapters and articles-\->
             <keywords xml:lang="fr">
-               <term><!-- @todo --></term>
-               <term><!-- @todo --></term>
+               <term>société</term>
             </keywords>
-         </textClass>
+         </textClass>-->
       </profileDesc>
+      <revisionDesc>
+         <change when="2026-03" who="#ECD">Restructuration du fichier</change>
+         <change when="2025">Création du fichier</change>
+      </revisionDesc>
    </teiHeader>
    <text>
       <body>
@@ -77,7 +85,8 @@
                <objectName>Variations et Pérennité</objectName>
                <author ref="#">collectif</author>
                <!-- comment noter un collectif ?, les ajouter à names aussi ? et comment ?-->
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="bonaroti001">
                <objectName>Jugement dernier</objectName>
@@ -101,7 +110,8 @@
             <object xml:id="claus001">
                <objectName>Envahisseurs</objectName>
                <author ref="#clausHannah">Claus, Hannah</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="murphy001">
                <objectName>La forme des jours</objectName>
@@ -112,12 +122,14 @@
             <object xml:id="guerrera001">
                <objectName>Darboral</objectName>
                <author ref="#guerreraMassimo">Guerrera, Massimo (1967-....)</author>
-               <idno type="artefact"/> <!-- à renseigner, chercher le bon numéro d'inventaire -->
+               <idno type="artefact"/>
+               <!-- à renseigner, chercher le bon numéro d'inventaire -->
             </object>
             <object xml:id="BFG001">
                <objectName>Plafond suspendu</objectName>
                <author ref="#BFG">B-F-G (2019)</author>
-               <idno/><!-- pas trouvé, comment noter les collectifs ? -->
+               <idno/>
+               <!-- pas trouvé, comment noter les collectifs ? -->
             </object>
             <object xml:id="sterbak001">
                <objectName>Vanitas : robe de chair pour albinos anorexique</objectName>
@@ -134,7 +146,8 @@
                <objectName>Trio A</objectName>
                <!-- est écrit "la chorégraphie" dans le texte -->
                <author ref="#rainerYvonne">Rainer, Yvonne (1934-....)</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="wall001">
                <objectName>Stéréo</objectName>
@@ -169,7 +182,8 @@
             <object xml:id="bretch001">
                <objectName>Word Event</objectName>
                <author ref="#brechtGeorge">Brecht, George (1926-2008)</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="knowles001">
                <objectName>Make a Salad</objectName>
@@ -179,7 +193,8 @@
             <object xml:id="ono001">
                <objectName>Instructions for paintings</objectName>
                <author ref="#onoYoko">Ono, Yōko (1933-....)</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="ono002">
                <objectName>Grapefruit</objectName>
@@ -189,7 +204,8 @@
             <object xml:id="lewitt001">
                <objectName>Paragraphs on Conceptual Art</objectName>
                <author ref="#lewittSol">Lewitt, Sol (1928-2007)</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="lewitt002">
                <objectName>Wall Drawings</objectName>
@@ -199,27 +215,33 @@
             <object xml:id="lewitt003">
                <objectName>Wall Drawing #146</objectName>
                <author ref="#lewittSol">Lewitt, Sol (1928-2007)</author>
-               <idno/> <!-- je ne trouve pas de référence pour cette œuvre en particulier issue de la série -->
-            </object> 
+               <idno/>
+               <!-- je ne trouve pas de référence pour cette œuvre en particulier issue de la série -->
+            </object>
             <object xml:id="kosuth001">
                <objectName>Une et trois tables</objectName>
                <author ref="#kosuthJosef">Kosuth, Joseph (1945-....)</author>
-               <idno type="artefact">https://app.pch.gc.ca/application/artefacts_hum/detailler_detail.app?d=NGOC17259.1-3</idno>
+               <idno type="artefact"
+                  >https://app.pch.gc.ca/application/artefacts_hum/detailler_detail.app?d=NGOC17259.1-3</idno>
             </object>
             <object xml:id="">
-               <objectName>Modern Art: Who Care?</objectName><!-- les symposiums comptent-ils comme des œuvres d'art ? -->
+               <objectName>Modern Art: Who Care?</objectName>
+               <!-- les symposiums comptent-ils comme des œuvres d'art ? -->
                <author ref=""/>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="v2001">
                <objectName>Capturing Unstable Media</objectName>
                <author ref="#v2">V2 Institute for the Unstable Media</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="tateModern001">
-               <objectName>BMW Tate Live</objectName> 
-               <author ref="#tateModern">Tate Modern</author> 
-               <idno type="wikidata">https://www.wikidata.org/wiki/</idno> <!-- les références sur wikidata ne correspondent pas à la date mentionnée dans le texte "2012" -->
+               <objectName>BMW Tate Live</objectName>
+               <author ref="#tateModern">Tate Modern</author>
+               <idno type="wikidata">https://www.wikidata.org/wiki/</idno>
+               <!-- les références sur wikidata ne correspondent pas à la date mentionnée dans le texte "2012" -->
             </object>
             <object xml:id="abramovic001">
                <objectName>Seven Easy Pieces</objectName>
@@ -234,79 +256,94 @@
             <object xml:id="whittome001">
                <objectName>Room 901</objectName>
                <author ref="#whittomeIrene">Whittome, Irene (1942-....)</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="whittome002">
                <objectName>901 Document Re-enactor / 901 Document réactivateur</objectName>
                <author ref="#whittomeIrene">Whittome, Irene (1942-....)</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="dorion001">
                <objectName>l’Atelier blanc</objectName>
-               <author ref="#dorionPierre"><persName>Dorion, Pierre (1959-....)</persName></author>
-               <idno/> <!-- pas trouvé -->
+               <author ref="#dorionPierre">
+                  <persName>Dorion, Pierre (1959-....)</persName>
+               </author>
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="tateModern002">
                <objectName>Reshaping the Collectible</objectName>
                <author ref="#tateModern">Tate Modern</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="sullivan001">
                <objectName>Portraits de personnes qui se ressemblent</objectName>
-               <author ref="#sullivanFrancoise">Sullivan, Françoise (1925-....)</author> 
-               <idno/> <!-- pas trouvé -->
+               <author ref="#sullivanFrancoise">Sullivan, Françoise (1925-....)</author>
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="cooke001">
                <objectName>Le plus beau jour de ma vie</objectName>
                <author ref="#cookeSasseville">Cooke-Sasseville</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="broin001">
-               <objectName>Tortoise (Tunnel)</objectName> <!-- "Les Tortoises" dans le texte -->
+               <objectName>Tortoise (Tunnel)</objectName>
+               <!-- "Les Tortoises" dans le texte -->
                <author ref="#broinMichel">Broin, Michel de (1970-....)</author>
-               <idno/> <!-- pas trouvé -->
+               <idno/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="monkman001">
                <objectName>Les castors du Roi</objectName>
                <author ref="#monkmanKent">Monkman, Kent (1965-....)</author>
-               <idno type="artefact">https://app.pch.gc.ca/application/artefacts_hum/detailler_detail.app?d=MBAM61170</idno>
+               <idno type="artefact"
+                  >https://app.pch.gc.ca/application/artefacts_hum/detailler_detail.app?d=MBAM61170</idno>
             </object>
             <object xml:id="mnam002">
-               <objectName>Les Cahiers du Musée national d'art moderne</objectName> <!-- Noté comme "Les cahiers" dans le texte. -->
+               <objectName>Les Cahiers du Musée national d'art moderne</objectName>
+               <!-- Noté comme "Les cahiers" dans le texte. -->
                <author ref="#mnam">Musée national d’Art moderne</author>
                <idno type="wikidata">https://www.wikidata.org/wiki/Q59729459</idno>
             </object>
             <object xml:id="siegelaubSeth001">
-               <objectName>The Artist’s Reserved Rights Transfer and Sale Agreement</objectName> 
+               <objectName>The Artist’s Reserved Rights Transfer and Sale Agreement</objectName>
                <author ref="#siegelaubSeth">Siegelaub, Seth (1941-2013)</author>
                <author ref="#projanskyRobert">Projansky, Robert</author>
                <idno type="wikidata">https://www.wikidata.org/wiki/Q25083435</idno>
             </object>
             <object xml:id="cherniakDmitri001">
-               <objectName>Ringers</objectName> 
+               <objectName>Ringers</objectName>
                <author ref="#siegelaubSeth">Dmitri, Cherniak (1970-....)</author>
-               <idno type="artBlocks">https://www.artblocks.io/collection/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270-13?attributes=%7B%22Peg+count%22%3A%7B%22type%22%3A%22number%22%2C%22min%22%3A7%2C%22max%22%3A7%2C%22domain%22%3A%5B3%2C55%5D%7D%7D</idno>
-            </object> 
+               <idno type="artBlocks"
+                  >https://www.artblocks.io/collection/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270-13?attributes=%7B%22Peg+count%22%3A%7B%22type%22%3A%22number%22%2C%22min%22%3A7%2C%22max%22%3A7%2C%22domain%22%3A%5B3%2C55%5D%7D%7D</idno>
+            </object>
             <object xml:id="cherniakDmitri002">
-               <objectName>Ringers #962</objectName> 
+               <objectName>Ringers #962</objectName>
                <author ref="#siegelaubSeth">Dmitri, Cherniak (1970-....)</author>
-               <idno type="wikidata"/> <!-- pas trouvé -->
+               <idno type="wikidata"/>
+               <!-- pas trouvé -->
             </object>
             <object xml:id="buterinVitalik001">
-               <objectName>Ethereum</objectName> 
+               <objectName>Ethereum</objectName>
                <author ref="#buterinVitalik">Buterin, Vitalik (1994-....)</author>
-               <idno type="wikidata">https://www.wikidata.org/wiki/Q16783523</idno> 
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q16783523</idno>
             </object>
             <object xml:id="larvaLabs001">
-               <objectName>Cryptopunks</objectName> 
+               <objectName>Cryptopunks</objectName>
                <author ref="#larvaLabs">LarvaLabs</author>
-               <idno type="wikidata">https://www.wikidata.org/wiki/Q105095182</idno> 
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q105095182</idno>
             </object>
          </listObject>
 
          <listObject>
             <!-- Liste de Rosa -->
-            <object xml:id="unknown001"><!-- artefact historique cité dans article coacquisition-->
+            <object xml:id="unknown001">
+               <!-- artefact historique cité dans article coacquisition-->
                <objectName xml:lang="en">Liturgical Comb Fragment</objectName>
                <author><!-- unknown #RC, s'agit d'un artefact historique de la collection du MET--></author>
                <idno type="uri">https://www.metmuseum.org/art/collection/search/471985</idno>
@@ -326,7 +363,7 @@
                <!-- à vérifier comment on fait pour les titres autochtones #RC-->
                <author ref="#calelÉdgar">Calel, Édgar</author>
                <idno>https://www.tate.org.uk/art/artworks/calel-the-echo-of-an-ancient-form-of-knowledge-l04781</idno>
-               <!-- idno = fiche de l'oeuvre sur le site du Tate, numéro de référence = L04781--> 
+               <!-- idno = fiche de l'oeuvre sur le site du Tate, numéro de référence = L04781-->
             </object>
             <object xml:id="newman001">
                <objectName>Couverture des témoins</objectName>
@@ -336,34 +373,41 @@
             <object xml:id="lund001">
                <objectName>Smart Burn Contract #11 — Hoarder</objectName>
                <author ref="#lundJonas">Lund, Jonas (1984-....)</author>
-               <idno>https://www.centrepompidou.fr/fr/ressources/oeuvre/q9KK0FS</idno><!-- sur site collection centre Pompidou-->
-               <idno>https://smart-contracts.host/works/11</idno> <!-- lien donné dans "acquisition NFT", "Smart Burn Contract
+               <idno>https://www.centrepompidou.fr/fr/ressources/oeuvre/q9KK0FS</idno>
+               <!-- sur site collection centre Pompidou-->
+               <idno>https://smart-contracts.host/works/11</idno>
+               <!-- lien donné dans "acquisition NFT", "Smart Burn Contract
                             #11 – Hoarder" #JC -->
                <!-- num inventaire = AM 2023-999 -->
             </object>
             <object xml:id="klein001">
                <objectName>Chéquier</objectName>
                <author ref="#kleinYves">Klein, Yves (1928-1962)</author>
-               <idno>https://www.centrepompidou.fr/fr/ressources/oeuvre/c4r6qB7</idno><!-- sur site collection centre Pompidou-->
-               <idno>https://www.centrepompidou.fr/en/ressources/oeuvre/cMedK9X</idno> <!-- le lien donné dans "acquisition NFT", "Chèque" #JC -->
+               <idno>https://www.centrepompidou.fr/fr/ressources/oeuvre/c4r6qB7</idno>
+               <!-- sur site collection centre Pompidou-->
+               <idno>https://www.centrepompidou.fr/en/ressources/oeuvre/cMedK9X</idno>
+               <!-- le lien donné dans "acquisition NFT", "Chèque" #JC -->
                <!-- num inventaire = AM 1980-40 (R) -->
             </object>
             <object xml:id="lund002">
                <objectName>Strings Attached</objectName>
                <author ref="#lundJonas">Lund, Jonas (1984-....)</author>
-               <idno>https://strings-attached.info/</idno><!-- site officiel de la série, 1 fiche pour chaque 24 itérations mais pas d'identifiant-->
+               <idno>https://strings-attached.info/</idno>
+               <!-- site officiel de la série, 1 fiche pour chaque 24 itérations mais pas d'identifiant-->
             </object>
             <object xml:id="lund003">
                <objectName>Smart Burn Contract #1 - Philantropist </objectName>
                <author ref="#lundJonas">Lund, Jonas (1984-....)</author>
-               <idno>https://opensea.io/item/ethereum/0x4febe040d13dbddcca8aa675481314264339e857/1</idno><!-- fiche du NFT sur plateforme vente OpenSea-->
-               <idno>https://smart-contracts.host/works/1</idno><!--fiche de l'œuvre sur le site de l'artiste-->
+               <idno>https://opensea.io/item/ethereum/0x4febe040d13dbddcca8aa675481314264339e857/1</idno>
+               <!-- fiche du NFT sur plateforme vente OpenSea-->
+               <idno>https://smart-contracts.host/works/1</idno>
+               <!--fiche de l'œuvre sur le site de l'artiste-->
             </object>
             <object xml:id="lund004">
                <objectName>Jonas Lund's Smart Contract #21</objectName>
                <author ref="#lundJonas">Lund, Jonas (1984-....)</author>
                <!-- œuvre citée dans v2 du complément Smart burn, 
-                  mais ce titre précis créé en 2020 = introuvable sur le web, même sur le site de l'artiste--> 
+                  mais ce titre précis créé en 2020 = introuvable sur le web, même sur le site de l'artiste-->
             </object>
             <object xml:id="lund005">
                <objectName>Smart Burn Contract #18 - Bookworm</objectName>
@@ -375,12 +419,12 @@
                <author ref="#lundJonas">Lund, Jonas (1984-....)</author>
                <!-- seule trace = un discord : https://discord.com/channels/498853995830444032/1075768287859847238 -->
             </object>
-               <object xml:id="siegelaub001">
-                  <objectName>Xerox Book</objectName>
-                  <author>Siegelaub, Seth (1941-2013)</author>
-                  <idno type=""><!-- aucun idno trouvé--></idno>
-                  <!-- s'agit d'une "expo" sous forme de livre, oeuvre accessible en ligne : https://monoskop.org/images/f/f1/Siegelaub_Seth_ed_Xerox_Book.pdf-->
-               </object>
+            <object xml:id="siegelaub001">
+               <objectName>Xerox Book</objectName>
+               <author>Siegelaub, Seth (1941-2013)</author>
+               <idno type=""><!-- aucun idno trouvé--></idno>
+               <!-- s'agit d'une "expo" sous forme de livre, oeuvre accessible en ligne : https://monoskop.org/images/f/f1/Siegelaub_Seth_ed_Xerox_Book.pdf-->
+            </object>
             <object xml:id="alleyn001">
                <objectName>Introscaphe</objectName>
                <author ref="#alleynEdmund">Alleyn, Edmund (1931-2004)</author>

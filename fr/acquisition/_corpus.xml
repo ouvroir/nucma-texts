@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../schemas/nucma.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<teiCorpus xmlns="http://www.tei-c.org/ns/1.0" 
+   xmlns:xi="http://www.w3.org/2001/XInclude">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title xml:lang="fr">Chapitre Acquisition</title>
+         </titleStmt>
+         <publicationStmt>
+            <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+            <date when="2026">2026</date>
+            <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
+         </publicationStmt>
+         <seriesStmt>
+            <title xml:lang="fr" type="main">NUCMA</title>
+            <title xml:lang="fr" type="sub">L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
+         </seriesStmt>
+         <sourceDesc xml:id="nucma.fr" corresp="nucma.en">
+            <p>Fichier nativement numérique</p>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <!--
+   <xi:include href="./introduction.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   -->
+   <!--<xi:include href="./introduction.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>-->
+   <xi:include href="./coacquisition.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>
+   <xi:include href="./protocoles.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>
+   
+</teiCorpus>
