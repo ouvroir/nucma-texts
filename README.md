@@ -1,6 +1,8 @@
 # NUCMA – Encyclopédie des Nouveaux usages des collections dans les musées d’art
 
-Organisation des fichiers
+NUCMA – Encyclopédie des Nouveaux usages des collections dans les musées d’art est un projet du groupe de recherche CIÉCO réalisé dans le cadre du Partenariat *Des nouveaux usages des collections dans les musées d’art*.
+
+## Organisation des fichiers
 
 ```bash
 nucma/
@@ -44,4 +46,3 @@ nucma/
 ├── LICENCE
 └── README.md
 ```
-
