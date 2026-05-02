@@ -11,16 +11,17 @@
   <xd:doc scope="stylesheet">
     <xd:desc>
       <xd:p><xd:b>Normalisation of NUCMA TEI texts</xd:b> (French and English).</xd:p>
-      <xd:p>The transformation is a pipeline of four modes. Each one builds a temporary tree
+      <xd:p>This stylesheet only deals with Unicode and typography. The artefacts of the
+        conversion from a word processor (font styles, empty <xd:i>hi</xd:i>,
+        <xd:i>@xml:space</xd:i>, no-break spaces left by converted guillemets) are removed
+        beforehand, once, by <xd:i>nettoyage-import.xsl</xd:i>.</xd:p>
+      <xd:p>The transformation is a pipeline of three modes. Each one builds a temporary tree
         that the next one takes as input, so that adjacent text nodes are merged between
         steps.</xd:p>
       <xd:ol>
         <xd:li><xd:b>nfc</xd:b>: Unicode NFC normalisation of every text node and attribute
           (decomposed characters such as <xd:i>e</xd:i> + U+0301 become
           <xd:i>é</xd:i>).</xd:li>
-        <xd:li><xd:b>cleanup</xd:b>: removal of word-processor artefacts (font family and
-          size in <xd:i>@style</xd:i>, empty or whitespace-only <xd:i>hi</xd:i>,
-          <xd:i>@xml:space</xd:i>).</xd:li>
         <xd:li><xd:b>unwrap-ordinals</xd:b>: ordinal superscripts
           (<xd:i>XVIII&lt;hi rend="superscript"&gt;e&lt;/hi&gt;</xd:i>) are folded into the
           text, so that the next step sees every ordinal as a single string.</xd:li>
@@ -50,17 +51,18 @@
           </xd:ul>
         </xd:li>
       </xd:ol>
-      <xd:p>Steps 3 and 4 only apply to nodes in scope (see
-        <xd:ref name="nucma:in-scope" type="function"/>): identifiers (<xd:i>idno</xd:i>,
-        <xd:i>ptr</xd:i>, <xd:i>code</xd:i>) and, unless
+      <xd:p>Steps 2 and 3 only apply to nodes in scope (see
+        <xd:ref name="nucma:in-scope" type="function"/>): identifiers and addresses
+        (<xd:i>idno</xd:i>, <xd:i>ptr</xd:i>, <xd:i>code</xd:i>, <xd:i>email</xd:i>) and, unless
         <xd:ref name="process-bibliography" type="parameter"/> is set, the bibliography are
-        left out. URLs, attributes, comments and processing instructions are never altered
-        except by NFC normalisation.</xd:p>
+        left out. URLs, DOIs and e-mail addresses in the text, attributes, comments and
+        processing instructions are never altered except by NFC normalisation.</xd:p>
       <xd:p>The transformation is idempotent: running it twice gives the same result.
         Missing spaces are added, but a space split across two text nodes cannot be
         detected.</xd:p>
       <xd:p>Usage (Saxon 12):</xd:p>
-      <xd:pre>saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl -o:out.xml
+      <xd:pre>saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/nettoyage-import.xsl -o:clean.xml
+saxon -s:clean.xml -xsl:xsl/normalisation.xsl -o:out.xml
 saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centuries-in-words=true()'</xd:pre>
       <xd:p><xd:b>Author:</xd:b> Emmanuel Château-Dutier</xd:p>
     </xd:desc>
@@ -82,7 +84,6 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
   <!-- Pipeline modes, in order of application; anything not matched is copied. -->
   <xsl:mode on-no-match="shallow-copy"/>
   <xsl:mode name="nfc" on-no-match="shallow-copy"/>
-  <xsl:mode name="cleanup" on-no-match="shallow-copy"/>
   <xsl:mode name="unwrap-ordinals" on-no-match="shallow-copy"/>
   <xsl:mode name="typography" on-no-match="shallow-copy"/>
 
@@ -156,6 +157,24 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
       Imprimerie nationale.</xd:desc>
   </xd:doc>
   <xsl:param name="fr-guillemets-narrow-space" as="xs:boolean" select="false()"/>
+
+
+  <!-- ================================================================== -->
+  <!-- Configuration                                                      -->
+  <!-- ================================================================== -->
+
+  <xd:doc>
+    <xd:desc>The elements within which quotation marks are paired. Text in a nested block
+      (a <xd:i>note</xd:i> inside a <xd:i>p</xd:i>) is paired separately.</xd:desc>
+  </xd:doc>
+  <xsl:variable name="quote-blocks" as="xs:string+"
+    select="('p', 'head', 'note', 'item', 'cell', 'quote', 'l', 'ab', 'bibl', 'label')"/>
+
+  <xd:doc>
+    <xd:desc>Elements whose text is never modified by the typography step: identifiers and
+      addresses.</xd:desc>
+  </xd:doc>
+  <xsl:variable name="protected-elements" as="xs:string+" select="('idno', 'ptr', 'code', 'email')"/>
 
 
   <!-- ================================================================== -->
@@ -240,9 +259,9 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
 
   <xd:doc>
     <xd:desc>French titles followed by a name: M., MM., Mme, Mmes, Mlle, Mlles, Mgr, Me
-      (maître), Dr, Pr.</xd:desc>
+      (maître), Dr, Pr (with or without a period).</xd:desc>
   </xd:doc>
-  <xsl:variable name="re-title-fr" select="'(?:MM\.|M\.|Mmes|Mme|Mlles|Mlle|Mgr|Me|Dr|Pr)'"/>
+  <xsl:variable name="re-title-fr" select="'(?:MM\.|M\.|Mmes|Mme|Mlles|Mlle|Mgr|Me|Dr\.?|Pr\.?)'"/>
 
   <xd:doc>
     <xd:desc>English titles followed by a name: Mr, Mrs, Ms, Dr (with or without a period),
@@ -253,9 +272,9 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
   <xd:doc>
     <xd:desc>Unit symbols that cannot be mistaken for a word or a code: the no-break space
       is added even when the space is missing (<xd:i>12cm</xd:i> → 12 cm). Squares and
-      cubes are included (m², cm³).</xd:desc>
+      cubes are included (m², cm³), and data sizes in both languages (Go, GB).</xd:desc>
   </xd:doc>
-  <xsl:variable name="re-unit" select="'(?:mm|cm|dm|km|mg|kg|ml|cl|dl|[kKMGT]o|px|dpi|ppp|min|°C)[²³]?'"/>
+  <xsl:variable name="re-unit" select="'(?:mm|cm|dm|km|mg|kg|ml|cl|dl|[kKMGT][oB]|px|dpi|ppp|min|°C|°F)[²³]?'"/>
 
   <xd:doc>
     <xd:desc>Short unit symbols, only handled when a space already separates them from the
@@ -284,16 +303,11 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
   <xsl:variable name="re-before-opening-quote" select="'[\s\p{Zs}(\[{«“‘—–/\-]'"/>
 
   <xd:doc>
-    <xd:desc>The elements within which quotation marks are paired. Text in a nested block
-      (a <xd:i>note</xd:i> inside a <xd:i>p</xd:i>) is paired separately.</xd:desc>
+    <xd:desc>A link in running text, left untouched by the typography step: URL
+      (<xd:i>https://…</xd:i>, <xd:i>www.…</xd:i>), DOI (<xd:i>doi:10.…</xd:i>) or e-mail
+      address.</xd:desc>
   </xd:doc>
-  <xsl:variable name="quote-blocks" as="xs:string+"
-    select="('p', 'head', 'note', 'item', 'cell', 'quote', 'l', 'ab', 'bibl', 'label')"/>
-
-  <xd:doc>
-    <xd:desc>A URL in running text, left untouched by the typography step.</xd:desc>
-  </xd:doc>
-  <xsl:variable name="re-url" select="'https?://[^\s\p{Zs}]+'"/>
+  <xsl:variable name="re-link" select="'(?:https?://|www\.|doi:)[^\s\p{Zs}]+|[\w.+\-]+@[\w\-]+(?:\.[\w\-]+)+'"/>
 
   <xd:doc>
     <xd:desc>A Roman numeral from I to XXXIX (centuries, republics…). C, L and M are excluded
@@ -392,16 +406,16 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
 
   <xd:doc>
     <xd:desc>Tells whether a node may be modified by the unwrap-ordinals and typography
-      steps. The nfc and cleanup steps apply to the whole document.</xd:desc>
+      steps. The nfc step applies to the whole document.</xd:desc>
     <xd:param name="node">Any node.</xd:param>
-    <xd:return>False inside identifiers (<xd:i>idno</xd:i>, <xd:i>ptr</xd:i>,
-      <xd:i>code</xd:i>) and, unless <xd:ref name="process-bibliography" type="parameter"/>
+    <xd:return>False inside identifiers and addresses (see
+      <xd:ref name="protected-elements" type="variable"/>) and, unless <xd:ref name="process-bibliography" type="parameter"/>
       is set, inside the bibliography.</xd:return>
   </xd:doc>
   <xsl:function name="nucma:in-scope" as="xs:boolean">
     <xsl:param name="node" as="node()"/>
     <xsl:sequence select="
-      not($node/ancestor-or-self::*[self::idno or self::ptr or self::code])
+      not($node/ancestor-or-self::*[local-name() = $protected-elements])
       and ($process-bibliography or not($node/ancestor::div[@type = 'bibliography']))"/>
   </xsl:function>
 
@@ -433,17 +447,14 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
   <!-- ================================================================== -->
 
   <xd:doc>
-    <xd:desc>Chains the four modes: nfc, cleanup, unwrap-ordinals, typography.</xd:desc>
+    <xd:desc>Chains the three modes: nfc, unwrap-ordinals, typography.</xd:desc>
   </xd:doc>
   <xsl:template match="/">
     <xsl:variable name="nfc">
       <xsl:apply-templates mode="nfc"/>
     </xsl:variable>
-    <xsl:variable name="cleaned">
-      <xsl:apply-templates select="$nfc" mode="cleanup"/>
-    </xsl:variable>
     <xsl:variable name="unwrapped">
-      <xsl:apply-templates select="$cleaned" mode="unwrap-ordinals"/>
+      <xsl:apply-templates select="$nfc" mode="unwrap-ordinals"/>
     </xsl:variable>
     <!-- the line breaks between the top-level nodes (XML declaration, comments, processing
          instructions, root element) are not part of the tree: they are written back -->
@@ -475,71 +486,7 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
 
 
   <!-- ================================================================== -->
-  <!-- 2. cleanup: word-processor artefacts                               -->
-  <!-- ================================================================== -->
-
-  <xd:doc>
-    <xd:desc>CSS properties inherited from the word processor and dropped from
-      <xd:i>@style</xd:i>: the font is set by the publication, not by the text.</xd:desc>
-  </xd:doc>
-  <xsl:variable name="dropped-style-properties" as="xs:string+" select="('font-family', 'font-size')"/>
-
-  <xd:doc>
-    <xd:desc>Removes the dropped properties from a CSS declaration list.</xd:desc>
-    <xd:param name="style">The value of a <xd:i>@style</xd:i> attribute
-      (<xd:i>font-family:Helvetica Neue;font-size:12pt;color:red</xd:i>).</xd:param>
-    <xd:return>The remaining declarations, normalised and separated by
-      <xd:i>;</xd:i> (<xd:i>color:red</xd:i>), or an empty string. See
-      <xd:ref name="dropped-style-properties" type="variable"/>.</xd:return>
-  </xd:doc>
-  <xsl:function name="nucma:clean-style" as="xs:string">
-    <xsl:param name="style" as="xs:string"/>
-    <xsl:sequence select="string-join(
-      tokenize($style, ';')[normalize-space()]
-        [not(lower-case(normalize-space(substring-before(., ':'))) = $dropped-style-properties)]
-        ! normalize-space(.),
-      ';')"/>
-  </xsl:function>
-
-  <xd:doc>
-    <xd:desc>Unwraps <xd:i>hi</xd:i> elements that carry no rendition once their style is
-      cleaned (<xd:i>&lt;hi style="font-family:Helvetica Neue;font-size:12pt"&gt;</xd:i>, or
-      no attribute at all).</xd:desc>
-  </xd:doc>
-  <xsl:template mode="cleanup"
-    match="hi[not(@* except (@style, @xml:space))][nucma:clean-style(string(@style)) = '']">
-    <xsl:apply-templates mode="#current"/>
-  </xsl:template>
-
-  <xd:doc>
-    <xd:desc>Unwraps whitespace-only <xd:i>hi</xd:i> elements. The whitespace is kept and
-      merges with the surrounding text, so that the typography step can fix
-      <xd:i>contemporain&lt;hi&gt; &lt;/hi&gt;?</xd:i>.</xd:desc>
-  </xd:doc>
-  <xsl:template mode="cleanup" priority="1"
-    match="hi[not(*)][matches(., '^' || $re-space || '+$')]">
-    <xsl:apply-templates mode="#current"/>
-  </xsl:template>
-
-  <xd:doc>
-    <xd:desc>Removes the font family and size from <xd:i>@style</xd:i>; the attribute is
-      dropped when nothing remains.</xd:desc>
-  </xd:doc>
-  <xsl:template mode="cleanup" match="@style">
-    <xsl:variable name="style" select="nucma:clean-style(.)"/>
-    <xsl:if test="$style">
-      <xsl:attribute name="style" select="$style"/>
-    </xsl:if>
-  </xsl:template>
-
-  <xd:doc>
-    <xd:desc>Drops <xd:i>@xml:space="preserve"</xd:i> left by the conversion.</xd:desc>
-  </xd:doc>
-  <xsl:template mode="cleanup" match="@xml:space[. = 'preserve']"/>
-
-
-  <!-- ================================================================== -->
-  <!-- 3. unwrap-ordinals: superscripts folded into the text              -->
+  <!-- 2. unwrap-ordinals: superscripts folded into the text              -->
   <!-- ================================================================== -->
 
   <xd:doc>
@@ -573,21 +520,22 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
 
 
   <!-- ================================================================== -->
-  <!-- 4. typography: dispatch by language                                -->
+  <!-- 3. typography: dispatch by language                                -->
   <!-- ================================================================== -->
 
   <xd:doc>
     <xd:desc>
       <xd:p>Sends each French or English text node in scope through the rules of its
         language, in this order: apostrophes, abbreviations, numbers, punctuation, quotes,
-        ligatures (French), spacing, ordinals. Text in other languages is left
-        unchanged.</xd:p>
+        ligatures (French), spacing, ordinals. Text in other languages
+        is left unchanged.</xd:p>
       <xd:p>The nesting level of quotation marks at the start of the node is computed from
         the text that precedes it in the same block (see
         <xd:ref name="nucma:quote-block" type="function"/>), so that a quotation may span
         several elements.</xd:p>
-      <xd:p>URLs found in the text are copied as is; only the text around them is
-        processed.</xd:p>
+      <xd:p>Links found in the text (see <xd:ref name="re-link" type="variable"/>) are
+        copied as is; only the text around them is processed. The nesting level of quotation
+        marks is not carried over a link.</xd:p>
     </xd:desc>
   </xd:doc>
   <xsl:template mode="typography" match="text()[nucma:lang(.) = ('fr', 'en')][nucma:in-scope(.)]">
@@ -600,12 +548,13 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
       else nucma:quotes(
         string-join($block//text()[. &lt;&lt; current()][nucma:quote-block(.) is $block]),
         $lang, 0, false(), false())?depth"/>
-    <xsl:analyze-string select="." regex="{$re-url}">
+    <xsl:analyze-string select="." regex="{$re-link}">
       <xsl:matching-substring>
         <xsl:value-of select="."/>
       </xsl:matching-substring>
       <xsl:non-matching-substring>
-        <!-- only the first substring of the node can directly follow an element -->
+        <!-- only the first substring of the node can follow an element, and only the last
+             one can precede an element -->
         <xsl:variable name="follows-element" select="$after-element and position() = 1"/>
         <xsl:variable name="precedes-element" select="$before-element and position() = last()"/>
         <xsl:variable name="text" select="
@@ -634,7 +583,7 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
 
 
   <!-- ================================================================== -->
-  <!-- 4a. Apostrophes, abbreviations, numbers, punctuation and quotes     -->
+  <!-- 3a. Rules shared by French and English                            -->
   <!-- ================================================================== -->
 
   <xd:doc>
@@ -854,7 +803,7 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
         => replace('([^\s\p{Zs}])' || $re-spaced-dash, '$1&#xA0;– ')
       else $text
         (: French n° left by the translation: no. (Chicago) :)
-        => replace('([Nn])[°ºᵒ](s?)\.?', '$1o$2.')
+        => replace('(^|[^\p{L}])([Nn])[°ºᵒ](s?)\.?', '$1$2o$3.')
         (: guillemets inherited from the translation: no space inside, before nucma:quotes :)
         => replace('«' || $re-space || '+', '«')
         => replace($re-space || '+»', '»')
@@ -940,7 +889,7 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
 
 
   <!-- ================================================================== -->
-  <!-- 4b. French ligatures, spacing and ordinals                         -->
+  <!-- 3b. French ligatures, spacing and ordinals                         -->
   <!-- ================================================================== -->
 
   <xd:doc>
@@ -1140,7 +1089,7 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
 
 
   <!-- ================================================================== -->
-  <!-- 4c. English spacing and ordinals                                   -->
+  <!-- 3c. English spacing and ordinals                                   -->
   <!-- ================================================================== -->
 
   <xd:doc>
@@ -1154,7 +1103,7 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
   </xd:doc>
   <xsl:function name="nucma:spacing-en" as="xs:string">
     <xsl:param name="s" as="xs:string"/>
-    <xsl:sequence select="
+    <xsl:variable name="spaced" select="
       $s
       (: ; : ! ? : no space before (also at the start of a node, after an element) :)
       => replace($re-space || '+([;:!?])', '$1')
@@ -1166,16 +1115,16 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
       (: no space inside quotes :)
       => replace('([“‘])' || $re-space || '+', '$1')
       => replace($re-space || '+([”])', '$1')
-      => (function($t) {
-            if ($en-punctuation-inside-quotes)
-            then $t
-              (: “hello”, → “hello,” :)
-              => replace('”([.,])', '$1”')
-              (: ‘word’, → ‘word,’ only when the opening quote is found, not after an apostrophe :)
-              => replace('(‘[^‘’]*)’([.,])', '$1$2’')
-            else $t })()
       (: remaining thin or unusual spaces → ordinary space :)
       => replace('[&#x2009;&#x2005;&#x202F;]+', ' ')"/>
+    <xsl:sequence select="
+      if ($en-punctuation-inside-quotes)
+      then $spaced
+        (: “hello”, → “hello,” :)
+        => replace('”([.,])', '$1”')
+        (: ‘word’, → ‘word,’ only when the opening quote is found, not after an apostrophe :)
+        => replace('(‘[^‘’]*)’([.,])', '$1$2’')
+      else $spaced"/>
   </xsl:function>
 
   <xd:doc>
