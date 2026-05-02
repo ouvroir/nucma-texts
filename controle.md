@@ -45,3 +45,31 @@ Appliquer la convention typographique française (espace fine avant `; ! ?`, esp
 
 ᵉ (U+1D49, lettre modificative) dans « XVIIIᵉ », harmoniser
 
+
+
+Sérialiser les fichiers (pour le diff)
+
+```bash
+for f in fr/acquisition/{coacquisition,protocoles,variabilite}.xml; do
+  saxon -s:$f -xsl:xsl/serialisation.xsl -o:$f.tmp && mv $f.tmp $f
+done
+```
+
+Normaliser les fichiers
+
+```bash
+for f in fr/acquisition/{coacquisition,protocoles,variabilite}.xml; do saxon -s:$f -xsl:xsl/normalisation.xsl -o:$f.tmp && mv $f.tmp $f; done
+```
+
+Pour traiter aussi la biblio 
+
+```bash
+saxon -s:$f -xsl:xsl/normalisation.xsl -o:$f.tmp '?process-bibliography=true()'
+```
+
+Comparer
+
+```sh
+git diff --stat
+git diff --word-diff
+```
