@@ -4,7 +4,7 @@ Ce dossier contient la chaîne de traitement des textes TEI de l’Encyclopédie
 
 | Fichier | Rôle |
 |---|---|
-| `profile/docx/from.xsl` | Profil `nucma` des TEI Stylesheets : conversion d’un `.docx` en TEI, nettoyage des artefacts de Word et sortie indentée. |
+| `profile/docx/from.xsl` | Profil `nucma` des TEI Stylesheets : conversion d’un `.docx` en TEI, en-tête rempli à partir du document, nettoyage des artefacts de Word et sortie indentée. |
 | `nettoyage-import.xsl` | Même nettoyage, pour un fichier TEI déjà importé. |
 | `serialisation.xsl` | Copie à l’identique : sérialise un fichier comme le font les autres feuilles, sans en modifier le contenu. |
 | `normalisation.xsl` | Normalisation Unicode (NFC) et typographie française et anglaise. |
@@ -24,6 +24,12 @@ Chaque feuille est documentée en détail dans son en-tête (`xd:doc`, format de
 
   Le profil doit être appelé par ce lien : `from.xsl` importe `../../../docx/from/docxtotei.xsl`, chemin relatif aux Stylesheets.
 
+- Le profil lit `meta/authors.xml` au chemin indiqué par le paramètre `nucma-authors` de `from.xsl` (chemin du dépôt sur le poste d’Emmanuel Château-Dutier). Sur un autre poste, modifier ce chemin ou le donner par une variable d’environnement :
+
+  ```sh
+  NUCMA_AUTHORS=file:///chemin/vers/nucma-textes/meta/authors.xml docxtotei --profile=nucma Entree.docx entree.xml
+  ```
+
 ## Importer un nouveau texte
 
 1. **Conversion et nettoyage** :
@@ -32,7 +38,11 @@ Chaque feuille est documentée en détail dans son en-tête (`xd:doc`, format de
    docxtotei --profile=nucma Variabilite.docx variabilite.xml
    ```
 
-   Le TEI produit est déjà nettoyé et indenté.
+   Le TEI produit est déjà nettoyé et indenté, et son en-tête est rempli (titre, auteurs, identifiant). Le chapitre de l’identifiant vaut `acquisition` par défaut ; pour un autre chapitre :
+
+   ```sh
+   NUCMA_CHAPTER=mediation docxtotei --profile=nucma Entree.docx entree.xml
+   ```
 
 2. **Structuration manuelle** dans oXygen (en-tête, `div`, `q`, `soCalled`, `bibl`…). Commiter.
 
@@ -74,11 +84,45 @@ Il faut toujours écrire dans un fichier temporaire (`-o:$f.tmp`), jamais dans l
 
 ## Ce que font les feuilles
 
+### En-tête (`from.xsl` seulement)
+
+Le profil lit le bloc d’en-tête écrit au début du document Word, en français ou en anglais, le retire du texte et remplit le `teiHeader` :
+
+```text
+Titre de l’entrée :                        Entry Title:
+Négocier la variabilité                    Collections in Shared Ownership
+Titre court : Variabilité                  Short Title: Co-acquisition
+Auteur·rices :                             Authors:
+• Anne Bénichou, professeure, UQAM         • Jessica Minier, PhD Candidate, UQO
+```
+
+- **Titre** : un seul `<title>` sans `@type` ; s’il est suivi d’un sous-titre, `<title type="main">` et `<title type="sub">`.
+- **Titre court** : il sert de nom de fichier et d’identifiant de l’entrée, sans majuscule ni diacritique, sur `sourceDesc` : `<sourceDesc xml:id="nucma.fr.acquisition.variabilite">`. La langue vient des étiquettes (`fr` ou `en`), le chapitre de `NUCMA_CHAPTER`.
+- **Auteurs** : chaque ligne « Nom, rôle, affiliation » devient un `<author>` avec `persName`, `roleName` et `affiliation`. L’auteur est cherché dans `meta/authors.xml` : s’il y figure, il reçoit son `@ref` (`#benichouAnne`), son prénom et son nom tels qu’ils y sont découpés, et ses identifiants (ORCID, ISNI…). Sinon, le dernier mot du nom est pris comme nom de famille et un `<!-- @todo -->` demande de vérifier.
+
 ### Nettoyage de l’import (`from.xsl`, `nettoyage-import.xsl`)
 
 - Retrait des propriétés `font-family` et `font-size` des `@style`.
-- Déballage des `<hi>` sans rendu ou ne contenant que des espaces.
+- Déballage des `<hi>` sans rendu ou ne contenant que des espaces, et des `<seg>` ne contenant que des espaces.
 - Suppression de `@xml:space="preserve"`.
+- Commentaires de Word (`<note place="comment">`) remplacés par un commentaire XML au même endroit, juste après le passage commenté, avec l’auteur, la date et le passage cité ; les ancres `commentRangeStart` et `commentRangeEnd` sont supprimées :
+
+  ```xml
+  <!-- @todo Aux encodeur·euses : ne pas oublier de mettre ce lien [Josée Desforges, 2026-05-25, sur « la pièce chorégraphique Trio A »] -->
+  ```
+- Notes du texte (de bas de page, de fin…, sauf les commentaires) regroupées dans `<back>`, créé après `<body>` s’il n’existe pas, à l’intérieur d’une `<div type="notes">` placée en tête de `back`. Chaque note est remplacée dans le texte par un appel qui pointe vers elle, et reçoit un identifiant `note` suivi de son numéro sur deux chiffres (`note01`, `note02`…), qui remplace celui de Word (`ftn0`) ; les références à l’ancien identifiant sont mises à jour. Son contenu est placé dans un ou plusieurs paragraphes :
+
+  ```xml
+  <p>L’actualisation<ref type="note" target="#note01">1</ref> implique…</p>
+  …
+  <back>
+    <div type="notes">
+      <note place="foot" n="1" xml:id="note01"><p>Le terme « activation »…</p></note>
+    </div>
+  ```
+- Suppression des ancres laissées par Word (signets, délimiteurs de commentaires) vers lesquelles aucun lien ne pointe, et des intertitres vides qu’elles occupaient (`<head><anchor xml:id="2z3fk6gdwmkd"/></head>`).
+- `@type="external"` sur les hyperliens (`<ref target="https://…">`), sauf ceux qui pointent vers `nucma.ca` : ce sont des renvois entre entrées de l’encyclopédie, pas des liens externes.
+- Suppression des attributs de mise en page de `<graphic>` (`@n`, `@width`, `@height`, `@rend`) : la taille et la position des images relèvent de la publication.
 - Remplacement par une espace ordinaire de l’espace insécable que Word place à l’intérieur des guillemets, restée orpheline après leur conversion en `<q>`, `<soCalled>`, etc. (`<q>garde négociée</q>⍽est`).
 
 ### Normalisation (`normalisation.xsl`)
