@@ -5,7 +5,9 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
   xmlns:nucma="https://nucma.ca/ns"
-  exclude-result-prefixes="xs xd nucma"
+  xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  xmlns:array="http://www.w3.org/2005/xpath-functions/array"
+  exclude-result-prefixes="xs xd nucma fn array"
   version="3.0">
 
   <xd:doc scope="stylesheet">
@@ -57,13 +59,18 @@
         <xd:ref name="process-bibliography" type="parameter"/> is set, the bibliography are
         left out. URLs, DOIs and e-mail addresses in the text, attributes, comments and
         processing instructions are never altered except by NFC normalisation.</xd:p>
+      <xd:p>A report is written to the console and to a log file in <xd:i>logs/</xd:i>: a
+        summary per file, and warnings on what needs checking (see
+        <xd:ref name="report" type="parameter"/> and
+        <xd:ref name="log-dir" type="parameter"/>).</xd:p>
       <xd:p>The transformation is idempotent: running it twice gives the same result.
         Missing spaces are added, but a space split across two text nodes cannot be
         detected.</xd:p>
       <xd:p>Usage (Saxon 12):</xd:p>
       <xd:pre>saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/nettoyage-import.xsl -o:clean.xml
 saxon -s:clean.xml -xsl:xsl/normalisation.xsl -o:out.xml
-saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centuries-in-words=true()'</xd:pre>
+saxon -s:en/acquisition/variability.xml -xsl:xsl/normalisation.xsl '?en-centuries-in-words=true()'
+saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail -o:out.xml</xd:pre>
       <xd:p><xd:b>Author:</xd:b> Emmanuel Château-Dutier</xd:p>
     </xd:desc>
   </xd:doc>
@@ -76,10 +83,11 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
   <xsl:output method="xml" indent="no" encoding="UTF-8"/>
 
   <xd:doc>
-    <xd:desc>The source document is required: <xd:ref name="default-lang" type="parameter"/>
-      is computed from it.</xd:desc>
+    <xd:desc>The source document, from which <xd:ref name="default-lang" type="parameter"/>
+      is computed. It is optional so that the functions can be called without a document
+      (unit tests, see <xd:i>tests/</xd:i>); a transformation always has one.</xd:desc>
   </xd:doc>
-  <xsl:global-context-item as="document-node()" use="required"/>
+  <xsl:global-context-item as="document-node()" use="optional"/>
 
   <!-- Pipeline modes, in order of application; anything not matched is copied. -->
   <xsl:mode on-no-match="shallow-copy"/>
@@ -94,13 +102,15 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
 
   <xd:doc>
     <xd:desc>Document language, used when no <xd:i>@xml:lang</xd:i> is inherited. Defaults
-      to <xd:i>TEI/@xml:lang</xd:i>, then <xd:i>profileDesc/langUsage/language/@ident</xd:i>,
+      to <xd:i>TEI/@xml:lang</xd:i>, then <xd:i>text/@xml:lang</xd:i> (set by the import
+      profile), then <xd:i>profileDesc/langUsage/language/@ident</xd:i>,
       then the folder of the source file (<xd:i>…/en/…</xd:i> → <xd:i>en</xd:i>, otherwise
       <xd:i>fr</xd:i>). Adding <xd:i>@xml:lang</xd:i> to every <xd:i>TEI</xd:i> element is
       more reliable than relying on the folder.</xd:desc>
   </xd:doc>
   <xsl:param name="default-lang" as="xs:string" select="
     string((/TEI/@xml:lang,
+            /TEI/text/@xml:lang,
             /TEI/teiHeader/profileDesc/langUsage/language[1]/@ident,
             if (contains(base-uri(/), '/en/')) then 'en' else 'fr')[1])"/>
 
@@ -114,6 +124,49 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
     </xd:desc>
   </xd:doc>
   <xsl:param name="process-bibliography" as="xs:boolean" select="false()"/>
+
+  <xd:doc>
+    <xd:desc>
+      <xd:p>Report written to the console (standard error), never to the output:</xd:p>
+      <xd:ul>
+        <xd:li><xd:i>summary</xd:i> (default): per file, the number of changes made by each
+          rule, and warnings on what needs checking (unbalanced quotation marks, straight
+          quotes left);</xd:li>
+        <xd:li><xd:i>detail</xd:i>: the summary, plus every change, as
+          <xd:i>before → after</xd:i>;</xd:li>
+        <xd:li><xd:i>none</xd:i>: no report.</xd:li>
+      </xd:ul>
+    </xd:desc>
+  </xd:doc>
+  <xsl:param name="report" as="xs:string" select="'summary'"/>
+
+  <xd:doc>
+    <xd:desc>
+      <xd:p>Folder of the log files: the report written to the console is also written to a
+        text file, one per normalised file, named after the file and the date
+        (<xd:i>variabilite-2026-10-01.log</xd:i>); a second run on the same day replaces it.
+        Its level follows <xd:ref name="report" type="parameter"/> (no log with
+        <xd:i>none</xd:i>).</xd:p>
+      <xd:p>Defaults to the <xd:i>logs/</xd:i> folder of the repository. Accepts a URI
+        (<xd:i>file:///…</xd:i>), an absolute path (<xd:i>/Users/…/logs</xd:i>) or a path
+        relative to the root of the repository (<xd:i>logs/2026</xd:i>). An empty string
+        disables the log files.</xd:p>
+    </xd:desc>
+  </xd:doc>
+  <xsl:param name="log-dir" as="xs:string" select="'logs/'"/>
+
+  <xd:doc>
+    <xd:desc>The log folder as an absolute URI ending with a slash, from
+      <xd:ref name="log-dir" type="parameter"/>; empty when the log files are
+      disabled.</xd:desc>
+  </xd:doc>
+  <xsl:variable name="log-dir-uri" as="xs:string" select="
+    let $dir := normalize-space($log-dir),
+        $dir := if ($dir = '' or ends-with($dir, '/')) then $dir else $dir || '/'
+    return if ($dir = '') then ''
+           else if (matches($dir, '^[a-zA-Z][a-zA-Z0-9+.\-]*:')) then $dir
+           else if (starts-with($dir, '/')) then 'file://' || $dir
+           else resolve-uri($dir, resolve-uri('../', static-base-uri()))"/>
 
   <xd:doc>
     <xd:desc>
@@ -447,20 +500,54 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
   <!-- ================================================================== -->
 
   <xd:doc>
-    <xd:desc>Chains the three modes: nfc, unwrap-ordinals, typography.</xd:desc>
+    <xd:desc>Chains the three modes: nfc, unwrap-ordinals, typography; then writes the
+      report to the console and to a log file (see <xd:ref name="report" type="parameter"/>
+      and <xd:ref name="log-dir" type="parameter"/>).</xd:desc>
   </xd:doc>
   <xsl:template match="/">
+    <xsl:if test="not($report = ('summary', 'detail', 'none'))">
+      <xsl:message terminate="yes">[normalisation] paramètre report inconnu : « <xsl:value-of
+        select="$report"/> » (valeurs : summary, detail, none)</xsl:message>
+    </xsl:if>
     <xsl:variable name="nfc">
       <xsl:apply-templates mode="nfc"/>
     </xsl:variable>
     <xsl:variable name="unwrapped">
       <xsl:apply-templates select="$nfc" mode="unwrap-ordinals"/>
     </xsl:variable>
+    <xsl:variable name="file-name" select="(tokenize(base-uri(/), '/')[last()][normalize-space()], 'document')[1]"/>
+    <xsl:variable name="header"
+      select="'[normalisation] ' || $file-name || ' (langue par défaut : ' || $default-lang || ')'"/>
+    <xsl:if test="$report = ('summary', 'detail')">
+      <xsl:message select="$header"/>
+    </xsl:if>
+    <xsl:variable name="result">
+      <xsl:apply-templates select="$unwrapped" mode="typography"/>
+    </xsl:variable>
+    <xsl:if test="$report = ('summary', 'detail')">
+      <xsl:variable name="segments" select="
+        ($unwrapped//text()[nucma:lang(.) = ('fr', 'en')][nucma:in-scope(.)] ! nucma:segments(.))[empty(?link)]"/>
+      <xsl:variable name="summary" select="nucma:summary-lines(/, $nfc, $unwrapped, $result, $segments)"/>
+      <xsl:message select="string-join($summary, '&#10;')"/>
+      <!-- log file: the same lines as the console -->
+      <xsl:if test="$log-dir-uri">
+        <xsl:result-document method="text" encoding="UTF-8"
+          href="{resolve-uri(replace($file-name, '\.xml$', '') || '-'
+                 || format-date(current-date(), '[Y0001]-[M01]-[D01]') || '.log', $log-dir-uri)}">
+          <xsl:value-of select="string-join((
+            '[normalisation] ' || format-dateTime(current-dateTime(), '[Y0001]-[M01]-[D01] [H01]:[m01]:[s01]')
+              || ' — ' || (base-uri(/)[normalize-space()], $file-name)[1] || ' (report=' || $report || ')',
+            $header,
+            if ($report = 'detail') then $segments ! nucma:change-lines(.) else (),
+            $summary), '&#10;') || '&#10;'"/>
+        </xsl:result-document>
+      </xsl:if>
+    </xsl:if>
     <!-- the line breaks between the top-level nodes (XML declaration, comments, processing
          instructions, root element) are not part of the tree: they are written back -->
-    <xsl:for-each select="$unwrapped/node()">
+    <xsl:for-each select="$result/node()">
       <xsl:text>&#10;</xsl:text>
-      <xsl:apply-templates select="." mode="typography"/>
+      <xsl:sequence select="."/>
     </xsl:for-each>
     <xsl:text>&#10;</xsl:text>
   </xsl:template>
@@ -526,9 +613,9 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
   <xd:doc>
     <xd:desc>
       <xd:p>Sends each French or English text node in scope through the rules of its
-        language, in this order: apostrophes, abbreviations, numbers, punctuation, quotes,
-        ligatures (French), spacing, ordinals. Text in other languages
-        is left unchanged.</xd:p>
+        language (see <xd:ref name="nucma:segments" type="function"/>), then the ordinals.
+        Text in other languages is left unchanged. With <xd:i>report=detail</xd:i>, every
+        change is written to the console.</xd:p>
       <xd:p>The nesting level of quotation marks at the start of the node is computed from
         the text that precedes it in the same block (see
         <xd:ref name="nucma:quote-block" type="function"/>), so that a quotation may span
@@ -539,47 +626,101 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
     </xd:desc>
   </xd:doc>
   <xsl:template mode="typography" match="text()[nucma:lang(.) = ('fr', 'en')][nucma:in-scope(.)]">
-    <xsl:variable name="lang" select="nucma:lang(.)"/>
-    <xsl:variable name="after-element" select="exists(preceding-sibling::node()[1][self::*])"/>
-    <xsl:variable name="before-element" select="exists(following-sibling::node()[1][self::*])"/>
-    <xsl:variable name="block" select="nucma:quote-block(.)"/>
+    <xsl:for-each select="nucma:segments(.)">
+      <xsl:choose>
+        <xsl:when test="exists(?link)">
+          <xsl:value-of select="?link"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:if test="$report = 'detail'">
+            <xsl:call-template name="nucma:report-changes"/>
+          </xsl:if>
+          <xsl:sequence select="nucma:ordinals(?spacing, ?lang)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xd:doc>
+    <xd:desc>Splits a text node into segments: the links it contains (copied as is) and the
+      text around them, processed by <xd:ref name="nucma:typography-steps" type="function"/>.
+      Shared by the transformation and the report, so that the report counts exactly what
+      the transformation does.</xd:desc>
+    <xd:param name="node">A French or English text node in scope.</xd:param>
+    <xd:return>One map per segment: <xd:i>link</xd:i> for a link, otherwise the map
+      returned by <xd:ref name="nucma:typography-steps" type="function"/>.</xd:return>
+  </xd:doc>
+  <xsl:function name="nucma:segments" as="map(*)*">
+    <xsl:param name="node" as="text()"/>
+    <xsl:variable name="lang" select="nucma:lang($node)"/>
+    <xsl:variable name="after-element" select="exists($node/preceding-sibling::node()[1][self::*])"/>
+    <xsl:variable name="before-element" select="exists($node/following-sibling::node()[1][self::*])"/>
+    <xsl:variable name="block" select="nucma:quote-block($node)"/>
     <xsl:variable name="quote-depth" as="xs:integer" select="
       if (empty($block)) then 0
       else nucma:quotes(
-        string-join($block//text()[. &lt;&lt; current()][nucma:quote-block(.) is $block]),
+        string-join($block//text()[. &lt;&lt; $node][nucma:quote-block(.) is $block]),
         $lang, 0, false(), false())?depth"/>
-    <xsl:analyze-string select="." regex="{$re-link}">
-      <xsl:matching-substring>
-        <xsl:value-of select="."/>
-      </xsl:matching-substring>
-      <xsl:non-matching-substring>
-        <!-- only the first substring of the node can follow an element, and only the last
-             one can precede an element -->
-        <xsl:variable name="follows-element" select="$after-element and position() = 1"/>
-        <xsl:variable name="precedes-element" select="$before-element and position() = last()"/>
-        <xsl:variable name="text" select="
-          nucma:quotes(
-            nucma:apostrophes(., $lang, $follows-element)
-            => nucma:abbreviations($lang)
-            => nucma:numbers($lang)
-            => nucma:punctuation($lang, $follows-element),
-            $lang, $quote-depth, $follows-element, $precedes-element)?text"/>
-        <xsl:choose>
-          <xsl:when test="$lang = 'fr'">
-            <xsl:sequence select="$text
-              => nucma:ligatures-fr()
-              => nucma:spacing-fr($follows-element)
-              => nucma:ordinals-fr()"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:sequence select="$text
-              => nucma:spacing-en()
-              => nucma:ordinals-en()"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:non-matching-substring>
-    </xsl:analyze-string>
-  </xsl:template>
+    <xsl:variable name="parts" select="analyze-string($node, $re-link)/*"/>
+    <!-- only the first segment can follow an element, and only the last one can precede an
+         element -->
+    <xsl:sequence select="
+      for $i in 1 to count($parts)
+      return if ($parts[$i]/self::fn:match)
+             then map{'link': string($parts[$i])}
+             else nucma:typography-steps(string($parts[$i]), $lang,
+                    $after-element and $i = 1, $before-element and $i = count($parts), $quote-depth)"/>
+  </xsl:function>
+
+  <xd:doc>
+    <xd:desc>Applies the rules of a language to a text segment, in order: apostrophes,
+      abbreviations, numbers, punctuation, quotes, ligatures (French), spacing. The ordinals,
+      which produce elements, are applied afterwards by
+      <xd:ref name="nucma:ordinals" type="function"/>.</xd:desc>
+    <xd:param name="s">The text segment (contains no link).</xd:param>
+    <xd:param name="lang">Its language: <xd:i>fr</xd:i> or <xd:i>en</xd:i>.</xd:param>
+    <xd:param name="follows-element">True when the segment directly follows an
+      element.</xd:param>
+    <xd:param name="precedes-element">True when the segment is directly followed by an
+      element.</xd:param>
+    <xd:param name="quote-depth">Nesting level of quotation marks at the start of the
+      segment.</xd:param>
+    <xd:return>A map: <xd:i>source</xd:i>, <xd:i>lang</xd:i>, and the text after each rule,
+      keyed by the names listed in <xd:ref name="typography-steps" type="variable"/>; the
+      final text is under <xd:i>spacing</xd:i>.</xd:return>
+  </xd:doc>
+  <xsl:function name="nucma:typography-steps" as="map(*)">
+    <xsl:param name="s" as="xs:string"/>
+    <xsl:param name="lang" as="xs:string"/>
+    <xsl:param name="follows-element" as="xs:boolean"/>
+    <xsl:param name="precedes-element" as="xs:boolean"/>
+    <xsl:param name="quote-depth" as="xs:integer"/>
+    <xsl:variable name="apostrophes" select="nucma:apostrophes($s, $lang, $follows-element)"/>
+    <xsl:variable name="abbreviations" select="nucma:abbreviations($apostrophes, $lang)"/>
+    <xsl:variable name="numbers" select="nucma:numbers($abbreviations, $lang)"/>
+    <xsl:variable name="punctuation" select="nucma:punctuation($numbers, $lang, $follows-element)"/>
+    <xsl:variable name="quotes"
+      select="nucma:quotes($punctuation, $lang, $quote-depth, $follows-element, $precedes-element)?text"/>
+    <xsl:variable name="ligatures" select="if ($lang = 'fr') then nucma:ligatures-fr($quotes) else $quotes"/>
+    <xsl:variable name="spacing" select="
+      if ($lang = 'fr') then nucma:spacing-fr($ligatures, $follows-element) else nucma:spacing-en($ligatures)"/>
+    <xsl:sequence select="map{
+      'source': $s, 'lang': $lang,
+      'apostrophes': $apostrophes, 'abbreviations': $abbreviations, 'numbers': $numbers,
+      'punctuation': $punctuation, 'quotes': $quotes, 'ligatures': $ligatures, 'spacing': $spacing}"/>
+  </xsl:function>
+
+  <xd:doc>
+    <xd:desc>Marks up the ordinals and centuries of a segment, according to its
+      language.</xd:desc>
+    <xd:param name="s">The text, after the other rules.</xd:param>
+    <xd:param name="lang">Its language: <xd:i>fr</xd:i> or <xd:i>en</xd:i>.</xd:param>
+  </xd:doc>
+  <xsl:function name="nucma:ordinals" as="node()*">
+    <xsl:param name="s" as="xs:string"/>
+    <xsl:param name="lang" as="xs:string"/>
+    <xsl:sequence select="if ($lang = 'fr') then nucma:ordinals-fr($s) else nucma:ordinals-en($s)"/>
+  </xsl:function>
 
 
   <!-- ================================================================== -->
@@ -1230,5 +1371,134 @@ saxon -s:en/acquisition/Variability.xml -xsl:xsl/normalisation.xsl '?en-centurie
         <xsl:value-of select="$n || nucma:english-suffix($n)"/>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:function>
+
+
+  <!-- ================================================================== -->
+  <!-- 4. Report                                                          -->
+  <!-- ================================================================== -->
+
+  <xd:doc>
+    <xd:desc>Names of the rules applied by
+      <xd:ref name="nucma:typography-steps" type="function"/>, in order.</xd:desc>
+  </xd:doc>
+  <xsl:variable name="typography-steps" as="xs:string+"
+    select="('apostrophes', 'abbreviations', 'numbers', 'punctuation', 'quotes', 'ligatures', 'spacing')"/>
+
+  <xd:doc>
+    <xd:desc>Labels of the rules in the report.</xd:desc>
+  </xd:doc>
+  <xsl:variable name="step-labels" as="map(xs:string, xs:string)" select="map{
+    'apostrophes': 'apostrophes', 'abbreviations': 'abréviations', 'numbers': 'nombres',
+    'punctuation': 'ponctuation', 'quotes': 'guillemets', 'ligatures': 'ligatures',
+    'spacing': 'espaces', 'ordinals': 'ordinaux'}"/>
+
+  <xd:doc>
+    <xd:desc>Rules that changed a segment.</xd:desc>
+    <xd:param name="segment">A map returned by
+      <xd:ref name="nucma:typography-steps" type="function"/>.</xd:param>
+    <xd:return>The names of the rules whose result differs from that of the previous rule,
+      and <xd:i>ordinals</xd:i> if ordinals or centuries were marked up.</xd:return>
+  </xd:doc>
+  <xsl:function name="nucma:changed-steps" as="xs:string*">
+    <xsl:param name="segment" as="map(*)"/>
+    <xsl:sequence select="
+      (for $i in 1 to count($typography-steps)
+       return let $before := if ($i = 1) then $segment?source else $segment($typography-steps[$i - 1])
+              return $typography-steps[$i][$segment(.) ne $before]),
+      'ordinals'[nucma:ordinals($segment?spacing, $segment?lang)/self::element()]"/>
+  </xsl:function>
+
+  <xd:doc>
+    <xd:desc>Excerpt of a change, around the first and last differing characters.</xd:desc>
+    <xd:param name="before">The text before the change.</xd:param>
+    <xd:param name="after">The text after the change.</xd:param>
+    <xd:return><xd:i>« …before… » → « …after… »</xd:i>, with about 25 characters of context
+      and at most 120 characters on each side;
+      no-break spaces are shown as ⍽ (U+00A0) and · (U+202F).</xd:return>
+  </xd:doc>
+  <xsl:function name="nucma:excerpt" as="xs:string">
+    <xsl:param name="before" as="xs:string"/>
+    <xsl:param name="after" as="xs:string"/>
+    <xsl:variable name="a" select="string-to-codepoints($before)"/>
+    <xsl:variable name="b" select="string-to-codepoints($after)"/>
+    <xsl:variable name="prefix" select="
+      (for $i in 1 to min((count($a), count($b))) return $i[$a[$i] ne $b[$i]], min((count($a), count($b))) + 1)[1] - 1"/>
+    <xsl:variable name="suffix" select="
+      (for $i in 0 to min((count($a), count($b))) - $prefix - 1
+       return $i[$a[count($a) - $i] ne $b[count($b) - $i]], min((count($a), count($b))) - $prefix)[1]"/>
+    <xsl:variable name="show" select="function($s, $n) {
+      let $start := max((1, $prefix - 24)), $end := min(($n, $n - $suffix + 25, $start + 119))
+      return (if ($start gt 1) then '…' else '') || substring($s, $start, $end - $start + 1)
+             || (if ($end lt $n) then '…' else '') }"/>
+    <xsl:sequence select="('« ' || $show($before, count($a)) || ' » → « ' || $show($after, count($b)) || ' »')
+      => translate('&#xA0;&#x202F;', '⍽·')"/>
+  </xsl:function>
+
+  <xd:doc>
+    <xd:desc>Lines of the detailed report for a segment: one line per change.</xd:desc>
+    <xd:param name="segment">A map returned by
+      <xd:ref name="nucma:typography-steps" type="function"/>.</xd:param>
+    <xd:return><xd:i>[normalisation]   espaces : « …before… » → « …after… »</xd:i>, for each
+      rule that changed the segment.</xd:return>
+  </xd:doc>
+  <xsl:function name="nucma:change-lines" as="xs:string*">
+    <xsl:param name="segment" as="map(*)"/>
+    <xsl:sequence select="
+      for $i in 1 to count($typography-steps)
+      return let $step := $typography-steps[$i],
+                 $before := if ($i = 1) then $segment?source else $segment($typography-steps[$i - 1])
+             return ('[normalisation]   ' || $step-labels($step) || ' : ' || nucma:excerpt($before, $segment($step)))
+                    [$segment($step) ne $before]"/>
+  </xsl:function>
+
+  <xd:doc>
+    <xd:desc>Detailed report: one message per change made to the current segment (a map
+      returned by <xd:ref name="nucma:typography-steps" type="function"/>).</xd:desc>
+  </xd:doc>
+  <xsl:template name="nucma:report-changes">
+    <xsl:for-each select="nucma:change-lines(.)">
+      <xsl:message select="."/>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xd:doc>
+    <xd:desc>Lines of the summary report of a file (after the line naming it, written first):
+      NFC normalisation, folded ordinal superscripts, segments changed by each rule, and
+      warnings on what needs checking.</xd:desc>
+    <xd:param name="source">The source document.</xd:param>
+    <xd:param name="nfc">The document after the nfc step.</xd:param>
+    <xd:param name="unwrapped">The document after the unwrap-ordinals step.</xd:param>
+    <xd:param name="result">The transformed document.</xd:param>
+    <xd:param name="segments">The text segments processed by the typography step (see
+      <xd:ref name="nucma:segments" type="function"/>).</xd:param>
+  </xd:doc>
+  <xsl:function name="nucma:summary-lines" as="xs:string*">
+    <xsl:param name="source" as="document-node()"/>
+    <xsl:param name="nfc" as="document-node()"/>
+    <xsl:param name="unwrapped" as="document-node()"/>
+    <xsl:param name="result" as="document-node()"/>
+    <xsl:param name="segments" as="map(*)*"/>
+    <xsl:variable name="changes" select="$segments ! array{nucma:changed-steps(.)}"/>
+    <xsl:variable name="superscripts" select="function($doc) {
+      count($doc//hi[tokenize(@rend) = ('superscript', 'sup')]) }"/>
+    <!-- quotation blocks whose quotation marks are not balanced -->
+    <xsl:variable name="unbalanced" select="
+      $unwrapped//*[local-name() = $quote-blocks][nucma:lang(.) = ('fr', 'en')][nucma:in-scope(.)]
+        [let $block := . return
+         nucma:quotes(string-join($block//text()[nucma:quote-block(.) is $block]), nucma:lang($block), 0, false(), false())?depth ne 0]"/>
+    <xsl:variable name="straight-quotes" select="
+      $result//text()[contains(., '&quot;')][nucma:lang(.) = ('fr', 'en')][nucma:in-scope(.)]"/>
+    <xsl:sequence select="
+      '[normalisation]   NFC : ' || count($source//(text() | @*)[. ne normalize-unicode(.)]) || ' nœud(s) recomposé(s)',
+      '[normalisation]   exposants d’ordinaux intégrés au texte : ' || ($superscripts($nfc) - $superscripts($unwrapped)),
+      '[normalisation]   segments de texte : ' || count($segments) || ' traités, '
+        || count($changes[array:size(.) gt 0]) || ' modifiés',
+      '[normalisation]     ' || string-join(
+        for $step in ($typography-steps, 'ordinals')
+        return $step-labels($step) || ' ' || count($changes[array:flatten(.) = $step]), ' · '),
+      $unbalanced ! ('[normalisation]   avertissement : guillemets non équilibrés dans l’élément ' || local-name(.) || ' : « '
+        || substring(normalize-space(.), 1, 60) || '… »'),
+      ('[normalisation]   avertissement : ' || count($straight-quotes) || ' nœud(s) contenant encore des guillemets droits &quot;')[$straight-quotes]"/>
   </xsl:function>
 </xsl:stylesheet>

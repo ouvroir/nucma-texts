@@ -21,7 +21,9 @@
           nothing points to, empty headings), types hyperlinks as external and turns the
           comments into XML comments;</xd:li>
         <xd:li><xd:b>nucma:header</xd:b>: moves the front matter written at the start of the
-          document (entry title, short title, authors) to the TEI header;</xd:li>
+          document (entry title, short title, authors) to the TEI header, completes the header
+          from the NUCMA model (publication, series, licence, language) and sets the language
+          on <xd:i>text</xd:i>;</xd:li>
         <xd:li><xd:b>nucma:boundary-spaces</xd:b>: removes the no-break spaces left by
           converted guillemets around phrase elements (this step needs the text merged by
           the previous one);</xd:li>
@@ -37,7 +39,7 @@
       <xd:p>Usage, through the <xd:i>nucma</xd:i> link in the profiles of the TEI
         Stylesheets (the import below is relative to that location):</xd:p>
       <xd:pre>~/TEIC/Stylesheets/bin/docxtotei --profile=nucma article.docx article.xml
-NUCMA_CHAPTER=mediation ~/TEIC/Stylesheets/bin/docxtotei --profile=nucma article.docx article.xml</xd:pre>
+NUCMA_CHAPTER=mediation NUCMA_RESP=RC ~/TEIC/Stylesheets/bin/docxtotei --profile=nucma article.docx article.xml</xd:pre>
       <xd:p><xd:b>Author:</xd:b> Emmanuel Château-Dutier, based on the TEI Stylesheets
         (TEI Consortium).</xd:p>
     </xd:desc>
@@ -110,6 +112,15 @@ NUCMA_CHAPTER=mediation ~/TEIC/Stylesheets/bin/docxtotei --profile=nucma article
     select="(environment-variable('NUCMA_CHAPTER')[normalize-space()], 'acquisition')[1]"/>
 
   <xd:doc>
+    <xd:desc>Identifier of the person who converts the document, recorded in
+      <xd:i>revisionDesc/change/@resp</xd:i>: taken from the <xd:i>NUCMA_RESP</xd:i>
+      environment variable, otherwise <xd:i>ECD</xd:i> (Emmanuel Château-Dutier), who
+      usually does the encoding.</xd:desc>
+  </xd:doc>
+  <xsl:param name="nucma-resp" as="xs:string"
+    select="(environment-variable('NUCMA_RESP')[normalize-space()], 'ECD')[1]"/>
+
+  <xd:doc>
     <xd:desc>Location of the list of the authors of the encyclopedia
       (<xd:i>meta/authors.xml</xd:i> in the corpus repository). The profile is read through
       the <xd:i>nucma</xd:i> link of the TEI Stylesheets, so a path relative to it cannot
@@ -128,6 +139,29 @@ NUCMA_CHAPTER=mediation ~/TEIC/Stylesheets/bin/docxtotei --profile=nucma article
   <xsl:variable name="nucma:authors" as="document-node()?"
     select="let $uri := resolve-uri($nucma-authors, static-base-uri())
             return if (doc-available($uri)) then doc($uri) else ()"/>
+
+  <xd:doc>
+    <xd:desc>Wording of the NUCMA header model, by language: publisher, licence, series
+      subtitle, chapter label (followed by the chapter name: « Chapitre Acquisition »,
+      « Chapter: Acquisition »), source description and revision note. Taken from the header of the entries of
+      the corpus, with two corrections (<xd:i>creativecommons.org</xd:i>,
+      <xd:i>licence</xd:i>).</xd:desc>
+  </xd:doc>
+  <xsl:variable name="nucma:header-model" as="map(xs:string, map(xs:string, xs:string))" select="map{
+    'fr': map{
+      'publisher': 'Groupe de recherche et de réflexion CIÉCO',
+      'licence': 'Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0.',
+      'series': 'NUCMA, l’encyclopédie Des nouveaux usages des collections dans les musées d’art',
+      'chapter': 'Chapitre ',
+      'source': 'Fichier nativement numérique',
+      'conversion': 'Conversion depuis Word (profil nucma)'},
+    'en': map{
+      'publisher': 'CIÉCO Research and Inquiry Group',
+      'licence': 'This content is made available under a Creative Commons Attribution 4.0 licence.',
+      'series': 'NUCMA, the encyclopedia of New Uses of Collections',
+      'chapter': 'Chapter: ',
+      'source': 'Born-digital file',
+      'conversion': 'Conversion from Word (nucma profile)'}}"/>
 
   <xd:doc>
     <xd:desc>CSS properties dropped from <xd:i>@style</xd:i>: the font is set by the
@@ -155,6 +189,12 @@ NUCMA_CHAPTER=mediation ~/TEIC/Stylesheets/bin/docxtotei --profile=nucma article
   </xd:doc>
   <xsl:variable name="nucma:note-blocks" as="xs:string+"
     select="('p', 'list', 'table', 'quote', 'lg', 'figure', 'ab', 'listBibl', 'bibl')"/>
+
+  <xd:doc>
+    <xd:desc>Regular expression for a bullet typed at the start of a line instead of a Word
+      list (● Julie Bawin, …), with the spaces or tab that follow it.</xd:desc>
+  </xd:doc>
+  <xsl:variable name="nucma:re-bullet" select="'^[●•◦▪▫■□‣⁃∙·*–—\-][\s\p{Zs}]*'"/>
 
   <xd:doc>
     <xd:desc>Regular expression for a no-break space: U+00A0 or U+202F.</xd:desc>
@@ -324,8 +364,9 @@ NUCMA_CHAPTER=mediation ~/TEIC/Stylesheets/bin/docxtotei --profile=nucma article
   </xd:doc>
   <xsl:function name="nucma:label" as="xs:string">
     <xsl:param name="block" as="element()"/>
-    <!-- Word may write a no-break space before the colon -->
-    <xsl:variable name="s" select="normalize-unicode(normalize-space($block))"/>
+    <!-- Word may write no-break spaces between the words and before the colon
+         (« Titre⍽de l’entrée⍽: ») -->
+    <xsl:variable name="s" select="normalize-unicode(normalize-space(replace($block, '\p{Zs}', ' ')))"/>
     <xsl:sequence select="
       if (not($block/self::tei:p)) then ''
       else if (matches($s, '^(Titre de l.entrée|Entry Title)[\s\p{Zs}]*:', 'i')) then 'title'
@@ -335,13 +376,27 @@ NUCMA_CHAPTER=mediation ~/TEIC/Stylesheets/bin/docxtotei --profile=nucma article
   </xsl:function>
 
   <xd:doc>
+    <xd:desc>Tells whether a block is a sub-label of the author list: a short line ending
+      with a colon, without comma (« Research Assistant: », « Assistante de recherche : »).
+      The persons listed after it are not authors but contributors (see
+      <xd:ref name="nucma:resp-stmt" type="function"/>).</xd:desc>
+    <xd:param name="block">A block of the body.</xd:param>
+  </xd:doc>
+  <xsl:function name="nucma:is-sub-label" as="xs:boolean">
+    <xsl:param name="block" as="element()"/>
+    <xsl:variable name="s" select="normalize-unicode(normalize-space($block))"/>
+    <xsl:sequence select="exists($block/self::tei:p) and nucma:label($block) = ''
+      and ends-with($s, ':') and not(contains($s, ',')) and string-length($s) lt 60"/>
+  </xsl:function>
+
+  <xd:doc>
     <xd:desc>Tells whether a block is a line of the author list:
-      <xd:i>Name, role, affiliation</xd:i>.</xd:desc>
+      <xd:i>Name, role, affiliation</xd:i>, possibly preceded by a typed bullet.</xd:desc>
     <xd:param name="block">A block of the body.</xd:param>
   </xd:doc>
   <xsl:function name="nucma:is-author-line" as="xs:boolean">
     <xsl:param name="block" as="element()"/>
-    <xsl:variable name="s" select="normalize-unicode(normalize-space($block))"/>
+    <xsl:variable name="s" select="replace(normalize-unicode(normalize-space($block)), $nucma:re-bullet, '')"/>
     <xsl:sequence select="exists($block/self::tei:p) and nucma:label($block) = ''
       and contains($s, ',') and string-length($s) lt 250 and matches($s, '^\p{Lu}')"/>
   </xsl:function>
@@ -364,8 +419,10 @@ Auteur·rices :
     <xd:param name="text">The <xd:i>text</xd:i> element of the converted document.</xd:param>
     <xd:return>A map: <xd:i>lang</xd:i> (<xd:i>fr</xd:i> or <xd:i>en</xd:i>, from the
       labels), <xd:i>titles</xd:i> (title, and subtitle if any), <xd:i>short</xd:i>,
-      <xd:i>authors</xd:i> (one string per author) and <xd:i>blocks</xd:i> (the blocks to
-      remove from the body). Empty when no label is found.</xd:return>
+      <xd:i>authors</xd:i> (one map per person: <xd:i>line</xd:i>, and <xd:i>resp</xd:i> for
+      a person listed under a sub-label such as « Research Assistant: ») and
+      <xd:i>blocks</xd:i> (the blocks to remove from the body). Empty when no label is
+      found.</xd:return>
   </xd:doc>
   <xsl:function name="nucma:front-matter" as="map(*)">
     <xsl:param name="text" as="element()?"/>
@@ -387,12 +444,34 @@ Auteur·rices :
     <xsl:variable name="ai" select="index-of($kinds, 'authors')[1]"/>
     <xsl:variable name="title-blocks" select="if (exists($ti) and not($inline($ti))) then $after($ti)[position() le 2] else ()"/>
     <xsl:variable name="short-blocks" select="if (exists($si) and not($inline($si))) then $after($si)[1] else ()"/>
-    <xsl:variable name="author-blocks" select="
-      if (empty($ai) or $inline($ai)) then ()
-      else if ($b[$ai + 1]/self::tei:list) then $b[$ai + 1]
-      else let $rest := $b[position() gt $ai],
-               $stop := index-of($rest ! nucma:is-author-line(.), false())[1]
-           return $rest[position() lt ($stop, count($rest) + 1)[1]]"/>
+    <!-- the author block: a list, author lines and sub-labels (« Research Assistant: »),
+         in an order that keeps the first paragraph of the text out of it: after a list,
+         only a sub-label may follow -->
+    <xsl:variable name="author-blocks" as="element()*">
+      <xsl:if test="exists($ai) and not($inline($ai))">
+        <xsl:iterate select="$b[position() gt $ai]">
+          <xsl:param name="previous" as="xs:string" select="'label'"/>
+          <xsl:variable name="kind" select="
+            if (self::tei:list) then 'list'
+            else if (nucma:is-sub-label(.)) then 'sub'
+            else if (nucma:is-author-line(.)) then 'line'
+            else ''"/>
+          <xsl:variable name="allowed" select="
+            map{'label': ('list', 'line', 'sub'), 'line': ('line', 'sub'), 'list': 'sub', 'sub': ('list', 'line')}($previous)"/>
+          <xsl:choose>
+            <xsl:when test="$kind = $allowed">
+              <xsl:sequence select="."/>
+              <xsl:next-iteration>
+                <xsl:with-param name="previous" select="$kind"/>
+              </xsl:next-iteration>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:break/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:iterate>
+      </xsl:if>
+    </xsl:variable>
     <xsl:sequence select="
       if (empty($labels)) then map{}
       else map{
@@ -400,8 +479,13 @@ Auteur·rices :
         'titles': if (exists($ti)) then ($inline($ti)[.], $title-blocks ! normalize-unicode(normalize-space(.))) else (),
         'short': if (exists($si)) then ($inline($si)[.], $short-blocks ! normalize-unicode(normalize-space(.)))[1] else (),
         'authors': if (exists($ai))
-                   then ($inline($ai)[.], $author-blocks ! (if (self::tei:list) then tei:item else .)
-                                                         ! normalize-unicode(normalize-space(.)))
+                   then ($inline($ai)[.] ! map{'line': .},
+                         for $block in $author-blocks[not(nucma:is-sub-label(.))]
+                         return
+                           let $resp := ($author-blocks[. &lt;&lt; $block][nucma:is-sub-label(.)])[last()]
+                           return (if ($block/self::tei:list) then $block/tei:item else $block)
+                                  ! map{'line': normalize-unicode(normalize-space(.)),
+                                        'resp': $resp ! replace(normalize-unicode(normalize-space(.)), '[\s\p{Zs}]*:$', '')})
                    else (),
         'blocks': ($b[position() = $labels], $title-blocks, $short-blocks, $author-blocks)
       }"/>
@@ -436,55 +520,208 @@ Auteur·rices :
     use="nucma:name-key(string-join((tei:persName/tei:forename, tei:persName/tei:surname), ' '))"/>
 
   <xd:doc>
+    <xd:desc>Reads a line of the author list.</xd:desc>
+    <xd:param name="line">A line: <xd:i>Name, role, affiliation</xd:i>, possibly preceded by
+      a typed bullet. The first segment is the name, the last one the affiliation, and
+      anything in between the role (which may itself contain commas).</xd:param>
+    <xd:return>A map: <xd:i>name</xd:i>, <xd:i>role</xd:i>, <xd:i>affiliation</xd:i>, and
+      <xd:i>person</xd:i>, the matching person of <xd:i>meta/authors.xml</xd:i> (authors and
+      other contributors) if any.</xd:return>
+  </xd:doc>
+  <xsl:function name="nucma:person-line" as="map(*)">
+    <xsl:param name="line" as="xs:string"/>
+    <xsl:variable name="parts" select="tokenize(replace($line, $nucma:re-bullet, ''), '\s*,\s*')[normalize-space()]"/>
+    <xsl:sequence select="map{
+      'name': $parts[1],
+      'role': string-join($parts[position() gt 1 and position() lt last()], ', '),
+      'affiliation': if (count($parts) gt 1) then $parts[last()] else '',
+      'person': if ($nucma:authors) then key('nucma:person-by-name', nucma:name-key($parts[1]), $nucma:authors)[1] else ()}"/>
+  </xsl:function>
+
+  <xd:doc>
+    <xd:desc>Forename and surname of a person: from <xd:i>meta/authors.xml</xd:i> when the
+      person is found there, otherwise the last word of the name as the surname.</xd:desc>
+    <xd:param name="person-line">A map returned by
+      <xd:ref name="nucma:person-line" type="function"/>.</xd:param>
+  </xd:doc>
+  <xsl:function name="nucma:name-parts" as="element()+">
+    <xsl:param name="person-line" as="map(*)"/>
+    <xsl:choose>
+      <xsl:when test="exists($person-line?person)">
+        <xsl:sequence select="$person-line?person/tei:persName/(tei:forename | tei:surname)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <forename><xsl:value-of select="replace($person-line?name, '\s+\S+$', '')"/></forename>
+        <surname><xsl:value-of select="replace($person-line?name, '^.*\s', '')"/></surname>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+
+  <xd:doc>
     <xd:desc>An author of the entry.</xd:desc>
-    <xd:param name="line">A line of the author list: <xd:i>Name, role, affiliation</xd:i>.
-      The first segment is the name, the last one the affiliation, and anything in between
-      the role (which may itself contain commas).</xd:param>
+    <xd:param name="line">A line of the author list (see
+      <xd:ref name="nucma:person-line" type="function"/>).</xd:param>
     <xd:return>An <xd:i>author</xd:i>. When the name is found in
       <xd:i>meta/authors.xml</xd:i>, the author points to the person
       (<xd:i>@ref</xd:i>) and takes its forename, surname, identifiers (ORCID…) and, if the
-      line has none, its affiliation. Otherwise the last word of the name is taken as the
-      surname, and an <xd:i>@todo</xd:i> comment asks to check it.</xd:return>
+      line has none, its affiliation. Otherwise an <xd:i>@todo</xd:i> comment asks to check
+      the forename and surname.</xd:return>
   </xd:doc>
   <xsl:function name="nucma:author" as="element()">
     <xsl:param name="line" as="xs:string"/>
-    <xsl:variable name="parts" select="tokenize($line, '\s*,\s*')[normalize-space()]"/>
-    <xsl:variable name="name" select="$parts[1]"/>
-    <xsl:variable name="role" select="string-join($parts[position() gt 1 and position() lt last()], ', ')"/>
-    <xsl:variable name="affiliation" select="if (count($parts) gt 1) then $parts[last()] else ''"/>
-    <xsl:variable name="person" select="if ($nucma:authors) then key('nucma:person-by-name', nucma:name-key($name), $nucma:authors)[1] else ()"/>
+    <xsl:variable name="p" select="nucma:person-line($line)"/>
     <author>
-      <xsl:if test="$person">
-        <xsl:attribute name="ref" select="'#' || $person/@xml:id"/>
+      <xsl:if test="exists($p?person)">
+        <xsl:attribute name="ref" select="'#' || $p?person/@xml:id"/>
       </xsl:if>
       <persName>
-        <xsl:choose>
-          <xsl:when test="$person">
-            <xsl:copy-of select="$person/tei:persName/(tei:forename | tei:surname)"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <forename><xsl:value-of select="replace($name, '\s+\S+$', '')"/></forename>
-            <surname><xsl:value-of select="replace($name, '^.*\s', '')"/></surname>
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:sequence select="nucma:name-parts($p)"/>
       </persName>
-      <xsl:if test="$role">
-        <roleName><xsl:value-of select="$role"/></roleName>
+      <xsl:if test="$p?role">
+        <roleName><xsl:value-of select="$p?role"/></roleName>
       </xsl:if>
       <xsl:choose>
-        <xsl:when test="$affiliation">
-          <affiliation><xsl:value-of select="$affiliation"/></affiliation>
+        <xsl:when test="$p?affiliation">
+          <affiliation><xsl:value-of select="$p?affiliation"/></affiliation>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:copy-of select="$person//tei:affiliation[1]"/>
+          <xsl:sequence select="$p?person//tei:affiliation[1]"/>
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:copy-of select="$person//tei:idno[normalize-space()]"/>
-      <xsl:if test="not($person)">
+      <xsl:sequence select="$p?person//tei:idno[normalize-space()]"/>
+      <xsl:if test="empty($p?person)">
         <xsl:comment> @todo vérifier le prénom et le nom ; auteur absent de meta/authors.xml </xsl:comment>
       </xsl:if>
     </author>
   </xsl:function>
+
+  <xd:doc>
+    <xd:desc>A contributor listed under a sub-label (« Research Assistant: »), in the form
+      used by the corpus for the other responsibilities:
+      <xd:i>&lt;respStmt ref="#…"&gt;&lt;resp&gt;Research Assistant&lt;/resp&gt;&lt;persName&gt;…&lt;/persName&gt;&lt;/respStmt&gt;</xd:i>.
+      Contributors are looked up in <xd:i>meta/authors.xml</xd:i> too (list « Autres
+      contributeurs »). The role goes in <xd:i>persName/roleName</xd:i> and the affiliation
+      in <xd:i>orgName</xd:i>, the forms allowed in <xd:i>respStmt</xd:i>.</xd:desc>
+    <xd:param name="line">A line of the author list (see
+      <xd:ref name="nucma:person-line" type="function"/>).</xd:param>
+    <xd:param name="resp">The sub-label, without its colon.</xd:param>
+  </xd:doc>
+  <xsl:function name="nucma:resp-stmt" as="element()">
+    <xsl:param name="line" as="xs:string"/>
+    <xsl:param name="resp" as="xs:string"/>
+    <xsl:variable name="p" select="nucma:person-line($line)"/>
+    <respStmt>
+      <xsl:if test="exists($p?person)">
+        <xsl:attribute name="ref" select="'#' || $p?person/@xml:id"/>
+      </xsl:if>
+      <resp><xsl:value-of select="$resp"/></resp>
+      <persName>
+        <xsl:sequence select="nucma:name-parts($p)"/>
+        <xsl:if test="$p?role">
+          <roleName><xsl:value-of select="$p?role"/></roleName>
+        </xsl:if>
+      </persName>
+      <xsl:if test="$p?affiliation">
+        <orgName><xsl:value-of select="$p?affiliation"/></orgName>
+      </xsl:if>
+      <xsl:if test="empty($p?person)">
+        <xsl:comment> @todo vérifier le prénom et le nom ; personne absente de meta/authors.xml </xsl:comment>
+      </xsl:if>
+    </respStmt>
+  </xsl:function>
+
+  <xd:doc>
+    <xd:desc>Publication statement of the NUCMA model, followed by the series statement
+      (the chapter comes from <xd:ref name="nucma-chapter" type="parameter"/>). DOI to be
+      added when available.</xd:desc>
+  </xd:doc>
+  <xsl:template mode="nucma:header" match="tei:fileDesc/tei:publicationStmt">
+    <xsl:param name="front" tunnel="yes" as="map(*)"/>
+    <xsl:choose>
+      <xsl:when test="exists($front?lang)">
+        <xsl:variable name="model" select="$nucma:header-model($front?lang)"/>
+        <publicationStmt>
+          <publisher><xsl:value-of select="$model?publisher"/></publisher>
+          <date when="{year-from-date(current-date())}"><xsl:value-of select="year-from-date(current-date())"/></date>
+          <xsl:comment> @todo &lt;idno type="DOI"&gt;…&lt;/idno&gt; </xsl:comment>
+          <availability>
+            <licence target="https://creativecommons.org/licenses/by/4.0/">
+              <p><xsl:value-of select="$model?licence"/></p>
+            </licence>
+          </availability>
+        </publicationStmt>
+        <seriesStmt>
+          <title xml:lang="{$front?lang}" type="main">
+            <xsl:value-of select="$model?chapter || upper-case(substring($nucma-chapter, 1, 1)) || substring($nucma-chapter, 2)"/>
+          </title>
+          <title xml:lang="{$front?lang}" type="sub"><xsl:value-of select="$model?series"/></title>
+          <idno type="URI">http://www.nucma.ca</idno>
+          <xsl:comment> @todo &lt;idno type="DOI"&gt;…&lt;/idno&gt; </xsl:comment>
+        </seriesStmt>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:next-match/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xd:doc>
+    <xd:desc>Revision description: the change written by docxtotei.xsl (date and
+      <xd:i>unknown author</xd:i>) is replaced with a dated note in the form used by the
+      corpus: <xd:i>&lt;change when="2026-10-01" resp="#ECD"&gt;Conversion depuis Word (profil
+      nucma)&lt;/change&gt;</xd:i>, in the language of the entry (French by default); see
+      <xd:ref name="nucma-resp" type="parameter"/>.</xd:desc>
+  </xd:doc>
+  <xsl:template mode="nucma:header" match="tei:teiHeader/tei:revisionDesc">
+    <xsl:param name="front" tunnel="yes" as="map(*)"/>
+    <revisionDesc>
+      <change when="{current-date() => format-date('[Y0001]-[M01]-[D01]')}" resp="#{$nucma-resp}">
+        <xsl:value-of select="$nucma:header-model(($front?lang, 'fr')[1])?conversion"/>
+      </change>
+    </revisionDesc>
+  </xsl:template>
+
+  <xd:doc>
+    <xd:desc>Drops the edition statement written by docxtotei.xsl (« unknown date »): the
+      entries of the corpus have none.</xd:desc>
+  </xd:doc>
+  <xsl:template mode="nucma:header" match="tei:fileDesc/tei:editionStmt[contains(., 'unknown')]"/>
+
+  <xd:doc>
+    <xd:desc>Header of a document with front matter: a profile description with the
+      language of the entry (<xd:i>langUsage</xd:i>) is added after the encoding
+      description, when the header has none.</xd:desc>
+  </xd:doc>
+  <xsl:template mode="nucma:header" match="tei:teiHeader[not(tei:profileDesc)]">
+    <xsl:param name="front" tunnel="yes" as="map(*)"/>
+    <xsl:copy>
+      <xsl:apply-templates select="@*" mode="#current"/>
+      <xsl:apply-templates select="node()[not(self::tei:revisionDesc)]" mode="#current"/>
+      <xsl:if test="exists($front?lang)">
+        <profileDesc>
+          <langUsage>
+            <language ident="{$front?lang}"/>
+          </langUsage>
+        </profileDesc>
+      </xsl:if>
+      <xsl:apply-templates select="tei:revisionDesc" mode="#current"/>
+    </xsl:copy>
+  </xsl:template>
+
+  <xd:doc>
+    <xd:desc>Language of the entry on <xd:i>text</xd:i>, read from the labels of the front
+      matter; <xd:i>normalisation.xsl</xd:i> then applies the typography of that
+      language.</xd:desc>
+  </xd:doc>
+  <xsl:template mode="nucma:header" match="tei:TEI/tei:text">
+    <xsl:param name="front" tunnel="yes" as="map(*)"/>
+    <xsl:copy>
+      <xsl:if test="exists($front?lang)">
+        <xsl:attribute name="xml:lang" select="$front?lang"/>
+      </xsl:if>
+      <xsl:apply-templates select="@* except @xml:lang[exists($front?lang)] | node()" mode="#current"/>
+    </xsl:copy>
+  </xsl:template>
 
   <xd:doc>
     <xd:desc>Title statement made from the front matter: one <xd:i>title</xd:i> without
@@ -504,7 +741,8 @@ Auteur·rices :
               <xsl:value-of select="."/>
             </title>
           </xsl:for-each>
-          <xsl:sequence select="$front?authors ! nucma:author(.)"/>
+          <xsl:sequence select="$front?authors[empty(?resp)] ! nucma:author(?line)"/>
+          <xsl:sequence select="$front?authors[exists(?resp)] ! nucma:resp-stmt(?line, ?resp)"/>
         </xsl:copy>
       </xsl:when>
       <xsl:otherwise>
@@ -517,8 +755,8 @@ Auteur·rices :
     <xd:desc>Identifier of the entry on <xd:i>sourceDesc</xd:i>:
       <xd:i>nucma.{language}.{chapter}.{short title}</xd:i>
       (<xd:i>nucma.fr.acquisition.variabilite</xd:i>), see
-      <xd:ref name="nucma-chapter" type="parameter"/>. The entry title is used when there is
-      no short title.</xd:desc>
+      <xd:ref name="nucma-chapter" type="parameter"/>; the entry title is used when there is
+      no short title. Its content is the source description of the NUCMA model.</xd:desc>
   </xd:doc>
   <xsl:template mode="nucma:header" match="tei:sourceDesc">
     <xsl:param name="front" tunnel="yes" as="map(*)"/>
@@ -529,7 +767,14 @@ Auteur·rices :
         <xsl:attribute name="xml:id"
           select="string-join(('nucma', $front?lang, $nucma-chapter, nucma:slug($name)), '.')"/>
       </xsl:if>
-      <xsl:apply-templates select="node()" mode="#current"/>
+      <xsl:choose>
+        <xsl:when test="exists($front?lang)">
+          <p><xsl:value-of select="$nucma:header-model($front?lang)?source"/></p>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="node()" mode="#current"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:copy>
   </xsl:template>
 

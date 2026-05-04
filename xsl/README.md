@@ -8,6 +8,7 @@ Ce dossier contient la chaîne de traitement des textes TEI de l’Encyclopédie
 | `nettoyage-import.xsl` | Même nettoyage, pour un fichier TEI déjà importé. |
 | `serialisation.xsl` | Copie à l’identique : sérialise un fichier comme le font les autres feuilles, sans en modifier le contenu. |
 | `normalisation.xsl` | Normalisation Unicode (NFC) et typographie française et anglaise. |
+| `tests/` | Tests XSpec des feuilles (voir « Tests »). |
 
 Chaque feuille est documentée en détail dans son en-tête (`xd:doc`, format de documentation d’oXygen).
 
@@ -43,6 +44,8 @@ Chaque feuille est documentée en détail dans son en-tête (`xd:doc`, format de
    ```sh
    NUCMA_CHAPTER=mediation docxtotei --profile=nucma Entree.docx entree.xml
    ```
+
+   La conversion est notée dans `revisionDesc` (`<change when="…" resp="#ECD">Conversion depuis Word (profil nucma)</change>`). La personne responsable vaut `ECD` par défaut ; pour une autre : `NUCMA_RESP=RC docxtotei --profile=nucma …`.
 
 2. **Structuration manuelle** dans oXygen (en-tête, `div`, `q`, `soCalled`, `bibl`…). Commiter.
 
@@ -99,6 +102,10 @@ Auteur·rices :                             Authors:
 - **Titre** : un seul `<title>` sans `@type` ; s’il est suivi d’un sous-titre, `<title type="main">` et `<title type="sub">`.
 - **Titre court** : il sert de nom de fichier et d’identifiant de l’entrée, sans majuscule ni diacritique, sur `sourceDesc` : `<sourceDesc xml:id="nucma.fr.acquisition.variabilite">`. La langue vient des étiquettes (`fr` ou `en`), le chapitre de `NUCMA_CHAPTER`.
 - **Auteurs** : chaque ligne « Nom, rôle, affiliation » devient un `<author>` avec `persName`, `roleName` et `affiliation`. L’auteur est cherché dans `meta/authors.xml` : s’il y figure, il reçoit son `@ref` (`#benichouAnne`), son prénom et son nom tels qu’ils y sont découpés, et ses identifiants (ORCID, ISNI…). Sinon, le dernier mot du nom est pris comme nom de famille et un `<!-- @todo -->` demande de vérifier.
+- **Contributeurs** : les personnes listées sous un sous-titre du bloc des auteurs (« Research Assistant: », « Assistante de recherche : ») ne sont pas des auteurs : elles deviennent des `<respStmt>` (`<resp>Research Assistant</resp>`, `persName` avec `roleName`, `orgName` pour l’affiliation), cherchées elles aussi dans `meta/authors.xml` (liste « Autres contributeurs »).
+- Les puces tapées à la main (« ● Julie Bawin, … ») et les espaces insécables dans les étiquettes (« Titre⍽de l’entrée⍽: ») sont acceptées.
+- **Reste de l’en-tête** : complété d’après le modèle des entrées du corpus, en français ou en anglais : `publicationStmt` (éditeur, année, licence CC BY 4.0, DOI à compléter), `seriesStmt` (« Chapitre Acquisition », en anglais « Chapter: Acquisition », titre de l’encyclopédie, URI), `sourceDesc` (« Fichier nativement numérique ») et `profileDesc/langUsage`. L’`editionStmt` vide produit par la conversion est supprimé.
+- **Langue** : posée sur `<text xml:lang="fr">` (ou `en`) d’après les étiquettes ; `normalisation.xsl` applique ensuite la typographie de cette langue, quel que soit le dossier du fichier.
 
 ### Nettoyage de l’import (`from.xsl`, `nettoyage-import.xsl`)
 
@@ -158,6 +165,58 @@ saxon -s:$f -xsl:xsl/normalisation.xsl -o:$f.tmp '?process-bibliography=true()'
 | `'?en-centuries-in-words=true()'` | non | eighteenth century |
 | `'?en-punctuation-inside-quotes=false()'` | usage américain | usage britannique : “hello”, |
 | `'?default-lang="en"'` | déduite | impose la langue du document |
+| `report=detail` / `report=none` | `summary` | rapport sur la console et dans le journal : bilan, bilan et chaque modification, ou rien |
+| `log-dir=…` | `logs/` | dossier des journaux ; vide pour ne pas en écrire |
+
+### Rapport
+
+`normalisation.xsl` écrit sur la console (sortie d’erreur, jamais dans le fichier) un bilan par fichier, et des avertissements sur ce qui demande une relecture :
+
+```text
+[normalisation] coacquisition.xml (langue par défaut : fr)
+[normalisation]   NFC : 0 nœud(s) recomposé(s)
+[normalisation]   exposants d’ordinaux intégrés au texte : 2
+[normalisation]   segments de texte : 401 traités, 13 modifiés
+[normalisation]     apostrophes 2 · abréviations 0 · nombres 0 · ponctuation 2 · guillemets 0 · ligatures 0 · espaces 7 · ordinaux 3
+[normalisation]   avertissement : guillemets non équilibrés dans l’élément p : « Il dit "bonjour sans fermer.… »
+```
+
+Avec `report=detail`, chaque modification est affichée (`espaces : « …variés : parfois… » → « …variés⍽: parfois… »`) ; avec `report=none`, rien. Attention : ce paramètre est une chaîne, il s’écrit sans `?` (`report=detail`), contrairement aux paramètres booléens (`'?process-bibliography=true()'`).
+
+**Journal** : les mêmes lignes sont écrites dans un fichier texte, un par fichier normalisé, dans le dossier `logs/` du dépôt : `logs/variabilite-2026-10-01.log` (nom du fichier et date ; un second passage le même jour remplace le journal). La première ligne indique l’heure et le chemin complet du fichier traité. Le journal suit le niveau de `report` (aucun avec `report=none`). Pour un autre dossier : `log-dir=/chemin/vers/logs` (chemin absolu, chemin relatif à la racine du dépôt, ou URI `file:///…`) ; pour ne pas écrire de journal : `log-dir=`.
+
+## Tests
+
+Le dossier `tests/` contient des tests XSpec :
+
+| Fichier | Contenu |
+|---|---|
+| `tests/normalisation.xspec` | 101 vérifications : chaque règle typographique (français et anglais), ses pièges connus (« Vers », « Louis XIV », `3D`, dates ISO, ISBN…), son idempotence, et la portée de la normalisation sur des documents entiers (bibliographie, `idno`, liens, langue). |
+| `tests/nettoyage-import.xspec` | 11 vérifications sur des documents qui reproduisent les artefacts de Word : styles, `hi` et `seg` vides, ancres, intertitres vides, liens, `graphic`, commentaires, notes. Elles décrivent aussi le comportement attendu du profil `nucma`, qui applique les mêmes règles. |
+| `tests/docs/` | Documents de test. |
+
+Installer XSpec une fois, puis lancer les tests :
+
+```sh
+git clone https://github.com/xspec/xspec.git ~/xspec
+export SAXON_CP=/Library/Java/Extensions/SaxonHE12-3J/saxon-he-12.3.jar
+
+~/xspec/bin/xspec.sh xsl/tests/normalisation.xspec
+~/xspec/bin/xspec.sh xsl/tests/nettoyage-import.xspec
+```
+
+Chaque lancement se termine par un bilan, qui doit indiquer `failed: 0` :
+
+```text
+passed: 101 / pending: 0 / failed: 0 / total: 101
+Report available at xsl/tests/xspec/normalisation-result.html
+```
+
+Le rapport HTML détaille chaque vérification, et montre pour un échec la valeur attendue et la valeur obtenue. Les rapports et les feuilles compilées sont écrits dans `xsl/tests/xspec/`, exclu de git par le `.gitignore` du dépôt. Les tests ont été validés avec XSpec 4.1.2 et Saxon HE 12.3.
+
+Dans oXygen, ouvrir un fichier `.xspec` et lancer le scénario « Run XSpec Test ».
+
+**Après toute modification d’une feuille, relancer les tests.** Si un changement de comportement est voulu, mettre à jour la valeur attendue du test concerné, et ajouter un test pour chaque nouvelle règle.
 
 ## Bonnes pratiques
 
@@ -169,4 +228,4 @@ saxon -s:$f -xsl:xsl/normalisation.xsl -o:$f.tmp '?process-bibliography=true()'
 
 - Les règles de nettoyage existent en deux exemplaires, dans `profile/docx/from.xsl` et dans `nettoyage-import.xsl`. Toute modification doit être faite dans les deux.
 - `serialisation.xsl`, `nettoyage-import.xsl` et `normalisation.xsl` partagent la même sérialisation (`indent="no"`, prologue restitué ligne par ligne). Si l’une change, les autres doivent suivre, sans quoi les diffs mélangeront mise en forme et contenu.
-- Après toute modification, vérifier que la sortie est inchangée sur des fichiers de référence et que la feuille reste idempotente (un second passage ne change rien).
+- Après toute modification, relancer les tests XSpec (voir « Tests »).

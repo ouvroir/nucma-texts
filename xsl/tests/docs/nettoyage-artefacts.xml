@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt><title>Artefacts de Word</title></titleStmt>
+      <publicationStmt><p>Test</p></publicationStmt>
+      <sourceDesc><p>Test</p></sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head><anchor xml:id="2z3fk6gdwmkd"/></head>
+        <p xml:space="preserve"><hi style="font-family:Helvetica Neue;font-size:12pt">Texte</hi> <hi rend="italic" style="font-family:Helvetica Neue;font-size:12pt">italique</hi> <hi style="color:red;font-size:11pt">rouge</hi> fin<hi rend="italic">  </hi>.</p>
+        <p>Appel<ref target="#cible">1</ref><seg>  </seg>suite<anchor xml:id="orpheline"/>.</p>
+        <p>Le terme <q>garde négociée</q> est proposé, et <q>achat conjoint</q> ici, M. <persName>Dupont</persName>.</p>
+        <p><ref target="https://www.moma.org/a">MoMA</ref> <ref target="https://www.nucma.ca/fr/protocoles">entrée</ref> <ref target="#cible">interne</ref></p>
+        <figure><graphic n="1001" width="15.92cm" height="11.6cm" url="media/image3.png" rend="inline"/></figure>
+      </div>
+      <div>
+        <head><anchor xml:id="cible"/>Titre ciblé</head>
+        <p>Texte.</p>
+      </div>
+    </body>
+  </text>
+</TEI>
