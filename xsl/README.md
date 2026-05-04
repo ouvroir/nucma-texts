@@ -45,6 +45,8 @@ Chaque feuille est documentée en détail dans son en-tête (`xd:doc`, format de
    NUCMA_CHAPTER=mediation docxtotei --profile=nucma Entree.docx entree.xml
    ```
 
+   Le fichier produit est associé au schéma et au Schematron par deux instructions `xml-model` en tête de fichier ; oXygen les applique dès l’ouverture. Le chemin vers `schemas/` vaut `../../schemas/`, qui convient à un fichier rangé dans `fr/<chapitre>/` ou `en/<chapitre>/` ; sinon : `NUCMA_SCHEMAS=../schemas docxtotei --profile=nucma …`.
+
    La conversion est notée dans `revisionDesc` (`<change when="…" resp="#ECD">Conversion depuis Word (profil nucma)</change>`). La personne responsable vaut `ECD` par défaut ; pour une autre : `NUCMA_RESP=RC docxtotei --profile=nucma …`.
 
 2. **Structuration manuelle** dans oXygen (en-tête, `div`, `q`, `soCalled`, `bibl`…). Commiter.
@@ -217,6 +219,44 @@ Le rapport HTML détaille chaque vérification, et montre pour un échec la vale
 Dans oXygen, ouvrir un fichier `.xspec` et lancer le scénario « Run XSpec Test ».
 
 **Après toute modification d’une feuille, relancer les tests.** Si un changement de comportement est voulu, mettre à jour la valeur attendue du test concerné, et ajouter un test pour chaque nouvelle règle.
+
+## Contrôle de l’encodage (Schematron)
+
+`schemas/nucma-quality.sch` complète la validation par le schéma (`nucma.rng`) : il vérifie ce qu’une grammaire ne peut pas vérifier. Ses messages sont de deux niveaux : **erreur** (encodage incohérent, à corriger) et **avertissement** (information manquante ou forme à harmoniser).
+
+Contrôles actuels :
+
+| Où | Contrôle | Niveau |
+|---|---|---|
+| Entrées | chaque `author` a un `@ref` qui renvoie à une personne de `meta/authors.xml` | erreur |
+| Entrées | chaque `respStmt` a un `resp` et un `@ref` valide (`@ref` absent : avertissement) | erreur |
+| Entrées | l’auteur a un ORCID, dans l’entrée ou dans `meta/authors.xml` | avertissement |
+| Entrées | l’ORCID de l’entrée est le même que celui de `meta/authors.xml` | erreur |
+| Entrées | le prénom et le nom sont ceux de `meta/authors.xml` | avertissement |
+| Entrées | `change/@resp` (ou `@who`) renvoie à une personne connue | avertissement |
+| `meta/authors.xml` | chaque personne a un `@xml:id` unique, un prénom et un nom ; homonymes signalés | erreur |
+| `meta/authors.xml` | chaque personne a un ORCID | avertissement |
+| `meta/authors.xml` | un même identifiant (ORCID, ISNI…) n’est pas attribué à plusieurs personnes | erreur |
+| `meta/authors.xml` | identifiants vides, sans type ou de type inconnu (`insi` pour `isni`…) | avertissement |
+| Partout | ORCID valide (forme et chiffre de contrôle), écrit sous forme d’URL `https://orcid.org/…`, `type="orcid"` en minuscules ; ISNI de la forme `https://isni.org/isni/…` | erreur / avertissement |
+
+`meta/authors.xml` est retrouvé à partir de l’emplacement du fichier contrôlé (dossier `fr/`, `en/` ou `meta/` du dépôt).
+
+**Dans oXygen** : *Document › Validate › Validate with…* et choisir `schemas/nucma-quality.sch` ; les messages apparaissent dans le panneau des résultats et sont reliés à l’endroit concerné. On peut aussi l’associer durablement aux fichiers par une instruction de traitement, à côté de celle de `nucma.rng` :
+
+```xml
+<?xml-model href="../../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+```
+
+**En ligne de commande**, avec SchXslt2, fourni par XSpec : compiler le Schematron une fois (et après chaque modification), puis contrôler les fichiers ; `schemas/svrl-text.xsl` met le rapport en forme.
+
+```sh
+saxon -s:schemas/nucma-quality.sch -xsl:$HOME/xspec/lib/schxslt2/transpile.xsl -o:/tmp/nucma-quality.xsl
+
+for f in meta/authors.xml fr/acquisition/*.xml; do
+  saxon -s:$f -xsl:/tmp/nucma-quality.xsl -o:/tmp/rapport.svrl && saxon -s:/tmp/rapport.svrl -xsl:schemas/svrl-text.xsl document=$f
+done
+```
 
 ## Bonnes pratiques
 

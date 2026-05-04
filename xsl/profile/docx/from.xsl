@@ -70,7 +70,10 @@ NUCMA_CHAPTER=mediation NUCMA_RESP=RC ~/TEIC/Stylesheets/bin/docxtotei --profile
   <!-- ================================================================ -->
 
   <xd:doc>
-    <xd:desc>Runs the conversion of docxtotei.xsl, then the four NUCMA steps.</xd:desc>
+    <xd:desc>Runs the conversion of docxtotei.xsl, then the four NUCMA steps, and writes at the
+      top of the file the <xd:i>xml-model</xd:i> instructions that associate it with the schema
+      (<xd:i>nucma.rng</xd:i>) and the Schematron (<xd:i>nucma-quality.sch</xd:i>), see
+      <xd:ref name="nucma-schemas" type="parameter"/>.</xd:desc>
   </xd:doc>
   <xsl:template match="/">
     <xsl:variable name="converted">
@@ -87,6 +90,11 @@ NUCMA_CHAPTER=mediation NUCMA_RESP=RC ~/TEIC/Stylesheets/bin/docxtotei --profile
     <xsl:variable name="spaced">
       <xsl:apply-templates select="$headed" mode="nucma:boundary-spaces"/>
     </xsl:variable>
+    <!-- association with the schema and the Schematron, as in the files of the corpus -->
+    <xsl:processing-instruction name="xml-model"
+      select="'href=&quot;' || $nucma-schemas || 'nucma.rng&quot; type=&quot;application/xml&quot; schematypens=&quot;http://relaxng.org/ns/structure/1.0&quot;'"/>
+    <xsl:processing-instruction name="xml-model"
+      select="'href=&quot;' || $nucma-schemas || 'nucma-quality.sch&quot; type=&quot;application/xml&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;'"/>
     <xsl:apply-templates select="$spaced" mode="nucma:notes"/>
   </xsl:template>
 
@@ -117,6 +125,16 @@ NUCMA_CHAPTER=mediation NUCMA_RESP=RC ~/TEIC/Stylesheets/bin/docxtotei --profile
       environment variable, otherwise <xd:i>ECD</xd:i> (Emmanuel Château-Dutier), who
       usually does the encoding.</xd:desc>
   </xd:doc>
+  <xd:doc>
+    <xd:desc>Path from the converted file to the <xd:i>schemas/</xd:i> folder of the
+      repository, used in the <xd:i>xml-model</xd:i> instructions. Taken from the
+      <xd:i>NUCMA_SCHEMAS</xd:i> environment variable, otherwise <xd:i>../../schemas/</xd:i>,
+      which suits the layout of the corpus (<xd:i>fr/acquisition/entree.xml</xd:i>).</xd:desc>
+  </xd:doc>
+  <xsl:param name="nucma-schemas" as="xs:string"
+    select="let $dir := (environment-variable('NUCMA_SCHEMAS')[normalize-space()], '../../schemas/')[1]
+            return if (ends-with($dir, '/')) then $dir else $dir || '/'"/>
+
   <xsl:param name="nucma-resp" as="xs:string"
     select="(environment-variable('NUCMA_RESP')[normalize-space()], 'ECD')[1]"/>
 
