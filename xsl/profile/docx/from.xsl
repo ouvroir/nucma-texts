@@ -15,7 +15,7 @@
       <xd:p>Runs the standard conversion (<xd:i>docx/from/docxtotei.xsl</xd:i>), then cleans
         its result in four steps, each one on a new tree:</xd:p>
       <xd:ol>
-        <xd:li><xd:b>nucma:cleanup</xd:b>: removes the word-processor artefacts (font family
+        <xd:li><xd:b>nucma:cleanup</xd:b>: removes the word-processor artifacts (font family
           and size in <xd:i>@style</xd:i>, <xd:i>hi</xd:i> without rendition,
           <xd:i>@xml:space</xd:i>, layout attributes of <xd:i>graphic</xd:i>, anchors that
           nothing points to, empty headings), types hyperlinks as external and turns the
@@ -31,9 +31,9 @@
           <xd:i>back/div[@type='notes']</xd:i> and replaces them with note calls.</xd:li>
       </xd:ol>
       <xd:p>The output is indented. Typography is not dealt with here but by
-        <xd:i>xsl/normalisation.xsl</xd:i>.</xd:p>
+        <xd:i>xsl/normalization.xsl</xd:i>.</xd:p>
       <xd:p>The same rules are applied to existing TEI files by
-        <xd:i>xsl/nettoyage-import.xsl</xd:i>: any change must be made in both
+        <xd:i>xsl/import-cleanup.xsl</xd:i>: any change must be made in both
         stylesheets. Mode, variable and function names are in the <xd:i>nucma</xd:i>
         namespace, so as not to clash with those of the TEI Stylesheets.</xd:p>
       <xd:p>Usage, through the <xd:i>nucma</xd:i> link in the profiles of the TEI
@@ -210,7 +210,7 @@ NUCMA_CHAPTER=mediation NUCMA_RESP=RC ~/TEIC/Stylesheets/bin/docxtotei --profile
 
 
   <!-- ================================================================ -->
-  <!-- 1. nucma:cleanup: word-processor artefacts and comments          -->
+  <!-- 1. nucma:cleanup: word-processor artifacts and comments          -->
   <!-- ================================================================ -->
 
   <xd:doc>
@@ -710,7 +710,7 @@ Auteur·rices :
 
   <xd:doc>
     <xd:desc>Language of the entry on <xd:i>text</xd:i>, read from the labels of the front
-      matter; <xd:i>normalisation.xsl</xd:i> then applies the typography of that
+      matter; <xd:i>normalization.xsl</xd:i> then applies the typography of that
       language.</xd:desc>
   </xd:doc>
   <xsl:template mode="nucma:header" match="tei:TEI/tei:text">

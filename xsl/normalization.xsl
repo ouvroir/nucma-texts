@@ -12,16 +12,16 @@
 
   <xd:doc scope="stylesheet">
     <xd:desc>
-      <xd:p><xd:b>Normalisation of NUCMA TEI texts</xd:b> (French and English).</xd:p>
-      <xd:p>This stylesheet only deals with Unicode and typography. The artefacts of the
+      <xd:p><xd:b>Normalization of NUCMA TEI texts</xd:b> (French and English).</xd:p>
+      <xd:p>This stylesheet only deals with Unicode and typography. The artifacts of the
         conversion from a word processor (font styles, empty <xd:i>hi</xd:i>,
         <xd:i>@xml:space</xd:i>, no-break spaces left by converted guillemets) are removed
-        beforehand, once, by <xd:i>nettoyage-import.xsl</xd:i>.</xd:p>
+        beforehand, once, by <xd:i>import-cleanup.xsl</xd:i>.</xd:p>
       <xd:p>The transformation is a pipeline of three modes. Each one builds a temporary tree
         that the next one takes as input, so that adjacent text nodes are merged between
         steps.</xd:p>
       <xd:ol>
-        <xd:li><xd:b>nfc</xd:b>: Unicode NFC normalisation of every text node and attribute
+        <xd:li><xd:b>nfc</xd:b>: Unicode NFC normalization of every text node and attribute
           (decomposed characters such as <xd:i>e</xd:i> + U+0301 become
           <xd:i>é</xd:i>).</xd:li>
         <xd:li><xd:b>unwrap-ordinals</xd:b>: ordinal superscripts
@@ -58,7 +58,7 @@
         (<xd:i>idno</xd:i>, <xd:i>ptr</xd:i>, <xd:i>code</xd:i>, <xd:i>email</xd:i>) and, unless
         <xd:ref name="process-bibliography" type="parameter"/> is set, the bibliography are
         left out. URLs, DOIs and e-mail addresses in the text, attributes, comments and
-        processing instructions are never altered except by NFC normalisation.</xd:p>
+        processing instructions are never altered except by NFC normalization.</xd:p>
       <xd:p>A report is written to the console and to a log file in <xd:i>logs/</xd:i>: a
         summary per file, and warnings on what needs checking (see
         <xd:ref name="report" type="parameter"/> and
@@ -67,18 +67,18 @@
         Missing spaces are added, but a space split across two text nodes cannot be
         detected.</xd:p>
       <xd:p>Usage (Saxon 12):</xd:p>
-      <xd:pre>saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/nettoyage-import.xsl -o:clean.xml
-saxon -s:clean.xml -xsl:xsl/normalisation.xsl -o:out.xml
-saxon -s:en/acquisition/variability.xml -xsl:xsl/normalisation.xsl '?en-centuries-in-words=true()'
-saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail -o:out.xml</xd:pre>
+      <xd:pre>saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/import-cleanup.xsl -o:clean.xml
+saxon -s:clean.xml -xsl:xsl/normalization.xsl -o:out.xml
+saxon -s:en/acquisition/variability.xml -xsl:xsl/normalization.xsl '?en-centuries-in-words=true()'
+saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail -o:out.xml</xd:pre>
       <xd:p><xd:b>Author:</xd:b> Emmanuel Château-Dutier</xd:p>
     </xd:desc>
   </xd:doc>
 
   <xd:doc>
     <xd:desc>No indentation, and no whitespace stripping: the source layout is kept as is,
-      so that the files can be normalised in place with readable diffs. Line breaks inside
-      start tags are not preserved by the XML serialiser.</xd:desc>
+      so that the files can be normalized in place with readable diffs. Line breaks inside
+      start tags are not preserved by the XML serializer.</xd:desc>
   </xd:doc>
   <xsl:output method="xml" indent="no" encoding="UTF-8"/>
 
@@ -120,7 +120,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail
         spaces, ordinals and centuries. Defaults to <xd:i>false()</xd:i>, because
         bibliographic records contain titles in other languages and separators
         (<xd:i>Paris : Seuil</xd:i>) best handled in the reference manager.</xd:p>
-      <xd:p>The bibliography is normalised to NFC in any case.</xd:p>
+      <xd:p>The bibliography is normalized to NFC in any case.</xd:p>
     </xd:desc>
   </xd:doc>
   <xsl:param name="process-bibliography" as="xs:boolean" select="false()"/>
@@ -143,7 +143,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail
   <xd:doc>
     <xd:desc>
       <xd:p>Folder of the log files: the report written to the console is also written to a
-        text file, one per normalised file, named after the file and the date
+        text file, one per normalized file, named after the file and the date
         (<xd:i>variabilite-2026-10-01.log</xd:i>); a second run on the same day replaces it.
         Its level follows <xd:ref name="report" type="parameter"/> (no log with
         <xd:i>none</xd:i>).</xd:p>
@@ -192,7 +192,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail
       (<xd:i>18th century</xd:i> → <xd:i>eighteenth century</xd:i>,
       <xd:i>21st-century</xd:i> → <xd:i>twenty-first-century</xd:i>). Takes precedence over
       <xd:ref name="en-ordinals-superscript" type="parameter"/> for centuries. A century at
-      the start of a sentence is not capitalised.</xd:desc>
+      the start of a sentence is not capitalized.</xd:desc>
   </xd:doc>
   <xsl:param name="en-centuries-in-words" as="xs:boolean" select="false()"/>
 
@@ -554,18 +554,18 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail
 
 
   <!-- ================================================================== -->
-  <!-- 1. nfc: Unicode normalisation                                      -->
+  <!-- 1. nfc: Unicode normalization                                      -->
   <!-- ================================================================== -->
 
   <xd:doc>
-    <xd:desc>NFC normalisation of text nodes.</xd:desc>
+    <xd:desc>NFC normalization of text nodes.</xd:desc>
   </xd:doc>
   <xsl:template match="text()" mode="nfc">
     <xsl:value-of select="normalize-unicode(., 'NFC')"/>
   </xsl:template>
 
   <xd:doc>
-    <xd:desc>NFC normalisation of attribute values.</xd:desc>
+    <xd:desc>NFC normalization of attribute values.</xd:desc>
   </xd:doc>
   <xsl:template match="@*" mode="nfc">
     <xsl:attribute name="{name()}" namespace="{namespace-uri()}" select="normalize-unicode(., 'NFC')"/>
@@ -781,7 +781,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail
           fig. 1, vol. 3, n° 16), see <xd:ref name="re-locator" type="variable"/>;</xd:li>
         <xd:li>a locator and a Roman numeral in capitals (t. II, chap. XII), see
           <xd:ref name="re-locator-roman" type="variable"/>;</xd:li>
-        <xd:li>a title and a capitalised name (M. Dupont, Mme Martin, Dr Smith), see
+        <xd:li>a title and a capitalized name (M. Dupont, Mme Martin, Dr Smith), see
           <xd:ref name="re-title-fr" type="variable"/> and
           <xd:ref name="re-title-en" type="variable"/>. Here the space is only made
           non-breaking, never added.</xd:li>
@@ -1061,7 +1061,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail
     <xd:param name="after-element">True when the text node directly follows an element
       (e.g. <xd:i>&lt;/hi&gt;?</xd:i>): leading punctuation is then handled as if it followed
       a word.</xd:param>
-    <xd:return>The text with normalised spaces:
+    <xd:return>The text with normalized spaces:
       <xd:ul>
         <xd:li>U+202F before <xd:i>; ! ?</xd:i>, added when missing;</xd:li>
         <xd:li>U+00A0 before <xd:i>:</xd:i>, except between two digits (times, ratios) and
@@ -1299,7 +1299,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail
 
   <xd:doc>
     <xd:desc>
-      <xd:p>Normalises English ordinals and centuries.</xd:p>
+      <xd:p>Normalizes English ordinals and centuries.</xd:p>
       <xd:ul>
         <xd:li>Suffixes are recomputed from the number (<xd:i>21th</xd:i> → 21st,
           <xd:i>3d</xd:i> → 3rd, <xd:i>3e edition</xd:i> → 3rd edition).</xd:li>
@@ -1464,7 +1464,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalisation.xsl report=detail
 
   <xd:doc>
     <xd:desc>Lines of the summary report of a file (after the line naming it, written first):
-      NFC normalisation, folded ordinal superscripts, segments changed by each rule, and
+      NFC normalization, folded ordinal superscripts, segments changed by each rule, and
       warnings on what needs checking.</xd:desc>
     <xd:param name="source">The source document.</xd:param>
     <xd:param name="nfc">The document after the nfc step.</xd:param>

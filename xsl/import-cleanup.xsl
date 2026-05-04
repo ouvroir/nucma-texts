@@ -12,7 +12,7 @@
     <xd:desc>
       <xd:p><xd:b>Cleanup of NUCMA TEI texts after their conversion from a word
         processor.</xd:b></xd:p>
-      <xd:p>Removes the artefacts of the conversion, which have nothing to do with the
+      <xd:p>Removes the artifacts of the conversion, which have nothing to do with the
         content: font family and size in <xd:i>@style</xd:i>, <xd:i>hi</xd:i> elements
         without rendition, <xd:i>@xml:space</xd:i>, layout attributes of
         <xd:i>graphic</xd:i>, anchors that nothing points to, empty headings,
@@ -20,7 +20,7 @@
         no-break spaces left by
         converted guillemets around phrase elements; and it gathers the notes in the back
         matter. Run it once after the import, before
-        <xd:i>normalisation.xsl</xd:i>, which only deals with Unicode and typography.</xd:p>
+        <xd:i>normalization.xsl</xd:i>, which only deals with Unicode and typography.</xd:p>
       <xd:p>The same rules are applied during the conversion by the <xd:i>nucma</xd:i>
         profile of the TEI Stylesheets (<xd:i>profile/docx/from.xsl</xd:i>): files converted
         with <xd:i>docxtotei --profile=nucma</xd:i> are already clean. Any change to these
@@ -40,13 +40,13 @@
         identifiers and addresses (see <xd:ref name="protected-elements"
         type="variable"/>). The transformation is idempotent.</xd:p>
       <xd:p>Usage (Saxon 12; write to a temporary file, not to the source):</xd:p>
-      <xd:pre>saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/nettoyage-import.xsl -o:variabilite.tmp</xd:pre>
+      <xd:pre>saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/import-cleanup.xsl -o:variabilite.tmp</xd:pre>
       <xd:p><xd:b>Author:</xd:b> Emmanuel Château-Dutier</xd:p>
     </xd:desc>
   </xd:doc>
 
   <xd:doc>
-    <xd:desc>Same output settings as <xd:i>normalisation.xsl</xd:i>: no indentation, so that
+    <xd:desc>Same output settings as <xd:i>normalization.xsl</xd:i>: no indentation, so that
       the source layout is kept and the files can be cleaned in place with readable
       diffs.</xd:desc>
   </xd:doc>
@@ -113,7 +113,7 @@
     <xd:desc>Removes the dropped properties from a CSS declaration list.</xd:desc>
     <xd:param name="style">The value of a <xd:i>@style</xd:i> attribute
       (<xd:i>font-family:Helvetica Neue;font-size:12pt;color:red</xd:i>).</xd:param>
-    <xd:return>The remaining declarations, normalised and separated by
+    <xd:return>The remaining declarations, normalized and separated by
       <xd:i>;</xd:i> (<xd:i>color:red</xd:i>), or an empty string. See
       <xd:ref name="dropped-style-properties" type="variable"/>.</xd:return>
   </xd:doc>
@@ -231,7 +231,7 @@
 
 
   <!-- ================================================================== -->
-  <!-- 1. cleanup: word-processor artefacts, hyperlinks, comments        -->
+  <!-- 1. cleanup: word-processor artifacts, hyperlinks, comments        -->
   <!-- ================================================================== -->
 
   <xd:doc>
@@ -249,7 +249,7 @@
       (<xd:i>&lt;seg&gt;  &lt;/seg&gt;</xd:i> after a note call). The whitespace is reduced
       to a single space (or to nothing if the neighbouring text already has one) and merges
       with the surrounding text, so that the typography of
-      <xd:i>normalisation.xsl</xd:i> can fix
+      <xd:i>normalization.xsl</xd:i> can fix
       <xd:i>contemporain&lt;hi&gt; &lt;/hi&gt;?</xd:i>.</xd:desc>
   </xd:doc>
   <xsl:template mode="cleanup" priority="1" match="(hi | seg)[not(*)][matches(., '^[\s\p{Zs}]+$')]">

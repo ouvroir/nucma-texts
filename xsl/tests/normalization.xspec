@@ -2,8 +2,8 @@
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
   xmlns:nucma="https://nucma.ca/ns"
   xmlns:tei="http://www.tei-c.org/ns/1.0"
-  stylesheet="../normalisation.xsl" xslt-version="3.0">
-  <!-- Tests de xsl/normalisation.xsl.
+  stylesheet="../normalization.xsl" xslt-version="3.0">
+  <!-- Tests de xsl/normalization.xsl.
        Les fonctions sont testées sans document : la langue par défaut est fixée ici, et le
        rapport et le journal sont désactivés. Chaque règle sur une chaîne est aussi testée pour
        l’idempotence : appliquée une seconde fois, elle ne change plus rien.
@@ -459,8 +459,8 @@
   </x:scenario>
 
   <!-- Documents entiers : portée de la normalisation et langue -->
-  <x:scenario label="Portée (normalisation-portee.xml)">
-    <x:context href="docs/normalisation-portee.xml"/>
+  <x:scenario label="Portée (normalization-scope.xml)">
+    <x:context href="docs/normalization-scope.xml"/>
     <x:expect label="siècle replié depuis un exposant, URL et apostrophes" test="serialize(($x:result//tei:body//tei:p)[1]) eq '&lt;p xmlns=&quot;http://www.tei-c.org/ns/1.0&quot;&gt;Le &lt;hi rend=&quot;smallcaps&quot;&gt;xviii&lt;/hi&gt;&lt;hi rend=&quot;superscript&quot;&gt;e&lt;/hi&gt;&#xA0;siècle&#xA0;: voir https://ex.org/l''art?a=1&#x202F;; l’œuvre.&lt;/p&gt;'"/>
     <x:expect label="titre anglais balisé et latin épargnés" test="string(($x:result//tei:body//tei:p)[2]) eq 'Il cite Modern Art: Who Cares?&#x202F;; puis ad hoc ?'"/>
     <x:expect label="guillemets autour d’un élément" test="string(($x:result//tei:body//tei:p)[3]) eq 'Une citation «&#xA0;Vanitas&#xA0;» et «&#xA0;fin'"/>
@@ -468,8 +468,8 @@
     <x:expect label="idno non traité" test="string(($x:result//tei:idno)[1]) eq '978-2-07-036822-8'"/>
   </x:scenario>
 
-  <x:scenario label="Langue (normalisation-anglais.xml)">
-    <x:context href="docs/normalisation-anglais.xml"/>
+  <x:scenario label="Langue (normalization-english.xml)">
+    <x:context href="docs/normalization-english.xml"/>
     <x:expect label="typographie anglaise d’après text/@xml:lang" test="string(($x:result//tei:body//tei:p)[1]) eq 'Is it the 18th century? “Yes,” the “variable” artwork.'"/>
   </x:scenario>
 </x:description>

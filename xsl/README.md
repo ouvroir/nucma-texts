@@ -5,9 +5,9 @@ Ce dossier contient la chaîne de traitement des textes TEI de l’Encyclopédie
 | Fichier | Rôle |
 |---|---|
 | `profile/docx/from.xsl` | Profil `nucma` des TEI Stylesheets : conversion d’un `.docx` en TEI, en-tête rempli à partir du document, nettoyage des artefacts de Word et sortie indentée. |
-| `nettoyage-import.xsl` | Même nettoyage, pour un fichier TEI déjà importé. |
-| `serialisation.xsl` | Copie à l’identique : sérialise un fichier comme le font les autres feuilles, sans en modifier le contenu. |
-| `normalisation.xsl` | Normalisation Unicode (NFC) et typographie française et anglaise. |
+| `import-cleanup.xsl` | Même nettoyage, pour un fichier TEI déjà importé. |
+| `serialization.xsl` | Copie à l’identique : sérialise un fichier comme le font les autres feuilles, sans en modifier le contenu. |
+| `normalization.xsl` | Normalisation Unicode (NFC) et typographie française et anglaise. |
 | `tests/` | Tests XSpec des feuilles (voir « Tests »). |
 
 Chaque feuille est documentée en détail dans son en-tête (`xd:doc`, format de documentation d’oXygen).
@@ -52,7 +52,7 @@ Chaque feuille est documentée en détail dans son en-tête (`xd:doc`, format de
 3. **Normalisation** :
 
    ```sh
-   saxon -s:variabilite.xml -xsl:xsl/normalisation.xsl -o:variabilite.tmp && mv variabilite.tmp variabilite.xml
+   saxon -s:variabilite.xml -xsl:xsl/normalization.xsl -o:variabilite.tmp && mv variabilite.tmp variabilite.xml
    ```
 4. Consulter le diff
 
@@ -71,15 +71,15 @@ Pour un fichier déjà importé et mis en forme par oXygen, on sépare chaque é
 
 ```sh
 # 1. sérialisation seule : remet sur une ligne les balises qu’oXygen coupe ; contenu inchangé
-for f in fr/acquisition/{coacquisition,protocoles,variabilite}.xml; do saxon -s:$f -xsl:xsl/serialisation.xsl -o:$f.tmp && mv $f.tmp $f; done
+for f in fr/acquisition/{coacquisition,protocoles,variabilite}.xml; do saxon -s:$f -xsl:xsl/serialization.xsl -o:$f.tmp && mv $f.tmp $f; done
 # commit
 
 # 2. nettoyage des artefacts de l’import (inutile si le fichier vient du profil nucma)
-for f in fr/acquisition/{coacquisition,protocoles,variabilite}.xml; do saxon -s:$f -xsl:xsl/nettoyage-import.xsl -o:$f.tmp && mv $f.tmp $f; done
+for f in fr/acquisition/{coacquisition,protocoles,variabilite}.xml; do saxon -s:$f -xsl:xsl/import-cleanup.xsl -o:$f.tmp && mv $f.tmp $f; done
 # commit
 
 # 3. normalisation typographique
-for f in fr/acquisition/{coacquisition,protocoles,variabilite}.xml; do saxon -s:$f -xsl:xsl/normalisation.xsl -o:$f.tmp && mv $f.tmp $f; done
+for f in fr/acquisition/{coacquisition,protocoles,variabilite}.xml; do saxon -s:$f -xsl:xsl/normalization.xsl -o:$f.tmp && mv $f.tmp $f; done
 # commit
 ```
 
@@ -105,9 +105,9 @@ Auteur·rices :                             Authors:
 - **Contributeurs** : les personnes listées sous un sous-titre du bloc des auteurs (« Research Assistant: », « Assistante de recherche : ») ne sont pas des auteurs : elles deviennent des `<respStmt>` (`<resp>Research Assistant</resp>`, `persName` avec `roleName`, `orgName` pour l’affiliation), cherchées elles aussi dans `meta/authors.xml` (liste « Autres contributeurs »).
 - Les puces tapées à la main (« ● Julie Bawin, … ») et les espaces insécables dans les étiquettes (« Titre⍽de l’entrée⍽: ») sont acceptées.
 - **Reste de l’en-tête** : complété d’après le modèle des entrées du corpus, en français ou en anglais : `publicationStmt` (éditeur, année, licence CC BY 4.0, DOI à compléter), `seriesStmt` (« Chapitre Acquisition », en anglais « Chapter: Acquisition », titre de l’encyclopédie, URI), `sourceDesc` (« Fichier nativement numérique ») et `profileDesc/langUsage`. L’`editionStmt` vide produit par la conversion est supprimé.
-- **Langue** : posée sur `<text xml:lang="fr">` (ou `en`) d’après les étiquettes ; `normalisation.xsl` applique ensuite la typographie de cette langue, quel que soit le dossier du fichier.
+- **Langue** : posée sur `<text xml:lang="fr">` (ou `en`) d’après les étiquettes ; `normalization.xsl` applique ensuite la typographie de cette langue, quel que soit le dossier du fichier.
 
-### Nettoyage de l’import (`from.xsl`, `nettoyage-import.xsl`)
+### Nettoyage de l’import (`from.xsl`, `import-cleanup.xsl`)
 
 - Retrait des propriétés `font-family` et `font-size` des `@style`.
 - Déballage des `<hi>` sans rendu ou ne contenant que des espaces, et des `<seg>` ne contenant que des espaces.
@@ -132,7 +132,7 @@ Auteur·rices :                             Authors:
 - Suppression des attributs de mise en page de `<graphic>` (`@n`, `@width`, `@height`, `@rend`) : la taille et la position des images relèvent de la publication.
 - Remplacement par une espace ordinaire de l’espace insécable que Word place à l’intérieur des guillemets, restée orpheline après leur conversion en `<q>`, `<soCalled>`, etc. (`<q>garde négociée</q>⍽est`).
 
-### Normalisation (`normalisation.xsl`)
+### Normalisation (`normalization.xsl`)
 
 La langue de chaque passage est déterminée par l’`xml:lang` le plus proche. À défaut, elle est déduite de l’`xml:lang` de `<TEI>`, puis du dossier (`fr/` ou `en/`). Les autres langues (`lat`, `de`…) ne reçoivent que la normalisation NFC.
 
@@ -153,7 +153,7 @@ La langue de chaque passage est déterminée par l’`xml:lang` le plus proche. 
 **Paramètres** (à ajouter en fin de commande Saxon) :
 
 ```bash
-saxon -s:$f -xsl:xsl/normalisation.xsl -o:$f.tmp '?process-bibliography=true()'
+saxon -s:$f -xsl:xsl/normalization.xsl -o:$f.tmp '?process-bibliography=true()'
 ```
 
 | Paramètre | Défaut | Effet |
@@ -170,7 +170,7 @@ saxon -s:$f -xsl:xsl/normalisation.xsl -o:$f.tmp '?process-bibliography=true()'
 
 ### Rapport
 
-`normalisation.xsl` écrit sur la console (sortie d’erreur, jamais dans le fichier) un bilan par fichier, et des avertissements sur ce qui demande une relecture :
+`normalization.xsl` écrit sur la console (sortie d’erreur, jamais dans le fichier) un bilan par fichier, et des avertissements sur ce qui demande une relecture :
 
 ```text
 [normalisation] coacquisition.xml (langue par défaut : fr)
@@ -191,8 +191,8 @@ Le dossier `tests/` contient des tests XSpec :
 
 | Fichier | Contenu |
 |---|---|
-| `tests/normalisation.xspec` | 101 vérifications : chaque règle typographique (français et anglais), ses pièges connus (« Vers », « Louis XIV », `3D`, dates ISO, ISBN…), son idempotence, et la portée de la normalisation sur des documents entiers (bibliographie, `idno`, liens, langue). |
-| `tests/nettoyage-import.xspec` | 11 vérifications sur des documents qui reproduisent les artefacts de Word : styles, `hi` et `seg` vides, ancres, intertitres vides, liens, `graphic`, commentaires, notes. Elles décrivent aussi le comportement attendu du profil `nucma`, qui applique les mêmes règles. |
+| `tests/normalization.xspec` | 101 vérifications : chaque règle typographique (français et anglais), ses pièges connus (« Vers », « Louis XIV », `3D`, dates ISO, ISBN…), son idempotence, et la portée de la normalisation sur des documents entiers (bibliographie, `idno`, liens, langue). |
+| `tests/import-cleanup.xspec` | 11 vérifications sur des documents qui reproduisent les artefacts de Word : styles, `hi` et `seg` vides, ancres, intertitres vides, liens, `graphic`, commentaires, notes. Elles décrivent aussi le comportement attendu du profil `nucma`, qui applique les mêmes règles. |
 | `tests/docs/` | Documents de test. |
 
 Installer XSpec une fois, puis lancer les tests :
@@ -201,15 +201,15 @@ Installer XSpec une fois, puis lancer les tests :
 git clone https://github.com/xspec/xspec.git ~/xspec
 export SAXON_CP=/Library/Java/Extensions/SaxonHE12-3J/saxon-he-12.3.jar
 
-~/xspec/bin/xspec.sh xsl/tests/normalisation.xspec
-~/xspec/bin/xspec.sh xsl/tests/nettoyage-import.xspec
+~/xspec/bin/xspec.sh xsl/tests/normalization.xspec
+~/xspec/bin/xspec.sh xsl/tests/import-cleanup.xspec
 ```
 
 Chaque lancement se termine par un bilan, qui doit indiquer `failed: 0` :
 
 ```text
 passed: 101 / pending: 0 / failed: 0 / total: 101
-Report available at xsl/tests/xspec/normalisation-result.html
+Report available at xsl/tests/xspec/normalization-result.html
 ```
 
 Le rapport HTML détaille chaque vérification, et montre pour un échec la valeur attendue et la valeur obtenue. Les rapports et les feuilles compilées sont écrits dans `xsl/tests/xspec/`, exclu de git par le `.gitignore` du dépôt. Les tests ont été validés avec XSpec 4.1.2 et Saxon HE 12.3.
@@ -226,6 +226,6 @@ Dans oXygen, ouvrir un fichier `.xspec` et lancer le scénario « Run XSpec Test
 
 ## Maintenance
 
-- Les règles de nettoyage existent en deux exemplaires, dans `profile/docx/from.xsl` et dans `nettoyage-import.xsl`. Toute modification doit être faite dans les deux.
-- `serialisation.xsl`, `nettoyage-import.xsl` et `normalisation.xsl` partagent la même sérialisation (`indent="no"`, prologue restitué ligne par ligne). Si l’une change, les autres doivent suivre, sans quoi les diffs mélangeront mise en forme et contenu.
+- Les règles de nettoyage existent en deux exemplaires, dans `profile/docx/from.xsl` et dans `import-cleanup.xsl`. Toute modification doit être faite dans les deux.
+- `serialization.xsl`, `import-cleanup.xsl` et `normalization.xsl` partagent la même sérialisation (`indent="no"`, prologue restitué ligne par ligne). Si l’une change, les autres doivent suivre, sans quoi les diffs mélangeront mise en forme et contenu.
 - Après toute modification, relancer les tests XSpec (voir « Tests »).
