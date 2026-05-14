@@ -142,13 +142,15 @@ La langue de chaque passage est déterminée par l’`xml:lang` le plus proche. 
 |---|---|---|
 | Ponctuation haute | espace fine insécable avant `; ! ?`, insécable avant `:` | aucune espace |
 | Guillemets | « » (espace insécable), puis “ ” | “ ”, puis ‘ ’ ; virgule et point à l’intérieur |
-| Apostrophe | ’ | ’, ‘ ouvrant, ’60s |
+| Apostrophe | ’, ’s-Hertogenbosch ; paire `'mot'` laissée droite et signalée | ’, ‘ ouvrant, ’60s, rock ’n’ roll |
 | Tirets d’incise | mot – incise – suite | word—word |
-| Intervalles | 1914–1918, p. 45–52 | idem |
+| Intervalles | 1914–1918, 1914–18, p. 45–52 | idem |
 | Nombres | 10 000 (U+202F), 50 %, 10 € | 10,000, 50%, €10 |
 | Heures | 10 h 30 | 10:30, 10 a.m. |
 | Ordinaux, siècles | 3<sup>e</sup>, xviii<sup>e</sup> siècle (petites capitales), n<sup>o</sup> | 3rd, 18th century |
 | Divers | ligature œ, M. Dupont, t. II, 12 cm, …, […] | Mr. Smith, 12 cm, … |
+
+**Intervalles et identifiants** : un tiret entre deux nombres ne devient un tiret demi-cadratin que si l’intervalle est plausible (second nombre plus grand que le premier, une fois complété : 1914-18 → 1918 ; pas de zéro initial) et s’il n’est pas annoncé comme un identifiant (`inv.`, `inventaire`, `accession`, `cote`, `ISSN`, `ISBN`, `art.`, `L.`, `R.`, `D.`). Ainsi `inv. 1953-12`, `ISSN 0035-2950` ou `art. L. 122-5` restent intacts. Revers : un intervalle placé après `art.` (« art. 5-7 ») n’est pas converti.
 
 **Parties épargnées** : identifiants et adresses (`idno`, `ptr`, `code`, `email`), URL, DOI et adresses électroniques dans le texte, attributs, commentaires. La bibliographie (`div[@type='bibliography']`) n’est normalisée qu’en NFC, sauf si l’on active `process-bibliography`.
 
@@ -193,7 +195,7 @@ Le dossier `tests/` contient des tests XSpec :
 
 | Fichier | Contenu |
 |---|---|
-| `tests/normalization.xspec` | 101 vérifications : chaque règle typographique (français et anglais), ses pièges connus (« Vers », « Louis XIV », `3D`, dates ISO, ISBN…), son idempotence, et la portée de la normalisation sur des documents entiers (bibliographie, `idno`, liens, langue). |
+| `tests/normalization.xspec` | 110 vérifications : chaque règle typographique (français et anglais), ses pièges connus (« Vers », « Louis XIV », `3D`, dates ISO, ISBN, numéros d’inventaire…), son idempotence, et la portée de la normalisation sur des documents entiers (bibliographie, `idno`, liens, langue). |
 | `tests/import-cleanup.xspec` | 11 vérifications sur des documents qui reproduisent les artefacts de Word : styles, `hi` et `seg` vides, ancres, intertitres vides, liens, `graphic`, commentaires, notes. Elles décrivent aussi le comportement attendu du profil `nucma`, qui applique les mêmes règles. |
 | `tests/docs/` | Documents de test. |
 
@@ -210,7 +212,7 @@ export SAXON_CP=/Library/Java/Extensions/SaxonHE12-3J/saxon-he-12.3.jar
 Chaque lancement se termine par un bilan, qui doit indiquer `failed: 0` :
 
 ```text
-passed: 101 / pending: 0 / failed: 0 / total: 101
+passed: 110 / pending: 0 / failed: 0 / total: 110
 Report available at xsl/tests/xspec/normalization-result.html
 ```
 
@@ -261,7 +263,7 @@ done
 ## Bonnes pratiques
 
 - **Baliser la langue** : un titre anglais dans un texte français doit porter `xml:lang="en"` (`<title xml:lang="en">`), sans quoi il reçoit la typographie française (« Modern Art : Who Cares ? »).
-- **Relire le diff** : les règles évitent les faux positifs connus (« Vers », « Louis XIV », `3D`, dates ISO, ISBN…), mais quelques cas restent ambigus : « 514-987 » est pris pour un intervalle, « p. 12 345 » pour un nombre, `3d printing` deviendrait « 3rd printing ».
+- **Relire le diff** : les règles évitent les faux positifs connus (« Vers », « Louis XIV », `3D`, dates ISO, ISBN, numéros d’inventaire…), mais quelques cas restent ambigus : « 514-987 » est pris pour un intervalle, « p. 12 345 » pour un nombre, `3d printing` deviendrait « 3rd printing ».
 - **Les feuilles sont idempotentes** : les relancer sur un fichier déjà traité ne change rien.
 
 ## Maintenance

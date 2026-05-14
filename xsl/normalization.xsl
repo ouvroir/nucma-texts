@@ -282,8 +282,8 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail
       <xd:p>A range of two numbers (pages, years, values). Groups:</xd:p>
       <xd:ol>
         <xd:li>the preceding boundary character;</xd:li>
-        <xd:li>the first number;</xd:li>
-        <xd:li>the second number;</xd:li>
+        <xd:li>the first number, possibly grouped by no-break spaces (1 000);</xd:li>
+        <xd:li>the second number, likewise;</xd:li>
         <xd:li>the following boundary character.</xd:li>
       </xd:ol>
       <xd:p>The boundaries exclude letters, digits, dashes, slashes and decimal separators,
@@ -293,8 +293,21 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail
     </xd:desc>
   </xd:doc>
   <xsl:variable name="re-number-range" select="
-    '(^|[^\p{L}\p{N}/.,\-‐‑‒–—])(\d+)' || $re-space || '*' || $re-range-dash || $re-space
-    || '*(\d+)([^\p{N}\-‐‑‒–—]|$)'"/>
+    '(^|[^\p{L}\p{N}/.,\-‐‑‒–—])(\d{1,3}(?:[&#xA0;&#x202F;]\d{3})+|\d+)' || $re-space || '*'
+    || $re-range-dash || $re-space || '*(\d{1,3}(?:[&#xA0;&#x202F;]\d{3})+|\d+)([^\p{N}\-‐‑‒–—]|$)'"/>
+
+  <xd:doc>
+    <xd:desc>A word announcing an identifier whose hyphen is not a range: inventory or
+      accession number (<xd:i>inv. 1953-12</xd:i>, <xd:i>n° d’inventaire 2005-3</xd:i>),
+      call number (<xd:i>cote</xd:i>), ISSN, ISBN, article of a law or code
+      (<xd:i>art. 515-8</xd:i>, <xd:i>art. L. 122-5</xd:i>), optionally followed by a number
+      sign (<xd:i>n°</xd:i>, <xd:i>no.</xd:i>, <xd:i>number</xd:i>). Contains no capturing
+      group.</xd:desc>
+  </xd:doc>
+  <xsl:variable name="re-identifier" select="
+    '(?:^|[^\p{L}])(?:[Ii]nv\.?|[Ii]nventaire|[Ii]nventory|[Aa]cc\.|[Aa]ccession|[Cc]ote|ISSN|ISBN'
+    || '|[Aa]rt\.|[Aa]rticle|[LRD]\.)'
+    || '(?:' || $re-space || '*(?:n[°º]|[Nn]o\.?|[Nn]uméro|[Nn]umber))?' || $re-space || '*'"/>
 
   <xd:doc>
     <xd:desc>Locator abbreviations followed by a number (case-insensitive): p., pp., fig.,
@@ -743,18 +756,35 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail
           quote;</xd:li>
         <xd:li>’ for an opening quote or accent wrongly used between two letters
           (<xd:i>l‘art</xd:i>, <xd:i>l´art</xd:i>);</xd:li>
-        <xd:li>in English only, ’ before an elided decade (<xd:i>the '60s</xd:i>) and ‘
-          (U+2018) for an opening single quote (<xd:i>'word'</xd:i> → ‘word’). French
-          opening straight quotes are left as they are: French uses guillemets.</xd:li>
+        <xd:li>’ for the elided article of Dutch place names (<xd:i>'s-Hertogenbosch</xd:i>,
+          <xd:i>'t Hooft</xd:i>);</xd:li>
+        <xd:li>in English only, ’ before an elided decade (<xd:i>the '60s</xd:i>) or an
+          elided word (<xd:i>rock 'n' roll</xd:i>, <xd:i>'tis</xd:i>, <xd:i>'em</xd:i>,
+          <xd:i>'cause</xd:i>, <xd:i>'til</xd:i>) and ‘ (U+2018) for an opening single quote
+          (<xd:i>'word'</xd:i> → ‘word’).</xd:li>
       </xd:ul>
+      In French, straight single quotes are left as they are, pairs included
+      (<xd:i>'mot'</xd:i>): French uses guillemets, and the level of the quotation is a
+      matter for the editor. Converting only the closing quote would leave an unbalanced pair
+      (<xd:i>'mot’</xd:i>); the pair is reported in the summary instead.
     </xd:return>
   </xd:doc>
   <xsl:function name="nucma:apostrophes" as="xs:string">
     <xsl:param name="s" as="xs:string"/>
     <xsl:param name="lang" as="xs:string"/>
     <xsl:param name="after-element" as="xs:boolean"/>
-    <xsl:variable name="common" select="
+    <xsl:variable name="elided" select="
       (if ($after-element) then replace($s, '^' || $re-apostrophe || '(\p{L})', '’$1') else $s)
+      (: elided Dutch article: ’s-Hertogenbosch, ’t Hooft :)
+      => replace('(^|[^\p{L}\p{N}])' || $re-apostrophe || '([st][\-\s\p{Zs}]\p{Lu})', '$1’$2')"/>
+    <!-- French pair of straight single quotes ('mot', 'l'art moderne'): both quotes are
+         replaced by U+E000 (private use) until the end, so that the closing one is kept -->
+    <xsl:variable name="protected" select="
+      if ($lang = 'fr')
+      then replace($elided, '(^|[\s\p{Zs}(\[«“—–-])' || $re-apostrophe || '(\p{L}(?:.*?[\p{L}\p{N}.!?…])?)'
+                            || $re-apostrophe || '([^\p{L}\p{N}]|$)', '$1&#xE000;$2&#xE000;$3')
+      else $elided"/>
+    <xsl:variable name="common" select="$protected
       (: after a letter or a digit: apostrophe or closing single quote :)
       => replace('([\p{L}\p{N}])' || $re-apostrophe, '$1’')
       (: wrong character between two letters :)
@@ -764,9 +794,15 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail
       then $common
         (: elided decade: the ’60s :)
         => replace('(^|[^\p{L}\p{N}])' || $re-apostrophe || '(\d{2}s?)([^\p{L}\p{N}]|$)', '$1’$2$3')
+        (: elided word: rock ’n’ roll, ’tis, ’em, ’cause, ’til :)
+        (: twice, for consecutive words whose boundary is shared: ’tis ’em :)
+        => replace('(^|[^\p{L}\p{N}])' || $re-apostrophe || '(n’|(?:tis|twas|em|cause|til)(?:[^\p{L}]|$))',
+                   '$1’$2', 'i')
+        => replace('(^|[^\p{L}\p{N}])' || $re-apostrophe || '(n’|(?:tis|twas|em|cause|til)(?:[^\p{L}]|$))',
+                   '$1’$2', 'i')
         (: opening single quote :)
         => replace('(^|[\s\p{Zs}(\[“—–-])' || $re-apostrophe || '(\p{L})', '$1‘$2')
-      else $common"/>
+      else translate($common, '&#xE000;', '''')"/>
   </xsl:function>
 
 
@@ -818,7 +854,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail
           (no-break space);</xd:li>
         <xd:li>an en dash (U+2013) without spaces between the two numbers of a range
           (<xd:i>68-77</xd:i>, <xd:i>1914 - 1918</xd:i>, <xd:i>45—52</xd:i> → 68–77,
-          1914–1918, 45–52), see <xd:ref name="re-number-range" type="variable"/>;</xd:li>
+          1914–1918, 45–52), see <xd:ref name="nucma:ranges" type="function"/>;</xd:li>
         <xd:li>a no-break space between a number and its unit (12 cm, 3 m, 20 °C), see
           <xd:ref name="re-unit" type="variable"/> and
           <xd:ref name="re-short-unit" type="variable"/>;</xd:li>
@@ -851,7 +887,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail
         => replace('(\d)' || $re-space || '*[Pp]\.? ?[Mm]\.?([^\p{L}\p{N}]|$)', '$1&#xA0;p.m.$2')"/>
     <xsl:variable name="ranges-and-units" select="$times
       (: range: en dash, no space :)
-      => replace($re-number-range, '$1$2–$3$4')
+      => nucma:ranges()
       (: units: no-break space, added when missing for unambiguous symbols :)
       => replace('(\d)' || $re-space || '*(' || $re-unit || ')([^\p{L}\p{N}]|$)', '$1&#xA0;$2$3')
       => replace('(\d)' || $re-space || '+(' || $re-short-unit || ')([^\p{L}\p{N}]|$)', '$1&#xA0;$2$3')"/>
@@ -863,6 +899,50 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail
         (: currency symbol before the amount: 10 € → €10, 10 $ CA → CA$10 :)
         => replace('(\d(?:[\d,.–]*\d)?)' || $re-space || '*([€£$])(?:' || $re-space || '*(CA|US|AU)D?)?([^\p{L}]|$)',
                    '$3$2$1$4')"/>
+  </xsl:function>
+
+  <xd:doc>
+    <xd:desc>
+      <xd:p>Ranges of two numbers (pages, years, values), see
+        <xd:ref name="re-number-range" type="variable"/>.</xd:p>
+      <xd:p>A dash between two numbers is only taken as a range when it is not preceded by
+        a word announcing an identifier (<xd:ref name="re-identifier" type="variable"/>) and
+        when the two numbers make a plausible range
+        (<xd:ref name="nucma:is-range" type="function"/>), so that inventory numbers, ISSN
+        and articles of law are left unchanged.</xd:p>
+    </xd:desc>
+    <xd:param name="s">The text to process (contains no URL).</xd:param>
+    <xd:return>The text with an en dash (U+2013) without spaces between the two numbers of
+      each range.</xd:return>
+  </xd:doc>
+  <xsl:function name="nucma:ranges" as="xs:string">
+    <xsl:param name="s" as="xs:string"/>
+    <xsl:sequence select="string-join(
+      analyze-string($s, '(' || $re-identifier || ')?' || $re-number-range)/*/(
+        if (self::fn:match and not(fn:group[@nr = 1])
+            and nucma:is-range(fn:group[@nr = 3], fn:group[@nr = 4]))
+        then fn:group[@nr = 2] || fn:group[@nr = 3] || '–' || fn:group[@nr = 4] || fn:group[@nr = 5]
+        else string(.)))"/>
+  </xsl:function>
+
+  <xd:doc>
+    <xd:desc>Tells whether two numbers make a plausible range: neither has a leading zero
+      (<xd:i>0035-2950</xd:i> is an ISSN), and the second, completed with the leading digits
+      of the first when it is shorter (<xd:i>1914-18</xd:i>, <xd:i>245-52</xd:i>), is
+      greater than the first. <xd:i>1953-12</xd:i> or <xd:i>2005-3</xd:i> are therefore taken
+      as identifiers.</xd:desc>
+    <xd:param name="first">The first number.</xd:param>
+    <xd:param name="second">The second number.</xd:param>
+  </xd:doc>
+  <xsl:function name="nucma:is-range" as="xs:boolean">
+    <xsl:param name="first" as="xs:string"/>
+    <xsl:param name="second" as="xs:string"/>
+    <xsl:variable name="from" select="replace($first, '\D', '')"/>
+    <xsl:variable name="to" select="replace($second, '\D', '')"/>
+    <xsl:variable name="completed" select="
+      substring($from, 1, string-length($from) - string-length($to)) || $to"/>
+    <xsl:sequence select="not(matches($first, '^0\d') or matches($second, '^0\d'))
+      and xs:integer($completed) gt xs:integer($from)"/>
   </xsl:function>
 
   <xd:doc>
@@ -1488,7 +1568,7 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail
         [let $block := . return
          nucma:quotes(string-join($block//text()[nucma:quote-block(.) is $block]), nucma:lang($block), 0, false(), false())?depth ne 0]"/>
     <xsl:variable name="straight-quotes" select="
-      $result//text()[contains(., '&quot;')][nucma:lang(.) = ('fr', 'en')][nucma:in-scope(.)]"/>
+      $result//text()[matches(., '[&quot;'']')][nucma:lang(.) = ('fr', 'en')][nucma:in-scope(.)]"/>
     <xsl:sequence select="
       '[normalisation]   NFC : ' || count($source//(text() | @*)[. ne normalize-unicode(.)]) || ' nœud(s) recomposé(s)',
       '[normalisation]   exposants d’ordinaux intégrés au texte : ' || ($superscripts($nfc) - $superscripts($unwrapped)),
@@ -1499,6 +1579,6 @@ saxon -s:fr/acquisition/variabilite.xml -xsl:xsl/normalization.xsl report=detail
         return $step-labels($step) || ' ' || count($changes[array:flatten(.) = $step]), ' · '),
       $unbalanced ! ('[normalisation]   avertissement : guillemets non équilibrés dans l’élément ' || local-name(.) || ' : « '
         || substring(normalize-space(.), 1, 60) || '… »'),
-      ('[normalisation]   avertissement : ' || count($straight-quotes) || ' nœud(s) contenant encore des guillemets droits &quot;')[$straight-quotes]"/>
+      ('[normalisation]   avertissement : ' || count($straight-quotes) || ' nœud(s) contenant encore des guillemets droits &quot; ou ''')[$straight-quotes]"/>
   </xsl:function>
 </xsl:stylesheet>

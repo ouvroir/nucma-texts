@@ -153,6 +153,33 @@
       <x:expect label="résultat" select="'un ''mot'"/>
       <x:expect label="idempotent" test="nucma:apostrophes($x:result, 'fr', false()) eq $x:result"/>
     </x:scenario>
+    <x:scenario label="paire de guillemets simples française laissée entière">
+      <x:call function="nucma:apostrophes">
+        <x:param select="'il dit ''bonjour'' et ''l''art moderne'', l''ami'"/>
+        <x:param select="'fr'"/>
+        <x:param select="false()"/>
+      </x:call>
+      <x:expect label="résultat" select="'il dit ''bonjour'' et ''l’art moderne'', l’ami'"/>
+      <x:expect label="idempotent" test="nucma:apostrophes($x:result, 'fr', false()) eq $x:result"/>
+    </x:scenario>
+    <x:scenario label="article néerlandais élidé">
+      <x:call function="nucma:apostrophes">
+        <x:param select="'à ''s-Hertogenbosch, ''t Hooft'"/>
+        <x:param select="'fr'"/>
+        <x:param select="false()"/>
+      </x:call>
+      <x:expect label="résultat" select="'à ’s-Hertogenbosch, ’t Hooft'"/>
+      <x:expect label="idempotent" test="nucma:apostrophes($x:result, 'fr', false()) eq $x:result"/>
+    </x:scenario>
+    <x:scenario label="anglais : mots élidés">
+      <x:call function="nucma:apostrophes">
+        <x:param select="'rock ''n'' roll, ''Tis ''em ''cause ''til, ''Tilly'''"/>
+        <x:param select="'en'"/>
+        <x:param select="false()"/>
+      </x:call>
+      <x:expect label="résultat" select="'rock ’n’ roll, ’Tis ’em ’cause ’til, ‘Tilly’'"/>
+      <x:expect label="idempotent" test="nucma:apostrophes($x:result, 'en', false()) eq $x:result"/>
+    </x:scenario>
     <x:scenario label="anglais : possessif, décennie, guillemets simples">
       <x:call function="nucma:apostrophes">
         <x:param select="'It''s the ''60s, Kurt''s ''Merzbau'''"/>
@@ -257,6 +284,24 @@
       </x:call>
       <x:expect label="résultat" select="'2026-01-20, 978-2-07-036822-8, COVID-19, A4-5, 1,5-2,5'"/>
       <x:expect label="idempotent" test="nucma:numbers($x:result, 'fr') eq $x:result"/>
+    </x:scenario>
+    <x:scenario label="intervalles abrégés">
+      <x:call function="nucma:ranges">
+        <x:param select="'1914-18, p. 245-52, p. 98-102'"/>
+      </x:call>
+      <x:expect label="résultat" select="'1914–18, p. 245–52, p. 98–102'"/>
+    </x:scenario>
+    <x:scenario label="identifiants non pris pour des intervalles">
+      <x:call function="nucma:ranges">
+        <x:param select="'inv. 1977-45, n° d’inventaire 2005-30, Inv. no 1977-45, ISSN 1234-5678, art. L. 122-5, art. 515-8, cote 12-15'"/>
+      </x:call>
+      <x:expect label="résultat" select="'inv. 1977-45, n° d’inventaire 2005-30, Inv. no 1977-45, ISSN 1234-5678, art. L. 122-5, art. 515-8, cote 12-15'"/>
+    </x:scenario>
+    <x:scenario label="intervalles invraisemblables non touchés">
+      <x:call function="nucma:ranges">
+        <x:param select="'1953-12, 2005-3, 0035-2950, 12-12, 3-1'"/>
+      </x:call>
+      <x:expect label="résultat" select="'1953-12, 2005-3, 0035-2950, 12-12, 3-1'"/>
     </x:scenario>
     <x:scenario label="unités">
       <x:call function="nucma:numbers">
