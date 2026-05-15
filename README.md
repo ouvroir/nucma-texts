@@ -40,9 +40,10 @@ nucma/
 │   ├── places.xml
 │   └── ...
 
-├── schemas/
-│   ├── odd
-│   └── ...
+├── odd/                  ODD : sources des schémas (voir « Schémas »)
+├── schemas/              schémas générés par make schemas (.rng, non versionnés) et Schematron d’encodage
+├── documentation/        documentation HTML générée par make documentation (non versionnée)
+├── Makefile              génération des schémas et de leur documentation
 ├── LICENCE
 └── README.md
 ```
@@ -56,7 +57,7 @@ Les textes sont produits et contrôlés avec des outils rangés dans deux dépô
 | [nucma-profile](https://github.com/ouvroir/nucma-profile) | Profil `nucma` des TEI Stylesheets : conversion des entrées Word en TEI, en-tête rempli, nettoyage des artefacts de Word. |
 | [typesetter](https://codeberg.org/Factoton/typesetter) | Normalisation Unicode et typographique (`src/normalization.xsl`), nettoyage d’un TEI déjà importé, sérialisation, contrôle typographique (`schematron/typography.sch`). |
 
-Ce dépôt-ci contient les textes, les référentiels (`meta/`) et les schémas propres à l’encyclopédie (`schemas/` : `nucma.rng`, `nucma-quality.sch`).
+Ce dépôt-ci contient les textes, les référentiels (`meta/`) et les schémas propres à l’encyclopédie : les ODD (`odd/`), les schémas qui en sont générés et le Schematron d’encodage (`schemas/`).
 
 ### Installation
 
@@ -95,12 +96,13 @@ Ce dépôt-ci contient les textes, les référentiels (`meta/`) et les schémas 
    export TYPESETTER=~/factoton/typesetter
    ```
 
-5. **Pour importer des textes depuis MS Word seulement** : les [TEI Stylesheets](https://github.com/TEIC/Stylesheets) et Ant (`brew install ant`), puis le profil déclaré par un lien symbolique ; voir le README de nucma-profile :
+5. **Pour importer des textes depuis MS Word, ou pour régénérer les schémas** : les [TEI Stylesheets](https://github.com/TEIC/Stylesheets) et Ant (`brew install ant`) ; pour l’import, le profil déclaré par un lien symbolique (voir le README de nucma-profile) ; pour les schémas, l’ODD de [Commons Publishing](https://git.unicaen.fr/fnso/i-fair-ir/tei-commons-publishing) cloné à côté de ce dépôt :
 
    ```sh
    git clone https://github.com/TEIC/Stylesheets.git ~/TEIC/Stylesheets
    export PATH=~/TEIC/Stylesheets/bin:$PATH
    ln -s ~/ouvroir/nucma-profile ~/TEIC/Stylesheets/profiles/nucma
+   git clone https://git.unicaen.fr/fnso/i-fair-ir/tei-commons-publishing.git ~/ouvroir/tei-commons-publishing
    ```
 
 6. **Vérifier** depuis la racine de ce dépôt : la commande suivante affiche le bilan de normalisation d’une entrée, sans rien modifier.
@@ -125,7 +127,7 @@ Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape fa
 
    Le diff ne doit montrer que des corrections typographiques. Commit.
 4. **Contrôle typographique** (typesetter) : voir ci-dessous. Corriger ce qui doit l’être, compléter le balisage suggéré. Commit.
-5. **Contrôle de l’encodage** : validation par `nucma.rng` et `nucma-quality.sch` (voir « Contrôle de l’encodage »). Commit.
+5. **Contrôle de l’encodage** : validation par `nucma.rng` et `nucma-quality.sch` (voir « Schémas » et « Contrôle de l’encodage »). Commit.
 
 Pour un fichier déjà importé autrement que par le profil, les étapes de sérialisation et de nettoyage sont décrites dans le README de typesetter (« Utilisation »).
 
@@ -162,6 +164,67 @@ La langue de chaque passage vient de son `xml:lang` ; à défaut, de `text/@xml:
 ### Journaux de normalisation
 
 La normalisation écrit son bilan sur la console et dans un journal, `logs/<entrée>-<date>.log`, à la racine de ce dépôt (un passage le même jour remplace le journal). Avec `report=detail`, le journal liste chaque modification, ce qui aide à relire le diff.
+
+## Schémas (ODD)
+
+Les fichiers du projet sont validés par des schémas RelaxNG générés à partir d’ODD, avec les TEI Stylesheets. Les ODD forment une chaîne : un étage commun personnalise [Commons Publishing](https://tei-commons-publishing.readthedocs.io) (variante Métopes), et chaque schéma s’appuie sur cet étage commun.
+
+```text
+Commons Publishing (odd/commons-publishing-metopes-compiled.odd, dépôt tei-commons-publishing)
+└── odd/nucma-common.odd            règles communes à tout le projet
+    ├── odd/nucma.odd               entrées (fr/, en/) et _corpus.xml   → schemas/nucma.rng
+    ├── odd/nucma-persons.odd       meta/authors.xml, meta/names.xml    → schemas/nucma-persons.rng
+    ├── odd/nucma-places.odd        meta/places.xml                     → schemas/nucma-places.rng
+    ├── odd/nucma-artworks.odd      meta/artworks.xml                   → schemas/nucma-artworks.rng
+    ├── odd/nucma-exhibitions.odd   meta/exhibitions.xml                → schemas/nucma-exhibitions.rng
+    ├── odd/nucma-bibliography.odd  meta/bibliography.xml               → schemas/nucma-bibliography.rng
+    └── odd/nucma-medias.odd        meta/medias.xml                     → schemas/nucma-medias.rng
+```
+
+Chaque fichier désigne son schéma par une instruction `xml-model` en tête ; oXygen l’applique dès l’ouverture.
+
+### Ce que les schémas ajoutent à Commons Publishing
+
+L’étage commun (`nucma-common.odd`) reste aussi compatible que possible avec Commons Publishing et ne l’élargit que pour les besoins du projet :
+
+- **en-tête** : collection (`seriesStmt`), identifiant de l’entrée et lien vers sa version dans l’autre langue (`sourceDesc/@xml:id`, `@corresp`), responsable d’une révision (`change/@resp`) ;
+- **identifiants** : types d’`idno` en liste fermée et en minuscules (`orcid`, `isni`, `viaf`, `wikidata`, `bnf`, `loc`, `ulan`, `zkm`, `artblocks`, `artefact`, `doi`, `isbn`, `issn`, `uri`, `url`, `callNumber`) ;
+- **noms** : renvoi aux référentiels par `@ref` sur `persName`, `orgName`, `placeName`, `objectName`, `author` et `bibl` ; fonction (`roleName`) ;
+- **rendu** : `superscript` et `smallcaps` sur `hi` (produits par la normalisation), `rend="verbatim"` sur tout élément (passage à garder tel quel) ;
+- **phrase** : `emph`, `foreign`, `q`, `soCalled`, `title`.
+
+Les schémas des référentiels ajoutent leurs listes d’entités (personnes et organismes, lieux, œuvres, expositions, bibliographie structurée). Ce sont des **premières versions souples** : les éléments nécessaires sont admis, sans ordre imposé ; leur structure sera resserrée ensuite. Les exigences propres aux auteurs (ORCID, affiliation) restent contrôlées par le Schematron d’encodage.
+
+**Règle de maintenance** : un schéma ne s’élargit que pour un besoin du projet, jamais pour faire valider une donnée fautive. Une erreur de validation sur une donnée (type d’`idno` en capitales, attribut vide, `@xml:id` sur un `idno`…) se corrige dans la donnée.
+
+### Générer les schémas et leur documentation
+
+```sh
+make schemas               # génère les schémas de schemas/ à partir des ODD
+make documentation         # génère la documentation HTML dans documentation/
+make clean-schemas         # supprime les schémas générés et l’étage commun compilé
+make clean-documentation   # supprime documentation/
+```
+
+Les schémas générés (`schemas/nucma.rng`, `schemas/nucma-*.rng`) ne sont pas versionnés : **avant de valider, chacun génère les schémas avec `make schemas`**, et le refait après une mise à jour des ODD. `make` compile d’abord l’étage commun (`odd/nucma-common.compiled.odd`, fichier intermédiaire lui aussi non versionné), puis produit chaque schéma ; il ne régénère que ce qui a changé. Il faut les TEI Stylesheets et le dépôt Commons Publishing (voir « Installation ») et une connexion à internet : les éléments repris de la TEI viennent de sa version 4.11.0, figée pour que la génération soit reproductible. Les chemins se changent par des variables : `make schemas TEI_STYLESHEETS=… COMMONS_PUBLISHING=…`.
+
+La documentation HTML, dans `documentation/` (non versionné : chacun la régénère), comprend `nucma-common.html` pour les règles communes, puis une page par schéma. Elle présente la prose de chaque ODD et la référence de ses éléments et attributs : c’est le guide d’encodage du projet.
+
+Après une modification d’un ODD : `make schemas`, puis valider les fichiers concernés.
+
+### Valider
+
+**Dans oXygen**, la validation est automatique grâce aux instructions `xml-model`, une fois les schémas générés (`make schemas`). Les fichiers `_corpus.xml` assemblent les entrées par `xi:include` : oXygen résout les inclusions avant de valider.
+
+**En ligne de commande**, avec [Jing](https://relaxng.org/jclark/jing.html) (`brew install jing-trang`) :
+
+```sh
+jing schemas/nucma.rng fr/acquisition/variabilite.xml
+jing schemas/nucma-persons.rng meta/authors.xml meta/names.xml
+xmllint --xinclude fr/acquisition/_corpus.xml > /tmp/corpus.xml && jing schemas/nucma.rng /tmp/corpus.xml
+```
+
+Jing ne résout pas les `xi:include` : pour un fichier `_corpus.xml`, les développer d’abord avec `xmllint --xinclude`.
 
 ## Contrôle de l’encodage (Schematron)
 

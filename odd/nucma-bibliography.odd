@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>NUCMA : schéma du référentiel bibliographique</title>
+        <principal ref="#ECD">
+          <persName><forename>Emmanuel</forename> <surname>Château-Dutier</surname></persName>
+          <affiliation>Université de Montréal</affiliation>
+        </principal>
+      </titleStmt>
+      <publicationStmt>
+        <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+        <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0</p>
+          </licence>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Fichier nativement numérique</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2026-10-04" resp="#ECD">Création</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Référentiel bibliographique</head>
+        <p>Ce schéma contrôle <code>meta/bibliography.xml</code>. Il s’appuie sur l’étage
+          commun du projet (<code>nucma-common.odd</code>) et y rétablit la bibliographie
+          structurée (<gi>biblStruct</gi>), que l’étage commun exclut des entrées. Première
+          version, souple : les modèles de contenu de Commons Publishing sont conservés.</p>
+        <schemaSpec ident="nucma-bibliography" start="TEI" source="nucma-common.compiled.odd">
+          <moduleRef key="tei"/>
+          <moduleRef key="header" except="title"/>
+          <moduleRef key="core"/>
+          <moduleRef key="textstructure"/>
+          <moduleRef key="linking"/>
+          <moduleRef key="namesdates"/>
+          <moduleRef key="verse"/>
+          <moduleRef key="figures"/>
+          <moduleRef key="tagdocs"/>
+          <moduleRef key="dictionaries"/>
+
+          <!-- bibliographie structurée : exclue par l’étage commun, reprise de la TEI -->
+          <elementRef key="biblStruct" source="tei:4.11.0"/>
+          <!-- lien de chaque référence vers sa notice dans la bibliothèque Zotero du projet -->
+          <elementSpec ident="biblStruct" mode="change" module="core">
+            <attList>
+              <attDef ident="corresp" mode="add" usage="opt">
+                <datatype maxOccurs="unbounded"><dataRef key="teidata.pointer"/></datatype>
+              </attDef>
+            </attList>
+          </elementSpec>
+
+        </schemaSpec>
+      </div>
+    </body>
+  </text>
+</TEI>

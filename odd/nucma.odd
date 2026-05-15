@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
-	schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0">
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,8 +27,8 @@
         <date when="2023">2023</date>
         <!-- @todo <idno type="DOI">...</idno> -->
         <availability>
-          <licence target="https://creativescommons.org/licenses/by/4.0/">
-            <p>Ce contenu est mis à disposition sous license Creative Commons Attribution 4.0</p>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0</p>
           </licence>
         </availability>
       </publicationStmt>
@@ -47,6 +45,7 @@
       </sourceDesc>
     </fileDesc>
     <revisionDesc>
+      <change when="2026-10-04" who="#ECD">Construction sur l’étage commun (nucma-common.odd) ; teiCorpus</change>
       <change when="2026-03-02" who="#ECD">Révision de l’encodage et restructuration</change>
       <change when="2023">Première version</change>
     </revisionDesc>
@@ -62,8 +61,15 @@
     </front>
     <body>
       <div>
-        <head>Personnalisation du schéma de Commons Publishing OpenEdition pour le projet NUCMA</head>
-        <schemaSpec ident="nucma.schema" start="TEI" source="../../tei-commons-publishing/odd/commons-publishing-metopes-compiled.odd">
+        <head>Schéma des entrées de l’encyclopédie</head>
+        <p>Ce schéma contrôle les entrées (<code>fr/</code>, <code>en/</code>) et les fichiers
+          qui les assemblent (<code>_corpus.xml</code>, élément <gi>teiCorpus</gi>, dont les
+          <code>xi:include</code> sont résolus avant la validation). Il s’appuie sur l’étage
+          commun du projet (<code>nucma-common.odd</code>, compilé par
+          <code>make schemas</code>), qui personnalise Commons Publishing ; les règles
+          communes (en-tête, identifiants, renvois aux référentiels, rendu) y sont décrites.
+          Les référentiels de <code>meta/</code> ont leurs propres schémas.</p>
+        <schemaSpec ident="nucma" start="TEI teiCorpus" source="nucma-common.compiled.odd">
           <moduleRef key="tei"/>
           <moduleRef key="header" except="title"/>
           <moduleRef key="core" except="biblStruct"/>
@@ -74,26 +80,24 @@
           <moduleRef key="figures"/>
           <moduleRef key="tagdocs"/>
           <moduleRef key="dictionaries"/>
-          
-          <elementRef key="emph" source="tei:4.11.0"/>
-          <elementRef key="foreign" source="tei:4.11.0"/>
-          <elementRef key="q" source="tei:4.11.0"/>
-          <elementRef key="soCalled" source="tei:4.11.0"/>
-          <elementRef key="title" source="tei:4.11.0"/>
-          <!--<specGrpRef target="objects"/>
-          <specGrpRef target="persons"/>
-          <specGrpRef target="biblio"/>-->
+
+          <!-- assemblage des entrées d’un chapitre -->
+          <elementRef key="teiCorpus" source="tei:4.11.0"/>
+          <!-- contenu d’un teiCorpus : la classe model.describedResource, vide dans Commons
+               Publishing, disparaît du modèle repris de la TEI ; il est donc redéfini selon
+               la TEI : un en-tête, puis des TEI ou des teiCorpus -->
+          <elementSpec ident="teiCorpus" mode="change" module="core">
+            <content>
+              <sequence>
+                <elementRef key="teiHeader"/>
+                <alternate minOccurs="1" maxOccurs="unbounded">
+                  <elementRef key="TEI"/>
+                  <elementRef key="teiCorpus"/>
+                </alternate>
+              </sequence>
+            </content>
+          </elementSpec>
         </schemaSpec>
-      </div>
-      <div>
-        <head>Adaptations diverses</head>
-        <specGrp xml:id="miscellaneous">
-          <elementRef key="emph" source="tei:4.11.0"/>
-          <elementRef key="foreign" source="tei:4.11.0"/>
-          <elementRef key="q" source="tei:4.11.0"/>
-          <elementRef key="soCalled" source="tei:4.11.0"/>
-          <elementRef key="title" source="tei:4.11.0"/>
-        </specGrp>
       </div>
     </body>
   </text>

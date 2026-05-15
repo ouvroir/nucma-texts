@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>NUCMA : schéma des référentiels de personnes et d’organismes</title>
+        <principal ref="#ECD">
+          <persName><forename>Emmanuel</forename> <surname>Château-Dutier</surname></persName>
+          <affiliation>Université de Montréal</affiliation>
+        </principal>
+      </titleStmt>
+      <publicationStmt>
+        <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+        <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0</p>
+          </licence>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Fichier nativement numérique</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2026-10-04" resp="#ECD">Création</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Référentiels de personnes et d’organismes</head>
+        <p>Ce schéma contrôle <code>meta/authors.xml</code> (auteurs et autres contributeurs
+          de l’encyclopédie) et <code>meta/names.xml</code> (personnes et organismes cités).
+          Il s’appuie sur l’étage commun du projet (<code>nucma-common.odd</code>) et y ajoute
+          les listes de personnes et d’organismes, reprises de la TEI.</p>
+        <p>Première version, souple : les modèles de contenu de la TEI sont conservés. Une
+          personne réunit son nom (<gi>persName</gi> avec <gi>forename</gi> et
+          <gi>surname</gi>), son affiliation, ses identifiants (<gi>idno</gi> : orcid, isni,
+          wikidata, ulan…) et des notes ; un organisme, son nom (<gi>orgName</gi>) et ses
+          identifiants. Les exigences propres aux auteurs (ORCID, affiliation) sont contrôlées
+          par <code>schemas/nucma-quality.sch</code>.</p>
+        <schemaSpec ident="nucma-persons" start="TEI" source="nucma-common.compiled.odd">
+          <moduleRef key="tei"/>
+          <moduleRef key="header" except="title"/>
+          <moduleRef key="core" except="biblStruct"/>
+          <moduleRef key="textstructure"/>
+          <moduleRef key="linking"/>
+          <moduleRef key="namesdates"/>
+          <moduleRef key="verse"/>
+          <moduleRef key="figures"/>
+          <moduleRef key="tagdocs"/>
+          <moduleRef key="dictionaries"/>
+
+          <!-- classe des personnes, absente de Commons Publishing : sans elle, listPerson
+               ne peut contenir de person -->
+          <classSpec ident="model.personLike" type="model" mode="add"/>
+          <elementRef key="listPerson" source="tei:4.11.0"/>
+          <elementRef key="person" source="tei:4.11.0"/>
+          <!-- contenu d’une personne : le modèle de la TEI repose sur model.personPart,
+               absente de Commons Publishing ; version souple, sans ordre imposé -->
+          <elementSpec ident="person" mode="change" module="namesdates">
+            <content>
+              <alternate minOccurs="0" maxOccurs="unbounded">
+                <elementRef key="persName"/>
+                <elementRef key="affiliation"/>
+                <elementRef key="idno"/>
+                <elementRef key="note"/>
+              </alternate>
+            </content>
+          </elementSpec>
+          <elementRef key="listOrg" source="tei:4.11.0"/>
+          <elementRef key="org" source="tei:4.11.0"/>
+        </schemaSpec>
+      </div>
+    </body>
+  </text>
+</TEI>

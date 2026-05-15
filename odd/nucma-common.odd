@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>NUCMA : règles d’encodage communes</title>
+        <principal ref="#ECD">
+          <persName><forename>Emmanuel</forename> <surname>Château-Dutier</surname></persName>
+          <affiliation>Université de Montréal</affiliation>
+        </principal>
+      </titleStmt>
+      <publicationStmt>
+        <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+        <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0</p>
+          </licence>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Fichier nativement numérique</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2026-10-04" resp="#ECD">Création de l’étage commun de la chaîne d’ODD</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Étage commun des schémas NUCMA</head>
+        <p>Cet ODD réunit les règles communes à tous les fichiers du projet : entrées de
+          l’encyclopédie et référentiels de <code>meta/</code>. Il personnalise la variante
+          Métopes de Commons Publishing, en restant aussi compatible que possible avec elle, et
+          ne l’élargit que pour les besoins du projet.</p>
+        <p>Il n’est pas utilisé seul : il est compilé (<code>nucma-common.compiled.odd</code>,
+          régénéré par <code>make schemas</code>), puis chaque ODD spécifique s’appuie sur lui
+          par <code>schemaSpec/@source</code> : <code>nucma.odd</code> (entrées),
+          <code>nucma-persons.odd</code>, <code>nucma-places.odd</code>,
+          <code>nucma-artworks.odd</code>, <code>nucma-exhibitions.odd</code>,
+          <code>nucma-bibliography.odd</code>, <code>nucma-medias.odd</code>.</p>
+        <p>Les éléments que Commons Publishing exclut sont repris de la TEI, en version figée
+          (<code>tei:4.11.0</code>), pour que la génération soit reproductible.</p>
+
+        <schemaSpec ident="nucma-common" start="TEI"
+          source="../../tei-commons-publishing/odd/commons-publishing-metopes-compiled.odd">
+          <moduleRef key="tei"/>
+          <moduleRef key="header" except="title"/>
+          <moduleRef key="core" except="biblStruct"/>
+          <moduleRef key="textstructure"/>
+          <moduleRef key="linking"/>
+          <moduleRef key="namesdates"/>
+          <moduleRef key="verse"/>
+          <moduleRef key="figures"/>
+          <moduleRef key="tagdocs"/>
+          <moduleRef key="dictionaries"/>
+
+          <specGrpRef target="#header"/>
+          <specGrpRef target="#identifiers"/>
+          <specGrpRef target="#names"/>
+          <specGrpRef target="#rendition"/>
+          <specGrpRef target="#phrases"/>
+        </schemaSpec>
+      </div>
+
+      <div>
+        <head>En-tête</head>
+        <p>Collection de l’encyclopédie (<gi>seriesStmt</gi>), identifiant de l’entrée ou du
+          référentiel sur <gi>sourceDesc</gi> (<code>nucma.fr.acquisition.variabilite</code>),
+          et sa version dans l’autre langue (<att>corresp</att>),
+          personne responsable d’une révision (<att>resp</att> sur <gi>change</gi>, qui
+          renvoie à <code>meta/authors.xml</code>).</p>
+        <specGrp xml:id="header">
+          <elementRef key="seriesStmt" source="tei:4.11.0"/>
+          <elementSpec ident="sourceDesc" mode="change" module="header">
+            <attList>
+              <attDef ident="xml:id" mode="add" usage="opt">
+                <datatype><dataRef key="ID"/></datatype>
+              </attDef>
+              <!-- version de l’entrée ou du chapitre dans l’autre langue (nucma.fr → nucma.en) -->
+              <attDef ident="corresp" mode="add" usage="opt">
+                <datatype maxOccurs="unbounded"><dataRef key="teidata.pointer"/></datatype>
+              </attDef>
+            </attList>
+          </elementSpec>
+          <!-- identifiant de l’application de conversion (docxtotei), posé par les TEI Stylesheets -->
+          <elementSpec ident="application" mode="change" module="header">
+            <attList>
+              <attDef ident="xml:id" mode="add" usage="opt">
+                <datatype><dataRef key="ID"/></datatype>
+              </attDef>
+            </attList>
+          </elementSpec>
+          <elementSpec ident="change" mode="change" module="header">
+            <attList>
+              <attDef ident="resp" mode="add" usage="opt">
+                <datatype maxOccurs="unbounded"><dataRef key="teidata.pointer"/></datatype>
+              </attDef>
+            </attList>
+          </elementSpec>
+        </specGrp>
+      </div>
+
+      <div>
+        <head>Identifiants</head>
+        <p>Types d’identifiants admis, en minuscules : une liste fermée, pour que les fautes
+          (<code>insi</code>) et les variantes de casse (<code>ORCID</code>) soient refusées.
+          Les identifiants de personnes (ORCID, ISNI) sont aussi contrôlés par
+          <code>schemas/nucma-quality.sch</code>.</p>
+        <specGrp xml:id="identifiers">
+          <elementSpec ident="idno" mode="change" module="header">
+            <attList>
+              <attDef ident="type" mode="replace" usage="opt">
+                <datatype><dataRef key="teidata.enumerated"/></datatype>
+                <valList type="closed">
+                  <valItem ident="orcid"><desc>Open Researcher and Contributor ID (URL https://orcid.org/…)</desc></valItem>
+                  <valItem ident="isni"><desc>International Standard Name Identifier</desc></valItem>
+                  <valItem ident="viaf"><desc>Virtual International Authority File</desc></valItem>
+                  <valItem ident="wikidata"><desc>Wikidata</desc></valItem>
+                  <valItem ident="bnf"><desc>Bibliothèque nationale de France</desc></valItem>
+                  <valItem ident="loc"><desc>Library of Congress</desc></valItem>
+                  <valItem ident="ulan"><desc>Getty Union List of Artist Names</desc></valItem>
+                  <valItem ident="zkm"><desc>ZKM Center for Art and Media</desc></valItem>
+                  <valItem ident="artblocks"><desc>Art Blocks</desc></valItem>
+                  <valItem ident="artefact"><desc>Artefact</desc></valItem>
+                  <valItem ident="doi"><desc>Digital Object Identifier</desc></valItem>
+                  <valItem ident="isbn"><desc>International Standard Book Number</desc></valItem>
+                  <valItem ident="issn"><desc>International Standard Serial Number</desc></valItem>
+                  <valItem ident="uri"><desc>identifiant sous forme d’URI</desc></valItem>
+                  <valItem ident="url"><desc>adresse d’une page web</desc></valItem>
+                  <valItem ident="callNumber"><desc>cote</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </elementSpec>
+        </specGrp>
+      </div>
+
+      <div>
+        <head>Noms et renvois aux référentiels</head>
+        <p>Les noms de personnes, d’organismes et de lieux, les auteurs et les références
+          bibliographiques renvoient aux référentiels de <code>meta/</code> par
+          <att>ref</att> (classe <ident type="class">att.canonical</ident>, que Commons
+          Publishing retire). Fonction (<gi>roleName</gi>), lieu (<gi>placeName</gi>) et œuvre
+          (<gi>objectName</gi>) sont repris de la TEI.</p>
+        <specGrp xml:id="names">
+          <elementSpec ident="persName" mode="change" module="namesdates">
+            <classes mode="change"><memberOf key="att.canonical" mode="add"/></classes>
+          </elementSpec>
+          <elementSpec ident="orgName" mode="change" module="namesdates">
+            <classes mode="change"><memberOf key="att.canonical" mode="add"/></classes>
+          </elementSpec>
+          <!-- Commons Publishing supprime @ref sur author : il est rétabli directement -->
+          <elementSpec ident="author" mode="change" module="core">
+            <attList>
+              <attDef ident="ref" mode="replace" usage="opt">
+                <datatype maxOccurs="unbounded"><dataRef key="teidata.pointer"/></datatype>
+              </attDef>
+            </attList>
+          </elementSpec>
+          <elementSpec ident="bibl" mode="change" module="core">
+            <classes mode="change"><memberOf key="att.canonical" mode="add"/></classes>
+          </elementSpec>
+          <elementRef key="roleName" source="tei:4.11.0"/>
+          <elementRef key="placeName" source="tei:4.11.0"/>
+          <elementRef key="objectName" source="tei:4.11.0"/>
+          <elementSpec ident="placeName" mode="change" module="namesdates">
+            <classes mode="change"><memberOf key="att.canonical" mode="add"/></classes>
+          </elementSpec>
+          <elementSpec ident="objectName" mode="change" module="namesdates">
+            <classes mode="change"><memberOf key="att.canonical" mode="add"/></classes>
+          </elementSpec>
+        </specGrp>
+      </div>
+
+      <div>
+        <head>Rendu</head>
+        <p>Valeurs de rendu du projet, en plus de celles de Commons Publishing :
+          <code>superscript</code> et <code>smallcaps</code> sur <gi>hi</gi> (produits par la
+          normalisation : 3<hi rend="superscript">e</hi>, siècles en petites capitales), et
+          <code>verbatim</code> sur tout élément, pour un passage à garder tel quel (la
+          normalisation et le contrôle typographique ne le modifient pas).</p>
+        <specGrp xml:id="rendition">
+          <elementSpec ident="hi" mode="change" module="core">
+            <attList>
+              <attDef ident="rend" mode="replace">
+                <datatype>
+                  <dataRef key="teidata.pattern" restriction="(TEI_local[\w]*)|(unkown:[\w]*)|(.*(normal|bold|italic|small-caps|smallcaps|sup|sub|strikethrough|underline|uppercase|verbatim).*)"/>
+                </datatype>
+              </attDef>
+            </attList>
+          </elementSpec>
+          <classSpec ident="att.global.rendition" type="atts" mode="change" module="tei">
+            <attList>
+              <attDef ident="rend" mode="change">
+                <valList mode="change" type="closed">
+                  <valItem mode="add" ident="verbatim"><desc>passage à garder tel quel</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </classSpec>
+        </specGrp>
+      </div>
+
+      <div>
+        <head>Éléments de phrase</head>
+        <p>Éléments sémantiques employés dans les textes et suggérés par le contrôle
+          typographique (balisage des guillemets et de l’italique), repris de la TEI.</p>
+        <specGrp xml:id="phrases">
+          <elementRef key="emph" source="tei:4.11.0"/>
+          <elementRef key="foreign" source="tei:4.11.0"/>
+          <elementRef key="q" source="tei:4.11.0"/>
+          <elementRef key="soCalled" source="tei:4.11.0"/>
+          <elementRef key="title" source="tei:4.11.0"/>
+        </specGrp>
+      </div>
+    </body>
+  </text>
+</TEI>
