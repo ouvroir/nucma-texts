@@ -113,7 +113,7 @@ Ce dépôt-ci contient les textes, les référentiels (`meta/`) et les schémas 
 
 Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape fait l’objet de son propre commit, pour que les diffs restent lisibles.
 
-1. **Import depuis Word** (nucma-profile) : `docxtotei --profile=nucma Entree.docx fr/acquisition/entree.xml`. Le fichier produit est nettoyé, son en-tête est rempli, et il est associé à `nucma.rng` et à `nucma-quality.sch`. Commit.
+1. **Import depuis MS Word** (nucma-profile) : `docxtotei --profile=nucma Entree.docx fr/acquisition/entree.xml`. Le fichier produit est nettoyé, son en-tête est rempli, et il est associé à `nucma.rng` et à `nucma-quality.sch`. Commit.
 2. **Structuration** dans oXygen : `div`, `q`, `soCalled`, `title`, `persName`, `orgName`, `placeName`, bibliographie… Commit.
 3. **Normalisation** (typesetter) : toujours dans un fichier temporaire, puis remplacement.
 
@@ -157,7 +157,7 @@ Le rapport donne pour chaque message le niveau, la règle, l’emplacement (`bod
 - `'?check-bibliography=true()'` à la fin de la première commande `saxon -s:$f …` : contrôle aussi la bibliographie, exclue par défaut ;
 - `'{http://dmaus.name/ns/2023/schxslt}phase=markup'` à la fin de la compilation : un seul thème.
 
-La langue de chaque passage vient de son `xml:lang`, ou à défaut du dossier `fr/` ou `en/` du fichier. Pour contrôler une copie rangée ailleurs (une version normalisée dans `/tmp`, par exemple), ajouter `default-lang=fr` ou `default-lang=en`.
+La langue de chaque passage vient de son `xml:lang` ; à défaut, de `text/@xml:lang` (posé par le profil d’import), de `langUsage`, puis du dossier `fr/` ou `en/` du fichier ; c’est la même règle que pour la normalisation. Pour contrôler une copie rangée ailleurs (une version normalisée dans `/tmp`, par exemple), ajouter `default-lang=fr` ou `default-lang=en`.
 
 ### Journaux de normalisation
 
