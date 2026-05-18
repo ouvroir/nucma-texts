@@ -141,6 +141,7 @@ make validate     # validation par les schémas RelaxNG (Jing)
 make quality      # contrôle de l’encodage (schemas/nucma-quality.sch)
 make typography   # contrôle typographique (typography.sch de typesetter)
 make check        # les trois à la suite
+make help         # liste des recettes et des options (aussi : make sans argument)
 ```
 
 Sans autre précision, `validate` contrôle `fr/`, `en/` et `meta/`, `quality` les entrées et `meta/authors.xml`, `typography` les entrées. `TARGET` désigne un dossier ou un fichier :

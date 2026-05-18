@@ -1,5 +1,7 @@
 # Chaîne de traitement de NUCMA.
 #
+#   make help            affiche cette aide (aussi : make sans argument)
+#
 #   make schemas         génère les schémas RelaxNG à partir des ODD (chaîne d’ODD),
 #                        dans schemas/ (non versionnés)
 #   make documentation   génère la documentation HTML dans documentation/ (non versionné)
@@ -22,9 +24,24 @@
 #   BIBLIOGRAPHY=yes                 typography : contrôle aussi la bibliographie
 #   DEFAULT_LANG=fr                  typography : langue d’un fichier rangé hors de fr/ ou en/
 #
+# Exemples :
+#   make check TARGET=fr/acquisition/variabilite.xml
+#   make typography TARGET=fr/acquisition LEVEL=warning REPORT=yes
+#   make validate TARGET=meta
+#
 # Prérequis : TEI Stylesheets et Ant ; l’ODD de Commons Publishing dans
-# $(COMMONS_PUBLISHING) ; une connexion à internet (éléments repris de tei:4.11.0).
+# COMMONS_PUBLISHING ; une connexion à internet (éléments repris de tei:4.11.0).
 # Pour les contrôles : Jing et xmllint ; Saxon (SAXON_CP), SchXslt2 (XSpec) et typesetter.
+# Détails : README.md, sections « Lancer les contrôles avec make » et « Schémas (ODD) ».
+
+# make sans argument affiche l’aide
+.DEFAULT_GOAL := help
+
+.PHONY: help
+
+# aide : le commentaire d’en-tête de ce fichier, jusqu’à la première ligne vide
+help:
+	@sed -n '/^$$/q; s/^# \{0,1\}//p' $(firstword $(MAKEFILE_LIST))
 
 TEI_STYLESHEETS ?= $(HOME)/TEIC/Stylesheets
 COMMONS_PUBLISHING ?= ../tei-commons-publishing/odd/commons-publishing-metopes-compiled.odd
