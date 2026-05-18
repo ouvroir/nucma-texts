@@ -58,6 +58,38 @@
             </attList>
           </elementSpec>
 
+          <!-- @todo PROVISOIRE : valeurs produites par l’export TEI de Zotero, admises pour
+               que meta/bibliography.xml valide tel qu’exporté. À corriger plus tard, puis
+               retirer ces deux déclarations :
+               - idno/@type en capitales (DOI, ISBN, ISSN, URI) → doi, isbn, issn, uri,
+                 la liste fermée de l’étage commun ; le en-tête de bibliography.xml emploie
+                 aussi type="URI", accepté ici par la même occasion ;
+               - note/@type accessed (date de consultation), url, thesisType, absents de
+                 Commons Publishing → choisir un encodage (date de consultation, ptr ou
+                 idno type="url", type de thèse) et l’appliquer à l’export. -->
+          <elementSpec ident="idno" mode="change" module="header">
+            <attList>
+              <attDef ident="type" mode="change">
+                <valList mode="change" type="closed">
+                  <valItem mode="add" ident="DOI"><desc>export Zotero (provisoire : doi)</desc></valItem>
+                  <valItem mode="add" ident="ISBN"><desc>export Zotero (provisoire : isbn)</desc></valItem>
+                  <valItem mode="add" ident="ISSN"><desc>export Zotero (provisoire : issn)</desc></valItem>
+                  <valItem mode="add" ident="URI"><desc>export Zotero (provisoire : uri)</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </elementSpec>
+          <elementSpec ident="note" mode="change" module="core">
+            <attList>
+              <attDef ident="type" mode="change">
+                <valList mode="change" type="closed">
+                  <valItem mode="add" ident="accessed"><desc>export Zotero : date de consultation (provisoire)</desc></valItem>
+                  <valItem mode="add" ident="url"><desc>export Zotero : adresse de la ressource (provisoire)</desc></valItem>
+                  <valItem mode="add" ident="thesisType"><desc>export Zotero : type de thèse (provisoire)</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </elementSpec>
         </schemaSpec>
       </div>
     </body>
