@@ -4,3 +4,6 @@ schemas/nucma.rng
 schemas/nucma-*.rng
 # documentation générée (make documentation)
 documentation/
+# Schematron compilés et fichiers intermédiaires des contrôles, rapports (make check)
+build/
+reports/

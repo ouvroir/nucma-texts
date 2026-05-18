@@ -43,7 +43,8 @@ nucma/
 ├── odd/                  ODD : sources des schémas (voir « Schémas »)
 ├── schemas/              schémas générés par make schemas (.rng, non versionnés) et Schematron d’encodage
 ├── documentation/        documentation HTML générée par make documentation (non versionnée)
-├── Makefile              génération des schémas et de leur documentation
+├── reports/              rapports des contrôles (make … REPORT=yes, non versionnés)
+├── Makefile              génération des schémas et de leur documentation, contrôles
 ├── LICENCE
 └── README.md
 ```
@@ -126,10 +127,44 @@ Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape fa
    ```
 
    Le diff ne doit montrer que des corrections typographiques. Commit.
-4. **Contrôle typographique** (typesetter) : voir ci-dessous. Corriger ce qui doit l’être, compléter le balisage suggéré. Commit.
-5. **Contrôle de l’encodage** : validation par `nucma.rng` et `nucma-quality.sch` (voir « Schémas » et « Contrôle de l’encodage »). Commit.
+4. **Contrôle typographique** (typesetter) : `make typography TARGET=$f` (voir ci-dessous). Corriger ce qui doit l’être, compléter le balisage suggéré. Commit.
+5. **Contrôle de l’encodage** : `make validate TARGET=$f` et `make quality TARGET=$f`, validation par `nucma.rng` et `nucma-quality.sch` (voir « Schémas » et « Contrôle de l’encodage »). Commit.
 
 Pour un fichier déjà importé autrement que par le profil, les étapes de sérialisation et de nettoyage sont décrites dans le README de typesetter (« Utilisation »).
+
+### Lancer les contrôles avec make
+
+Les trois contrôles se lancent depuis la racine de ce dépôt :
+
+```sh
+make validate     # validation par les schémas RelaxNG (Jing)
+make quality      # contrôle de l’encodage (schemas/nucma-quality.sch)
+make typography   # contrôle typographique (typography.sch de typesetter)
+make check        # les trois à la suite
+```
+
+Sans autre précision, `validate` contrôle `fr/`, `en/` et `meta/`, `quality` les entrées et `meta/authors.xml`, `typography` les entrées. `TARGET` désigne un dossier ou un fichier :
+
+```sh
+make typography TARGET=fr/acquisition
+make check TARGET=fr/acquisition/variabilite.xml
+```
+
+Options :
+
+| Option | Contrôle | Effet |
+|---|---|---|
+| `REPORT=yes` | tous | écrit aussi le rapport dans `reports/<contrôle>-<cible>-<date>.txt` (non versionné) |
+| `LEVEL=warning` ou `LEVEL=error` | typography | masque les messages de niveau inférieur |
+| `PHASE=markup` | typography | un seul thème (`punctuation`, `quotes`, `capitals`, `persons`…) |
+| `BIBLIOGRAPHY=yes` | typography | contrôle aussi la bibliographie, exclue par défaut |
+| `DEFAULT_LANG=fr` | typography | langue d’un fichier rangé hors de `fr/` ou `en/` |
+
+`make validate` choisit le schéma d’après l’emplacement du fichier (comme les instructions `xml-model`), développe les `xi:include` des fichiers `_corpus.xml`, génère d’abord les schémas s’ils manquent ou ont changé, et se termine en erreur si un fichier n’est pas valide. Les Schematron sont compilés dans `build/` (non versionné) et recompilés quand ils changent, y compris après une mise à jour de typesetter. Les fichiers `_corpus.xml` ne passent que par la validation : les entrées qu’ils assemblent sont contrôlées une à une.
+
+Chaque message commence par `fichier:ligne:colonne` : dans le terminal de VS Code (et d’autres terminaux), un clic sur cette référence ouvre le fichier à l’endroit concerné ; pour garder les liens en relisant un rapport enregistré, l’afficher dans le terminal (`cat reports/…`). Pour un fichier `_corpus.xml`, les lignes données par la validation sont celles du corpus développé (`build/corpus.xml`), pas celles des entrées.
+
+Il faut Jing, Saxon désigné par `SAXON_CP`, XSpec dans `~/xspec` (pour SchXslt2) et typesetter dans `~/factoton/typesetter` ; d’autres emplacements se donnent par des variables : `make typography TYPESETTER=… SCHXSLT=…`. `make clean-check` supprime `build/` et `reports/`.
 
 ### Contrôle typographique
 
@@ -143,7 +178,7 @@ Pour associer durablement le schéma à une entrée, on peut ajouter une instruc
 <?xml-model href="../../../../factoton/typesetter/schematron/typography.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 ```
 
-**En ligne de commande** : compiler le schéma une fois, et après toute mise à jour de typesetter, puis contrôler les entrées.
+**En ligne de commande** : `make typography` (voir « Lancer les contrôles avec make »). Sans make, compiler le schéma une fois, et après toute mise à jour de typesetter, puis contrôler les entrées.
 
 ```sh
 saxon -s:$TYPESETTER/schematron/typography.sch -xsl:$HOME/xspec/lib/schxslt2/transpile.xsl -o:/tmp/typography.xsl
@@ -153,7 +188,7 @@ for f in fr/acquisition/*.xml; do
 done
 ```
 
-Le rapport donne pour chaque message le niveau, la règle, l’emplacement (`body/div[2]/p[3]`), la consigne et un extrait. Options utiles :
+Le rapport donne pour chaque message le niveau, la règle, la référence `fichier:ligne:colonne`, l’emplacement (`body/div[2]/p[3]`), la consigne et un extrait. Options utiles :
 
 - `level=warning` à la fin de la seconde commande : masque les informations (suggestions de balisage, espaces multiples) ;
 - `'?check-bibliography=true()'` à la fin de la première commande `saxon -s:$f …` : contrôle aussi la bibliographie, exclue par défaut ;
@@ -216,7 +251,7 @@ Après une modification d’un ODD : `make schemas`, puis valider les fichiers c
 
 **Dans oXygen**, la validation est automatique grâce aux instructions `xml-model`, une fois les schémas générés (`make schemas`). Les fichiers `_corpus.xml` assemblent les entrées par `xi:include` : oXygen résout les inclusions avant de valider.
 
-**En ligne de commande**, avec [Jing](https://relaxng.org/jclark/jing.html) (`brew install jing-trang`) :
+**En ligne de commande** : `make validate` (voir « Lancer les contrôles avec make »), ou directement avec [Jing](https://relaxng.org/jclark/jing.html) (`brew install jing-trang`) :
 
 ```sh
 jing schemas/nucma.rng fr/acquisition/variabilite.xml
@@ -254,7 +289,7 @@ Contrôles actuels :
 <?xml-model href="../../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 ```
 
-**En ligne de commande**, avec Saxon et SchXslt2 (voir « Installation ») : compiler le Schematron une fois (et après chaque modification), puis contrôler les fichiers depuis la racine du dépôt ; `schemas/svrl-text.xsl` met le rapport en forme.
+**En ligne de commande** : `make quality` (voir « Lancer les contrôles avec make »). Sans make, avec Saxon et SchXslt2 (voir « Installation ») : compiler le Schematron une fois (et après chaque modification), puis contrôler les fichiers depuis la racine du dépôt ; `schemas/svrl-text.xsl` met le rapport en forme.
 
 ```sh
 saxon -s:schemas/nucma-quality.sch -xsl:$HOME/xspec/lib/schxslt2/transpile.xsl -o:/tmp/nucma-quality.xsl
