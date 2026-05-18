@@ -11,7 +11,7 @@
             <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
             <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
             <date when="2026">2026</date>
-            <idno type="URI">https://www.nucma.ca</idno>
+            <idno type="uri">https://www.nucma.ca</idno>
             <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
@@ -25,7 +25,7 @@
                >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
             <title xml:lang="en" type="main">NUCMA</title>
             <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
-            <idno type="URI">http://www.nucma.ca</idno>
+            <idno type="uri">http://www.nucma.ca</idno>
             <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
          <sourceDesc xml:id="nucma-authors">
@@ -102,7 +102,7 @@
                </place>
                <date from="2014-10-17" to="2015-03-08">Du vendredi 17 octobre 2014 au dimanche 8
                   mars 2015</date>
-               <idno type="URI"
+               <idno type="uri"
                   >https://www.beaux-arts.ca/a-laffiche/expositions-et-salles/surgir-de-lombre-la-biennale-canadienne-2014</idno>
             </event>
             <event xml:id="mbac002">
@@ -125,7 +125,7 @@
                   <country>France</country>
                </place>
                <date from="2018-05-25" to="2019-04-15">Du 25 mai 2018 au 15 avril 2019</date>
-               <idno type="URI"
+               <idno type="uri"
                   >https://www.centrepompidou.fr/fr/programme/agenda/evenement/cBrxBdX#:~:text=du%20parcours%20moderne.-,Plus%20de%20cent%20vingt%20%C5%93uvres%2C%20accompagn%C3%A9es%20d'un%20appareil%20documentaire,mus%C3%A9e%20du%20Jeu%20de%20Paume.</idno>
             </event>
             <event xml:id="mkeo001">
@@ -167,8 +167,8 @@
                   <country>Canada</country>
                </place>
                <date from="2019-11">Depuis le 9 Novembre 2019</date>
-               <idno type="URI">https://www.mbam.qc.ca/fr/collections/arts-du-tout-monde/</idno>
-               <idno type="URI">https://www.mbam.qc.ca/fr/arts-du-tout-monde/</idno> 
+               <idno type="uri">https://www.mbam.qc.ca/fr/collections/arts-du-tout-monde/</idno>
+               <idno type="uri">https://www.mbam.qc.ca/fr/arts-du-tout-monde/</idno> 
             </event>
             <event xml:id="mnam002">
                <eventName>elles@centrepompidou</eventName>
@@ -178,7 +178,7 @@
                   <country>France</country>
                </place>
                <date from="2009-05-27" to="2011-02-21">Du 27 mai 2009 au 21 février 2011</date>
-               <idno type="URI">https://www.centrepompidou.fr/fr/programme/agenda/evenement/ccBLAM</idno>
+               <idno type="uri">https://www.centrepompidou.fr/fr/programme/agenda/evenement/ccBLAM</idno>
             </event>
             <event xml:id="macm001">
                <eventName>Collection Lavalin</eventName>
@@ -211,7 +211,7 @@
                </place>
                <date from="2012" to="2017">De 2012 à 2017</date>
                <idno type="wikidata">https://www.wikidata.org/wiki/Q16975332</idno> 
-               <idno type="URI">https://www.guggenheim.org/map</idno>
+               <idno type="uri">https://www.guggenheim.org/map</idno>
             </event>
             <event xml:id="tateModern001">
                <eventName>BMW Tate Live</eventName>
@@ -222,7 +222,7 @@
                </place>
                <date from="2012">Depuis 2012</date>
                <idno type="wikidata">https://www.wikidata.org/wiki/</idno> <!-- les références sur wikidata ne correspondent pas à la date mentionnée dans le texte "2012" -->
-               <idno type="URI">https://www.tate.org.uk/whats-on/tate-modern/bmw-tate-live</idno>
+               <idno type="uri">https://www.tate.org.uk/whats-on/tate-modern/bmw-tate-live</idno>
             </event>
          </listEvent>
 
@@ -263,7 +263,7 @@
                   <country>Canada</country>
                </place>
                <date from="2024-09" to="2025-10">du 11 septembre 2024 au 5 octobre 2025</date>
-               <idno type="URI">https://www.mbam.qc.ca/fr/expositions/deux-par-deux-rassembles/</idno>
+               <idno type="uri">https://www.mbam.qc.ca/fr/expositions/deux-par-deux-rassembles/</idno>
             </event>
             <event xml:id="moma001">
                <eventName>Recent Acquisitions : Painting and Sculpture</eventName>
@@ -273,7 +273,7 @@
                   <country>États-Unis</country>
                </place>
                <date from="1965-02" to="1965-04">du 16 février au 25 avril 1965</date>
-               <idno type="URI">https://www.moma.org/calendar/exhibitions/2890</idno>
+               <idno type="uri">https://www.moma.org/calendar/exhibitions/2890</idno>
             </event>
             <event xml:id="sbmk001">
                <eventName xml:lang="en">Modern Art : Who Cares?</eventName>
@@ -282,7 +282,7 @@
                   <country>Pays-Bas</country>
                </place>
                <date from="1997-09-08" to="1997-09-10">du 8 au 10 septembre 1997</date>
-               <idno type="URI">https://www.sbhk.nl/en/activities/Modern_Art_Who_Cares</idno>
+               <idno type="uri">https://www.sbhk.nl/en/activities/Modern_Art_Who_Cares</idno>
             </event>
          </listEvent>
       </body>

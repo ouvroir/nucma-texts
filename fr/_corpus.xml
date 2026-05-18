@@ -9,7 +9,10 @@
             <title xml:lang="en" type="main">NUCMA</title>
             <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
             <editor>
-               <persName ref="">Lamoureux, Johanne</persName>
+               <persName ref="#lamoureuxJohanne">
+                  <forename>Johanne</forename>
+                  <surname>Lamoureux</surname>
+               </persName>
             </editor>
          </titleStmt>
          <publicationStmt>
@@ -36,7 +39,25 @@
       <xi:fallback>Fichier non trouvé</xi:fallback>
    </xi:include>
    
+   <xi:include href="../meta/artworks.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
    <xi:include href="../meta/authors.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/bibliography.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/exhibitions.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/medias.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/names.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/places.xml" parse="xml">
       <xi:fallback>Fichier non trouvé</xi:fallback>
    </xi:include>
    

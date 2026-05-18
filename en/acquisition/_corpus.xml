@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="../../schemas/nucma.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-  <!--add 'teiCorpus' to schema-->
+  <!-- add 'teiCorpus' to schema -->
+  <teiCorpus>
   <teiHeader>
     <fileDesc>
       <titleStmt>

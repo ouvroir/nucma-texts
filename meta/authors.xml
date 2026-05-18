@@ -12,7 +12,7 @@
             <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
             <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
             <date when="2026">2026</date>
-            <idno type="URI">https://www.nucma.ca</idno>
+            <idno type="uri">https://www.nucma.ca</idno>
             <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
@@ -26,7 +26,7 @@
                >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
             <title xml:lang="en" type="main">NUCMA</title>
             <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
-            <idno type="URI">http://www.nucma.ca</idno>
+            <idno type="uri">http://www.nucma.ca</idno>
             <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
          <sourceDesc xml:id="nucma-authors">
@@ -57,8 +57,8 @@
             <head xml:lang="en">List of authors</head>
             <person xml:id="alaryJulie">
                <persName>
-                  <forename>Julie Alary</forename>
-                  <surname>Lavallée</surname>
+                  <forename>Julie</forename>
+                  <surname>Alary Lavallée</surname>
                </persName>
                <note xml:lang="fr"/>
                <affiliation>Musée d’art de Joliette</affiliation>
@@ -95,7 +95,7 @@
                </note>
                <affiliation>Fondation Guido Molinari</affiliation>
                <idno type="wikidata">https://www.wikidata.org/wiki/Q110413936</idno>
-               <idno type="insi">https://isni.org/isni/0000000072677986</idno>
+               <idno type="isni">https://isni.org/isni/0000000072677986</idno>
             </person>
             <person xml:id="benichouAnne">
                <persName>
@@ -214,7 +214,7 @@
                <affiliation>Conseil international des musées (ICOM et ICOFOM)</affiliation>
                <!-- #RC affiliations fournies sur son profil site de l'UQO-->
                <idno type="wikidata">https://www.wikidata.org/wiki/Q124425775</idno>
-               <idno type="insi">https://isni.org/isni/0000000076333187</idno>
+               <idno type="isni">https://isni.org/isni/0000000076333187</idno>
             </person>
             <person xml:id="HerrmannSophie">
                <persName>
@@ -224,6 +224,13 @@
                <note xml:lang="fr"/>
                <affiliation>Institut national de la recherche scientifique et Université du Québec en Outaouais</affiliation>
                <idno type="orcid">https://orcid.org/0009-0005-0844-3230</idno>
+            </person>
+            <person xml:id="lamoureuxJohanne">
+               <persName>
+                  <forename>Johanne</forename>
+                  <surname>Lamoureux</surname>
+               </persName>
+               <affiliation>Université de Montréal</affiliation>
             </person>
             <person xml:id="minierJessica">
                <persName>

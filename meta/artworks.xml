@@ -11,7 +11,7 @@
             <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
             <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
             <date when="2026">2026</date>
-            <idno type="URI">https://www.nucma.ca</idno>
+            <idno type="uri">https://www.nucma.ca</idno>
             <!-- @todo <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
@@ -25,7 +25,7 @@
                >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
             <title xml:lang="en" type="main">NUCMA</title>
             <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
-            <idno type="URI">http://www.nucma.ca</idno>
+            <idno type="uri">http://www.nucma.ca</idno>
             <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
          <sourceDesc xml:id="nucma.authors">
@@ -82,7 +82,7 @@
                <author ref="#duchampMarcel">Duchamp, Marcel (1887-1968)</author>
                <idno type="wikidata">https://www.wikidata.org/wiki/Q1206847</idno>
             </object>
-            <object xml:id="">
+            <object xml:id="variationEtPerennite">
                <objectName>Variations et Pérennité</objectName>
                <author ref="#">collectif</author>
                <!-- comment noter un collectif ?, les ajouter à names aussi ? et comment ?-->
@@ -166,19 +166,19 @@
             <object xml:id="moholyNagy001">
                <objectName>EM 1 (Telephone Picture)</objectName>
                <author ref="#moholyNagyLaszo">Moholy Nagy, László (1895-1946)</author>
-               <idno type="URI">https://www.moma.org/collection/works/147626</idno>
+               <idno type="uri">https://www.moma.org/collection/works/147626</idno>
             </object>
             <object xml:id="moholyNagy002">
                <objectName>EM 2 (Telephone Picture)</objectName>
                <author ref="#moholyNagyLaszo">Moholy Nagy, László (1895-1946)</author>
                <idno type="wikidata">https://www.wikidata.org/wiki/Q19883878</idno>
-               <idno type="URI">https://www.moma.org/collection/works/78747</idno>
+               <idno type="uri">https://www.moma.org/collection/works/78747</idno>
             </object>
             <object xml:id="moholyNagy003">
                <objectName>EM 3 (Telephone Picture)</objectName>
                <author ref="#moholyNagyLaszo">Moholy Nagy, László (1895-1946)</author>
                <idno type="wikidata">https://www.wikidata.org/wiki/Q19883879</idno>
-               <idno type="URI">https://www.moma.org/collection/works/78749</idno>
+               <idno type="uri">https://www.moma.org/collection/works/78749</idno>
             </object>
             <object xml:id="bretch001">
                <objectName>Word Event</objectName>
@@ -225,10 +225,10 @@
                <idno type="artefact"
                   >https://app.pch.gc.ca/application/artefacts_hum/detailler_detail.app?d=NGOC17259.1-3</idno>
             </object>
-            <object xml:id="">
+            <object xml:id="modernArtWhoCare">
                <objectName>Modern Art: Who Care?</objectName>
                <!-- les symposiums comptent-ils comme des œuvres d'art ? -->
-               <author ref=""/>
+               <author/>
                <idno/>
                <!-- pas trouvé -->
             </object>
@@ -320,7 +320,7 @@
             <object xml:id="cherniakDmitri001">
                <objectName>Ringers</objectName>
                <author ref="#siegelaubSeth">Dmitri, Cherniak (1970-....)</author>
-               <idno type="artBlocks"
+               <idno type="uri"
                   >https://www.artblocks.io/collection/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270-13?attributes=%7B%22Peg+count%22%3A%7B%22type%22%3A%22number%22%2C%22min%22%3A7%2C%22max%22%3A7%2C%22domain%22%3A%5B3%2C55%5D%7D%7D</idno>
             </object>
             <object xml:id="cherniakDmitri002">
@@ -423,7 +423,7 @@
             <object xml:id="siegelaub001">
                <objectName>Xerox Book</objectName>
                <author>Siegelaub, Seth (1941-2013)</author>
-               <idno type=""><!-- aucun idno trouvé--></idno>
+               <idno><!-- aucun idno trouvé--></idno>
                <!-- s'agit d'une "expo" sous forme de livre, oeuvre accessible en ligne : https://monoskop.org/images/f/f1/Siegelaub_Seth_ed_Xerox_Book.pdf-->
             </object>
             <object xml:id="alleyn001">

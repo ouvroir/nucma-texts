@@ -11,7 +11,7 @@
             <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
             <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
             <date when="2026">2026</date>
-            <idno type="URI">https://www.nucma.ca</idno>
+            <idno type="uri">https://www.nucma.ca</idno>
             <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
@@ -25,10 +25,10 @@
                >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
             <title xml:lang="en" type="main">NUCMA</title>
             <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
-            <idno type="URI">http://www.nucma.ca</idno>
+            <idno type="uri">http://www.nucma.ca</idno>
             <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
-         <sourceDesc xml:id="nucma-authors">
+         <sourceDesc xml:id="nucma-medias">
             <p>Fichier nativement numérique</p>
          </sourceDesc>
       </fileDesc>

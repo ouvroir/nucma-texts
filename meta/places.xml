@@ -11,7 +11,7 @@
             <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
             <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
             <date when="2026">2026</date>
-            <idno type="URI">https://www.nucma.ca</idno>
+            <idno type="uri">https://www.nucma.ca</idno>
             <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
@@ -25,10 +25,10 @@
                >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
             <title xml:lang="en" type="main">NUCMA</title>
             <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
-            <idno type="URI">http://www.nucma.ca</idno>
+            <idno type="uri">http://www.nucma.ca</idno>
             <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
-         <sourceDesc xml:id="nucma-authors">
+         <sourceDesc xml:id="nucma-places">
             <p>Fichier nativement numérique</p>
          </sourceDesc>
       </fileDesc>
@@ -275,7 +275,7 @@
             <idno type="wikidata">https://www.wikidata.org/wiki/Q12585</idno>
             <idno type="loc">http://id.loc.gov/authorities/subjects/sh85074879</idno>
          </place>
-            <place xml:lang="afriqueDuNord">
+            <place xml:id="afriqueDuNord">
                <placeName xml:lang="fr">Afrique du Nord</placeName>
                <placeName xml:lang="en">North Africa</placeName>
                <idno type="wikidata">https://www.wikidata.org/wiki/Q27381</idno>

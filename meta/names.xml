@@ -11,7 +11,7 @@
             <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
             <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
             <date when="2026">2026</date>
-            <idno type="URI">https://www.nucma.ca</idno>
+            <idno type="uri">https://www.nucma.ca</idno>
             <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
@@ -25,10 +25,10 @@
                >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
             <title xml:lang="en" type="main">NUCMA</title>
             <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
-            <idno type="URI">http://www.nucma.ca</idno>
+            <idno type="uri">http://www.nucma.ca</idno>
             <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
-         <sourceDesc xml:id="nucma-authors">
+         <sourceDesc xml:id="nucma-names">
             <p>Fichier nativement numérique</p>
          </sourceDesc>
       </fileDesc>
@@ -481,7 +481,7 @@
                <persName>Couture, Francine (1946-....)</persName>
                <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb13521461d</idno>
                <idno type="isni">https://isni.org/isni/0000000073665987</idno>
-               <idno xml:id="wikidata">https://www.wikidata.org/wiki/Q3081199</idno>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q3081199</idno>
             </person>
          </listPerson>
 
@@ -578,18 +578,18 @@
             <org xml:id="sbmk">
                <orgName xml:lang="fr">Foundation for the Conservation of Modern Art/Netherlands</orgName>
                <orgName xml:lang="en">Foundation for the Conservation of Modern Art/Netherlands</orgName> 
-               <idno type="website">https://www.sbmk.nl/en/#:~:text=The%20Foundation%20for%20the%20Conservation,all%20concerned%20with%20the%20art</idno>
+               <idno type="uri">https://www.sbmk.nl/en/#:~:text=The%20Foundation%20for%20the%20Conservation,all%20concerned%20with%20the%20art</idno>
                <!-- pas trouvée sur Wikidata, lien vers leur site web -->
             </org>
             <org xml:id="vmn">
                <orgName xml:lang="fr">The Variable Media Network</orgName>
                <orgName xml:lang="en">The Variable Media Network</orgName> 
-               <idno type="website">https://www.variablemedia.net/e/index.html</idno> <!-- pas trouvée sur Wikidata, lien vers leur site web -->
+               <idno type="uri">https://www.variablemedia.net/e/index.html</idno> <!-- pas trouvée sur Wikidata, lien vers leur site web -->
             </org>
             <org xml:id="mma">
                <orgName xml:lang="fr">Matters in Media Art</orgName>
                <orgName xml:lang="en">Matters in Media Art</orgName> 
-               <idno type="website">http://mattersinmediaart.org</idno> <!-- pas trouvée sur Wikidata, lien vers leur site web -->
+               <idno type="uri">http://mattersinmediaart.org</idno> <!-- pas trouvée sur Wikidata, lien vers leur site web -->
             </org>            
             <org xml:id="newArtTrust">
                <orgName xml:lang="fr">New Art Trust</orgName>
@@ -665,7 +665,7 @@
             <org xml:id="larvaLabs">
                <orgName xml:lang="fr">LarvaLabs</orgName>
                <orgName xml:lang="en">LarvaLabs</orgName> 
-               <idno type="website">https://larvalabs.com/</idno> <!-- pas trouvée sur Wikidata, lien vers leur site web -->
+               <idno type="uri">https://larvalabs.com/</idno> <!-- pas trouvée sur Wikidata, lien vers leur site web -->
             </org> 
             <org xml:id="zkm">
                <orgName xml:lang="fr">Centre des d’arts et de technologie des médias de Karlsruhe</orgName>
