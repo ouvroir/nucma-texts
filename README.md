@@ -116,7 +116,38 @@ Ce dépôt-ci contient les textes, les référentiels (`meta/`) et les schémas 
 
 Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape fait l’objet de son propre commit, pour que les diffs restent lisibles.
 
-1. **Import depuis MS Word** (nucma-profile) : `docxtotei --profile=nucma Entree.docx fr/acquisition/entree.xml`. Le fichier produit est nettoyé, son en-tête est rempli, et il est associé à `nucma.rng` et à `nucma-quality.sch`. Commit.
+1. **Import depuis MS Word** (nucma-profile, installé à l’étape 5 de « Installation »).
+
+   Le document Word doit commencer par le bloc d’en-tête : titre de l’entrée, titre court, auteurs (modèle dans le README de nucma-profile, « En-tête »).
+
+   ```sh
+   make import LANGUAGE=fr CHAPTER=acquisition DOCX=~/chemin/vers/Variabilite.docx
+   ```
+
+   La langue, le chapitre et le chemin du document sont obligatoires. Le fichier est rangé dans `<langue>/<chapitre>/`, sous le titre court du document, sans majuscule ni diacritique (`Variabilité` → `fr/acquisition/variabilite.xml`) ; `NAME=…` donne un autre nom, et l’identifiant de l’entrée (`sourceDesc/@xml:id`) est alors aligné sur lui. La commande s’arrête si la langue du bloc d’en-tête n’est pas celle annoncée, et ne remplace pas un fichier existant sans `FORCE=yes` ; elle signale les `@todo` à traiter et donne l’inclusion à ajouter au `_corpus.xml` du chapitre.
+
+   Sans make, la commande équivalente est :
+
+   ```sh
+   NUCMA_AUTHORS=file://$PWD/meta/authors.xml NUCMA_CHAPTER=acquisition docxtotei --profile=nucma ~/chemin/vers/Variabilite.docx fr/acquisition/variabilite.xml
+   ```
+
+   `NUCMA_AUTHORS` indique au profil où trouver `meta/authors.xml`, pour donner à chaque auteur son `@ref` et ses identifiants ; `NUCMA_CHAPTER` donne le chapitre de l’identifiant de l’entrée. Les autres variables sont décrites dans le README de nucma-profile (« Importer un texte »).
+
+   Le fichier produit est nettoyé, son en-tête est rempli, et il est associé à `nucma.rng` et à `nucma-quality.sch`. Ensuite :
+
+   - chercher les `<!-- @todo -->` : un auteur absent de `meta/authors.xml` a été découpé au jugé (dernier mot pris comme nom de famille) ; l’ajouter au référentiel ou corriger l’entrée ;
+   - relire l’en-tête (titre, auteurs, contributeurs) ;
+   - vérifier que le code de langue est bien présent sur `<text>`
+   - ajouter l’entrée au `_corpus.xml` du chapitre :
+   
+     ```xml
+     <xi:include href="./variabilite.xml" parse="xml">
+        <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+     </xi:include>
+     ```
+   
+   Commit.
 2. **Structuration** dans oXygen : `div`, `q`, `soCalled`, `title`, `persName`, `orgName`, `placeName`, bibliographie… Commit.
 3. **Normalisation** (typesetter) : toujours dans un fichier temporaire, puis remplacement.
 

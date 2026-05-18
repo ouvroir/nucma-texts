@@ -32,6 +32,9 @@
    <xi:include href="./coacquisition.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
+   <xi:include href="./garde-partagee.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>
    <xi:include href="./protocoles.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>

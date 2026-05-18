@@ -2,6 +2,12 @@
 #
 #   make help            affiche cette aide (aussi : make sans argument)
 #
+#   make import LANGUAGE=fr CHAPTER=acquisition DOCX=chemin/vers/Entree.docx
+#                        importe un document Word avec le profil nucma dans
+#                        <langue>/<chapitre>/<nom>.xml
+#     NAME=nom-court     nom du fichier et de l’identifiant (défaut : titre court du document)
+#     FORCE=yes          remplace un fichier existant
+#
 #   make schemas         génère les schémas RelaxNG à partir des ODD (chaîne d’ODD),
 #                        dans schemas/ (non versionnés)
 #   make documentation   génère la documentation HTML dans documentation/ (non versionné)
@@ -25,11 +31,13 @@
 #   DEFAULT_LANG=fr                  typography : langue d’un fichier rangé hors de fr/ ou en/
 #
 # Exemples :
+#   make import LANGUAGE=fr CHAPTER=acquisition DOCX=~/Documents/GardePartagee.docx
 #   make check TARGET=fr/acquisition/variabilite.xml
 #   make typography TARGET=fr/acquisition LEVEL=warning REPORT=yes
 #   make validate TARGET=meta
 #
-# Prérequis : TEI Stylesheets et Ant ; l’ODD de Commons Publishing dans
+# Prérequis : TEI Stylesheets et Ant ; pour l’import, le profil nucma déclaré dans les
+# Stylesheets (lien profiles/nucma) ; pour les schémas, l’ODD de Commons Publishing dans
 # COMMONS_PUBLISHING ; une connexion à internet (éléments repris de tei:4.11.0).
 # Pour les contrôles : Jing et xmllint ; Saxon (SAXON_CP), SchXslt2 (XSpec) et typesetter.
 # Détails : README.md, sections « Lancer les contrôles avec make » et « Schémas (ODD) ».
@@ -48,6 +56,59 @@ COMMONS_PUBLISHING ?= ../tei-commons-publishing/odd/commons-publishing-metopes-c
 TEITOODD := $(TEI_STYLESHEETS)/bin/teitoodd
 TEITORNG := $(TEI_STYLESHEETS)/bin/teitorng
 TEITOHTML := $(TEI_STYLESHEETS)/bin/teitohtml
+DOCXTOTEI := $(TEI_STYLESHEETS)/bin/docxtotei
+
+# --- Import ----------------------------------------------------------------------------
+
+.PHONY: import
+
+# Conversion dans build/import.xml, puis rangement dans <langue>/<chapitre>/<nom>.xml. Le nom
+# est NAME, sinon le titre court du document Word, que le profil pose dans
+# sourceDesc/@xml:id (nucma.fr.acquisition.variabilite → variabilite) ; avec NAME,
+# l’identifiant est aligné sur le nom du fichier. La langue du bloc d’en-tête du document
+# doit être LANGUAGE. Un fichier existant n’est remplacé qu’avec FORCE=yes. Le profil lit
+# meta/authors.xml de ce dépôt.
+import:
+	@test -n "$(LANGUAGE)" -a -n "$(CHAPTER)" -a -n "$(DOCX)" || { echo "Usage : make import LANGUAGE=fr CHAPTER=acquisition DOCX=chemin/vers/Entree.docx [NAME=nom-court] [FORCE=yes]"; exit 1; }
+	@case "$(LANGUAGE)" in fr|en) ;; *) echo "LANGUAGE : fr ou en"; exit 1 ;; esac
+	@case "$(CHAPTER)$(NAME)" in *[!a-z0-9-]*) echo "CHAPTER et NAME : minuscules sans diacritique, chiffres, tirets"; exit 1 ;; esac
+	@test -x "$(DOCXTOTEI)" || { echo "docxtotei introuvable : TEI_STYLESHEETS=$(TEI_STYLESHEETS)"; exit 1; }
+	@test -e "$(TEI_STYLESHEETS)/profiles/nucma" || { echo "profil nucma non déclaré dans $(TEI_STYLESHEETS)/profiles (voir README, Installation)"; exit 1; }
+	@docx="$(DOCX)"; \
+	case $$docx in "~/"*) docx="$$HOME/$${docx#\~/}" ;; esac; \
+	case $$docx in /*) ;; *) docx="$$PWD/$$docx" ;; esac; \
+	test -f "$$docx" || { echo "document introuvable : $$docx"; exit 1; }; \
+	mkdir -p build; rm -f build/import.xml; \
+	echo "== conversion de $$docx"; \
+	NUCMA_AUTHORS="file://$(CURDIR)/meta/authors.xml" NUCMA_CHAPTER="$(CHAPTER)" \
+	  "$(DOCXTOTEI)" --profile=nucma "$$docx" "$(CURDIR)/build/import.xml" > build/import.log 2>&1; \
+	test -s build/import.xml || { cat build/import.log; echo "échec de la conversion (journal : build/import.log)"; exit 1; }; \
+	id=$$(xmllint --xpath "string(//*[local-name()='sourceDesc']/@*[local-name()='id'])" build/import.xml 2> /dev/null); \
+	test -n "$$id" || { echo "pas d’identifiant sur sourceDesc : vérifier le bloc d’en-tête du document Word (résultat dans build/import.xml)"; exit 1; }; \
+	lang=$$(echo "$$id" | cut -d. -f2); \
+	test "$$lang" = "$(LANGUAGE)" || { echo "le bloc d’en-tête du document est en « $$lang », pas en « $(LANGUAGE) » (résultat dans build/import.xml)"; exit 1; }; \
+	name="$(or $(NAME),$$(echo "$$id" | sed 's/.*\.//'))"; \
+	newid="nucma.$(LANGUAGE).$(CHAPTER).$$name"; \
+	if [ "$$newid" != "$$id" ]; then \
+	  sed "s/\"$$(echo "$$id" | sed 's/\./\\./g')\"/\"$$newid\"/g" build/import.xml > build/import.tmp && mv build/import.tmp build/import.xml; \
+	  echo "   identifiant $$id → $$newid"; \
+	fi; \
+	out="$(LANGUAGE)/$(CHAPTER)/$$name.xml"; \
+	if [ -e "$$out" ] && [ "$(FORCE)" != yes ]; then \
+	  echo "$$out existe déjà : FORCE=yes pour le remplacer, ou NAME=… (résultat dans build/import.xml)"; exit 1; \
+	fi; \
+	mkdir -p "$(LANGUAGE)/$(CHAPTER)" && mv build/import.xml "$$out"; \
+	echo "== $$out ($$newid)"; \
+	todo=$$(grep -c '@todo' "$$out"); \
+	if [ "$$todo" -gt 0 ]; then echo "   $$todo commentaire(s) @todo à traiter (auteurs absents de meta/authors.xml, DOI…)"; fi; \
+	corpus="$(LANGUAGE)/$(CHAPTER)/_corpus.xml"; \
+	if ! grep -qs "href=\"\./$$name\.xml\"" "$$corpus"; then \
+	  echo "   à ajouter dans $$corpus :"; \
+	  echo "   <xi:include href=\"./$$name.xml\" parse=\"xml\">"; \
+	  echo "      <xi:fallback xml:lang=\"$(LANGUAGE)\">Fichier non trouvé / File not found</xi:fallback>"; \
+	  echo "   </xi:include>"; \
+	fi; \
+	echo "   ensuite : relire l’en-tête, puis make check TARGET=$$out"
 
 # ODD qui s’appuient sur l’étage commun (odd/nucma-common.odd) : un schéma chacun
 SCHEMAS := nucma nucma-persons nucma-places nucma-artworks nucma-exhibitions nucma-bibliography nucma-medias
