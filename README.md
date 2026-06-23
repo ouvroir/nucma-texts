@@ -160,7 +160,7 @@ git co -b import/titre-court-article
 3. **Normalisation** (typesetter) :
 
    ```sh
-   f=fr/acquisition/entree.xml
+   f=fr/acquisition/coacquisition.xml
    make normalize TARGET=$f
    git diff --word-diff $f
    ```
@@ -176,7 +176,7 @@ Pour un fichier déjà importé autrement que par le profil, ou modifié à la m
 Les trois étapes de typesetter se lancent depuis la racine de ce dépôt, chacune suivie d’une relecture du diff et d’un commit :
 
 ```sh
-f=fr/acquisition/entree.xml
+f=fr/acquisition/coacquisition.xml
 make serialize TARGET=$f   # 1. remet sur une ligne les balises coupées par un éditeur XML ; contenu inchangé
 make cleanup TARGET=$f     # 2. nettoie les artefacts de Word (déjà fait par le profil à l’import)
 make normalize TARGET=$f   # 3. normalisation Unicode et typographique ; journal dans logs/
@@ -198,6 +198,37 @@ Le nettoyage d’un fichier déjà importé reste utile : il remplace par des es
 | `BIBLIOGRAPHY=yes` | normalize | traite aussi la bibliographie, exclue par défaut |
 | `DEFAULT_LANG=fr` | normalize | langue d’un fichier rangé hors de `fr/` ou `en/` |
 | `DETAIL=yes` | normalize | journal détaillé : chaque segment modifié, avant et après |
+
+#### Relire les changements entre deux étapes
+
+Chaque étape part d’un fichier commité : le diff montre donc exactement ce qu’elle a changé.
+
+```sh
+git diff --stat $f                 # combien de lignes ont changé
+git diff --word-diff $f            # le détail, mot à mot : [-avant-]{+après+}
+git diff --word-diff=color $f      # le même, en couleur (rouge : retiré, vert : ajouté)
+```
+
+Beaucoup de corrections portent sur des espaces insécables, invisibles dans le diff : la ligne avant et la ligne après paraissent identiques. Pour les voir, remplacer l’espace insécable par `⍽` et l’espace fine insécable par `⸱` à l’affichage (le fichier n’est pas modifié) :
+
+```sh
+git diff --word-diff $f | perl -CSD -pe 's/\x{00A0}/\x{237D}/g; s/\x{202F}/\x{2E31}/g'
+```
+
+Le journal de la normalisation (`logs/`, ou affiché dans le terminal) compte les changements par règle ; avec `DETAIL=yes`, il donne chaque segment modifié, avant et après, ce qui aide à comprendre un changement inattendu.
+
+Puis, selon la relecture :
+
+| Décision | Commande |
+|---|---|
+| tout garder | `git commit -m "normalisation de coacquisition" $f` (un message par étape ; seul `$f` est commité) |
+| tout annuler | `git restore $f` : le fichier revient au dernier commit |
+| garder une partie | `git add -p $f` (pour chaque bloc : `y` garder, `n` écarter, `s` découper), puis `git commit`, puis `git restore $f` pour abandonner le reste |
+| corriger à la main | modifier le fichier, puis `git commit -m "…" $f` |
+
+Un changement qu’on écarte à chaque passage (faux positif) est à signaler dans typesetter plutôt qu’à corriger dans le texte : la règle doit être affinée, ou le passage protégé par `rend="verbatim"`.
+
+Dans VS Code, le panneau *Source Control* montre les mêmes changements côte à côte, et permet de garder ou d’annuler un bloc (*Stage Selected Ranges*, *Revert Selected Ranges*). Une fois le commit fait, `git log -p --word-diff $f` retrace les étapes successives d’un fichier.
 
 ### Lancer les contrôles avec make
 
