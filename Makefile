@@ -1,11 +1,11 @@
 # Chaîne de traitement de NUCMA.
 #
-#   make help            affiche cette aide (aussi : make sans argument)
+#   make help            affiche cette aide (aussi : make sans argument)
 #
 #   make import LANGUAGE=fr CHAPTER=acquisition DOCX=chemin/vers/Entree.docx
 #                        importe un document Word avec le profil nucma dans
 #                        <langue>/<chapitre>/<nom>.xml
-#     NAME=nom-court     nom du fichier et de l’identifiant (défaut : titre court du document)
+#     NAME=nom-court     nom du fichier et de l’identifiant (défaut : titre court du document)
 #     FORCE=yes          remplace un fichier existant
 #
 #   make schemas         génère les schémas RelaxNG à partir des ODD (chaîne d’ODD),
@@ -21,7 +21,7 @@
 #   make clean-check     supprime les Schematron compilés (build/) et les rapports (reports/)
 #
 # Options des contrôles :
-#   TARGET=fr/acquisition            un dossier ou un fichier (défaut : fr en meta pour
+#   TARGET=fr/acquisition            un dossier ou un fichier (défaut : fr en meta pour
 #                                    validate, fr en meta/authors.xml pour quality, fr en
 #                                    pour typography)
 #   REPORT=yes                       écrit aussi le rapport dans reports/
@@ -36,18 +36,18 @@
 #   make typography TARGET=fr/acquisition LEVEL=warning REPORT=yes
 #   make validate TARGET=meta
 #
-# Prérequis : TEI Stylesheets et Ant ; pour l’import, le profil nucma déclaré dans les
-# Stylesheets (lien profiles/nucma) ; pour les schémas, l’ODD de Commons Publishing dans
-# COMMONS_PUBLISHING ; une connexion à internet (éléments repris de tei:4.11.0).
-# Pour les contrôles : Jing et xmllint ; Saxon (SAXON_CP), SchXslt2 (XSpec) et typesetter.
-# Détails : README.md, sections « Lancer les contrôles avec make » et « Schémas (ODD) ».
+# Prérequis : TEI Stylesheets et Ant ; pour l’import, le profil nucma déclaré dans les
+# Stylesheets (lien profiles/nucma) ; pour les schémas, l’ODD de Commons Publishing dans
+# COMMONS_PUBLISHING ; une connexion à internet (éléments repris de tei:4.11.0).
+# Pour les contrôles : Jing et xmllint ; Saxon (SAXON_CP), SchXslt2 (XSpec) et typesetter.
+# Détails : README.md, sections « Lancer les contrôles avec make » et « Schémas (ODD ».
 
 # make sans argument affiche l’aide
 .DEFAULT_GOAL := help
 
 .PHONY: help
 
-# aide : le commentaire d’en-tête de ce fichier, jusqu’à la première ligne vide
+# aide : le commentaire d’en-tête de ce fichier, jusqu’à la première ligne vide
 help:
 	@sed -n '/^$$/q; s/^# \{0,1\}//p' $(firstword $(MAKEFILE_LIST))
 
@@ -64,7 +64,7 @@ DOCXTOTEI := $(TEI_STYLESHEETS)/bin/docxtotei
 
 # Conversion dans build/import.xml, puis rangement dans <langue>/<chapitre>/<nom>.xml. Le nom
 # est NAME, sinon le titre court du document Word, que le profil pose dans
-# sourceDesc/@xml:id (nucma.fr.acquisition.variabilite → variabilite) ; avec NAME,
+# sourceDesc/@xml:id (nucma.fr.acquisition.variabilite → variabilite) ; avec NAME,
 # l’identifiant est aligné sur le nom du fichier. La langue du bloc d’en-tête du document
 # doit être LANGUAGE. Un fichier existant n’est remplacé qu’avec FORCE=yes. Le profil lit
 # meta/authors.xml de ce dépôt.
@@ -84,7 +84,7 @@ import:
 	  "$(DOCXTOTEI)" --profile=nucma "$$docx" "$(CURDIR)/build/import.xml" > build/import.log 2>&1; \
 	test -s build/import.xml || { cat build/import.log; echo "échec de la conversion (journal : build/import.log)"; exit 1; }; \
 	id=$$(xmllint --xpath "string(//*[local-name()='sourceDesc']/@*[local-name()='id'])" build/import.xml 2> /dev/null); \
-	test -n "$$id" || { echo "pas d’identifiant sur sourceDesc : vérifier le bloc d’en-tête du document Word (résultat dans build/import.xml)"; exit 1; }; \
+	test -n "$$id" || { echo "pas d’identifiant sur sourceDesc : vérifier le bloc d’en-tête du document Word (résultat dans build/import.xml)"; exit 1; }; \
 	lang=$$(echo "$$id" | cut -d. -f2); \
 	test "$$lang" = "$(LANGUAGE)" || { echo "le bloc d’en-tête du document est en « $$lang », pas en « $(LANGUAGE) » (résultat dans build/import.xml)"; exit 1; }; \
 	name="$(or $(NAME),$$(echo "$$id" | sed 's/.*\.//'))"; \
@@ -110,7 +110,7 @@ import:
 	fi; \
 	echo "   ensuite : relire l’en-tête, puis make check TARGET=$$out"
 
-# ODD qui s’appuient sur l’étage commun (odd/nucma-common.odd) : un schéma chacun
+# ODD qui s’appuient sur l’étage commun (odd/nucma-common.odd) : un schéma chacun
 SCHEMAS := nucma nucma-persons nucma-places nucma-artworks nucma-exhibitions nucma-bibliography nucma-medias
 # seulement ceux dont l’ODD existe
 RNG := $(patsubst odd/%.odd,schemas/%.rng,$(wildcard $(SCHEMAS:%=odd/%.odd)))
@@ -122,7 +122,7 @@ DOC := documentation/nucma-common.html $(patsubst odd/%.odd,documentation/%.html
 
 schemas: $(RNG)
 
-# étage commun compilé : chaque ODD spécifique s’appuie sur lui (schemaSpec/@source)
+# étage commun compilé : chaque ODD spécifique s’appuie sur lui (schemaSpec/@source)
 $(COMMON): odd/nucma-common.odd $(COMMONS_PUBLISHING)
 	cd odd && $(TEITOODD) nucma-common.odd nucma-common.compiled.odd > /dev/null
 
@@ -130,7 +130,7 @@ schemas/%.rng: odd/%.odd $(COMMON)
 	cd odd && $(TEITORNG) --odd $*.odd ../$@ > /dev/null
 	@echo "   $@"
 
-# documentation HTML de chaque ODD : prose et référence des éléments et attributs
+# documentation HTML de chaque ODD : prose et référence des éléments et attributs
 documentation: $(DOC)
 
 documentation/%.html: odd/%.odd $(COMMON)
@@ -151,12 +151,12 @@ SCHXSLT ?= $(HOME)/xspec/lib/schxslt2/transpile.xsl
 SAXON ?= java -jar $(SAXON_CP)
 JING ?= jing
 
-# fichiers contrôlés : tous les .xml du dossier ou le fichier désigné par TARGET
+# fichiers contrôlés : tous les .xml du dossier ou le fichier désigné par TARGET
 files = $(sort $(shell find $(or $(TARGET),$(1)) -name '*.xml' 2> /dev/null))
 # les fichiers _corpus.xml assemblent des entrées déjà contrôlées une à une
 entries = $(filter-out %/_corpus.xml _corpus.xml,$(call files,$(1)))
 
-# rapport : reports/<contrôle>-<cible>-<date>.txt, ou rien
+# rapport : reports/<contrôle>-<cible>-<date>.txt, ou rien
 DATE := $(shell date +%F)
 report = $(if $(filter yes,$(REPORT)),reports/$(1)-$(or $(subst /,-,$(patsubst %.xml,%,$(patsubst %/,%,$(TARGET)))),tout)-$(DATE).txt,/dev/null)
 
@@ -166,14 +166,14 @@ QUALITY_XSL := build/nucma-quality.xsl
 
 .PHONY: validate quality typography check clean-check check-saxon check-target
 
-# les trois contrôles, même si la validation échoue ; échoue ensuite si l’un a échoué
+# les trois contrôles, même si la validation échoue ; échoue ensuite si l’un a échoué
 check:
 	@status=0; \
 	$(MAKE) --no-print-directory validate || status=1; \
 	$(MAKE) --no-print-directory quality typography || status=1; \
 	exit $$status
 
-# Validation : le schéma dépend de l’emplacement du fichier (meta/authors.xml et
+# Validation : le schéma dépend de l’emplacement du fichier (meta/authors.xml et
 # meta/names.xml → nucma-persons, meta/<x>.xml → nucma-<x>, entrées → nucma) ; les
 # xi:include des fichiers _corpus.xml sont développés avant la validation. Échoue si un
 # fichier n’est pas valide.

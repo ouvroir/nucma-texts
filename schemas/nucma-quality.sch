@@ -5,11 +5,10 @@
   xmlns:nucma="https://nucma.ca/ns"
   queryBinding="xslt3" xml:lang="fr">
 
-  <sch:title>NUCMA : contrôle de la cohérence de l’encodage</sch:title>
+  <sch:title>NUCMA : contrôle de la cohérence de l’encodage</sch:title>
 
   <!--
-    Contrôles qui complètent la validation par le schéma (nucma.rng) : ce que la grammaire
-    ne peut pas vérifier, comme les renvois vers meta/authors.xml ou la validité d’un ORCID.
+    Ce ficher Schematron fournit une validation complémentaire au schema `nucma` pour les contraintes complexes qui ne peuvent être exprimés avec RelaxNG ou ODD. Il permet notamment de contrôler les renvois vers meta/authors.xml ou la validité des identifiants ORCID.
 
     Deux niveaux (@role) :
       error   : encodage incohérent, à corriger ;
@@ -20,9 +19,7 @@
     fichier est retrouvé à partir de l’emplacement du document contrôlé : le dossier fr/,
     en/ ou meta/ du dépôt.
 
-    Utilisation : dans oXygen, associer ce schéma aux fichiers (Document › Validate ›
-    Validate with…, ou une instruction xml-model) ; en ligne de commande, voir
-    xsl/README.md.
+    Utilisation : dans oXygen, associer ce schéma aux fichiers (Document › Validate › Validate with…, ou insérer une instruction de traitement `xml-model`) ; en ligne de commande, voir xsl/README.md.
   -->
 
   <sch:ns prefix="tei" uri="http://www.tei-c.org/ns/1.0"/>
