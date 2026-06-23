@@ -17,7 +17,9 @@
     Les personnes (auteurs, autrices, contributeurs, encodeurs) sont décrites une seule
     fois, dans meta/authors.xml ; les entrées y renvoient par @ref="#identifiant". Le
     fichier est retrouvé à partir de l’emplacement du document contrôlé : le dossier fr/,
-    en/ ou meta/ du dépôt.
+    en/ ou meta/ du dépôt. Les autres référentiels de meta/ (names, places, artworks,
+    exhibitions, bibliography, medias) sont retrouvés de la même façon, pour contrôler les
+    renvois des entités (@ref) ; les liens (ref/@target) sont contrôlés dans le document.
 
     Utilisation : dans oXygen, associer ce schéma aux fichiers (Document › Validate › Validate with…, ou insérer une instruction de traitement `xml-model`) ; en ligne de commande, voir xsl/README.md.
   -->
@@ -25,6 +27,7 @@
   <sch:ns prefix="tei" uri="http://www.tei-c.org/ns/1.0"/>
   <sch:ns prefix="nucma" uri="https://nucma.ca/ns"/>
   <sch:ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+  <sch:ns prefix="map" uri="http://www.w3.org/2005/xpath-functions/map"/>
 
   <!-- ================================================================ -->
   <!-- Variables et fonctions                                           -->
@@ -34,6 +37,22 @@
   <sch:let name="authors-uri" value="replace(base-uri(/), '/(fr|en|meta)/[^/]*(/.*)?$', '/meta/authors.xml')"/>
   <sch:let name="authors" value="if (doc-available($authors-uri)) then doc($authors-uri) else ()"/>
 
+  <!-- référentiels de meta/, indexés par leur nom (authors, names…) ; absents s’ils sont introuvables -->
+  <sch:let name="meta-uri" value="replace(base-uri(/), '/(fr|en|meta)/[^/]*(/.*)?$', '/meta/')"/>
+  <sch:let name="meta" value="map:merge(
+    for $name in ('authors', 'names', 'places', 'artworks', 'exhibitions', 'bibliography', 'medias')
+    return if (doc-available($meta-uri || $name || '.xml')) then map{$name: doc($meta-uri || $name || '.xml')} else ())"/>
+
+  <!-- notices auxquelles un élément peut renvoyer par @ref : référentiel/élément ;
+       les autres éléments peuvent renvoyer à toute notice de meta/ -->
+  <sch:let name="ref-targets" value="map{
+    'persName': ('authors/person', 'names/person'),
+    'orgName': 'names/org',
+    'placeName': 'places/place',
+    'objectName': 'artworks/object',
+    'title': ('exhibitions/event', 'artworks/object', 'bibliography/biblStruct'),
+    'bibl': 'bibliography/biblStruct'}"/>
+
   <!-- types d’identifiants admis pour une personne -->
   <sch:let name="person-idno-types" value="('orcid', 'isni', 'wikidata', 'viaf', 'bnf', 'idref')"/>
 
@@ -42,6 +61,22 @@
     <xsl:param name="ref" as="xs:string?"/>
     <xsl:param name="authors" as="document-node()?"/>
     <xsl:sequence select="$authors//tei:person[@xml:id = substring-after($ref, '#')][1]"/>
+  </xsl:function>
+
+  <xsl:function name="nucma:notices" as="element()*">
+    <!-- notices de meta/ portant l’identifiant $id, parmi les sortes données (référentiel/élément, * pour tout élément) -->
+    <xsl:param name="id" as="xs:string"/>
+    <xsl:param name="kinds" as="xs:string*"/>
+    <xsl:param name="meta" as="map(*)"/>
+    <xsl:sequence select="for $kind in $kinds
+      return $meta(substring-before($kind, '/'))//*[@xml:id = $id]
+                  [substring-after($kind, '/') = ('*', local-name())]"/>
+  </xsl:function>
+
+  <xsl:function name="nucma:notice-label" as="xs:string">
+    <!-- description d’une sorte de notice pour les messages : « person de meta/names.xml » -->
+    <xsl:param name="kind" as="xs:string"/>
+    <xsl:sequence select="substring-after($kind, '/') || ' de meta/' || substring-before($kind, '/') || '.xml'"/>
   </xsl:function>
 
   <xsl:function name="nucma:name" as="xs:string">
@@ -197,6 +232,65 @@
     <sch:rule context="tei:idno[lower-case(@type) = 'isni'][normalize-space()]">
       <sch:assert role="warning" test="matches(normalize-space(.), '^https://isni\.org/isni/\d{15}[\dX]$')">
         ISNI de forme inattendue : « <sch:value-of select="normalize-space(.)"/> » (attendu : https://isni.org/isni/ suivi de 16 caractères).
+      </sch:assert>
+    </sch:rule>
+
+  </sch:pattern>
+
+  <!-- ================================================================ -->
+  <!-- 4. Renvois et liens                                              -->
+  <!-- ================================================================ -->
+
+  <sch:pattern id="references">
+
+    <!-- renvoi d’une entité aux référentiels : @ref="#identifiant" (les URL, comme celles
+         de Zotero sur bibl, ne sont pas contrôlées) -->
+    <sch:rule context="tei:text//*[@ref][some $r in tokenize(@ref) satisfies starts-with($r, '#')]">
+      <sch:let name="kinds" value="if (map:contains($ref-targets, local-name())) then $ref-targets(local-name())
+                                   else map:keys($meta) ! (. || '/*')"/>
+      <sch:let name="unchecked" value="some $kind in $kinds satisfies not(map:contains($meta, substring-before($kind, '/')))"/>
+      <sch:let name="missing" value="tokenize(@ref)[starts-with(., '#')]
+                                     [empty(nucma:notices(substring(., 2), $kinds, $meta))]"/>
+      <sch:assert role="error" test="$unchecked or empty($missing)">
+        Renvoi <sch:value-of select="string-join($missing, ' ')"/> sur <sch:value-of select="local-name()"/> : aucune notice ne porte cet identifiant parmi les notices attendues (<sch:value-of select="string-join($kinds ! nucma:notice-label(.), ', ')"/>)<sch:value-of select="
+          let $elsewhere := $missing ! nucma:notices(substring(., 2), map:keys($meta) ! (. || '/*'), $meta)
+          return if (exists($elsewhere)) then ' ; il désigne : ' || string-join(distinct-values($elsewhere ! (local-name() || ' de meta/' || tokenize(base-uri(.), '/')[last()])), ', ') else ''"/>.
+      </sch:assert>
+    </sch:rule>
+
+    <!-- liens : renvois internes, appels de note, liens externes -->
+    <sch:rule context="tei:ref[@target]">
+      <sch:let name="targets" value="tokenize(@target)"/>
+      <sch:let name="internal" value="$targets[starts-with(., '#')]"/>
+      <!-- éléments désignés : dans le document ; pour une figure, aussi dans meta/medias.xml -->
+      <sch:let name="scope" value="(root(), if (@type = 'figure') then $meta?medias else ())"/>
+      <sch:let name="unresolved" value="for $t in $internal return $t[empty($scope//*[@xml:id = substring($t, 2)])]"/>
+      <sch:let name="designated" value="for $t in $internal return $scope//*[@xml:id = substring($t, 2)]"/>
+      <!-- crossref renvoie à une autre entrée : sa cible n’est pas dans le document -->
+      <sch:assert role="error" test="@type = 'crossref' or empty($unresolved)">
+        Renvoi interne <sch:value-of select="string-join($unresolved, ' ')"/> : aucun élément <sch:value-of select="if (@type = 'figure') then 'du document ni de meta/medias.xml' else 'du document'"/> ne porte cet @xml:id.
+      </sch:assert>
+      <sch:assert role="error"
+        test="not(@type = 'figure')
+              or (every $t in $targets satisfies starts-with($t, '#'))
+                 and (every $e in $designated satisfies $e/self::tei:figure)">
+        Renvoi à une figure (type="figure") : la cible doit être une figure, du document ou de meta/medias.xml (target="#identifiant-de-la-figure"), et non « <sch:value-of select="@target"/> ».
+      </sch:assert>
+      <sch:assert role="error" test="not(@type = 'internal') or (every $t in $targets satisfies starts-with($t, '#'))">
+        Renvoi interne (type="internal") : la cible doit être un élément du document (target="#identifiant"), et non « <sch:value-of select="@target"/> ».
+      </sch:assert>
+      <sch:report role="warning" test="@type = 'internal' and $designated/(self::tei:note | self::tei:figure)">
+        Renvoi interne vers <sch:value-of select="string-join(distinct-values($designated/(self::tei:note | self::tei:figure)/local-name()), ', ')"/> : employer type="<sch:value-of select="($designated/(self::tei:note | self::tei:figure)/local-name())[1]"/>".
+      </sch:report>
+      <sch:assert role="error"
+        test="not(@type = 'note')
+              or (every $t in $targets satisfies
+                    starts-with($t, '#')
+                    and (every $e in root(current())//*[@xml:id = substring($t, 2)] satisfies $e/self::tei:note))">
+        Appel de note (type="note") : la cible doit être une note du document (target="#identifiant-de-la-note"), et non « <sch:value-of select="@target"/> ».
+      </sch:assert>
+      <sch:assert role="error" test="not(@type = 'external') or (every $t in $targets satisfies matches($t, '^https?://'))">
+        Lien externe (type="external") : la cible doit être une URL http(s), et non « <sch:value-of select="@target"/> ».
       </sch:assert>
     </sch:rule>
 

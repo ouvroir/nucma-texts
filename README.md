@@ -318,6 +318,10 @@ Contrôles actuels :
 | Entrées | l’ORCID de l’entrée est le même que celui de `meta/authors.xml` | erreur |
 | Entrées | le prénom et le nom sont ceux de `meta/authors.xml` | avertissement |
 | Entrées | `change/@who` renvoie à une personne connue | avertissement |
+| Textes | chaque `@ref="#…"` d’une entité renvoie à une notice du bon référentiel : `persName` → personne de `meta/authors.xml` ou `meta/names.xml`, `orgName` → organisme de `meta/names.xml`, `placeName` → `meta/places.xml`, `objectName` → `meta/artworks.xml`, `title` → exposition, œuvre ou référence, `bibl` → `meta/bibliography.xml` (les URL, comme celles de Zotero, ne sont pas contrôlées) | erreur |
+| Textes | chaque `ref/@target="#…"` renvoie à un `@xml:id` du document (sauf `type="crossref"`, qui vise une autre entrée ; pour `type="figure"`, aussi dans `meta/medias.xml`) | erreur |
+| Textes | `ref type="note"` vise une `note` du document ; `type="figure"` une `figure` du document ou de `meta/medias.xml` ; `type="internal"` un `#identifiant` du document ; `type="external"` une URL `http(s)` | erreur |
+| Textes | `ref type="internal"` qui vise une note ou une figure (employer `type="note"` ou `type="figure"`) | avertissement |
 | `meta/authors.xml` | chaque personne a un `@xml:id` unique, un prénom et un nom ; homonymes signalés | erreur |
 | `meta/authors.xml` | chaque personne a un ORCID | avertissement |
 | `meta/authors.xml` | un même identifiant (ORCID, ISNI…) n’est pas attribué à plusieurs personnes | erreur |
