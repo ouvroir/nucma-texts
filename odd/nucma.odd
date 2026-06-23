@@ -6,19 +6,10 @@
       <titleStmt>
         <title xml:lang="fr"
           >Schéma pour NUCMA, Encyclopédie Des nouveaux usages des collections dans les musées d’art</title>
-        <principal ref="#ECD">
-          <persName>
-            <forename>Emmanuel</forename>
-            <surname>Château-Dutier</surname>
-          </persName>
-          <affiliation>Université de Montréal</affiliation>
-        </principal>
+        <principal ref="#ECD">Emmanuel Château-Dutier</principal>
         <respStmt>
           <resp>Première personnalisation</resp>
-          <persName>
-            <forename>Janette</forename>
-            <surname>Mujica-Zepeda</surname>
-          </persName>
+          <name>Janette Mujica-Zepeda</name>
         </respStmt>
       </titleStmt>
       <publicationStmt>

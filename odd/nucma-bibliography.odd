@@ -5,10 +5,7 @@
     <fileDesc>
       <titleStmt>
         <title>NUCMA : schéma du référentiel bibliographique</title>
-        <principal ref="#ECD">
-          <persName><forename>Emmanuel</forename> <surname>Château-Dutier</surname></persName>
-          <affiliation>Université de Montréal</affiliation>
-        </principal>
+        <principal ref="#ECD">Emmanuel Château-Dutier</principal>
       </titleStmt>
       <publicationStmt>
         <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
@@ -24,7 +21,7 @@
       </sourceDesc>
     </fileDesc>
     <revisionDesc>
-      <change when="2026-10-04" resp="#ECD">Création</change>
+      <change when="2026-10-04" who="#ECD">Création</change>
     </revisionDesc>
   </teiHeader>
   <text>

@@ -113,8 +113,8 @@
       </sch:assert>
     </sch:rule>
 
-    <sch:rule context="tei:revisionDesc/tei:change[@resp | @who]">
-      <sch:let name="refs" value="tokenize(normalize-space(string-join((@resp, @who), ' ')), ' ')"/>
+    <sch:rule context="tei:revisionDesc/tei:change[@who]">
+      <sch:let name="refs" value="tokenize(normalize-space(@who), ' ')"/>
       <sch:assert role="warning"
         test="empty($authors) or (every $ref in $refs satisfies exists(nucma:person($ref, $authors)))">
         Révision attribuée à <sch:value-of select="string-join($refs, ', ')"/> : personne absente de meta/authors.xml.

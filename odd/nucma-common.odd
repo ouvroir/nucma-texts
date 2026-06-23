@@ -5,10 +5,7 @@
     <fileDesc>
       <titleStmt>
         <title>NUCMA : règles d’encodage communes</title>
-        <principal ref="#ECD">
-          <persName><forename>Emmanuel</forename> <surname>Château-Dutier</surname></persName>
-          <affiliation>Université de Montréal</affiliation>
-        </principal>
+        <principal ref="#ECD">Emmanuel Château-Dutier</principal>
       </titleStmt>
       <publicationStmt>
         <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
@@ -24,8 +21,8 @@
       </sourceDesc>
     </fileDesc>
     <revisionDesc>
-      <change when="2026-10-04" resp="#ECD">Création de l’étage commun de la chaîne d’ODD</change>
-      <change when="2026-10-16" resp="#ECD">Ajout de <gi>abbr</gi> (<att>type</att> <code>acronym</code>)</change>
+      <change when="2026-10-04" who="#ECD">Création de l’étage commun de la chaîne d’ODD</change>
+      <change when="2026-10-16" who="#ECD">Ajout de <gi>abbr</gi> (<att>type</att> <code>acronym</code>)</change>
     </revisionDesc>
   </teiHeader>
   <text>
@@ -71,8 +68,9 @@
         <p>Collection de l’encyclopédie (<gi>seriesStmt</gi>), identifiant de l’entrée ou du
           référentiel sur <gi>sourceDesc</gi> (<code>nucma.fr.acquisition.variabilite</code>),
           et sa version dans l’autre langue (<att>corresp</att>),
-          personne responsable d’une révision (<att>resp</att> sur <gi>change</gi>, qui
-          renvoie à <code>meta/authors.xml</code>).</p>
+          personne responsable d’une révision (<att>who</att> sur <gi>change</gi>, qui
+          renvoie à <code>meta/authors.xml</code> ; <att>resp</att> n’est pas admis, pour
+          que l’usage reste uniforme).</p>
         <specGrp xml:id="header">
           <elementRef key="seriesStmt" source="tei:4.11.0"/>
           <elementSpec ident="sourceDesc" mode="change" module="header">
@@ -91,13 +89,6 @@
             <attList>
               <attDef ident="xml:id" mode="add" usage="opt">
                 <datatype><dataRef key="ID"/></datatype>
-              </attDef>
-            </attList>
-          </elementSpec>
-          <elementSpec ident="change" mode="change" module="header">
-            <attList>
-              <attDef ident="resp" mode="add" usage="opt">
-                <datatype maxOccurs="unbounded"><dataRef key="teidata.pointer"/></datatype>
               </attDef>
             </attList>
           </elementSpec>
