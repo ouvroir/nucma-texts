@@ -20,6 +20,16 @@
 #   make check           les trois contrôles à la suite
 #   make clean-check     supprime les Schematron compilés (build/) et les rapports (reports/)
 #
+#   make serialize TARGET=…  1. remet sur une ligne les balises coupées (typesetter)
+#   make cleanup TARGET=…    2. nettoie les artefacts de Word (typesetter)
+#   make normalize TARGET=…  3. normalisation typographique (typesetter)
+#                        transforment sur place les entrées de fr/ et en/ ; un commit après
+#                        chaque étape ; les fichiers non commités sont laissés de côté
+#     FORCE=yes          traite aussi les fichiers qui ont des modifications non commitées
+#     BIBLIOGRAPHY=yes   normalize : traite aussi la bibliographie
+#     DEFAULT_LANG=fr    normalize : langue d’un fichier rangé hors de fr/ ou en/
+#     DETAIL=yes         normalize : journal détaillé (chaque segment modifié)
+#
 # Options des contrôles :
 #   TARGET=fr/acquisition            un dossier ou un fichier (défaut : fr en meta pour
 #                                    validate, fr en meta/authors.xml pour quality, fr en
@@ -231,6 +241,43 @@ $(QUALITY_XSL): schemas/nucma-quality.sch | check-saxon
 $(TYPOGRAPHY_XSL): $(TYPOGRAPHY_SCH) $(wildcard $(TYPESETTER)/schematron/rules/*/*.sch $(TYPESETTER)/schematron/lists/*.xml) | check-saxon
 	@mkdir -p build
 	$(SAXON) -s:$< -xsl:$(SCHXSLT) -o:$@ $(if $(PHASE),'{http://dmaus.name/ns/2023/schxslt}phase=$(PHASE)')
+
+# --- Transformations (typesetter) ------------------------------------------------------
+
+.PHONY: serialize cleanup normalize
+
+# Transformation sur place des entrées de TARGET (fr/ et en/, sans les _corpus.xml) par
+# une feuille de typesetter : $(1) nom de l’étape, $(2) feuille, $(3) paramètres. TARGET
+# est obligatoire. Un fichier qui a des modifications non commitées est laissé de côté
+# (sauf FORCE=yes), pour que le diff ne montre que l’effet de l’étape.
+define transform
+	@test -n "$(TARGET)" || { echo "Usage : make $(1) TARGET=fichier-ou-dossier [FORCE=yes]"; exit 1; }
+	@mkdir -p build; status=0; n=0; \
+	for f in $(filter fr/% en/%,$(call entries,)); do \
+	  if [ "$(FORCE)" != yes ] && ! { git ls-files --error-unmatch $$f > /dev/null 2>&1 && git diff --quiet HEAD -- $$f; }; then \
+	    echo "== $$f : modifications non commitées, laissé de côté (commit d’abord, ou FORCE=yes)"; status=1; continue; \
+	  fi; \
+	  echo "== $$f"; \
+	  $(SAXON) -s:$$f -xsl:$(2) -o:build/$(1).xml $(3) \
+	    && mv build/$(1).xml $$f && n=$$((n + 1)) \
+	    || { echo "   échec : $$f n’est pas modifié"; status=1; }; \
+	done; \
+	echo "== $(1) : $$n fichier(s) traité(s)"; \
+	if [ $$n -gt 0 ]; then git diff --stat -- $(TARGET); echo "   relire avec git diff --word-diff $(TARGET), puis commit"; fi; \
+	exit $$status
+endef
+
+# 1. sérialisation : remet sur une ligne les balises coupées par un éditeur XML
+serialize: check-saxon check-target
+	$(call transform,serialize,$(TYPESETTER)/src/serialization.xsl,)
+
+# 2. nettoyage des artefacts de Word (déjà fait par le profil pour un fichier importé)
+cleanup: check-saxon check-target
+	$(call transform,cleanup,$(TYPESETTER)/src/import-cleanup.xsl,)
+
+# 3. normalisation Unicode et typographique ; journal dans logs/
+normalize: check-saxon check-target
+	$(call transform,normalize,$(TYPESETTER)/src/normalization.xsl,$(if $(filter yes,$(BIBLIOGRAPHY)),'?process-bibliography=true()') $(if $(DEFAULT_LANG),default-lang=$(DEFAULT_LANG)) $(if $(filter yes,$(DETAIL)),report=detail))
 
 check-target:
 	@$(if $(TARGET),test -e "$(TARGET)" || { echo "TARGET introuvable : $(TARGET)"; exit 1; })

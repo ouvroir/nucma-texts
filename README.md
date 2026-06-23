@@ -157,19 +157,47 @@ git co -b import/titre-court-article
    
    Commit.
 2. **Structuration** dans oXygen : `div`, `q`, `soCalled`, `title`, `persName`, `orgName`, `placeName`, bibliographie… Commit.
-3. **Normalisation** (typesetter) : toujours dans un fichier temporaire, puis remplacement.
+3. **Normalisation** (typesetter) :
 
    ```sh
    f=fr/acquisition/entree.xml
-   saxon -s:$f -xsl:$TYPESETTER/src/normalization.xsl -o:$f.tmp && mv $f.tmp $f
-   git diff --word-diff
+   make normalize TARGET=$f
+   git diff --word-diff $f
    ```
 
    Le diff ne doit montrer que des corrections typographiques. Commit.
 4. **Contrôle typographique** (typesetter) : `make typography TARGET=$f` (voir ci-dessous). Corriger ce qui doit l’être, compléter le balisage suggéré. Commit.
 5. **Contrôle de l’encodage** : `make validate TARGET=$f` et `make quality TARGET=$f`, validation par `nucma-text.rng` et `nucma-quality.sch` (voir « Schémas » et « Contrôle de l’encodage »). Commit.
 
-Pour un fichier déjà importé autrement que par le profil, les étapes de sérialisation et de nettoyage sont décrites dans le README de typesetter (« Utilisation »).
+Pour un fichier déjà importé autrement que par le profil, ou modifié à la main depuis, passer d’abord par la sérialisation et le nettoyage (voir ci-dessous).
+
+### Transformer les entrées avec make (typesetter)
+
+Les trois étapes de typesetter se lancent depuis la racine de ce dépôt, chacune suivie d’une relecture du diff et d’un commit :
+
+```sh
+f=fr/acquisition/entree.xml
+make serialize TARGET=$f   # 1. remet sur une ligne les balises coupées par un éditeur XML ; contenu inchangé
+make cleanup TARGET=$f     # 2. nettoie les artefacts de Word (déjà fait par le profil à l’import)
+make normalize TARGET=$f   # 3. normalisation Unicode et typographique ; journal dans logs/
+git diff --word-diff $f    # relire, puis commit, avant l’étape suivante
+```
+
+Elles transforment les fichiers sur place. Pour éviter les accidents :
+
+- `TARGET` (un fichier ou un dossier) est obligatoire ;
+- seules les entrées de `fr/` et `en/` sont traitées, pas les `_corpus.xml` ni les référentiels de `meta/` ;
+- un fichier qui a des modifications non commitées est laissé de côté, pour que le diff ne montre que l’effet de l’étape (`FORCE=yes` le traite quand même) ;
+- en cas d’échec de la feuille, le fichier n’est pas modifié.
+
+Le nettoyage d’un fichier déjà importé reste utile : il remplace par des espaces ordinaires les espaces insécables laissés par des guillemets remplacés à la main par `q` ou `soCalled`.
+
+| Option | Étape | Effet |
+|---|---|---|
+| `FORCE=yes` | toutes | traite aussi les fichiers qui ont des modifications non commitées |
+| `BIBLIOGRAPHY=yes` | normalize | traite aussi la bibliographie, exclue par défaut |
+| `DEFAULT_LANG=fr` | normalize | langue d’un fichier rangé hors de `fr/` ou `en/` |
+| `DETAIL=yes` | normalize | journal détaillé : chaque segment modifié, avant et après |
 
 ### Lancer les contrôles avec make
 
