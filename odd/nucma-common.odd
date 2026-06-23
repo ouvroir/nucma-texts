@@ -25,6 +25,7 @@
     </fileDesc>
     <revisionDesc>
       <change when="2026-10-04" resp="#ECD">Création de l’étage commun de la chaîne d’ODD</change>
+      <change when="2026-10-16" resp="#ECD">Ajout de <gi>abbr</gi> (<att>type</att> <code>acronym</code>)</change>
     </revisionDesc>
   </teiHeader>
   <text>
@@ -207,8 +208,21 @@
       <div>
         <head>Éléments de phrase</head>
         <p>Éléments sémantiques employés dans les textes et suggérés par le contrôle
-          typographique (balisage des guillemets et de l’italique), repris de la TEI.</p>
+          typographique (balisage des guillemets et de l’italique), repris de la TEI. Les
+          acronymes sont balisés par <gi>abbr</gi> avec <att>type</att> à
+          <code>acronym</code> (<code>&lt;abbr type="acronym"&gt;UNESCO&lt;/abbr&gt;</code>) ;
+          la liste des types est fermée.</p>
         <specGrp xml:id="phrases">
+          <elementRef key="abbr" source="tei:4.11.0"/>
+          <elementSpec ident="abbr" mode="change" module="core">
+            <attList>
+              <attDef ident="type" mode="change">
+                <valList mode="replace" type="closed">
+                  <valItem ident="acronym"><desc>acronyme ou sigle (UNESCO, MoMA, ZKM)</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </elementSpec>
           <elementRef key="emph" source="tei:4.11.0"/>
           <elementRef key="foreign" source="tei:4.11.0"/>
           <elementRef key="q" source="tei:4.11.0"/>
