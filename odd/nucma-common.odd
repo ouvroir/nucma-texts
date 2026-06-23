@@ -199,12 +199,13 @@
       <div>
         <head>Rendu</head>
         <p>Le rendu de <gi>hi</gi> est une liste fermée de valeurs, combinables
-          (<code>rend="italic bold"</code>), qui reprend celles produites par les TEI
-          Stylesheets à la conversion depuis Word : <code>italic</code>, <code>bold</code>,
-          <code>superscript</code>, <code>subscript</code>, <code>smallcaps</code>,
-          <code>allcaps</code>, <code>strikethrough</code>, <code>underline</code>, et
-          <code>verbatim</code> (propre au projet). Les autres valeurs produites par Word
-          (couleurs, fond) et les abréviations (<code>sup</code>) sont refusées. <code>verbatim</code> est aussi
+          (<code>rend="italic bold"</code>) : <code>italic</code>, <code>bold</code>,
+          <code>sup</code> (exposant) et <code>sub</code> (indice), comme dans Commons
+          Publishing, <code>smallcaps</code>, <code>allcaps</code>, <code>strikethrough</code>,
+          <code>underline</code>, et <code>verbatim</code> (propre au projet). Les TEI
+          Stylesheets écrivent l’exposant et l’indice <code>superscript</code> et
+          <code>subscript</code> : le profil d’import les convertit. Les autres valeurs
+          produites par Word (couleurs, fond) sont refusées. <code>verbatim</code> est aussi
           admis sur tout élément, pour un passage à garder tel quel (la normalisation et le
           contrôle typographique ne le modifient pas).</p>
         <specGrp xml:id="rendition">
@@ -215,8 +216,8 @@
                 <valList type="closed">
                   <valItem ident="italic"><desc>italique</desc></valItem>
                   <valItem ident="bold"><desc>gras</desc></valItem>
-                  <valItem ident="superscript"><desc>exposant (3<hi rend="superscript">e</hi>)</desc></valItem>
-                  <valItem ident="subscript"><desc>indice</desc></valItem>
+                  <valItem ident="sup"><desc>exposant (n<hi rend="sup">o</hi>)</desc></valItem>
+                  <valItem ident="sub"><desc>indice</desc></valItem>
                   <valItem ident="smallcaps"><desc>petites capitales (siècles)</desc></valItem>
                   <valItem ident="allcaps"><desc>capitales</desc></valItem>
                   <valItem ident="strikethrough"><desc>barré</desc></valItem>
