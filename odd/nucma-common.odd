@@ -73,7 +73,10 @@
           que l’usage reste uniforme). Dans l’en-tête, le type d’un titre
           (<att>type</att> sur <gi>title</gi>) est <code>main</code> ou <code>sub</code> ;
           ailleurs (titres d’œuvres, références), il reste libre. Cette règle est une règle
-          Schematron intégrée au schéma : oXygen l’applique, Jing l’ignore.</p>
+          Schematron intégrée au schéma : oXygen l’applique, Jing l’ignore. Les listes propres
+          à la chaîne Métopes, sans usage dans le projet, sont retirées : <att>change</att>
+          sur <gi>TEI</gi> (valeurs <code>commons_*</code>) et <att>type</att> sur
+          <gi>text</gi> (<code>book</code>, <code>issue</code>, <code>review</code>…).</p>
         <specGrp xml:id="header">
           <elementRef key="seriesStmt" source="tei:4.11.0"/>
           <elementSpec ident="sourceDesc" mode="change" module="header">
@@ -97,6 +100,17 @@
                 </sch:rule>
               </constraint>
             </constraintSpec>
+          </elementSpec>
+          <!-- listes propres à la chaîne Métopes, sans usage dans le projet -->
+          <elementSpec ident="TEI" mode="change" module="textstructure">
+            <attList>
+              <attDef ident="change" mode="delete"/>
+            </attList>
+          </elementSpec>
+          <elementSpec ident="text" mode="change" module="textstructure">
+            <attList>
+              <attDef ident="type" mode="delete"/>
+            </attList>
           </elementSpec>
           <!-- identifiant de l’application de conversion (docxtotei), posé par les TEI Stylesheets -->
           <elementSpec ident="application" mode="change" module="header">

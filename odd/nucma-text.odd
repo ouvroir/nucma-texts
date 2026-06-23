@@ -67,7 +67,9 @@
           <code>&lt;ref type="note" target="#note01"&gt;1&lt;/ref&gt;</code>.</p>
         <p>Le type d’une division (<att>type</att> sur <gi>div</gi>) est pris dans une liste
           fermée : <code>bibliography</code>, <code>notes</code>, <code>appendix</code>,
-          <code>acknowledgments</code> ; les sections ordinaires n’ont pas de type.</p>
+          <code>acknowledgments</code> ; les sections ordinaires n’ont pas de type. Les notes
+          n’ont pas de type (<att>type</att> sur <gi>note</gi>, dont Métopes fait une liste
+          propre à sa chaîne, est retiré).</p>
         <p>Sont obligatoires : l’identifiant de l’entrée (<att>xml:id</att> sur
           <gi>sourceDesc</gi>), la langue du texte (<att>xml:lang</att> sur <gi>text</gi>) et,
           dans l’en-tête d’une entrée, au moins un auteur qui renvoie à sa notice de
@@ -132,6 +134,13 @@
                   <valItem ident="acknowledgments"><desc>remerciements</desc></valItem>
                 </valList>
               </attDef>
+            </attList>
+          </elementSpec>
+
+          <!-- types de notes de Métopes (aut, biography, pbl, trl), sans usage dans les entrées -->
+          <elementSpec ident="note" mode="change" module="core">
+            <attList>
+              <attDef ident="type" mode="delete"/>
             </attList>
           </elementSpec>
 
