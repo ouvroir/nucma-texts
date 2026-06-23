@@ -60,6 +60,7 @@
           <specGrpRef target="#names"/>
           <specGrpRef target="#rendition"/>
           <specGrpRef target="#phrases"/>
+          <specGrpRef target="#dates"/>
         </schemaSpec>
       </div>
 
@@ -260,6 +261,42 @@
           <elementRef key="q" source="tei:4.11.0"/>
           <elementRef key="soCalled" source="tei:4.11.0"/>
           <elementRef key="title" source="tei:4.11.0"/>
+        </specGrp>
+      </div>
+
+      <div>
+        <head>Dates</head>
+        <p>Les dates sont normalisées en ISO 8601, sous les formes du W3C
+          (<code>2026</code>, <code>2026-10</code>, <code>2026-10-16</code>,
+          <code>2026-10-16T21:24:02Z</code>) : sur <att>when</att>, sur <att>from</att> et
+          <att>to</att> de <gi>date</gi> (que Commons Publishing laisse en texte libre), et sur
+          <att>notBefore</att> et <att>notAfter</att>, rétablis pour les dates approximatives
+          (<code>&lt;date notBefore="1970" notAfter="1979"&gt;années 1970&lt;/date&gt;</code>).</p>
+        <specGrp xml:id="dates">
+          <classSpec ident="att.datable.w3c" type="atts" mode="change" module="tei">
+            <attList>
+              <attDef ident="notBefore" mode="add" usage="opt">
+                <desc>date la plus ancienne possible</desc>
+                <datatype><dataRef key="teidata.temporal.w3c"/></datatype>
+              </attDef>
+              <attDef ident="notAfter" mode="add" usage="opt">
+                <desc>date la plus récente possible</desc>
+                <datatype><dataRef key="teidata.temporal.w3c"/></datatype>
+              </attDef>
+            </attList>
+          </classSpec>
+          <elementSpec ident="date" mode="change" module="core">
+            <attList>
+              <attDef ident="from" mode="replace" usage="opt">
+                <desc>début de la période</desc>
+                <datatype><dataRef key="teidata.temporal.w3c"/></datatype>
+              </attDef>
+              <attDef ident="to" mode="replace" usage="opt">
+                <desc>fin de la période</desc>
+                <datatype><dataRef key="teidata.temporal.w3c"/></datatype>
+              </attDef>
+            </attList>
+          </elementSpec>
         </specGrp>
       </div>
     </body>
