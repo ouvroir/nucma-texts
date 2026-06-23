@@ -1,8 +1,10 @@
-# NUCMA – Encyclopédie des Nouveaux usages des collections dans les musées d’art
+# Textes de NUCMA, Encyclopédie des Nouveaux usages des collections dans les musées d’art
 
 NUCMA – Encyclopédie des Nouveaux usages des collections dans les musées d’art est un projet du groupe de recherche CIÉCO réalisé dans le cadre du Partenariat *Des nouveaux usages des collections dans les musées d’art*.
 
 ## Organisation des fichiers
+
+Le présent dépôt contient les textes, les référentiels (`meta/`) et les schémas propres à l’encyclopédie : les ODD (`odd/`), les schémas qui en sont générés et le Schematron d’encodage (`schemas/`).
 
 ```bash
 nucma/
@@ -51,22 +53,22 @@ nucma/
 
 ## Outils et chaîne de traitement
 
-Les textes sont produits et contrôlés avec des outils rangés dans deux dépôts distincts, chacun documenté dans son propre README :
+Les textes sont encodés avec la Text Encoding Initiative (TEI). Ils sont documentés par des schémas ODD et peuvent être validés par des schémas RelaxNG et des fichiers Schematron. Un Makefile automatise la production des schémas RelaxNG, la conversion des documents depuis docx et leur validation.
+
+La conversion des fichiers docx utilise un profil pour les TEI Stylesheets qui est traité dans un dépôt distinct. Le contrôle typographique des fichiers par Schematron utilise également un répertoire distinct :
 
 | Dépôt | Rôle |
 |---|---|
-| [nucma-profile](https://github.com/ouvroir/nucma-profile) | Profil `nucma` des TEI Stylesheets : conversion des entrées Word en TEI, en-tête rempli, nettoyage des artefacts de Word. |
+| [nucma-profile](https://github.com/ouvroir/nucma-profile) | Profil `nucma` des TEI Stylesheets : conversion des fichiers MS Word en XML-TEI, création des en-tête rempli, nettoyage des artefacts du traitement de texte. |
 | [typesetter](https://codeberg.org/Factoton/typesetter) | Normalisation Unicode et typographique (`src/normalization.xsl`), nettoyage d’un TEI déjà importé, sérialisation, contrôle typographique (`schematron/typography.sch`). |
-
-Ce dépôt-ci contient les textes, les référentiels (`meta/`) et les schémas propres à l’encyclopédie : les ODD (`odd/`), les schémas qui en sont générés et le Schematron d’encodage (`schemas/`).
 
 ### Installation
 
-À faire une fois par poste. Les commandes sont données pour macOS ; les outils fonctionnent aussi sous Linux et Windows.
+L’installation utilise des logiciels libres et open source. Les commandes sont données pour MacOS ; les outils fonctionnent aussi sous Linux et Windows.
 
-1. **Java** : vérifier qu’il est installé (`java -version`), sinon l’installer (par exemple `brew install openjdk`).
+1. **Java** : vérifier que java est installé (`java -version`), sinon l’installer (par exemple `brew install openjdk`).
 
-2. **Saxon HE 12** (processeur XSLT) : télécharger `saxon-he-12.*.jar` depuis les [versions de Saxon-HE](https://github.com/Saxonica/Saxon-HE/releases) et créer un alias `saxon` dans votre `~/.zshrc` ou votre `~/.zprofile` :
+2. **Saxon HE 12** (processeur XSLT) : télécharger `saxon-he-12.*.jar` depuis les [versions de Saxon-HE](https://github.com/Saxonica/Saxon-HE/releases) et créer un alias `saxon` dans votre `~/.zshrc` ou votre `~/.zprofile` :
 
    ```sh
    alias saxon='java -jar /chemin/vers/saxon-he-12.3.jar'
@@ -74,7 +76,7 @@ Ce dépôt-ci contient les textes, les référentiels (`meta/`) et les schémas 
 
    La chaîne a été testée avec Saxon HE 12.3. Homebrew installe une version plus récente (`brew install saxon`, Saxon 13), qui n’a pas été testée.
 
-3. **XSpec** (outil de test des feuilles XSLT et des Schematron) : il fournit aussi SchXslt2, le compilateur de Schematron qu’emploient les commandes de contrôle ci-dessous. Le cloner dans `~/xspec`, chemin attendu par ces commandes, et se placer sur la version testée :
+3. **XSpec** (outil de test des feuilles XSLT et des Schematron) : fournit aussi SchXslt2, le compilateur de Schematron utilisé pour le contrôle des fichiers. Le cloner dans `~/xspec`, chemin attendu par ces commandes, et se placer sur la version testée :
 
    ```sh
    git clone https://github.com/xspec/xspec.git ~/xspec
@@ -112,19 +114,25 @@ Ce dépôt-ci contient les textes, les référentiels (`meta/`) et les schémas 
    saxon -s:fr/acquisition/variabilite.xml -xsl:$TYPESETTER/src/normalization.xsl -o:/tmp/test.xml log-dir=
    ```
 
-### Traiter une entrée
+## Importation des entrées
 
-Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape fait l’objet de son propre commit, pour que les diffs restent lisibles.
+Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape devrait faire l’objet de son propre commit sur une branche dédiée.
 
-1. **Import depuis MS Word** (nucma-profile, installé à l’étape 5 de « Installation »).
+1. Créer une **branche pour l’importation** du texte
 
-   Le document Word doit commencer par le bloc d’en-tête : titre de l’entrée, titre court, auteurs (modèle dans le README de nucma-profile, « En-tête »).
+```sh
+git co -b import/titre-court-article
+```
+
+1. **Import depuis MS Word** (`nucma-profile`, installé à l’étape 5 de « Installation »).
+
+   Le document MS Word doit commencer par le bloc d’en-tête : titre de l’entrée, titre court, auteurs (documenté dans `README` de nucma-profile, « En-tête »).
 
    ```sh
    make import LANGUAGE=fr CHAPTER=acquisition DOCX=~/chemin/vers/Variabilite.docx
    ```
 
-   La langue, le chapitre et le chemin du document sont obligatoires. Le fichier est rangé dans `<langue>/<chapitre>/`, sous le titre court du document, sans majuscule ni diacritique (`Variabilité` → `fr/acquisition/variabilite.xml`) ; `NAME=…` donne un autre nom, et l’identifiant de l’entrée (`sourceDesc/@xml:id`) est alors aligné sur lui. La commande s’arrête si la langue du bloc d’en-tête n’est pas celle annoncée, et ne remplace pas un fichier existant sans `FORCE=yes` ; elle signale les `@todo` à traiter et donne l’inclusion à ajouter au `_corpus.xml` du chapitre.
+   La langue, le chapitre et le chemin du document sont obligatoires. Le fichier est rangé dans `<langue>/<chapitre>/`, sous le titre court du document, sans majuscule ni diacritique (`Variabilité` → `fr/acquisition/variabilite.xml`) ; L’option `NAME=…` permet de fournir un autre nom qui est également utilisé pour l’identifiant de l’entrée (`sourceDesc/@xml:id`). La commande s’arrête si la langue du bloc d’en-tête n’est pas celle annoncée, ou si le fichier existe déjà à moins d’avoir l’option `FORCE=yes` ; elle signale les `@todo` à traiter et donne l’inclusion à ajouter au `_corpus.xml` du chapitre.
 
    Sans make, la commande équivalente est :
 
@@ -134,7 +142,7 @@ Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape fa
 
    `NUCMA_AUTHORS` indique au profil où trouver `meta/authors.xml`, pour donner à chaque auteur son `@ref` et ses identifiants ; `NUCMA_CHAPTER` donne le chapitre de l’identifiant de l’entrée. Les autres variables sont décrites dans le README de nucma-profile (« Importer un texte »).
 
-   Le fichier produit est nettoyé, son en-tête est rempli, et il est associé à `nucma.rng` et à `nucma-quality.sch`. Ensuite :
+   Le fichier produit est nettoyé, son en-tête est rempli, et il est associé à `nucma-text.rng` et à `nucma-quality.sch`. Ensuite :
 
    - chercher les `<!-- @todo -->` : un auteur absent de `meta/authors.xml` a été découpé au jugé (dernier mot pris comme nom de famille) ; l’ajouter au référentiel ou corriger l’entrée ;
    - relire l’en-tête (titre, auteurs, contributeurs) ;
@@ -159,7 +167,7 @@ Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape fa
 
    Le diff ne doit montrer que des corrections typographiques. Commit.
 4. **Contrôle typographique** (typesetter) : `make typography TARGET=$f` (voir ci-dessous). Corriger ce qui doit l’être, compléter le balisage suggéré. Commit.
-5. **Contrôle de l’encodage** : `make validate TARGET=$f` et `make quality TARGET=$f`, validation par `nucma.rng` et `nucma-quality.sch` (voir « Schémas » et « Contrôle de l’encodage »). Commit.
+5. **Contrôle de l’encodage** : `make validate TARGET=$f` et `make quality TARGET=$f`, validation par `nucma-text.rng` et `nucma-quality.sch` (voir « Schémas » et « Contrôle de l’encodage »). Commit.
 
 Pour un fichier déjà importé autrement que par le profil, les étapes de sérialisation et de nettoyage sont décrites dans le README de typesetter (« Utilisation »).
 
@@ -239,7 +247,7 @@ Les fichiers du projet sont validés par des schémas RelaxNG générés à part
 ```text
 Commons Publishing (odd/commons-publishing-metopes-compiled.odd, dépôt tei-commons-publishing)
 └── odd/nucma-common.odd            règles communes à tout le projet
-    ├── odd/nucma.odd               entrées (fr/, en/) et _corpus.xml   → schemas/nucma.rng
+    ├── odd/nucma-text.odd          entrées (fr/, en/) et _corpus.xml   → schemas/nucma-text.rng
     ├── odd/nucma-persons.odd       meta/authors.xml, meta/names.xml    → schemas/nucma-persons.rng
     ├── odd/nucma-places.odd        meta/places.xml                     → schemas/nucma-places.rng
     ├── odd/nucma-artworks.odd      meta/artworks.xml                   → schemas/nucma-artworks.rng
@@ -254,7 +262,7 @@ Chaque fichier désigne son schéma par une instruction `xml-model` en tête ; o
 
 L’étage commun (`nucma-common.odd`) reste aussi compatible que possible avec Commons Publishing et ne l’élargit que pour les besoins du projet :
 
-- **en-tête** : collection (`seriesStmt`), identifiant de l’entrée et lien vers sa version dans l’autre langue (`sourceDesc/@xml:id`, `@corresp`), responsable d’une révision (`change/@resp`) ;
+- **en-tête** : collection (`seriesStmt`), identifiant de l’entrée et lien vers sa version dans l’autre langue (`sourceDesc/@xml:id`, `@corresp`), responsable d’une révision (`change/@who`, seul admis) ;
 - **identifiants** : types d’`idno` en liste fermée et en minuscules (`orcid`, `isni`, `viaf`, `wikidata`, `bnf`, `loc`, `ulan`, `zkm`, `artblocks`, `artefact`, `doi`, `isbn`, `issn`, `uri`, `url`, `callNumber`) ;
 - **noms** : renvoi aux référentiels par `@ref` sur `persName`, `orgName`, `placeName`, `objectName`, `author` et `bibl` ; fonction (`roleName`) ;
 - **rendu** : `superscript` et `smallcaps` sur `hi` (produits par la normalisation), `rend="verbatim"` sur tout élément (passage à garder tel quel) ;
@@ -273,7 +281,7 @@ make clean-schemas         # supprime les schémas générés et l’étage comm
 make clean-documentation   # supprime documentation/
 ```
 
-Les schémas générés (`schemas/nucma.rng`, `schemas/nucma-*.rng`) ne sont pas versionnés : **avant de valider, chacun génère les schémas avec `make schemas`**, et le refait après une mise à jour des ODD. `make` compile d’abord l’étage commun (`odd/nucma-common.compiled.odd`, fichier intermédiaire lui aussi non versionné), puis produit chaque schéma ; il ne régénère que ce qui a changé. Il faut les TEI Stylesheets et le dépôt Commons Publishing (voir « Installation ») et une connexion à internet : les éléments repris de la TEI viennent de sa version 4.11.0, figée pour que la génération soit reproductible. Les chemins se changent par des variables : `make schemas TEI_STYLESHEETS=… COMMONS_PUBLISHING=…`.
+Les schémas générés (`schemas/nucma-text.rng`, `schemas/nucma-*.rng`) ne sont pas versionnés : **avant de valider, chacun génère les schémas avec `make schemas`**, et le refait après une mise à jour des ODD. `make` compile d’abord l’étage commun (`odd/nucma-common.compiled.odd`, fichier intermédiaire lui aussi non versionné), puis produit chaque schéma ; il ne régénère que ce qui a changé. Il faut les TEI Stylesheets et le dépôt Commons Publishing (voir « Installation ») et une connexion à internet : les éléments repris de la TEI viennent de sa version 4.11.0, figée pour que la génération soit reproductible. Les chemins se changent par des variables : `make schemas TEI_STYLESHEETS=… COMMONS_PUBLISHING=…`.
 
 La documentation HTML, dans `documentation/` (non versionné : chacun la régénère), comprend `nucma-common.html` pour les règles communes, puis une page par schéma. Elle présente la prose de chaque ODD et la référence de ses éléments et attributs : c’est le guide d’encodage du projet.
 
@@ -286,16 +294,16 @@ Après une modification d’un ODD : `make schemas`, puis valider les fichiers c
 **En ligne de commande** : `make validate` (voir « Lancer les contrôles avec make »), ou directement avec [Jing](https://relaxng.org/jclark/jing.html) (`brew install jing-trang`) :
 
 ```sh
-jing schemas/nucma.rng fr/acquisition/variabilite.xml
+jing schemas/nucma-text.rng fr/acquisition/variabilite.xml
 jing schemas/nucma-persons.rng meta/authors.xml meta/names.xml
-xmllint --xinclude fr/acquisition/_corpus.xml > /tmp/corpus.xml && jing schemas/nucma.rng /tmp/corpus.xml
+xmllint --xinclude fr/acquisition/_corpus.xml > /tmp/corpus.xml && jing schemas/nucma-text.rng /tmp/corpus.xml
 ```
 
 Jing ne résout pas les `xi:include` : pour un fichier `_corpus.xml`, les développer d’abord avec `xmllint --xinclude`.
 
 ## Contrôle de l’encodage (Schematron)
 
-`schemas/nucma-quality.sch` complète la validation par le schéma (`nucma.rng`) : il vérifie ce qu’une grammaire ne peut pas vérifier. Ses messages sont de deux niveaux : **erreur** (encodage incohérent, à corriger) et **avertissement** (information manquante ou forme à harmoniser).
+`schemas/nucma-quality.sch` complète la validation par le schéma (`nucma-text.rng`) : il vérifie ce qu’une grammaire ne peut pas vérifier. Ses messages sont de deux niveaux : **erreur** (encodage incohérent, à corriger) et **avertissement** (information manquante ou forme à harmoniser).
 
 Contrôles actuels :
 
@@ -306,7 +314,7 @@ Contrôles actuels :
 | Entrées | l’auteur a un ORCID, dans l’entrée ou dans `meta/authors.xml` | avertissement |
 | Entrées | l’ORCID de l’entrée est le même que celui de `meta/authors.xml` | erreur |
 | Entrées | le prénom et le nom sont ceux de `meta/authors.xml` | avertissement |
-| Entrées | `change/@resp` (ou `@who`) renvoie à une personne connue | avertissement |
+| Entrées | `change/@who` renvoie à une personne connue | avertissement |
 | `meta/authors.xml` | chaque personne a un `@xml:id` unique, un prénom et un nom ; homonymes signalés | erreur |
 | `meta/authors.xml` | chaque personne a un ORCID | avertissement |
 | `meta/authors.xml` | un même identifiant (ORCID, ISNI…) n’est pas attribué à plusieurs personnes | erreur |
@@ -315,7 +323,7 @@ Contrôles actuels :
 
 `meta/authors.xml` est retrouvé à partir de l’emplacement du fichier contrôlé (dossier `fr/`, `en/` ou `meta/` du dépôt).
 
-**Dans oXygen** : *Document › Validate › Validate with…* et choisir `schemas/nucma-quality.sch` ; les messages apparaissent dans le panneau des résultats et sont reliés à l’endroit concerné. On peut aussi l’associer durablement aux fichiers par une instruction de traitement, à côté de celle de `nucma.rng` :
+**Dans oXygen** : *Document › Validate › Validate with…* et choisir `schemas/nucma-quality.sch` ; les messages apparaissent dans le panneau des résultats et sont reliés à l’endroit concerné. On peut aussi l’associer durablement aux fichiers par une instruction de traitement, à côté de celle de `nucma-text.rng` :
 
 ```xml
 <?xml-model href="../../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>

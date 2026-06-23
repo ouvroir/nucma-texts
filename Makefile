@@ -111,7 +111,7 @@ import:
 	echo "   ensuite : relire l’en-tête, puis make check TARGET=$$out"
 
 # ODD qui s’appuient sur l’étage commun (odd/nucma-common.odd) : un schéma chacun
-SCHEMAS := nucma nucma-persons nucma-places nucma-artworks nucma-exhibitions nucma-bibliography nucma-medias
+SCHEMAS := nucma-text nucma-persons nucma-places nucma-artworks nucma-exhibitions nucma-bibliography nucma-medias
 # seulement ceux dont l’ODD existe
 RNG := $(patsubst odd/%.odd,schemas/%.rng,$(wildcard $(SCHEMAS:%=odd/%.odd)))
 COMMON := odd/nucma-common.compiled.odd
@@ -184,7 +184,7 @@ validate: $(RNG) check-target
 	  case $$f in \
 	    meta/authors.xml|meta/names.xml) rng=schemas/nucma-persons.rng ;; \
 	    meta/*) rng=schemas/nucma-$$(basename $$f);  rng=$${rng%.xml}.rng ;; \
-	    *) rng=schemas/nucma.rng ;; \
+	    *) rng=schemas/nucma-text.rng ;; \
 	  esac; \
 	  case $$f in \
 	    *_corpus.xml) xmllint --xinclude --nowarning $$f > build/corpus.xml 2> build/validate.txt \

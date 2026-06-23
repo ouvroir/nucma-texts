@@ -65,7 +65,7 @@
           lien, dans une liste fermée :
           <code>&lt;ref type="external" target="https://www.moma.org/"&gt;MoMA&lt;/ref&gt;</code>,
           <code>&lt;ref type="note" target="#note01"&gt;1&lt;/ref&gt;</code>.</p>
-        <schemaSpec ident="nucma" start="TEI teiCorpus" source="nucma-common.compiled.odd">
+        <schemaSpec ident="nucma-text" start="TEI teiCorpus" source="nucma-common.compiled.odd">
           <moduleRef key="tei"/>
           <moduleRef key="header" except="title"/>
           <moduleRef key="core" except="biblStruct"/>

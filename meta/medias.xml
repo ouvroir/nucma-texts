@@ -55,7 +55,7 @@
             <item>
                <figure xml:id="figureid">
                   <!--<ref type="crossref" target="#figureid"/> or <ptr target="#figureid" type="crossref"/> dans les chapîtres et articles dans une balise <div> ou <p> -->
-                  <graphic url="images/image01"/>
+                  <graphic url="images/image01" mimeType="image/*"/>
                   <!--il faut prendre en compte emplacement de l'image si local pour la generation de l'html-->
                   <head xml:lang="fr"
                      >Claude-Nicolas Ledoux (architecte), Coquet et Simon (graveurs). Maison de campagne.</head>
@@ -64,6 +64,7 @@
                   <head xml:lang="en">Traduction</head>
                   <head xml:lang="en">traduction</head>
                   <!-- @todo faire évoluer le schéma pour les planches -->
+                  
                </figure>
             </item>
          </list>

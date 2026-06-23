@@ -35,7 +35,7 @@
           ne l’élargit que pour les besoins du projet.</p>
         <p>Il n’est pas utilisé seul : il est compilé (<code>nucma-common.compiled.odd</code>,
           régénéré par <code>make schemas</code>), puis chaque ODD spécifique s’appuie sur lui
-          par <code>schemaSpec/@source</code> : <code>nucma.odd</code> (entrées),
+          par <code>schemaSpec/@source</code> : <code>nucma-text.odd</code> (entrées),
           <code>nucma-persons.odd</code>, <code>nucma-places.odd</code>,
           <code>nucma-artworks.odd</code>, <code>nucma-exhibitions.odd</code>,
           <code>nucma-bibliography.odd</code>, <code>nucma-medias.odd</code>.</p>
