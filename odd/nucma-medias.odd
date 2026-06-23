@@ -25,6 +25,7 @@
     </fileDesc>
     <revisionDesc>
       <change when="2026-10-04" resp="#ECD">Création</change>
+      <change when="2026-10-16" resp="#ECD">Ajout de <att>mimeType</att> sur <gi>graphic</gi> (classe att.internetMedia)</change>
     </revisionDesc>
   </teiHeader>
   <text>
@@ -35,6 +36,12 @@
           du projet (<code>nucma-common.odd</code>). Le référentiel est encore embryonnaire :
           ce schéma reprend pour l’instant les règles communes, en attendant que sa structure
           soit fixée.</p>
+        <p>Le type de média est indiqué par <att>mimeType</att> sur <gi>graphic</gi>
+          (<code>&lt;graphic url="images/image01.jpg" mimeType="image/*"/&gt;</code>). La
+          classe <ident type="class">att.internetMedia</ident>, absente de Commons Publishing,
+          est reprise de la TEI. Pour l’instant, la liste fermée ne propose que deux valeurs
+          génériques : <code>image/*</code> et <code>video/*</code>. <att>url</att> et
+          <att>mimeType</att> sont obligatoires sur <gi>graphic</gi>.</p>
         <schemaSpec ident="nucma-medias" start="TEI" source="nucma-common.compiled.odd">
           <moduleRef key="tei"/>
           <moduleRef key="header" except="title"/>
@@ -47,6 +54,25 @@
           <moduleRef key="tagdocs"/>
           <moduleRef key="dictionaries"/>
 
+          <!-- type de média (@mimeType) : classe absente de Commons Publishing -->
+          <classRef key="att.internetMedia" source="tei:4.11.0"/>
+          <classSpec ident="att.internetMedia" type="atts" mode="change" module="tei">
+            <attList>
+              <attDef ident="mimeType" mode="change">
+                <valList mode="replace" type="closed">
+                  <valItem ident="image/*"><desc>image</desc></valItem>
+                  <valItem ident="video/*"><desc>vidéo</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </classSpec>
+          <elementSpec ident="graphic" mode="change" module="core">
+            <classes mode="change"><memberOf key="att.internetMedia" mode="add"/></classes>
+            <!-- @url (att.resourced) est déjà obligatoire -->
+            <attList>
+              <attDef ident="mimeType" mode="change" usage="req"/>
+            </attList>
+          </elementSpec>
         </schemaSpec>
       </div>
     </body>
