@@ -265,7 +265,7 @@ L’étage commun (`nucma-common.odd`) reste aussi compatible que possible avec 
 - **en-tête** : collection (`seriesStmt`), identifiant de l’entrée et lien vers sa version dans l’autre langue (`sourceDesc/@xml:id`, `@corresp`), responsable d’une révision (`change/@who`, seul admis), type des titres de l’en-tête (`title/@type` : `main` ou `sub`, règle Schematron intégrée au schéma) ;
 - **identifiants** : types d’`idno` en liste fermée et en minuscules (`orcid`, `isni`, `viaf`, `wikidata`, `bnf`, `loc`, `ulan`, `zkm`, `artblocks`, `artefact`, `doi`, `isbn`, `issn`, `uri`, `url`, `callNumber`) ;
 - **noms** : renvoi aux référentiels par `@ref` sur `persName`, `orgName`, `placeName`, `objectName`, `author` et `bibl` ; fonction (`roleName`) ;
-- **rendu** : `hi/@rend` en liste fermée de valeurs combinables (`italic`, `bold`, `superscript`, `subscript`, `smallcaps`, `underline`, `verbatim`), `rend="verbatim"` sur tout élément (passage à garder tel quel) ;
+- **rendu** : `hi/@rend` en liste fermée de valeurs combinables (valeurs des TEI Stylesheets : `italic`, `bold`, `superscript`, `subscript`, `smallcaps`, `allcaps`, `strikethrough`, `underline` ; et `verbatim`), `rend="verbatim"` sur tout élément (passage à garder tel quel) ;
 - **phrase** : `abbr` (`type="acronym"`), `emph`, `foreign`, `q`, `soCalled`, `title`.
 
 Le schéma des entrées (`nucma-text.odd`) ajoute l’assemblage des chapitres (`teiCorpus`), les types de liens (`ref/@type` : `internal`, `external`, `crossref`, `note`, `figure`), les types de divisions (`div/@type` : `bibliography`, `notes`, `appendix`, `acknowledgments`) et rend obligatoires l’identifiant de l’entrée (`sourceDesc/@xml:id`), la langue du texte (`text/@xml:lang`) et au moins un auteur avec `@ref`.

@@ -184,10 +184,12 @@
       <div>
         <head>Rendu</head>
         <p>Le rendu de <gi>hi</gi> est une liste fermée de valeurs, combinables
-          (<code>rend="italic bold"</code>) : <code>italic</code>, <code>bold</code>,
+          (<code>rend="italic bold"</code>), qui reprend celles produites par les TEI
+          Stylesheets à la conversion depuis Word : <code>italic</code>, <code>bold</code>,
           <code>superscript</code>, <code>subscript</code>, <code>smallcaps</code>,
-          <code>underline</code>, <code>verbatim</code>. Les autres valeurs produites par Word
-          (couleurs, fond, <code>sup</code>) sont refusées. <code>verbatim</code> est aussi
+          <code>allcaps</code>, <code>strikethrough</code>, <code>underline</code>, et
+          <code>verbatim</code> (propre au projet). Les autres valeurs produites par Word
+          (couleurs, fond) et les abréviations (<code>sup</code>) sont refusées. <code>verbatim</code> est aussi
           admis sur tout élément, pour un passage à garder tel quel (la normalisation et le
           contrôle typographique ne le modifient pas).</p>
         <specGrp xml:id="rendition">
@@ -201,6 +203,8 @@
                   <valItem ident="superscript"><desc>exposant (3<hi rend="superscript">e</hi>)</desc></valItem>
                   <valItem ident="subscript"><desc>indice</desc></valItem>
                   <valItem ident="smallcaps"><desc>petites capitales (siècles)</desc></valItem>
+                  <valItem ident="allcaps"><desc>capitales</desc></valItem>
+                  <valItem ident="strikethrough"><desc>barré</desc></valItem>
                   <valItem ident="underline"><desc>souligné</desc></valItem>
                   <valItem ident="verbatim"><desc>passage à garder tel quel</desc></valItem>
                 </valList>
