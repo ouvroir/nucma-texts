@@ -65,6 +65,13 @@
           lien, dans une liste fermée :
           <code>&lt;ref type="external" target="https://www.moma.org/"&gt;MoMA&lt;/ref&gt;</code>,
           <code>&lt;ref type="note" target="#note01"&gt;1&lt;/ref&gt;</code>.</p>
+        <p>Sont obligatoires : l’identifiant de l’entrée (<att>xml:id</att> sur
+          <gi>sourceDesc</gi>), la langue du texte (<att>xml:lang</att> sur <gi>text</gi>) et,
+          dans l’en-tête d’une entrée, au moins un auteur qui renvoie à sa notice de
+          <code>meta/authors.xml</code> (<att>ref</att> sur <gi>author</gi>). Cette dernière
+          règle, qui ne vaut ni pour les en-têtes des <code>_corpus.xml</code> ni pour les
+          auteurs des références bibliographiques, est une règle Schematron intégrée au
+          schéma : oXygen l’applique, Jing l’ignore.</p>
         <schemaSpec ident="nucma-text" start="TEI teiCorpus" source="nucma-common.compiled.odd">
           <moduleRef key="tei"/>
           <moduleRef key="header" except="title"/>
@@ -108,6 +115,31 @@
                 </valList>
               </attDef>
             </attList>
+          </elementSpec>
+
+          <!-- identifiant de l’entrée ou du chapitre (nucma.fr.acquisition.variabilite) -->
+          <elementSpec ident="sourceDesc" mode="change" module="header">
+            <attList>
+              <attDef ident="xml:id" mode="change" usage="req"/>
+            </attList>
+          </elementSpec>
+          <!-- langue du texte -->
+          <elementSpec ident="text" mode="change" module="textstructure">
+            <attList>
+              <attDef ident="xml:lang" mode="change" usage="req"/>
+            </attList>
+          </elementSpec>
+          <!-- au moins un auteur par entrée, qui renvoie à meta/authors.xml ; author/@ref
+               reste facultatif ailleurs (références bibliographiques) -->
+          <elementSpec ident="titleStmt" mode="change" module="header">
+            <constraintSpec ident="entry-author" scheme="schematron">
+              <constraint>
+                <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  context="tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt">
+                  <sch:assert test="tei:author[@ref]">Une entrée doit avoir au moins un auteur qui renvoie à sa notice de meta/authors.xml (author/@ref).</sch:assert>
+                </sch:rule>
+              </constraint>
+            </constraintSpec>
           </elementSpec>
         </schemaSpec>
       </div>
