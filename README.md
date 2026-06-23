@@ -262,11 +262,13 @@ Chaque fichier désigne son schéma par une instruction `xml-model` en tête ; o
 
 L’étage commun (`nucma-common.odd`) reste aussi compatible que possible avec Commons Publishing et ne l’élargit que pour les besoins du projet :
 
-- **en-tête** : collection (`seriesStmt`), identifiant de l’entrée et lien vers sa version dans l’autre langue (`sourceDesc/@xml:id`, `@corresp`), responsable d’une révision (`change/@who`, seul admis) ;
+- **en-tête** : collection (`seriesStmt`), identifiant de l’entrée et lien vers sa version dans l’autre langue (`sourceDesc/@xml:id`, `@corresp`), responsable d’une révision (`change/@who`, seul admis), type des titres de l’en-tête (`title/@type` : `main` ou `sub`, règle Schematron intégrée au schéma) ;
 - **identifiants** : types d’`idno` en liste fermée et en minuscules (`orcid`, `isni`, `viaf`, `wikidata`, `bnf`, `loc`, `ulan`, `zkm`, `artblocks`, `artefact`, `doi`, `isbn`, `issn`, `uri`, `url`, `callNumber`) ;
 - **noms** : renvoi aux référentiels par `@ref` sur `persName`, `orgName`, `placeName`, `objectName`, `author` et `bibl` ; fonction (`roleName`) ;
-- **rendu** : `superscript` et `smallcaps` sur `hi` (produits par la normalisation), `rend="verbatim"` sur tout élément (passage à garder tel quel) ;
-- **phrase** : `emph`, `foreign`, `q`, `soCalled`, `title`.
+- **rendu** : `hi/@rend` en liste fermée de valeurs combinables (`italic`, `bold`, `superscript`, `subscript`, `smallcaps`, `underline`, `verbatim`), `rend="verbatim"` sur tout élément (passage à garder tel quel) ;
+- **phrase** : `abbr` (`type="acronym"`), `emph`, `foreign`, `q`, `soCalled`, `title`.
+
+Le schéma des entrées (`nucma-text.odd`) ajoute l’assemblage des chapitres (`teiCorpus`), les types de liens (`ref/@type` : `internal`, `external`, `crossref`, `note`, `figure`), les types de divisions (`div/@type` : `bibliography`, `notes`, `appendix`, `acknowledgments`) et rend obligatoires l’identifiant de l’entrée (`sourceDesc/@xml:id`), la langue du texte (`text/@xml:lang`) et au moins un auteur avec `@ref`.
 
 Les schémas des référentiels ajoutent leurs listes d’entités (personnes et organismes, lieux, œuvres, expositions, bibliographie structurée). Ce sont des **premières versions souples** : les éléments nécessaires sont admis, sans ordre imposé ; leur structure sera resserrée ensuite. Les exigences propres aux auteurs (ORCID, affiliation) restent contrôlées par le Schematron d’encodage.
 

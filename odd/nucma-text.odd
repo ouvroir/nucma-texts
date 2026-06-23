@@ -65,6 +65,9 @@
           lien, dans une liste fermée :
           <code>&lt;ref type="external" target="https://www.moma.org/"&gt;MoMA&lt;/ref&gt;</code>,
           <code>&lt;ref type="note" target="#note01"&gt;1&lt;/ref&gt;</code>.</p>
+        <p>Le type d’une division (<att>type</att> sur <gi>div</gi>) est pris dans une liste
+          fermée : <code>bibliography</code>, <code>notes</code>, <code>appendix</code>,
+          <code>acknowledgments</code> ; les sections ordinaires n’ont pas de type.</p>
         <p>Sont obligatoires : l’identifiant de l’entrée (<att>xml:id</att> sur
           <gi>sourceDesc</gi>), la langue du texte (<att>xml:lang</att> sur <gi>text</gi>) et,
           dans l’en-tête d’une entrée, au moins un auteur qui renvoie à sa notice de
@@ -112,6 +115,21 @@
                   <valItem ident="crossref"><desc>renvoi à une autre entrée de l’encyclopédie</desc></valItem>
                   <valItem ident="note"><desc>appel de note</desc></valItem>
                   <valItem ident="figure"><desc>renvoi à une figure</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </elementSpec>
+
+          <!-- nature des divisions -->
+          <elementSpec ident="div" mode="change" module="textstructure">
+            <attList>
+              <attDef ident="type" mode="replace" usage="opt">
+                <datatype><dataRef key="teidata.enumerated"/></datatype>
+                <valList type="closed">
+                  <valItem ident="bibliography"><desc>bibliographie de l’entrée</desc></valItem>
+                  <valItem ident="notes"><desc>notes de fin</desc></valItem>
+                  <valItem ident="appendix"><desc>annexe</desc></valItem>
+                  <valItem ident="acknowledgments"><desc>remerciements</desc></valItem>
                 </valList>
               </attDef>
             </attList>
