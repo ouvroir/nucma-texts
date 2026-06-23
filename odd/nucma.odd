@@ -60,6 +60,11 @@
           <code>make schemas</code>), qui personnalise Commons Publishing ; les règles
           communes (en-tête, identifiants, renvois aux référentiels, rendu) y sont décrites.
           Les référentiels de <code>meta/</code> ont leurs propres schémas.</p>
+        <p>Les liens et les renvois sont encodés par <gi>ref</gi>, dont <att>target</att> donne
+          la cible (<code>#id</code> dans le document, ou URL) et <att>type</att> la nature du
+          lien, dans une liste fermée :
+          <code>&lt;ref type="external" target="https://www.moma.org/"&gt;MoMA&lt;/ref&gt;</code>,
+          <code>&lt;ref type="note" target="#note01"&gt;1&lt;/ref&gt;</code>.</p>
         <schemaSpec ident="nucma" start="TEI teiCorpus" source="nucma-common.compiled.odd">
           <moduleRef key="tei"/>
           <moduleRef key="header" except="title"/>
@@ -87,6 +92,22 @@
                 </alternate>
               </sequence>
             </content>
+          </elementSpec>
+
+          <!-- nature des liens et des renvois -->
+          <elementSpec ident="ref" mode="change" module="core">
+            <attList>
+              <attDef ident="type" mode="replace" usage="opt">
+                <datatype><dataRef key="teidata.enumerated"/></datatype>
+                <valList type="closed">
+                  <valItem ident="internal"><desc>renvoi à un autre passage du même texte</desc></valItem>
+                  <valItem ident="external"><desc>lien vers une ressource extérieure (URL)</desc></valItem>
+                  <valItem ident="crossref"><desc>renvoi à une autre entrée de l’encyclopédie</desc></valItem>
+                  <valItem ident="note"><desc>appel de note</desc></valItem>
+                  <valItem ident="figure"><desc>renvoi à une figure</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
           </elementSpec>
         </schemaSpec>
       </div>
