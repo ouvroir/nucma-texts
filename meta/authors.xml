@@ -71,7 +71,7 @@
                      <p>Julie Bawin est professeure d’histoire de l’art contemporain à l’Université de Liège où elle dirige l’ensemble des enseignements et de la recherche dans le domaine. Spécialisée dans l’étude des collections et des expositions d’artistes, elle a publié, en 2014, un ouvrage de référence sur L’artiste commissaire (Paris : Éditions des archives contemporaines). Membre de nombreux groupes de recherche et de sociétés savantes, elle est présidente-fondatrice du groupe de recherche FNRS « Musées et art contemporain » et elle dirige, depuis 2017, le Musée en Plein Air du Sart Tilman à Liège. À la croisée de l’histoire de l’art et de la muséologie, ses travaux portent sur l’art dans l’espace public, la muséalisation de la performance et les expositions d’auteur. Elle est cochercheuse au sein du Partenariat Des nouveaux usages des collections dans les musées d’art, initié par le Groupe de recherche et de réflexion CIÉCO.</p>
                   </note>
                   <affiliation>Université de Liège</affiliation>
-                  <idno type="orcid">https://orcid.org/0009-0003-5973-042X<!-- @todo --></idno>
+                  <idno type="orcid">https://orcid.org/0009-0005-8894-6689</idno>
                </persName>
             </person>
             <person xml:id="beaudryEveLyne">
@@ -83,7 +83,7 @@
                   <p>Historienne de l’art et muséologue, Eve-Lyne Beaudry est conservatrice de l’art contemporain au Musée national des beaux-arts du Québec depuis 2010. Son champ de spécialisation est la muséologie de l’art contemporain appliquée aux pratiques artistiques québécoises des années 1960 à ce jour. Elle a réalisé une vingtaine d’expositions et de publications pour différentes institutions québécoises et a été conservatrice de l’art contemporain au Musée d’art de Joliette de 2006 à 2010.</p>
                </note>
                <affiliation>Musée national des beaux-arts du Québec</affiliation>
-               <idno type="orcid">https://orcid.org/0009-0003-5973-042X<!-- @todo --></idno>
+               <idno type="orcid">https://orcid.org/0009-0006-1473-0794</idno>
             </person>
             <person xml:id="beaupreMarieEve">
                <persName>
@@ -132,7 +132,7 @@
                   <p>Mélanie Boucher est professeure en muséologie et en histoire de l’art à l’Université du Québec en Outaouais. Co-fondatrice de CIÉCO et chercheuse principale du groupe Origine et actualité du devenir objet du sujet : se recréer au musée, dans les expositions (CRSH 2018-2022), ses recherches actuelles portent sur les pratiques performatives et leur muséalisation de même que sur l’exposition et les modalités de présentation induites par l’art contemporain. En tant que commissaire, elle a notamment réalisé Intrus/Intruders (2008-2009), le premier projet d’envergure canadien de réactualisation des collections par l’art contemporain, au Musée national des beaux-arts du Québec.</p>
                </note>
                <affiliation>Université du Québec en Outaouais</affiliation>
-               <idno type="orcid">https://orcid.org/0009-0003-5973-042X<!-- @todo --></idno>
+               <idno type="orcid">https://orcid.org/0009-0009-0089-2292</idno>
             </person>
             <person xml:id="bouralyLisa">
                <persName>
@@ -176,6 +176,7 @@
                   <p/>
                </note>
                <affiliation>Musée des beaux-arts du Canada</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0009-7569-7993</idno>
                <idno type="isni">https://isni.org/isni/0000000073687692</idno>
             </person>
             <person xml:id="fraserMarie">
@@ -238,7 +239,7 @@
                   <surname>Minier</surname>
                </persName>
                <affiliation>Université du Québec en Outaouais</affiliation>
-               <idno><!-- aucun idno trouvé #RC--></idno>
+               <idno type="orcid">https://orcid.org/0009-0009-1507-4954</idno>
             </person>
             <person xml:id="oBrienMariah">
                <persName>

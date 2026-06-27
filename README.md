@@ -148,16 +148,28 @@ git co -b import/titre-court-article
    - relire l’en-tête (titre, auteurs, contributeurs) ;
    - vérifier que le code de langue est bien présent sur `<text>`
    - ajouter l’entrée au `_corpus.xml` du chapitre :
-   
+
      ```xml
      <xi:include href="./variabilite.xml" parse="xml">
         <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
      </xi:include>
      ```
-   
-   Commit.
-2. **Structuration** dans oXygen : `div`, `q`, `soCalled`, `title`, `persName`, `orgName`, `placeName`, bibliographie… Commit.
-3. **Normalisation** (typesetter) :
+
+   - Faire un commit. 
+
+2. **Structuration** dans oXygen des éléments manquants : 
+
+   - Contrôle des métadonnées du fichier (`<teiHeader>`)
+   - Contrôle de la macro-structure du texte : `<front>`, `<body>`, `<back>`, `<div>`, notes et bibliographie
+   - Encodage des contenus éditoriaux : `<soCalled>`, `<title>`, liens internes `<ref>`, externes, renvois.
+   - Traitement des références bibliographiques `<bibl>`
+   - Marquage des personnes, des œuvres, des expositions et des institutions , `<persName>`, `<orgName>`, `<placeName>`
+   - Saisie des index dans `meta/`
+   - Insertion des contenus éditoriaux
+   - Validation du fichier
+   - Commit
+
+3. **Normalisation** (`typesetter`) :
 
    ```sh
    f=fr/acquisition/coacquisition.xml
@@ -166,12 +178,14 @@ git co -b import/titre-court-article
    ```
 
    Le diff ne doit montrer que des corrections typographiques. Commit.
+
 4. **Contrôle typographique** (typesetter) : `make typography TARGET=$f` (voir ci-dessous). Corriger ce qui doit l’être, compléter le balisage suggéré. Commit.
+
 5. **Contrôle de l’encodage** : `make validate TARGET=$f` et `make quality TARGET=$f`, validation par `nucma-text.rng` et `nucma-quality.sch` (voir « Schémas » et « Contrôle de l’encodage »). Commit.
 
 Pour un fichier déjà importé autrement que par le profil, ou modifié à la main depuis, passer d’abord par la sérialisation et le nettoyage (voir ci-dessous).
 
-### Transformer les entrées avec make (typesetter)
+## Nettoyer et normaliser des entrées (`typesetter`)
 
 Les trois étapes de typesetter se lancent depuis la racine de ce dépôt, chacune suivie d’une relecture du diff et d’un commit :
 
@@ -180,7 +194,7 @@ f=fr/acquisition/coacquisition.xml
 make serialize TARGET=$f   # 1. remet sur une ligne les balises coupées par un éditeur XML ; contenu inchangé
 make cleanup TARGET=$f     # 2. nettoie les artefacts de Word (déjà fait par le profil à l’import)
 make normalize TARGET=$f   # 3. normalisation Unicode et typographique ; journal dans logs/
-git diff --word-diff $f    # relire, puis commit, avant l’étape suivante
+git diff --word-diff $f    # 4. relire, puis commit, avant l’étape suivante
 ```
 
 Elles transforment les fichiers sur place. Pour éviter les accidents :
