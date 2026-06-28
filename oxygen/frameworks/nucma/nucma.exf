@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Framework NUCMA : étend le framework TEI P5 d’oXygen pour proposer, en
+     autocomplétion, les identifiants des registres (meta/) et des entrées du corpus
+     sur les attributs @ref et @target (resources/cc_config.xml).
+     oXygen compile ce script lui-même au démarrage (dossier oxygen/frameworks déclaré
+     dans nucma-texts.xpr par ${pd}/oxygen/frameworks) ; une modification est prise en
+     compte au redémarrage. ${framework} désigne le dossier de ce script. -->
+<script xmlns="http://www.oxygenxml.com/ns/framework/extend"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.oxygenxml.com/ns/framework/extend http://www.oxygenxml.com/ns/framework/extend/frameworkExtensionScript.xsd"
+    base="TEI P5">
+    <name>NUCMA</name>
+    <description>TEI P5 avec l’autocomplétion des renvois vers les registres et les entrées de NUCMA</description>
+    <priority>High</priority>
+    <!-- documents TEI en .xml seulement : les ODD (.odd) gardent le framework TEI ODD -->
+    <associationRules inherit="none">
+        <addRule namespace="http://www.tei-c.org/ns/1.0" fileName="*.xml"/>
+    </associationRules>
+    <classpath>
+        <addEntry path="${framework}/resources/" position="before"/>
+    </classpath>
+</script>

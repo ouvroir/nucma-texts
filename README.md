@@ -46,6 +46,8 @@ nucma/
 ├── schemas/              schémas générés par make schemas (.rng, non versionnés) et Schematron d’encodage
 ├── documentation/        documentation HTML générée par make documentation (non versionnée)
 ├── reports/              rapports des contrôles (make … REPORT=yes, non versionnés)
+├── oxygen/               framework oXygen NUCMA (frameworks/nucma/, voir « Valider »)
+├── nucma-texts.xpr       projet oXygen
 ├── Makefile              génération des schémas et de leur documentation, contrôles
 ├── LICENCE
 └── README.md
@@ -113,6 +115,14 @@ L’installation utilise des logiciels libres et open source. Les commandes sont
    ```sh
    saxon -s:fr/acquisition/variabilite.xml -xsl:$TYPESETTER/src/normalization.xsl -o:/tmp/test.xml log-dir=
    ```
+
+7. **oXygen** (facultatif, version 28 ou suivante) : le projet `nucma-texts.xpr` charge le framework NUCMA (`oxygen/frameworks/nucma/`), qui ajoute au framework TEI P5 l’autocomplétion des renvois (voir « Autocomplétion des renvois dans oXygen »). À faire une seule fois :
+
+   1. *Project › Open Project…* et ouvrir `nucma-texts.xpr` à la racine du dépôt ; travailler ensuite depuis ce projet.
+   2. Dans *Options › Préferences › Association de type de document, sélectionner en bas du panneau « Options projet » ; puis dans le sous-menu Emplacement, ajouter dans « Répertoire additionnel des frameworks » `${pd}/oxygen/frameworks` (`${pd}` : chemin du dossier du projet ; `${pdu}`, son URL, n’est pas reconnu dans ce champ).
+   3. Redémarrer oXygen, puis vérifier que **NUCMA** figure dans la liste de l’association de type de document et rouvrir les documents déjà ouverts. oXygen compile lui-même le script du framework (`oxygen/frameworks/nucma/nucma.exf`) : il n’y a rien à produire.
+
+   Le framework s’applique ensuite à tous les fichiers TEI `.xml` ouverts dans le projet. Pour l’utiliser depuis un autre projet oXygen, y ajouter à l’étape 2 le chemin du dossier `oxygen/frameworks` de ce dépôt.
 
 ## Importation des entrées
 
@@ -377,6 +387,24 @@ xmllint --xinclude fr/acquisition/_corpus.xml > /tmp/corpus.xml && jing schemas/
 ```
 
 Jing ne résout pas les `xi:include` : pour un fichier `_corpus.xml`, les développer d’abord avec `xmllint --xinclude`.
+
+### Autocomplétion des renvois dans oXygen
+
+Le projet `nucma-texts.xpr` charge le framework `oxygen/frameworks/nucma/`, qui étend le framework TEI P5. Dans les fichiers `.xml`, Ctrl+Espace sur un `@ref` ou un `@target` propose les identifiants du bon référentiel, avec leur libellé :
+
+| Élément | Propositions |
+|---|---|
+| `persName`, `author` | personnes (`meta/authors.xml`, `meta/names.xml`) |
+| `orgName` | organismes (`meta/names.xml`) |
+| `placeName` | lieux (`meta/places.xml`) |
+| `objectName` | œuvres (`meta/artworks.xml`) |
+| `title` | expositions (`meta/exhibitions.xml`) |
+| `bibl` | références (`meta/bibliography.xml`) |
+| `ref`, `ptr` | `type="figure"` : figures (`meta/medias.xml`) ; `type="internal"` ou `"crossref"` : identifiants des entrées de la langue ; sans type : les deux |
+
+Les valeurs viennent des fichiers déclarés dans `fr/_corpus.xml` ou `en/_corpus.xml` (selon le dossier du fichier), dont les `xi:include` sont suivis ; à défaut, de `meta/`. Elles sont relues à chaque appel : un ajout enregistré dans un référentiel est proposé aussitôt.
+
+oXygen compile au démarrage le script du framework, `oxygen/frameworks/nucma/nucma.exf` : une modification du script est prise en compte au redémarrage ; celles de `resources/cc_config.xml` et `resources/ref-values.xsl`, au redémarrage ou par *Refresh* (F5).
 
 ## Contrôle de l’encodage (Schematron)
 
