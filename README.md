@@ -116,11 +116,13 @@ L’installation utilise des logiciels libres et open source. Les commandes sont
    saxon -s:fr/acquisition/variabilite.xml -xsl:$TYPESETTER/src/normalization.xsl -o:/tmp/test.xml log-dir=
    ```
 
-7. **oXygen** (facultatif, version 28 ou suivante) : le projet `nucma-texts.xpr` charge le framework NUCMA (`oxygen/frameworks/nucma/`), qui ajoute au framework TEI P5 l’autocomplétion des renvois (voir « Autocomplétion des renvois dans oXygen »). À faire une seule fois :
+7. **oXygen** (facultatif, version 28 ou suivante) : le projet `nucma-texts.xpr` charge le framework NUCMA (`oxygen/frameworks/nucma/`), qui ajoute au framework TEI P5 l’autocomplétion des renvois et la navigation vers leur cible (voir « Autocomplétion et navigation des renvois dans oXygen »). À faire une seule fois :
 
    1. *Project › Open Project…* et ouvrir `nucma-texts.xpr` à la racine du dépôt ; travailler ensuite depuis ce projet.
    2. Dans *Options › Préferences › Association de type de document, sélectionner en bas du panneau « Options projet » ; puis dans le sous-menu Emplacement, ajouter dans « Répertoire additionnel des frameworks » `${pd}/oxygen/frameworks` (`${pd}` : chemin du dossier du projet ; `${pdu}`, son URL, n’est pas reconnu dans ce champ).
    3. Redémarrer oXygen, puis vérifier que **NUCMA** figure dans la liste de l’association de type de document et rouvrir les documents déjà ouverts. oXygen compile lui-même le script du framework (`oxygen/frameworks/nucma/nucma.exf`) : il n’y a rien à produire.
+
+   Le projet déclare aussi `fr/_corpus.xml` et `en/_corpus.xml` comme fichiers principaux (*Main Files*, en tête de la vue *Project*) : c’est dans les fichiers qu’ils incluent qu’oXygen cherche la cible d’un renvoi.
 
    Le framework s’applique ensuite à tous les fichiers TEI `.xml` ouverts dans le projet. Pour l’utiliser depuis un autre projet oXygen, y ajouter à l’étape 2 le chemin du dossier `oxygen/frameworks` de ce dépôt.
 
@@ -128,70 +130,83 @@ L’installation utilise des logiciels libres et open source. Les commandes sont
 
 Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape devrait faire l’objet de son propre commit sur une branche dédiée.
 
-1. Créer une **branche pour l’importation** du texte
+### 1. Import depuis MS Word (`nucma-profile`, installé à l’étape 5 de « Installation »).
+
+Le document MS Word doit commencer par le bloc d’en-tête : titre de l’entrée, titre court, auteurs (documenté dans `README` de nucma-profile, « En-tête »).
+
+Créer une **branche pour l’importation** du texte
 
 ```sh
 git co -b import/titre-court-article
 ```
 
-1. **Import depuis MS Word** (`nucma-profile`, installé à l’étape 5 de « Installation »).
+**Convertir le document** avec la recette Make
 
-   Le document MS Word doit commencer par le bloc d’en-tête : titre de l’entrée, titre court, auteurs (documenté dans `README` de nucma-profile, « En-tête »).
+```sh
+make import LANGUAGE=fr CHAPTER=acquisition DOCX=~/chemin/vers/Variabilite.docx
+```
 
-   ```sh
-   make import LANGUAGE=fr CHAPTER=acquisition DOCX=~/chemin/vers/Variabilite.docx
-   ```
+La langue, le chapitre et le chemin du document sont obligatoires. Le fichier est rangé dans `<langue>/<chapitre>/`, sous le titre court du document, sans majuscule ni diacritique (`Variabilité` → `fr/acquisition/variabilite.xml`) ; L’option `NAME=…` permet de fournir un autre nom qui est également utilisé pour l’identifiant de l’entrée (`sourceDesc/@xml:id`). La commande s’arrête si la langue du bloc d’en-tête n’est pas celle annoncée, ou si le fichier existe déjà à moins d’avoir l’option `FORCE=yes` ; elle signale les `@todo` à traiter et donne l’inclusion à ajouter au `_corpus.xml` du chapitre.
 
-   La langue, le chapitre et le chemin du document sont obligatoires. Le fichier est rangé dans `<langue>/<chapitre>/`, sous le titre court du document, sans majuscule ni diacritique (`Variabilité` → `fr/acquisition/variabilite.xml`) ; L’option `NAME=…` permet de fournir un autre nom qui est également utilisé pour l’identifiant de l’entrée (`sourceDesc/@xml:id`). La commande s’arrête si la langue du bloc d’en-tête n’est pas celle annoncée, ou si le fichier existe déjà à moins d’avoir l’option `FORCE=yes` ; elle signale les `@todo` à traiter et donne l’inclusion à ajouter au `_corpus.xml` du chapitre.
+Sans make, la commande équivalente est :
 
-   Sans make, la commande équivalente est :
+```sh
+NUCMA_AUTHORS=file://$PWD/meta/authors.xml NUCMA_CHAPTER=acquisition docxtotei --profile=nucma ~/chemin/vers/Variabilite.docx fr/acquisition/variabilite.xml
+```
 
-   ```sh
-   NUCMA_AUTHORS=file://$PWD/meta/authors.xml NUCMA_CHAPTER=acquisition docxtotei --profile=nucma ~/chemin/vers/Variabilite.docx fr/acquisition/variabilite.xml
-   ```
+`NUCMA_AUTHORS` indique au profil où trouver `meta/authors.xml`, pour donner à chaque auteur son `@ref` et ses identifiants ; `NUCMA_CHAPTER` donne le chapitre de l’identifiant de l’entrée. Les autres variables sont décrites dans le README de nucma-profile (« Importer un texte »).
 
-   `NUCMA_AUTHORS` indique au profil où trouver `meta/authors.xml`, pour donner à chaque auteur son `@ref` et ses identifiants ; `NUCMA_CHAPTER` donne le chapitre de l’identifiant de l’entrée. Les autres variables sont décrites dans le README de nucma-profile (« Importer un texte »).
+Le fichier produit est nettoyé, son en-tête est rempli, et il est associé à `nucma-text.rng` et à `nucma-quality.sch`. 
 
-   Le fichier produit est nettoyé, son en-tête est rempli, et il est associé à `nucma-text.rng` et à `nucma-quality.sch`. Ensuite :
+### 2. Structuration dans oXygen des éléments manquants : 
 
-   - chercher les `<!-- @todo -->` : un auteur absent de `meta/authors.xml` a été découpé au jugé (dernier mot pris comme nom de famille) ; l’ajouter au référentiel ou corriger l’entrée ;
-   - relire l’en-tête (titre, auteurs, contributeurs) ;
-   - vérifier que le code de langue est bien présent sur `<text>`
-   - ajouter l’entrée au `_corpus.xml` du chapitre :
+Ensuite :
 
-     ```xml
-     <xi:include href="./variabilite.xml" parse="xml">
-        <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
-     </xi:include>
-     ```
+- chercher les `<!-- @todo -->` : un auteur absent de `meta/authors.xml` a été découpé au jugé (dernier mot pris comme nom de famille) ; l’ajouter au référentiel ou corriger l’entrée ;
 
-   - Faire un commit. 
+- relire l’en-tête `<teiHeader>` (titre, auteurs, contributeurs) ;
 
-2. **Structuration** dans oXygen des éléments manquants : 
+- vérifier que le code de langue est bien présent sur `<text>`
 
-   - Contrôle des métadonnées du fichier (`<teiHeader>`)
-   - Contrôle de la macro-structure du texte : `<front>`, `<body>`, `<back>`, `<div>`, notes et bibliographie
-   - Encodage des contenus éditoriaux : `<soCalled>`, `<title>`, liens internes `<ref>`, externes, renvois.
-   - Traitement des références bibliographiques `<bibl>`
-   - Marquage des personnes, des œuvres, des expositions et des institutions , `<persName>`, `<orgName>`, `<placeName>`
-   - Saisie des index dans `meta/`
-   - Insertion des contenus éditoriaux
-   - Validation du fichier
-   - Commit
+- Contrôle de la macro-structure du texte : `<front>`, `<body>`, `<back>`, `<div>`, notes et bibliographie
 
-3. **Normalisation** (`typesetter`) :
+- ajouter l’entrée au `_corpus.xml` du chapitre :
 
-   ```sh
-   f=fr/acquisition/coacquisition.xml
-   make normalize TARGET=$f
-   git diff --word-diff $f
-   ```
+  ```xml
+  <xi:include href="./variabilite.xml" parse="xml">
+     <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+  </xi:include>
+  ```
 
-   Le diff ne doit montrer que des corrections typographiques. Commit.
+- Encodage des contenus éditoriaux : `<soCalled>`, `<title>`, liens internes `<ref>`, externes, renvois.
+- Traitement des références bibliographiques `<bibl>`
+- Marquage des personnes, des œuvres, des expositions et des institutions , `<persName>`, `<orgName>`, `<placeName>`
+- Saisie des index dans `meta/`
+- Insertion des contenus éditoriaux
+- Validation du fichier
+- Faire un commit. 
 
-4. **Contrôle typographique** (typesetter) : `make typography TARGET=$f` (voir ci-dessous). Corriger ce qui doit l’être, compléter le balisage suggéré. Commit.
+### 3. Normalisation (`typesetter`) :
 
-5. **Contrôle de l’encodage** : `make validate TARGET=$f` et `make quality TARGET=$f`, validation par `nucma-text.rng` et `nucma-quality.sch` (voir « Schémas » et « Contrôle de l’encodage »). Commit.
+```sh
+f=fr/acquisition/coacquisition.xml
+make normalize TARGET=$f
+git diff --word-diff $f
+```
+
+Le diff ne doit montrer que des corrections typographiques. Commit.
+
+### 4. Contrôle typographique (typesetter) :
+
+```sh
+make typography TARGET=$f
+```
+
+(voir ci-dessous). Corriger ce qui doit l’être, compléter le balisage suggéré. Commit.
+
+### 5. Contrôle de l’encodage
+
+`make validate TARGET=$f` et `make quality TARGET=$f`, validation par `nucma-text.rng` et `nucma-quality.sch` (voir « Schémas » et « Contrôle de l’encodage »). Commit.
 
 Pour un fichier déjà importé autrement que par le profil, ou modifié à la main depuis, passer d’abord par la sérialisation et le nettoyage (voir ci-dessous).
 
@@ -388,7 +403,7 @@ xmllint --xinclude fr/acquisition/_corpus.xml > /tmp/corpus.xml && jing schemas/
 
 Jing ne résout pas les `xi:include` : pour un fichier `_corpus.xml`, les développer d’abord avec `xmllint --xinclude`.
 
-### Autocomplétion des renvois dans oXygen
+### Autocomplétion et navigation des renvois dans oXygen
 
 Le projet `nucma-texts.xpr` charge le framework `oxygen/frameworks/nucma/`, qui étend le framework TEI P5. Dans les fichiers `.xml`, Ctrl+Espace sur un `@ref` ou un `@target` propose les identifiants du bon référentiel, avec leur libellé :
 
@@ -404,7 +419,19 @@ Le projet `nucma-texts.xpr` charge le framework `oxygen/frameworks/nucma/`, qui 
 
 Les valeurs viennent des fichiers déclarés dans `fr/_corpus.xml` ou `en/_corpus.xml` (selon le dossier du fichier), dont les `xi:include` sont suivis ; à défaut, de `meta/`. Elles sont relues à chaque appel : un ajout enregistré dans un référentiel est proposé aussitôt.
 
+**Navigation.** Cmd+clic (Ctrl+clic hors macOS) sur un renvoi `#identifiant` mène à sa cible, dans le document, dans une autre entrée ou dans un référentiel de `meta/` ; *Search Declarations* (menu contextuel) fait de même. oXygen cherche la cible dans les fichiers inclus par les fichiers principaux du projet (`fr/_corpus.xml`, `en/_corpus.xml`) : une entrée ou un référentiel absent du corpus n’est pas atteint. Le framework TEI ne suit que `@target` ; l’extension Java du framework NUCMA (`oxygen/frameworks/nucma/nucma.jar`) traite de la même façon `@ref`, `@corresp` et `@who`.
+
 oXygen compile au démarrage le script du framework, `oxygen/frameworks/nucma/nucma.exf` : une modification du script est prise en compte au redémarrage ; celles de `resources/cc_config.xml` et `resources/ref-values.xsl`, au redémarrage ou par *Refresh* (F5).
+
+L’extension Java (sources dans `oxygen/java/`) est versionnée compilée : il n’y a rien à faire pour l’utiliser. Après une modification des sources ou une mise à jour majeure d’oXygen, la recompiler depuis la racine du dépôt avec `make oxygen-jar` (JDK 17 ou suivant ; `OXYGEN=…` si oXygen n’est pas dans `/Applications/Oxygen XML Editor`), puis redémarrer oXygen. La recette exécute :
+
+```sh
+OXYGEN="/Applications/Oxygen XML Editor"
+javac --release 17 -d build/oxygen-classes -cp "$OXYGEN/lib/oxygen.jar:$OXYGEN/lib/oxygen-annotations.jar:$OXYGEN/frameworks/tei/tei.jar" oxygen/java/src/ca/nucma/oxygen/*.java
+jar --create --file oxygen/frameworks/nucma/nucma.jar -C build/oxygen-classes .
+```
+
+L’extension hérite de la classe du framework TEI d’oXygen (`TEIP5ExtensionsBundle`), qu’oXygen marque comme interne : une mise à jour majeure peut demander de l’adapter.
 
 ## Contrôle de l’encodage (Schematron)
 

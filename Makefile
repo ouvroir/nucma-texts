@@ -20,6 +20,10 @@
 #   make check           les trois contrôles à la suite
 #   make clean-check     supprime les Schematron compilés (build/) et les rapports (reports/)
 #
+#   make oxygen-jar      compile l’extension Java du framework oXygen NUCMA
+#                        (oxygen/java/ → oxygen/frameworks/nucma/nucma.jar, versionné)
+#     OXYGEN=…           dossier d’installation d’oXygen (défaut : /Applications/Oxygen XML Editor)
+#
 #   make serialize TARGET=…  1. remet sur une ligne les balises coupées (typesetter)
 #   make cleanup TARGET=…    2. nettoie les artefacts de Word (typesetter)
 #   make normalize TARGET=…  3. normalisation typographique (typesetter)
@@ -153,6 +157,27 @@ clean-schemas:
 
 clean-documentation:
 	rm -rf documentation
+
+# --- Framework oXygen ------------------------------------------------------------------
+
+OXYGEN ?= /Applications/Oxygen XML Editor
+OXYGEN_JAR := oxygen/frameworks/nucma/nucma.jar
+OXYGEN_SOURCES := $(wildcard oxygen/java/src/ca/nucma/oxygen/*.java)
+OXYGEN_CLASSPATH := $(OXYGEN)/lib/oxygen.jar:$(OXYGEN)/lib/oxygen-annotations.jar:$(OXYGEN)/frameworks/tei/tei.jar
+
+.PHONY: oxygen-jar
+
+oxygen-jar: $(OXYGEN_JAR)
+
+# compilé contre l’API d’oXygen et le framework TEI de l’installation, pour Java 17
+# (oXygen 28 embarque Java 21) : à refaire après une mise à jour majeure d’oXygen
+$(OXYGEN_JAR): $(OXYGEN_SOURCES)
+	@test -f "$(OXYGEN)/lib/oxygen.jar" || { echo "oXygen introuvable : OXYGEN=$(OXYGEN)"; exit 1; }
+	@rm -rf build/oxygen-classes && mkdir -p build/oxygen-classes
+	javac --release 17 -d build/oxygen-classes -cp "$(OXYGEN_CLASSPATH)" $(OXYGEN_SOURCES)
+	jar --create --file $@ -C build/oxygen-classes .
+	@rm -rf build/oxygen-classes
+	@echo "   $@"
 
 # --- Contrôles -------------------------------------------------------------------------
 

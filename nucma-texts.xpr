@@ -16,6 +16,10 @@
                         <documentTypeDescriptor-array/>
                     </entry>
                     <entry>
+                        <String>enable.project.master.files.support</String>
+                        <Boolean>true</Boolean>
+                    </entry>
+                    <entry>
                         <String>key.editor.document.type.association.option.pane</String>
                         <Boolean>true</Boolean>
                     </entry>
@@ -28,6 +32,10 @@
         </options>
     </meta>
     <projectTree name="nucma-texts.xpr">
+        <folder masterFiles="true" name="Main Files">
+            <file name="en/_corpus.xml"/>
+            <file name="fr/_corpus.xml"/>
+        </folder>
         <folder path="."/>
     </projectTree>
 </project>
