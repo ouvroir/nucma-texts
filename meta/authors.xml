@@ -62,6 +62,8 @@
                </persName>
                <note xml:lang="fr"/>
                <affiliation>Musée d’art de Joliette</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0000-6828-049X</idno>
+               <!-- @check -->
             </person>
             <person xml:id="bawinJulie">
                <persName>
@@ -104,7 +106,8 @@
                </persName>
                <note xml:lang="fr"/>
                <affiliation>Université du Québec à Montréal</affiliation>
-               <!--<idno type="orcid">0000-0003-3761-608X</idno>-->
+               <idno type="orcid">0000-0003-3761-608X</idno>
+               <!-- @check -->
             </person>
             <person xml:id="benSalahHend">
                <persName>
@@ -121,7 +124,7 @@
                   <surname>Blais</surname>
                </persName>
                <affiliation>Université de Montréal</affiliation>
-               <idno><!-- #RC aucun idno trouvé--></idno>
+               <idno type="orcid">https://orcid.org/0009-0004-7170-9727</idno>
             </person>
             <person xml:id="boucherMelanie">
                <persName>
@@ -159,7 +162,7 @@
                   <surname>Château-Dutier</surname>
                </persName>
                <note xml:lang="fr">
-                  <p>Emmanuel Château-Dutier est historien de l’architecture et professeur agrégé en muséologie numérique à l’Université de Montréal. Ses recherches portent sur l’administration de l’architecture publique en France au XIX<hi rend="superscript">e</hi> siècle, la muséologie et l’histoire de l’art numériques. Il est responsable de l’axe numérique du Partenariat <title>Des nouveaux usages des collections dans les musées d’art</title> (la collection partagée) et assure la co-direction scientifique de l’<ref target="https://ouvroir.umontreal.ca">Ouvroir d’histoire de l’art et de muséologie numériques</ref> qui l’accompagne. Il est spécialisé dans le domaine des métadonnées culturelles, les éditions structurées, les technologies XML, le web sémantique et le web de données ouvertes et liées. Signataire du <title>Manifeste des humanités numériques</title> en 2010, Emmanuel Château a pris une part active dans la constitution d’une communauté francophone des humanités numériques. Membre fondateur d’Humanistica et de la revue <title>Humanités Numériques</title>, il est également vice-président francophone de la Société canadienne des humanités numériques.</p>
+                  <p>Emmanuel Château-Dutier est historien de l’architecture et professeur agrégé en muséologie numérique à l’Université de Montréal. Ses recherches portent sur l’administration de l’architecture publique en France au XIX<hi rend="sup">e</hi> siècle, la muséologie et l’histoire de l’art numériques. Il est responsable de l’axe numérique du Partenariat <title>Des nouveaux usages des collections dans les musées d’art</title> (la collection partagée) et assure la co-direction scientifique de l’<ref target="https://ouvroir.umontreal.ca">Ouvroir d’histoire de l’art et de muséologie numériques</ref> qui l’accompagne. Il est spécialisé dans le domaine des métadonnées culturelles, les éditions structurées, les technologies XML, le web sémantique et le web de données ouvertes et liées. Signataire du <title>Manifeste des humanités numériques</title> en 2010, Emmanuel Château a pris une part active dans la constitution d’une communauté francophone des humanités numériques. Membre fondateur d’Humanistica et de la revue <title>Humanités Numériques</title>, il est également vice-président francophone de la Société canadienne des humanités numériques.</p>
                </note>
                <note xml:lang="en">
                   <p>Emmanuel Château-Dutier is an architectural historian and associate professor of digital museology at the University of Montreal. His research focuses on the administration of public architecture in France in the 19<hi rend="superscript">th</hi> century, museology and digital art history. He is responsible for the digital axis of the Partnership <title>New uses of collections in art museums</title> (the shared collection) and ensures the scientific co-direction of the <ref target="https://ouvroir.umontreal.ca">d’histoire de l’art et de muséologie numériques</ref> the laboratory supporting this research. He specializes in the field of cultural metadata, structured editions, XML technologies, the semantic web and the web of open and linked data. Signatory of the <title>Digital Humanities Manifesto</title> in 2010, Emmanuel Château took an active part in the creation of a French-speaking digital humanities community. A founding member of Humanistica and the journal <title>Humanités Numériques</title>, he is also French-speaking vice-president of the Canadian Society for Digital Humanities.</p>
@@ -189,13 +192,15 @@
                <idno type="wikidata">https://www.wikidata.org/wiki/Q99877534</idno>
                <idno type="orcid">https://orcid.org/0000-0002-5509-6025</idno>
             </person>
-            <person xml:id="gagnierRichard">
+            <person xml:id="gagnierRichardB">
                <persName>
                   <forename>Richard</forename>
                   <surname>Gagnier</surname>
                </persName>
                <note xml:lang="fr"/>
                <affiliation>Musée des beaux-arts de Montréal</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0003-6504-9876</idno>
+               <!-- @check -->
             </person>
             <person xml:id="gagnonAnnMarlene">
                <persName>
@@ -204,6 +209,8 @@
                </persName>
                <note xml:lang="fr"/>
                <affiliation>Université du Québec à Montréal</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0002-1748-3603</idno>
+               <!-- @check -->
             </person>
             <person xml:id="guzinLukicNada">
                <persName>
@@ -214,6 +221,7 @@
                <affiliation>Réseau des patrimoines de l’Université du Québec (RÉPUQ)</affiliation>
                <affiliation>Conseil international des musées (ICOM et ICOFOM)</affiliation>
                <!-- #RC affiliations fournies sur son profil site de l'UQO-->
+               <idno type="orcid">https://orcid.org/0009-0003-6656-0107</idno>
                <idno type="wikidata">https://www.wikidata.org/wiki/Q124425775</idno>
                <idno type="isni">https://isni.org/isni/0000000076333187</idno>
             </person>
@@ -232,6 +240,8 @@
                   <surname>Lamoureux</surname>
                </persName>
                <affiliation>Université de Montréal</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0003-9693-7665</idno>
+               <!-- @check -->
             </person>
             <person xml:id="minierJessica">
                <persName>
@@ -248,6 +258,7 @@
                </persName>
                <note xml:lang="fr"/>
                <affiliation>Université de Montréal</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0005-9614-1506</idno>
             </person>
             <person xml:id="uzelJean-Philippe">
                <persName>
@@ -255,6 +266,7 @@
                   <surname>Uzel</surname>
                </persName>
                <affiliation>Université du Québec à Montréal</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0006-7951-1998</idno>
                <idno type="isni">https://isni.org/isni/0000000075897239</idno>
                <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb15080007x</idno>
             </person>

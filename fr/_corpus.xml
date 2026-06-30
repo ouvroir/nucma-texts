@@ -19,7 +19,7 @@
             <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
             <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
             <date when="2026">2026</date>
-            <idno type="URI">https://www.nucma.ca</idno>
+            <idno type="uri">https://www.nucma.ca</idno>
             <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
          </publicationStmt>
          <sourceDesc xml:id="nucma-fr">
@@ -27,7 +27,7 @@
          </sourceDesc>
       </fileDesc>
       <revisionDesc>
-         <change when="2026-03" who="#emmanuelChateauDutier">Création du fichier</change>
+         <change when="2026-03" who="#ECD">Création du fichier</change>
       </revisionDesc>
    </teiHeader>
    <!--
@@ -35,10 +35,12 @@
       <xi:fallback>Fichier non trouvé</xi:fallback>
    </xi:include>
    -->
+   <!-- chapitres -->
    <xi:include href="./acquisition/_corpus.xml" parse="xml">
       <xi:fallback>Fichier non trouvé</xi:fallback>
    </xi:include>
    
+   <!-- meta -->
    <xi:include href="../meta/artworks.xml" parse="xml">
       <xi:fallback>Fichier non trouvé</xi:fallback>
    </xi:include>

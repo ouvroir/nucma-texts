@@ -391,7 +391,7 @@ Après une modification d’un ODD : `make schemas`, puis valider les fichiers c
 
 ### Valider
 
-**Dans oXygen**, la validation est automatique grâce aux instructions `xml-model`, une fois les schémas générés (`make schemas`). Les fichiers `_corpus.xml` assemblent les entrées par `xi:include` : oXygen résout les inclusions avant de valider.
+**Dans oXygen**, la validation est automatique grâce aux instructions `xml-model`, une fois les schémas générés (`make schemas`). Les fichiers `_corpus.xml` assemblent les entrées par `xi:include` : oXygen résout les inclusions avant de valider. Dans le projet `nucma-texts.xpr`, `fr/_corpus.xml` et `en/_corpus.xml` sont des fichiers principaux : oXygen valide alors chaque fichier dans leur contexte, avec le scénario du framework NUCMA « NUCMA : schémas du document » (`oxygen/frameworks/nucma/validation.scenarios`), qui applique au fichier ses propres schémas (`xml-model`) au lieu du schéma par défaut de TEI (`tei_all`).
 
 **En ligne de commande** : `make validate` (voir « Lancer les contrôles avec make »), ou directement avec [Jing](https://relaxng.org/jclark/jing.html) (`brew install jing-trang`) :
 

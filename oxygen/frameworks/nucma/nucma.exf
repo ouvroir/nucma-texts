@@ -22,6 +22,17 @@
         <addEntry path="${framework}/resources/" position="before"/>
         <addEntry path="${framework}/nucma.jar" position="before"/>
     </classpath>
+    <!-- validation du document courant par ses propres schémas (xml-model), y compris
+         quand oXygen le valide dans le contexte d’un fichier principal (fr/_corpus.xml,
+         en/_corpus.xml), qui sinon impose le schéma par défaut de TEI (tei_all) ;
+         validation.scenarios est un export du scénario depuis oXygen -->
+    <validationScenarios>
+        <addScenarios href="${frameworkDir}/validation.scenarios"/>
+        <defaultScenarios>
+            <name>NUCMA entrées</name>
+            <name>NUCMA quality</name>
+        </defaultScenarios>
+    </validationScenarios>
     <extensionPoints>
         <extension name="extensionsBundle" value="ca.nucma.oxygen.NucmaExtensionsBundle"/>
     </extensionPoints>

@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serialized xml:space="preserve">
+	<serializableOrderedMap>
+		<entry>
+			<String>validation.scenarios</String>
+			<validationScenario-array>
+				<validationScenario>
+					<field name="pairs">
+						<list>
+							<validationUnit>
+								<field name="validationType">
+									<validationUnitType>
+										<field name="validationInputType">
+											<String>text/xml</String>
+										</field>
+									</validationUnitType>
+								</field>
+								<field name="url">
+									<String>${currentFileURL}</String>
+								</field>
+								<field name="validationEngine">
+									<validationEngine>
+										<field name="engineType">
+											<String>&lt;Default engine></String>
+										</field>
+										<field name="allowsAutomaticValidation">
+											<Boolean>true</Boolean>
+										</field>
+									</validationEngine>
+								</field>
+								<field name="allowAutomaticValidation">
+									<Boolean>true</Boolean>
+								</field>
+								<field name="extensions">
+									<null/>
+								</field>
+								<field name="validationSchema">
+									<validationUnitSchema>
+										<field name="dtdSchemaPublicID">
+											<null/>
+										</field>
+										<field name="schematronPhase">
+											<null/>
+										</field>
+										<field name="type">
+											<Integer>4</Integer>
+										</field>
+										<field name="uri">
+											<String>${pdu}/schemas/nucma-text.rng</String>
+										</field>
+									</validationUnitSchema>
+								</field>
+								<field name="validationAdvancedSettings">
+									<null/>
+								</field>
+							</validationUnit>
+						</list>
+					</field>
+					<field name="type">
+						<String>Validation_scenario</String>
+					</field>
+					<field name="name">
+						<String>NUCMA entrées</String>
+					</field>
+				</validationScenario>
+				<validationScenario>
+					<field name="pairs">
+						<list>
+							<validationUnit>
+								<field name="validationType">
+									<validationUnitType>
+										<field name="validationInputType">
+											<String>text/xml</String>
+										</field>
+									</validationUnitType>
+								</field>
+								<field name="url">
+									<String>${currentFileURL}</String>
+								</field>
+								<field name="validationEngine">
+									<validationEngine>
+										<field name="engineType">
+											<String>&lt;Default engine></String>
+										</field>
+										<field name="allowsAutomaticValidation">
+											<Boolean>true</Boolean>
+										</field>
+									</validationEngine>
+								</field>
+								<field name="allowAutomaticValidation">
+									<Boolean>true</Boolean>
+								</field>
+								<field name="extensions">
+									<null/>
+								</field>
+								<field name="validationSchema">
+									<validationUnitSchema>
+										<field name="dtdSchemaPublicID">
+											<null/>
+										</field>
+										<field name="schematronPhase">
+											<null/>
+										</field>
+										<field name="type">
+											<Integer>7</Integer>
+										</field>
+										<field name="uri">
+											<String>${pdu}/schemas/nucma-quality.sch</String>
+										</field>
+									</validationUnitSchema>
+								</field>
+								<field name="validationAdvancedSettings">
+									<null/>
+								</field>
+							</validationUnit>
+						</list>
+					</field>
+					<field name="type">
+						<String>Validation_scenario</String>
+					</field>
+					<field name="name">
+						<String>NUCMA quality</String>
+					</field>
+				</validationScenario>
+				<validationScenario>
+					<field name="pairs">
+						<list>
+							<validationUnit>
+								<field name="validationType">
+									<validationUnitType>
+										<field name="validationInputType">
+											<String>text/xml</String>
+										</field>
+									</validationUnitType>
+								</field>
+								<field name="url">
+									<String>${currentFileURL}</String>
+								</field>
+								<field name="validationEngine">
+									<validationEngine>
+										<field name="engineType">
+											<String>&lt;Default engine></String>
+										</field>
+										<field name="allowsAutomaticValidation">
+											<Boolean>true</Boolean>
+										</field>
+									</validationEngine>
+								</field>
+								<field name="allowAutomaticValidation">
+									<Boolean>true</Boolean>
+								</field>
+								<field name="extensions">
+									<null/>
+								</field>
+								<field name="validationSchema">
+									<validationUnitSchema>
+										<field name="dtdSchemaPublicID">
+											<null/>
+										</field>
+										<field name="schematronPhase">
+											<null/>
+										</field>
+										<field name="type">
+											<Integer>4</Integer>
+										</field>
+										<field name="uri">
+											<String>${pdu}/schemas/nucma-persons.rng</String>
+										</field>
+									</validationUnitSchema>
+								</field>
+								<field name="validationAdvancedSettings">
+									<null/>
+								</field>
+							</validationUnit>
+						</list>
+					</field>
+					<field name="type">
+						<String>Validation_scenario</String>
+					</field>
+					<field name="name">
+						<String>NUCMA personnes</String>
+					</field>
+				</validationScenario>
+				<validationScenario>
+					<field name="pairs">
+						<list>
+							<validationUnit>
+								<field name="validationType">
+									<validationUnitType>
+										<field name="validationInputType">
+											<String>text/xml</String>
+										</field>
+									</validationUnitType>
+								</field>
+								<field name="url">
+									<String>${currentFileURL}</String>
+								</field>
+								<field name="validationEngine">
+									<validationEngine>
+										<field name="engineType">
+											<String>&lt;Default engine></String>
+										</field>
+										<field name="allowsAutomaticValidation">
+											<Boolean>true</Boolean>
+										</field>
+									</validationEngine>
+								</field>
+								<field name="allowAutomaticValidation">
+									<Boolean>true</Boolean>
+								</field>
+								<field name="extensions">
+									<null/>
+								</field>
+								<field name="validationSchema">
+									<validationUnitSchema>
+										<field name="dtdSchemaPublicID">
+											<null/>
+										</field>
+										<field name="schematronPhase">
+											<null/>
+										</field>
+										<field name="type">
+											<Integer>4</Integer>
+										</field>
+										<field name="uri">
+											<String>${pdu}/schemas/nucma-places.rng</String>
+										</field>
+									</validationUnitSchema>
+								</field>
+								<field name="validationAdvancedSettings">
+									<null/>
+								</field>
+							</validationUnit>
+						</list>
+					</field>
+					<field name="type">
+						<String>Validation_scenario</String>
+					</field>
+					<field name="name">
+						<String>NUCMA lieux</String>
+					</field>
+				</validationScenario>
+				<validationScenario>
+					<field name="pairs">
+						<list>
+							<validationUnit>
+								<field name="validationType">
+									<validationUnitType>
+										<field name="validationInputType">
+											<String>text/xml</String>
+										</field>
+									</validationUnitType>
+								</field>
+								<field name="url">
+									<String>${currentFileURL}</String>
+								</field>
+								<field name="validationEngine">
+									<validationEngine>
+										<field name="engineType">
+											<String>&lt;Default engine></String>
+										</field>
+										<field name="allowsAutomaticValidation">
+											<Boolean>true</Boolean>
+										</field>
+									</validationEngine>
+								</field>
+								<field name="allowAutomaticValidation">
+									<Boolean>true</Boolean>
+								</field>
+								<field name="extensions">
+									<null/>
+								</field>
+								<field name="validationSchema">
+									<validationUnitSchema>
+										<field name="dtdSchemaPublicID">
+											<null/>
+										</field>
+										<field name="schematronPhase">
+											<null/>
+										</field>
+										<field name="type">
+											<Integer>4</Integer>
+										</field>
+										<field name="uri">
+											<String>${pdu}/schemas/nucma-artworks.rng</String>
+										</field>
+									</validationUnitSchema>
+								</field>
+								<field name="validationAdvancedSettings">
+									<null/>
+								</field>
+							</validationUnit>
+						</list>
+					</field>
+					<field name="type">
+						<String>Validation_scenario</String>
+					</field>
+					<field name="name">
+						<String>NUCMA œuvres</String>
+					</field>
+				</validationScenario>
+				<validationScenario>
+					<field name="pairs">
+						<list>
+							<validationUnit>
+								<field name="validationType">
+									<validationUnitType>
+										<field name="validationInputType">
+											<String>text/xml</String>
+										</field>
+									</validationUnitType>
+								</field>
+								<field name="url">
+									<String>${currentFileURL}</String>
+								</field>
+								<field name="validationEngine">
+									<validationEngine>
+										<field name="engineType">
+											<String>&lt;Default engine></String>
+										</field>
+										<field name="allowsAutomaticValidation">
+											<Boolean>true</Boolean>
+										</field>
+									</validationEngine>
+								</field>
+								<field name="allowAutomaticValidation">
+									<Boolean>true</Boolean>
+								</field>
+								<field name="extensions">
+									<null/>
+								</field>
+								<field name="validationSchema">
+									<validationUnitSchema>
+										<field name="dtdSchemaPublicID">
+											<null/>
+										</field>
+										<field name="schematronPhase">
+											<null/>
+										</field>
+										<field name="type">
+											<Integer>4</Integer>
+										</field>
+										<field name="uri">
+											<String>${pdu}/schemas/nucma-exhibitions.rng</String>
+										</field>
+									</validationUnitSchema>
+								</field>
+								<field name="validationAdvancedSettings">
+									<null/>
+								</field>
+							</validationUnit>
+						</list>
+					</field>
+					<field name="type">
+						<String>Validation_scenario</String>
+					</field>
+					<field name="name">
+						<String>NUCMA expositions</String>
+					</field>
+				</validationScenario>
+				<validationScenario>
+					<field name="pairs">
+						<list>
+							<validationUnit>
+								<field name="validationType">
+									<validationUnitType>
+										<field name="validationInputType">
+											<String>text/xml</String>
+										</field>
+									</validationUnitType>
+								</field>
+								<field name="url">
+									<String>${currentFileURL}</String>
+								</field>
+								<field name="validationEngine">
+									<validationEngine>
+										<field name="engineType">
+											<String>&lt;Default engine></String>
+										</field>
+										<field name="allowsAutomaticValidation">
+											<Boolean>true</Boolean>
+										</field>
+									</validationEngine>
+								</field>
+								<field name="allowAutomaticValidation">
+									<Boolean>true</Boolean>
+								</field>
+								<field name="extensions">
+									<null/>
+								</field>
+								<field name="validationSchema">
+									<validationUnitSchema>
+										<field name="dtdSchemaPublicID">
+											<null/>
+										</field>
+										<field name="schematronPhase">
+											<null/>
+										</field>
+										<field name="type">
+											<Integer>4</Integer>
+										</field>
+										<field name="uri">
+											<String>${pdu}/schemas/nucma-bibliography.rng</String>
+										</field>
+									</validationUnitSchema>
+								</field>
+								<field name="validationAdvancedSettings">
+									<null/>
+								</field>
+							</validationUnit>
+						</list>
+					</field>
+					<field name="type">
+						<String>Validation_scenario</String>
+					</field>
+					<field name="name">
+						<String>NUCMA bibliographie</String>
+					</field>
+				</validationScenario>
+				<validationScenario>
+					<field name="pairs">
+						<list>
+							<validationUnit>
+								<field name="validationType">
+									<validationUnitType>
+										<field name="validationInputType">
+											<String>text/xml</String>
+										</field>
+									</validationUnitType>
+								</field>
+								<field name="url">
+									<String>${currentFileURL}</String>
+								</field>
+								<field name="validationEngine">
+									<validationEngine>
+										<field name="engineType">
+											<String>&lt;Default engine></String>
+										</field>
+										<field name="allowsAutomaticValidation">
+											<Boolean>true</Boolean>
+										</field>
+									</validationEngine>
+								</field>
+								<field name="allowAutomaticValidation">
+									<Boolean>true</Boolean>
+								</field>
+								<field name="extensions">
+									<null/>
+								</field>
+								<field name="validationSchema">
+									<validationUnitSchema>
+										<field name="dtdSchemaPublicID">
+											<null/>
+										</field>
+										<field name="schematronPhase">
+											<null/>
+										</field>
+										<field name="type">
+											<Integer>4</Integer>
+										</field>
+										<field name="uri">
+											<String>${pdu}/schemas/nucma-medias.rng</String>
+										</field>
+									</validationUnitSchema>
+								</field>
+								<field name="validationAdvancedSettings">
+									<null/>
+								</field>
+							</validationUnit>
+						</list>
+					</field>
+					<field name="type">
+						<String>Validation_scenario</String>
+					</field>
+					<field name="name">
+						<String>NUCMA médias</String>
+					</field>
+				</validationScenario>
+			</validationScenario-array>
+		</entry>
+		<entry>
+			<String>validation.scenarios.load.from.project</String>
+			<Boolean>false</Boolean>
+		</entry>
+	</serializableOrderedMap>
+</serialized>
