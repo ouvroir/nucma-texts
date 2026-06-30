@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../schemas/nucma-text.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../factoton/typesetter/schematron/typography.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="main">Titrage de la mise à vue des acquisitions</title>
+                <title type="sub">La création d’un label</title>
+                <author ref="#benSalahHend">
+                    <persName>
+                        <forename>Hend</forename>
+                        <surname>Ben Salah</surname>
+                    </persName>
+                    <idno type="orcid">https://orcid.org/0009-0008-1924-5143</idno>
+                </author>
+                <author ref="#bouralyLisa">
+                    <persName>
+                        <forename>Lisa</forename>
+                        <surname>Bouraly</surname>
+                    </persName>
+                    <idno type="orcid">https://orcid.org/0009-0007-7747-0077</idno>
+                </author>
+                <author ref="#fraserMarie">
+                    <persName>
+                        <forename>Marie</forename>
+                        <surname>Fraser</surname>
+                    </persName>
+                    <idno type="orcid">https://orcid.org/0000-0002-5509-6025</idno>
+                </author>
+                <respStmt ref="#RC">
+                    <resp>Encodage</resp>
+                    <persName>
+                        <forename>Rosalie</forename>
+                        <surname>Chartrand</surname>
+                    </persName>
+                </respStmt>
+            </titleStmt>
+            <publicationStmt>
+                <publisher>Groupe de recherche et de réflexion CIÉCO</publisher>
+                <date when="2026">2026</date>
+                <!-- @todo <idno type="DOI">10.400/revuehn2355</idno> -->
+                <availability>
+                    <licence target="https://creativecommons.org/licenses/by/4.0/">
+                        <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0</p>
+                    </licence>
+                </availability>
+            </publicationStmt>
+            <seriesStmt>
+                <title xml:lang="fr" type="main">Chapitre Acquisition</title>
+                <title xml:lang="fr" type="sub">NUCMA, l’encyclopédie Des nouveaux usages des collections dans les musées d’art</title>
+                <idno type="uri">http://www.nucma.ca</idno>
+                <!-- @todo <idno type="DOI">...</idno> -->
+            </seriesStmt>
+            <sourceDesc xml:id="nucma.fr.encadre-titrage">
+                <p>Fichier nativement numérique</p>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="fr"/>
+            </langUsage>
+            <!--@todo <textClass> <keywords><!-\- @todo-\-></keywords> </textClass> -->
+        </profileDesc>
+        <revisionDesc>
+            <change when="2025-06" type="v0.1" who="#RC">Première version encodée</change>
+        </revisionDesc>
+    </teiHeader>
+    <text xml:lang="fr">
+        <body>
+            <div>
+                <p>La production d’expositions temporaires dédiées spécifiquement à l’acquisition est une pratique courante depuis au moins le début du <hi rend="smallcaps">xx</hi><hi rend="sup">e</hi> siècle. Quelle terminologie les musées ont-ils utilisée pour différencier la mise à vue des acquisitions des accrochages permanents de collections ? Tous les types de musées d’art, historiques, encyclopédiques, modernes et contemporains, ont recours à des titres génériques pour mettre en scène l’entrée d’une ou de plusieurs œuvres dans la collection. Essentiellement composée de deux termes, qui ciblent spécifiquement la nouveauté de l’acquisition, la forme du titre varie très peu à travers le temps (voir le complément <ref><title>Enquête sur l’usage des acquisitions dans l’exposition des collections : un portrait statistique</title>)</ref><!-- @todo renvoi -->. Cette pratique muséale cherche à célébrer l’arrivée des œuvres au musée, en les présentant pour la première fois et en mettant en valeur le caractère distinctif et exclusif des acquisitions. Le titre vient aussi inscrire l’acquisition dans l’actualité du musée, il lui confère un potentiel attractif et évènementiel en même temps qu’il vient souligner le travail qui se fait pour enrichir la collection.</p>
+                <p>L’étude des titres de la mise à vue des acquisitions dans cinq institutions muséales en Europe et en Amérique du Nord <ref>(voir le complément <title>Enquête…</title>)</ref> <!-- @todo renvoi --> fait ressortir ce caractère générique et l’utilisation de synonymes pour créer quelques effets de variation :<list>
+                        <item>Nouvelles acquisitions</item>
+                        <item>Acquisitions récentes</item>
+                        <item>Ajouts récents</item>
+                        <item>Dons récents</item>
+                </list></p>
+                <p>Si la terminologie change très peu, les musées attribuent une identité et une spécificité à l’acquisition en apposant une série de qualificatifs en sous–titre. La partie générique du titre se trouve souvent accompagnée de précisions pour souligner le mode d’acquisition et son contexte ainsi que sa place à l’intérieur de la collection : les balises temporelles (date ou période historique), le département de la conservation ou les matériaux (peinture, sculpture, photographie, etc.), le rôle et la reconnaissance d’une donation (nom du donateur ou de la donatrice) sont les appositions les plus fréquentes. Le musée peut également cibler une œuvre, un⸱e artiste ou une donation pour leur caractère exceptionnelle en usant du nom propre.</p>
+                <p>L’usage récent de thématiques pour mettre à vue les acquisitions impacte la manière de former les titres et relègue la nouveauté au second plan pour lui donner une autre signification. L’exposition <title ref="mbam002">Deux par deux rassemblés. Ajouts récents à la collection du MBAM</title>, présentée en 2024–2025, qui rassemble une sélection d’œuvres acquises au cours des cinq dernières années en est un exemple. L’idée est de montrer la diversité des acquisitions afin d’ouvrir un dialogue et de <q>susciter des interprétations nouvelles et enrichissantes</q> de la collection. Les <q>ajouts récents</q> viennent enrichir la collection, mais dans le but de la donner à voir selon une diversité de points de vue. L’exposition confère une nouvelle agentivité aux acquisitions : celle de réinterpréter la collection.</p>
+                
+                <!-- @todo Ne faudrait-il pas une ref bibliographique pour les 2 <q> du dernier paragraphe? #RC-->
+            </div>
+        </body>
+    </text>
+</TEI>
