@@ -55,9 +55,9 @@ nucma/
 
 ## Outils et chaîne de traitement
 
-Les textes sont encodés avec la Text Encoding Initiative (TEI). Ils sont documentés par des schémas ODD et peuvent être validés par des schémas RelaxNG et des fichiers Schematron. Un Makefile automatise la production des schémas RelaxNG, la conversion des documents depuis docx et leur validation.
+Les textes sont encodés avec la [Text Encoding Initiative (TEI)](https://tei-c.org). Ils sont documentés par des schémas ODD et peuvent être validés par des schémas [RelaxNG](https://relaxng.org) et des fichiers [Schematron](https://www.schematron.com). Un [Makefile](https://www.gnu.org/software/make/manual/make.html) automatise la production des schémas RelaxNG, la conversion des documents depuis docx et leur validation.
 
-La conversion des fichiers docx utilise un profil pour les TEI Stylesheets qui est traité dans un dépôt distinct. Le contrôle typographique des fichiers par Schematron utilise également un répertoire distinct :
+La conversion des fichiers docx utilise un profil pour les [TEI Stylesheets](https://github.com/teic/stylesheets) qui est traité dans un dépôt distinct. Le contrôle typographique des fichiers par Schematron utilise également un répertoire distinct :
 
 | Dépôt | Rôle |
 |---|---|
@@ -93,7 +93,7 @@ L’installation utilise des logiciels libres et open source. Les commandes sont
 
    Vérifier : `~/xspec/bin/xspec.sh -h` affiche l’aide.
 
-4. **Les outils** : cloner les deux dépôts, à l’emplacement de son choix, et désigner `typesetter` par une variable (dans `~/.zshrc` ou `~/.zprofile`), qu’emploient toutes les commandes ci-dessous :
+4. **Les outils** : cloner les deux dépôts, à l’emplacement de votre choix, et désigner `typesetter` par une variable (dans `~/.zshrc` ou `~/.zprofile`), qu’emploient toutes les commandes ci-dessous :
 
    ```sh
    git clone https://codeberg.org/Factoton/typesetter.git ~/factoton/typesetter
@@ -130,14 +130,16 @@ L’installation utilise des logiciels libres et open source. Les commandes sont
 
 Toutes les commandes se lancent depuis la racine de ce dépôt. Chaque étape devrait faire l’objet de son propre commit sur une branche dédiée.
 
-### 1. Import depuis MS Word (`nucma-profile`, installé à l’étape 5 de « Installation »).
+### 1. Import depuis MS Word
+
+Utilisation de `nucma-profile`, installé à l’étape 5 de « Installation ».
 
 Le document MS Word doit commencer par le bloc d’en-tête : titre de l’entrée, titre court, auteurs (documenté dans `README` de nucma-profile, « En-tête »).
 
 Créer une **branche pour l’importation** du texte
 
 ```sh
-git co -b import/titre-court-article
+git co -b chapitre/titre-court-article
 ```
 
 **Convertir le document** avec la recette Make
