@@ -25,7 +25,7 @@
                     >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
                 <title xml:lang="en" type="main">NUCMA</title>
                 <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
-                <idno type="URI">http://www.nucma.ca</idno>
+                <idno type="uri">http://www.nucma.ca</idno>
                 <!-- @todo <idno type="DOI">...</idno> -->
             </seriesStmt>
             <sourceDesc xml:id="nucma-authors">
