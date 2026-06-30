@@ -29,14 +29,40 @@
    <!--<xi:include href="./introduction.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>-->
+   <xi:include href="./protocoles.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>
+   <xi:include href="../complements/nft.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>
    <xi:include href="./coacquisition.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
    <xi:include href="./garde-partagee.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
-   <xi:include href="./protocoles.xml" parse="xml">
+   <xi:include href="./motivation-societale.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+      <!-- 21 mai corr -->
+   </xi:include>
+   <xi:include href="../complements/artistes-femmes.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+      <!-- 27 mai 2025 -->
+   </xi:include>
+   <xi:include href="./variabilite.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+      <!-- 21 mai corr -->
+   </xi:include>
+   <xi:include href="../complements/variabilite.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
-   
+   <xi:include href="../complements/titrage.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>
+   <xi:include href="../complements/mise-a-vue.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>
+   <xi:include href="../complements/nouvelles-orientations.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>
 </teiCorpus>
