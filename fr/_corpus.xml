@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../schemas/nucma-text.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <teiCorpus xmlns="http://www.tei-c.org/ns/1.0" 
    xmlns:xi="http://www.w3.org/2001/XInclude">
    <teiHeader>
@@ -39,6 +41,7 @@
    <xi:include href="./acquisition/_corpus.xml" parse="xml">
       <xi:fallback>Fichier non trouvé</xi:fallback>
    </xi:include>
+   
    
    <!-- meta -->
    <xi:include href="../meta/artworks.xml" parse="xml">

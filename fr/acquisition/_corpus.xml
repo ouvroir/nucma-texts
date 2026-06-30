@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../schemas/nucma-text.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../schemas/nucma-text.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <teiCorpus xmlns="http://www.tei-c.org/ns/1.0" 
    xmlns:xi="http://www.w3.org/2001/XInclude">
    <teiHeader>
@@ -26,13 +27,14 @@
       <xi:fallback>Fichier non trouvé</xi:fallback>
    </xi:include>
    -->
-   <!--<xi:include href="./introduction.xml" parse="xml">
-      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
-   </xi:include>-->
+   
    <xi:include href="./protocoles.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
-   <xi:include href="../complements/nft.xml" parse="xml">
+   <xi:include href="./encadre-nft.xml" parse="xml">
+      <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
+   </xi:include>
+   <xi:include href="./expo-smart-burn-contract.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
    <xi:include href="./coacquisition.xml" parse="xml">
@@ -45,7 +47,7 @@
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
       <!-- 21 mai corr -->
    </xi:include>
-   <xi:include href="../complements/artistes-femmes.xml" parse="xml">
+   <xi:include href="./complement-artistes-femmes.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
       <!-- 27 mai 2025 -->
    </xi:include>
@@ -53,16 +55,16 @@
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
       <!-- 21 mai corr -->
    </xi:include>
-   <xi:include href="../complements/variabilite.xml" parse="xml">
+   <xi:include href="./encadre-variabilite.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
-   <xi:include href="../complements/titrage.xml" parse="xml">
+   <xi:include href="./encadre-titrage.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
-   <xi:include href="../complements/mise-a-vue.xml" parse="xml">
+   <xi:include href="./encadre-exposition-acquisition.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
-   <xi:include href="../complements/nouvelles-orientations.xml" parse="xml">
+   <xi:include href="./encadre-nouvelles-orientations.xml" parse="xml">
       <xi:fallback xml:lang="fr">Fichier non trouvé / File not found</xi:fallback>
    </xi:include>
 </teiCorpus>
