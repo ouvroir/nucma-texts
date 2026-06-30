@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="schema/nucma_custom.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../schemas/nucma-text.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../factoton/typesetter/schematron/typography.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
     <teiHeader>
         <!-- J'ai repris le header des articles - mais il sagit d'un complément numérique -->
         <fileDesc>
             <titleStmt>
-                <title type="main">Traces matérielles de l’acquisition numérique : Smart Burn
-                    Contract (2022) de Jonas Lund au Centre Pompidou</title>
+                <title type="main">Traces matérielles de l’acquisition numérique</title>
+                <title type="sub"><hi rend="italic">Smart Burn Contract</hi> (2022) de Jonas Lund au Centre Pompidou</title>
                 <!-- complément de l'entrée Acquisition de protocoles -->
                 <author ref="#blaisChristine">
                     <persName>
@@ -14,31 +16,33 @@
                         <surname>Blais</surname>
                     </persName>
                     <affiliation>Université de Montréal</affiliation>
-                    <idno><!-- aucun idno trouvé #RC--></idno>
+                    <idno type="orcid">https://orcid.org/0009-0004-7170-9727</idno>
                 </author>
+                <respStmt ref="#RC">
+                    <resp>Encodage</resp>
+                    <persName>
+                        <forename>Rosalie</forename>
+                        <surname>Chartrand</surname>
+                    </persName>
+                </respStmt>
             </titleStmt>
             <publicationStmt>
-                <publisher/>
-                <date><!-- #RC unknown--></date>
-                <idno type="DOI"><!-- @todo --></idno>
+                <publisher>Groupe de recherche et de réflexion CIÉCO</publisher>
+                <date when="2026">2026</date>
+                <!-- @todo <idno type="DOI">10.400/revuehn2355</idno> -->
                 <availability>
                     <licence target="https://creativecommons.org/licenses/by/4.0/">
-                        <p>Ce contenu est mis à disposition sous licence Creative Commons
-                            Attribution 4.0.</p>
+                        <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0</p>
                     </licence>
                 </availability>
             </publicationStmt>
-
             <seriesStmt>
-                <title xml:lang="fr" type="main">Acquisition</title>
-                <title xml:lang="fr" type="sub">Encyclopédie des nouveaux usages des collections
-                    dans les musées d’art</title>
-                <title xml:lang="en" type="main">Acquisition</title>
-                <title xml:lang="en" type="sub">Encyclopedia of New Uses of Collections</title>
-                <idno type="URI">http://www.nucma.ca</idno>
+                <title xml:lang="fr" type="main">Chapitre Acquisition</title>
+                <title xml:lang="fr" type="sub">NUCMA, l’encyclopédie Des nouveaux usages des collections dans les musées d’art</title>
+                <idno type="uri">http://www.nucma.ca</idno>
+                <!-- @todo <idno type="DOI">...</idno> -->
             </seriesStmt>
-
-            <sourceDesc xml:id="Traces_Materielles_Smart_Burn_Contract.xml">
+            <sourceDesc xml:id="nucma.fr.expo-smart-burn-contract">
                 <p>Fichier nativement numérique</p>
             </sourceDesc>
         </fileDesc>
@@ -46,14 +50,14 @@
             <langUsage>
                 <language ident="fr"/>
             </langUsage>
+            <!--@todo
             <textClass>
-                <keywords xml:lang="fr">
-                    <term/>
-                </keywords>
+                <keywords><!-\- @todo-\-></keywords>
             </textClass>
+            -->
         </profileDesc>
         <revisionDesc>
-            <change when="2025-06-26" type="v1">premiere version par #RC</change>
+            <change when="2025-06-26" type="v0.1">premiere version par #RC</change>
         </revisionDesc>
     </teiHeader>
     <text xml:lang="fr">
@@ -62,8 +66,7 @@
                 <p>L’artiste suédois <persName ref="#lundJonas">Jonas Lund</persName> explore les
                     relations de pouvoir au sein des réseaux en remettant en question les dynamiques
                     du marché de l’art, les mécanismes de canonisation et de construction des
-                    valeurs. Diplômé de la maîtrise en arts visuels du <orgName
-                        ref="#pietZwartInstitute">Piet Zwart Institute de Rotterdam</orgName>
+                    valeurs. Diplômé de la maîtrise en arts visuels du <orgName ref="#pietZwartInstitute">Piet Zwart Institute de Rotterdam</orgName>
                     (2013), de la <orgName ref="#gerritRietveldAcademie">Gerrit Rietveld Academy
                         d’Amsterdam</orgName> (2009) et détenant un bagage en programmation, son
                     corpus diversifié prend la forme de projets installatifs, performatifs et
@@ -71,19 +74,17 @@
                     Web. Son utilisation de la <foreign xml:lang="en">blockchain</foreign> depuis
                     2018 s’inscrit dans une volonté d’inverser la pyramide hiérarchique du
                         pouvoir<ref target="#Traces_Materielles_Smart_Burn_ContractN01"/>,
-                    permettant ainsi un engagement concret du public. <ref
-                        target="#Traces_Materielles_Smart_Burn_ContractN02"/>
+                    permettant ainsi un engagement concret du public. <ref target="#Traces_Materielles_Smart_Burn_ContractN02"/>
                     <!-- besoin de voir comment on insère et référence les images #RC -->
                 </p>
                 <p>Acquis par le <orgName ref="#cnacgp">Centre Pompidou</orgName> et présenté dans
-                    l’exposition <title ref="#cnacgp001">NFT : Poétiques de l'immatériel, du
-                        certificat à la blockchain</title> (6 avril 2023 – 22 janvier 2024), le NFT
-                        <title xml:lang="en">Smart Burn Contracts - Hoarder</title> (2022) de
+                    l’exposition <title ref="#cnacgp001">NFT : Poétiques de l’immatériel, du
+                        certificat à la blockchain</title> (6 avril 2023 – 22 janvier 2024), le NFT
+                        <title xml:lang="en">Smart Burn Contracts – Hoarder</title> (2022) de
                         <persName>Jonas Lund</persName> fut produit spécifiquement pour
-                        l’institution<ref target="#Traces_Materielles_Smart_Burn_ContractN03"/> : il
+                        l’institution<ref target="#Traces_Materielles_Smart_Burn_ContractN03"/> : il
                     stipule que l’entité détentrice de cette œuvre ne peut revendre aucune œuvre de
-                    sa collection à perpétuité, sans quoi le NFT sera détruit. <title xml:lang="en"
-                        ref="#lund001">Hoarder</title> est le onzième d’une série de 21 contrats sur
+                    sa collection à perpétuité, sans quoi le NFT sera détruit. <title xml:lang="en" ref="#lund001">Hoarder</title> est le onzième d’une série de 21 contrats sur
                     la <foreign xml:lang="en">blockchain</foreign>, qui lient les collectionneurs et
                     collectionneuses à l’artiste. </p>
                 <div>
@@ -93,19 +94,18 @@
                         <head>Jonas Lund. <title xml:lang="en">Modern Solutions Require Modern
                                 Problems</title>, 2019.</head>
                         <figDesc>
-                            <desc type="medium">conférence de l'artiste</desc>
+                            <desc type="medium">conférence de l’artiste</desc>
                             <date>15 mai 2019</date><!-- pour performance ou conférence, on met <date> dans desc? #RC-->
                             <dimensions/>
                             <desc type="rights"/>
                             <location>
-                                <orgName ref="#aksioma">Aksioma - Institute for Contemporary Art,
+                                <orgName ref="#aksioma">Aksioma – Institute for Contemporary Art,
                                     Ljubljana</orgName>
                                 <placeName ref="#ljubljana">Ljubljana (Slovénie)</placeName>
                                 <!-- orgName ou placeName?ou les deux? 
                                     Notez que l'index des org (names.xml) n'indique pas la ville ni le pays des org #RC-->
                             </location>
-                            <media start="" end="" url="https://www.youtube.com/watch?v=ZljXSiqgVUY"
-                            />
+                            <media start="" end="" url="https://www.youtube.com/watch?v=ZljXSiqgVUY"/>
                         </figDesc>
                     </figure>
                 </div>
@@ -118,11 +118,11 @@
                     <p>Figure 2</p>
                     <figure>
                         <!-- où mettre la ref vers l'index artworks.xml ? #RC-->
-                        <head>Jonas Lund. <hi rend="italic">Smart Burn Contract #11 – Hoarder</hi>,
+                        <head>Jonas Lund. <hi rend="italic">Smart Burn Contract #11 – Hoarder</hi>,
                             2022</head>
                         <figDesc>
                             <desc type="medium">NFT (ERC-721), entente contractuelle</desc>
-                            <dimensions>JPEG 1024x1024 px, MP4 6s 67 ms</dimensions>
+                            <dimensions>JPEG 1024x1024 px, MP4 6s 67 ms</dimensions>
                             <desc type="rights"/>
                             <location/>
                         </figDesc>
@@ -131,13 +131,12 @@
                     <argument>
                         <p>Légende</p>
                         <p>Le NFT contient deux fichiers : l’image statique au format JPEG de 1024 x
-                            1024 px, et celle animée (MP4) d’une durée de 6s 67ms, sur lesquelles
+                            1024 px, et celle animée (MP4) d’une durée de 6s 67ms, sur lesquelles
                             les termes du contrat sont énumérés noir sur blanc. La localisation des
                             fichiers sur un serveur externe (on dira donc que les œuvres sont
                                 <soCalled xml:lang="en">off chain</soCalled>) est stipulée dans
                             l’acte de propriété (le <soCalled xml:lang="en">contrat
-                                intelligent</soCalled> sur la <foreign xml:lang="en"
-                                >blockchain</foreign>), qui rappelle également l’adresse à laquelle
+                                intelligent</soCalled> sur la <foreign xml:lang="en">blockchain</foreign>), qui rappelle également l’adresse à laquelle
                             les détenteur·trices doivent ponctuellement rendre des comptes à
                             l’artiste afin que l’œuvre ne soit pas détruite.</p>
                     </argument>
@@ -149,10 +148,8 @@
                 <div>
                     <p>Selon <persName ref="#paulChristiane">Christiane Paul</persName>, qui a aussi
                         soutenu des acquisitions de NFT au <orgName ref="#whitneyMuseum">Whitney
-                            Museum</orgName>, le bénéfice de la <foreign xml:lang="en"
-                            >blockchain</foreign> dans le champ des arts visuels est d’agir comme un
-                            <q>certificat d’authenticité augmenté</q><ref
-                            target="#Traces_Materielles_Smart_Burn_ContractN04"/>, en combinant la
+                            Museum</orgName>, le bénéfice de la <foreign xml:lang="en">blockchain</foreign> dans le champ des arts visuels est d’agir comme un
+                            <q>certificat d’authenticité augmenté</q><ref target="#Traces_Materielles_Smart_Burn_ContractN04"/>, en combinant la
                         preuve de propriété et la provenance avec des détails fluctuants quant au
                         droit d’auteur, de reproduction, de revente et de conservation.
                             <persName>Jonas Lund</persName> va toutefois plus loin dans cette
@@ -162,7 +159,7 @@
                 <div>
                     <p>Figure 3</p>
                     <figure>
-                        <head/>
+                        
                         <figDesc/>
                         <graphic url=""/>
                     </figure>
@@ -173,7 +170,7 @@
                 <div>
                     <p>Figure 4</p>
                     <figure>
-                        <head/>
+                        
                         <figDesc/>
                         <graphic url=""/>
                     </figure>
@@ -185,10 +182,8 @@
                 <div>
                     <p>Selon une procédure assez courante, le paiement de <title xml:lang="en">Smart
                             Burn Contract – Hoarder</title> en devise fiat fut réalisé directement
-                        entre l’artiste et le <orgName>Centre Pompidou</orgName><ref
-                            target="#Traces_Materielles_Smart_Burn_ContractN05"/>. Le NFT fut
-                        ensuite transféré sur le portefeuille (<soCalled xml:lang="en"
-                            >wallet</soCalled>) du Musée, qui contient, à ce jour, les certificats
+                        entre l’artiste et le <orgName>Centre Pompidou</orgName><ref target="#Traces_Materielles_Smart_Burn_ContractN05"/>. Le NFT fut
+                        ensuite transféré sur le portefeuille (<soCalled xml:lang="en">wallet</soCalled>) du Musée, qui contient, à ce jour, les certificats
                         d’une douzaine d’œuvres NFT, comme on peut le constater sur la plateforme
                         marchande <orgName ref="#openSea">OpenSea</orgName>.</p>
                 </div>
@@ -199,25 +194,20 @@
                             témoignent de cette histoire de la dématérialisation de l’œuvre, comme
                             des certificats, des protocoles, ou des documents qui ont pu accompagner
                             des démarches immatérielles dans l’art moderne et contemporain depuis la
-                            seconde moitié du 20<hi rend="sup">e</hi>siècle – je pense au <title
-                                ref="#klein001">Chéquier</title> d’<persName ref="#kleinYves">Yves
+                            seconde moitié du 20ᵉsiècle – je pense au <title ref="#klein001">Chéquier</title> d’<persName ref="#kleinYves">Yves
                                 Klein</persName>, par exemple. […] Notre mission reste d’assurer le
                             transfert des œuvres d’une technologie en voie de disparition vers une
                             nouvelle. Si le support est nouveau, notre méthodologie reste la
-                            même – beaucoup d’œuvres étant d’ailleurs des images fixes, ou des
-                            fichiers vidéo accompagnés d’un jeton, ou <foreign xml:lang="en"
-                                >token</foreign>, sur la <foreign xml:lang="en"
-                            >blockchain</foreign>.</quote><persName ref="#bettinelliPhilippe"
-                            >Philippe Bettinelli</persName>, conservateur, <orgName>Centre
-                            Pompidou</orgName><ref
-                            target="#Traces_Materielles_Smart_Burn_ContractN06"/></p>
+                            même – beaucoup d’œuvres étant d’ailleurs des images fixes, ou des
+                            fichiers vidéo accompagnés d’un jeton, ou <foreign xml:lang="en">token</foreign>, sur la <foreign xml:lang="en">blockchain</foreign>.</quote><persName ref="#bettinelliPhilippe">Philippe Bettinelli</persName>, conservateur, <orgName>Centre
+                            Pompidou</orgName><ref target="#Traces_Materielles_Smart_Burn_ContractN06"/></p>
                 </div>
                 <div>
                     <p>Figure 5</p>
                     <figure>
-                        <head/>
+                        
                         <figDesc/>
-                        <graphic url=""/>
+                        <graphic url="uri"/>
                     </figure>
                 </div>
                 <!--infos telles que transcrites dans le google doc :
@@ -228,12 +218,11 @@
                     https://jonaslund.com/exhibitions/the-poetics-of-the-immaterial-from-certification-to-blockchain/ -->
 
                 <div>
-                    <p>L’immatérialité est difficilement exposable; ce qui fut finalement présenté
+                    <p>L’immatérialité est difficilement exposable ; ce qui fut finalement présenté
                         dans l’espace du Musée est l’image animée du <title xml:lang="en">Smart Burn
                             Contract – Hoarder</title> (2022), sur un écran fixé au mur de manière
                         assez traditionnelle. Cela n’est pas sans faire écho aux projets picturaux
-                        antérieurs de l’artiste, dont la série <title xml:lang="en" ref="#lund002"
-                            >Strings Attached</title> (2015) et l’œuvre, à vocation philanthropique,
+                        antérieurs de l’artiste, dont la série <title xml:lang="en" ref="#lund002">Strings Attached</title> (2015) et l’œuvre, à vocation philanthropique,
                             <title xml:lang="en" ref="#lund004">Jonas Lund’s Smart Contract
                             #21</title> (2020). Jouant également sur la relation de l’artiste avec
                         son marché et son contrôle de la circulation de son corpus, ces œuvres à
@@ -246,7 +235,7 @@
                 <div type="">
                     <p>Figure 6</p>
                     <figure>
-                        <head/>
+                        
                         <figDesc/>
                         <graphic url=""/>
                     </figure>
@@ -257,7 +246,7 @@
 
                     <p>Figure 7</p>
                     <figure>
-                        <head/>
+                        
                         <figDesc/>
                         <graphic url=""/>
                     </figure>
@@ -268,14 +257,14 @@
 
                     <p>Figure 8</p>
                     <figure>
-                        <head>Jonas Lund. <hi rend="italic">Strings Attached – Auction</hi>,
+                        <head>Jonas Lund. <hi rend="italic">Strings Attached – Auction</hi>,
                             2015</head>
                         <figDesc>
                             <desc type="medium">Acrylique sur tissu</desc>
                             <dimensions>
-                                <height>160cm</height>
-                                <width>120cm</width>
-                                <depth>4cm</depth>
+                                <height>160 cm</height>
+                                <width>120 cm</width>
+                                <depth>4 cm</depth>
                             </dimensions>
                             <desc type="rights"/>
                             <location>
@@ -297,14 +286,11 @@
                             rend conceptuellement caduc l’objet dès lors que la condition stipulée
                             sur la toile n’est pas remplie par la galerie, lors de la vente, ou par
                             l’entité ayant acquis l’œuvre. Dans <title xml:lang="en">Strings
-                                Attached</title>, les informations quant à l’authenticité de l’œuvre
-                            – sa validité – sont mises à jour par l’artiste sur un site Web
+                                Attached</title>, les informations quant à l’authenticité de l’œuvre – sa validité – sont mises à jour par l’artiste sur un site Web
                             accessible encore à ce jour. Le site Web indiqué au bas de la capture
                             d’écran de <title xml:lang="en">Jonas Lund’s Smart Contract #21</title>
-                            (2020) renvoie quant à lui au site Web des NFT <title xml:lang="en"
-                                >Smart Burn Contracts</title>. Les termes de cette œuvre de 2020
-                            sont, en 2022, empruntés au premier <title xml:lang="en" ref="#lund003"
-                                >Smart Burn Contract – Philanthropist</title>.</p>
+                            (2020) renvoie quant à lui au site Web des NFT <title xml:lang="en">Smart Burn Contracts</title>. Les termes de cette œuvre de 2020
+                            sont, en 2022, empruntés au premier <title xml:lang="en" ref="#lund003">Smart Burn Contract – Philanthropist</title>.</p>
                     </argument>
                 </div>
                 <div>
@@ -318,10 +304,8 @@
                     éventuelles et de pouvoir <soCalled>brûler</soCalled> l’œuvre, c’est-à-dire de
                     la retirer du marché en la dirigeant vers un portefeuille avec une adresse
                     nulle. En 2024, <persName>Jonas Lund</persName> détourna de la circulation de
-                    deux de ses <title xml:lang="en">Smart Burn Contract</title> lorsque les
-                    collectionneurs ont échoué à remplir leurs obligations contractuelles : <title
-                        xml:lang="en" ref="#lund005">#18 – Bookworm</title> (2022) et <title
-                        xml:lang="en" ref="#lund006">#10 – Speculator</title> (2022) existent donc
+                    deux de ses <title xml:lang="en">Smart Burn Contract</title> lorsque les
+                    collectionneurs ont échoué à remplir leurs obligations contractuelles : <title xml:lang="en" ref="#lund005">#18 – Bookworm</title> (2022) et <title xml:lang="en" ref="#lund006">#10 – Speculator</title> (2022) existent donc
                     désormais en tant qu’archive, mais ne peuvent plus être la propriété de
                         personne<ref target="#Traces_Materielles_Smart_Burn_ContractN07"/>.</p>
                 </div>
@@ -329,7 +313,7 @@
                 <div type="">
                     <p>Figure 9</p>
                     <figure>
-                        <head/>
+                        
                         <figDesc/>
                         <graphic url=""/>
                     </figure>
@@ -339,7 +323,7 @@
                 
                     <p>Figure 10</p>
                     <figure>
-                        <head/>
+                        
                         <figDesc/>
                         <graphic url=""/>
                     </figure>
@@ -349,7 +333,7 @@
                     
                 <p>Figure 11</p>
                     <figure>
-                        <head/>
+                        
                         <figDesc/>
                         <graphic url=""/>
                     </figure>
@@ -362,22 +346,18 @@
                     <!-- légende associée au figure 6,7,8 -->
                     <p>Ces données liées aux transactions sont visibles si l’on effectue une recherche à
                     l’aide d’un API en indiquant le numéro de jeton. L’artiste et sa communauté
-                    commentent régulièrement sur les réseaux sociaux, tels <orgName ref="#discord"
-                        >Discord.</orgName></p>
+                    commentent régulièrement sur les réseaux sociaux, tels <orgName ref="#discord">Discord.</orgName></p>
                 </argument>
                 </div>
                 <div>
-                    <p>On comprendra donc que le paramétrage, grâce aux protocoles sur la <foreign
-                        xml:lang="en">blockchain</foreign>, a une valeur émancipatrice importante :
-                    si d’un point de vue marchand, l’architecture technique de la <foreign
-                        xml:lang="en">blockchain</foreign> facilite l’accessibilité à l’information
+                    <p>On comprendra donc que le paramétrage, grâce aux protocoles sur la <foreign xml:lang="en">blockchain</foreign>, a une valeur émancipatrice importante :
+                    si d’un point de vue marchand, l’architecture technique de la <foreign xml:lang="en">blockchain</foreign> facilite l’accessibilité à l’information
                     relative aux prix et aux échanges, elle permet surtout à l’artiste d’intégrer la
                     circulation ou la diffusion comme faisant partie intégrante du processus
                         créatif<ref target="#Traces_Materielles_Smart_Burn_ContractN08"/>.</p>
                 </div>
                 <div>
-                    <p><q>The lasting effect of NFT is the community, and the people involved<ref
-                            target="#Traces_Materielles_Smart_Burn_ContractN09"/></q></p>
+                    <p><q>The lasting effect of NFT is the community, and the people involved<ref target="#Traces_Materielles_Smart_Burn_ContractN09"/></q></p>
                     <p>-Jonas Lund</p>
                 </div>
                 <div>
@@ -398,14 +378,12 @@
             <div type="notes">
                 <note xml:id="Traces_Materielles_Smart_Burn_ContractN01" n="1">
                     <p>Dans le monde de l’art, les normes de la construction des valeurs demeurent
-                        assez près d’une réinterprétation de ce que l’économiste <persName
-                            ref="#veblenThorstein">Thorstein Veblen</persName> propose en 1899 comme
+                        assez près d’une réinterprétation de ce que l’économiste <persName ref="#veblenThorstein">Thorstein Veblen</persName> propose en 1899 comme
                         le Smart Burn <q xml:lang="en">trickle down effect</q> selon lequel le goût
                         se propage des experts, au sommet de la pyramide sociale, vers le grand
                         public. Cet effet de la reconnaissance critique sur le succès populaire
                         demeure, avec certaines variations, chez plusieurs théoriciens modernes.
-                        Dans l’écosystème théoriquement distribué et décentralisé de la <foreign
-                            xml:lang="en">blockchain</foreign>, cette idée de <q>retourner la
+                        Dans l’écosystème théoriquement distribué et décentralisé de la <foreign xml:lang="en">blockchain</foreign>, cette idée de <q>retourner la
                             pyramide à l’envers</q> est importante. Au cœur même de la
                         décentralisation technique du système financier de gré à gré qu’est la
                             <foreign xml:lang="en">blockchain</foreign>, elle endosse l’idée
@@ -414,46 +392,37 @@
                 </note>
 
                 <note xml:id="Traces_Materielles_Smart_Burn_ContractN02" n="2">
-                    <p>Jonas Lund (2019). Jonas Lund: Modern Solutions Require Modern Problems.
+                    <p>Jonas Lund (2019). Jonas Lund : Modern Solutions Require Modern Problems.
                         Conférence de l’artiste au Aksioma | Project Space, Ljubljana, 15 mai 2019,
-                        1m22s-1m23s. [En ligne]<ref
-                            target="https://www.youtube.com/watch?v=ZljXSiqgVUY"/></p>
+                        1m22s-1m23s. [En ligne]<ref type="external" target="https://www.youtube.com/watch?v=ZljXSiqgVUY"/></p>
                 </note>
                 <note xml:id="Traces_Materielles_Smart_Burn_ContractN03" n="3">
                     <p> Il faut mentionner que l’artiste admet avoir émis la condition en ignorant
                         l’existence de lois françaises prévenant l’aliénation d’œuvres pour les
                         institutions muséales. Voir : Elsa Fortant et Nathalie Casemajor (2023),
                         entrevue avec Jonas Lund dans le cadre du projet CIECO, Des nouveaux usages
-                        des collections dans les musées d'art</p>
+                        des collections dans les musées d’art</p>
                 </note>
                 <note xml:id="Traces_Materielles_Smart_Burn_ContractN04" n="4">
-                    <p>Christiane Paul (2022). « Authentication in the Expanded Field », Outland, 11
-                        mars 2022. [En ligne] : <ref
-                            target="https://outland.art/nfts-as-certificates-of-authenticity/"
-                            >https://outland.art/nfts-as-certificates-of-authenticity/</ref></p>
+                    <p>Christiane Paul (2022). « Authentication in the Expanded Field », Outland, 11
+                        mars 2022. [En ligne] : <ref type="external" target="https://outland.art/nfts-as-certificates-of-authenticity/">https://outland.art/nfts-as-certificates-of-authenticity/</ref></p>
                 </note>
                 <note xml:id="Traces_Materielles_Smart_Burn_ContractN05" n="5">
                     <p>Elsa Fortant et Nathalie Casemajor (2023), Ibid.</p>
                 </note>
                 <note xml:id="Traces_Materielles_Smart_Burn_ContractN06" n="6">
                     <p>Philippe Bettinelli cité dans Séverine Pierron (2023). Le Centre Pompidou
-                        passe à l'heure NFT, Centre Pompidou, 6 avril 2023. [En ligne] : <ref
-                            target="https://www.centrepompidou.fr/fr/magazine/article/le-centre-pompidou-passe-a-lheure-nft"
-                            >
-                            >https://www.centrepompidou.fr/fr/magazine/article/le-centre-pompidou-passe-a-lheure-nft</ref></p>
+                        passe à l’heure NFT, Centre Pompidou, 6 avril 2023. [En ligne] : <ref type="external" target="https://www.centrepompidou.fr/fr/magazine/article/le-centre-pompidou-passe-a-lheure-nft">
+                            &gt;https://www.centrepompidou.fr/fr/magazine/article/le-centre-pompidou-passe-a-lheure-nft</ref></p>
                 </note>
                 <note xml:id="Traces_Materielles_Smart_Burn_ContractN07" n="7">
                     <p>Capture d’écran du groupe de détenteurs des Burn Smart Contracts, Discord.
-                        [En ligne]<ref
-                            target="https://discord.com/channels/498853995830444032/1075768287859847238"
-                            >https://discord.com/channels/498853995830444032/1075768287859847238</ref></p>
+                        [En ligne]<ref type="external" target="https://discord.com/channels/498853995830444032/1075768287859847238">https://discord.com/channels/498853995830444032/1075768287859847238</ref></p>
                 </note>
                 <note xml:id="Traces_Materielles_Smart_Burn_ContractN08" n="8">
                     <p>Christine Blais (2023). Le marché comme médium : pratiques et institutions
                         sur la blockchain, entre 2011 et 2021. [thèse de doctorat] Montréal :
-                        Université de Montréal, p. 340. [En ligne] <ref
-                            target="https://hdl.handle.net/1866/32772"
-                            >https://hdl.handle.net/1866/32772</ref></p>
+                        Université de Montréal, p. 340. [En ligne] <ref type="external" target="https://hdl.handle.net/1866/32772">https://hdl.handle.net/1866/32772</ref></p>
                 </note>
                 <note xml:id="Traces_Materielles_Smart_Burn_ContractN09" n="9">
                     <p>Elsa Fortant et Nathalie Casemajor (2023), Ibid.</p>
