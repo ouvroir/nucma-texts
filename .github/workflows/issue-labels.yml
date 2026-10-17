@@ -1,21 +1,26 @@
-name: Étiquettes et fiche
+name: Étiquettes, fiche et sous-issues
 
 # À l’ouverture d’une issue de type Encoding (posé par le formulaire d’encodage,
 # ISSUE_TEMPLATE/encoding.yml) : ajoute les étiquettes cat:…, chp:… et lang:…
-# choisies dans le formulaire, puis réécrit le corps de l’issue en fiche condensée
-# suivie de la liste de progression (champ checkboxes « Progression » du formulaire).
+# choisies dans le formulaire, réécrit le corps de l’issue en fiche condensée,
+# puis crée une sous-issue par étape de traitement listée dans
+# .github/subtasks/encoding.json (title, et body facultatif), dans l’ordre du fichier.
 # Les libellés des champs du formulaire sont repris dans labelFields et sheet :
 # les modifier aux deux endroits.
+# Les sous-issues ne sont pas ajoutées au projet (seule l’issue du formulaire l’est,
+# par la clé projects du formulaire) ; leur avancement s’affiche dans l’issue parente.
 #
 # Le type peut arriver avec l’ouverture (opened) ou juste après (typed) : les deux
 # évènements sont écoutés et traités l’un après l’autre ; une fois la fiche écrite,
-# le corps n’a plus de champs « ### … » et un second passage ne change rien.
+# le corps n’a plus de champs « ### … », et les sous-issues déjà rattachées ne sont
+# pas recréées : un second passage ne change rien.
 on:
   issues:
     types: [opened, typed]
 
 permissions:
   issues: write
+  contents: read
 
 concurrency:
   group: issue-labels-${{ github.event.issue.number }}
@@ -25,7 +30,11 @@ jobs:
     if: github.event.issue.type.name == 'Encoding'
     runs-on: ubuntu-latest
     steps:
-      - name: Étiquettes et fiche
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/subtasks
+
+      - name: Étiquettes, fiche et sous-issues
         uses: actions/github-script@v9
         with:
           script: |
@@ -71,7 +80,7 @@ jobs:
               });
             }
 
-            // Fiche : une ligne par champ renseigné, puis la liste de progression.
+            // Fiche : une ligne par champ renseigné.
             // libellé du formulaire -> [libellé de la fiche, mise en forme]
             const sheet = {
               'Nom du chapitre': ['Chapitre'],
@@ -80,17 +89,35 @@ jobs:
               'Date': ['Reçu le'],
               'Suivi ClickUp': ['ClickUp', v => `[${v.replace(/^https?:\/\//, '')}](${v})`],
             };
-            const progress = fields['Progression'];
             const lines = [
               ...Object.entries(sheet).filter(([field]) => fields[field])
                 .map(([field, [label, format = v => v]]) => `- **${label}** : ${format(fields[field])}`),
               // champs du formulaire absents de la fiche, sous leur libellé d’origine
-              ...Object.entries(fields).filter(([field]) => !(field in sheet) && field !== 'Progression')
+              ...Object.entries(fields).filter(([field]) => !(field in sheet))
                 .map(([field, value]) => `- **${field}** : ${value}`),
             ];
             if (lines.length) {
               await github.rest.issues.update({
+                owner, repo, issue_number: issue.number, body: lines.join('\n'),
+              });
+            }
+
+            // Sous-issues : une par étape de .github/subtasks/encoding.json, dans
+            // l’ordre, titrées « titre de l’issue : étape » ; le body de l’étape va
+            // dans le corps.
+            const steps = JSON.parse(require('fs').readFileSync('.github/subtasks/encoding.json', 'utf8'));
+            const existing = new Set(
+              (await github.paginate('GET /repos/{owner}/{repo}/issues/{issue_number}/sub_issues', {
                 owner, repo, issue_number: issue.number,
-                body: [lines.join('\n'), progress && `## Progression\n\n${progress}`].filter(Boolean).join('\n\n'),
+              })).map(sub => sub.title)
+            );
+            for (const step of steps) {
+              const title = `${issue.title} : ${step.title}`;
+              if (existing.has(title)) continue;
+              const { data: sub } = await github.rest.issues.create({
+                owner, repo, title, body: step.body ?? '',
+              });
+              await github.request('POST /repos/{owner}/{repo}/issues/{issue_number}/sub_issues', {
+                owner, repo, issue_number: issue.number, sub_issue_id: sub.id,
               });
             }

@@ -1,0 +1,21 @@
+[
+  {
+    "title": "Importation TEI",
+    "body": "Conversion, nommage, insertion dans l’arborescence, contrôle de la structure"
+  },
+  {
+    "title": "Normalisation typographique et validation",
+    "body": "typesetter, validation"
+  },
+  {
+    "title": "Contrôle des métadonnées",
+    "body": "Titre, auteurs, identifiants, changes, indexation matière"
+  },
+  { "title": "Traitement bibliographique" },
+  { "title": "Indexation personnes" },
+  { "title": "Indexation œuvres" },
+  { "title": "Indexation expositions" },
+  { "title": "Indexation lieux" },
+  { "title": "Traitement des figures" },
+  { "title": "Traitement des rebonds" }
+]
