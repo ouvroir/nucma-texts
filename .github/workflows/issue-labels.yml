@@ -63,21 +63,26 @@ jobs:
               chp: ['Nom du chapitre', '0e8a16'],
               lang: ['Quelle est sa langue ?', 'fbca04'],
             };
-            const labels = Object.entries(labelFields)
-              .filter(([, [field]]) => fields[field])
-              .map(([prefix, [field, color]]) => ({ name: `${prefix}:${fields[field]}`, color }));
-            for (const { name, color } of labels) {
-              try {
-                await github.rest.issues.getLabel({ owner, repo, name });
-              } catch (error) {
-                if (error.status !== 404) throw error;
+            // GitHub compare les noms d’étiquettes sans tenir compte des accents ni
+            // de la casse (cat:entrée = cat:entree) : une étiquette existante qui ne
+            // diffère que par là est reprise sous son nom.
+            const key = name => name.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+            const known = new Map(
+              (await github.paginate(github.rest.issues.listLabelsForRepo, { owner, repo }))
+                .map(label => [key(label.name), label.name])
+            );
+            const labels = [];
+            for (const [prefix, [field, color]] of Object.entries(labelFields)) {
+              if (!fields[field]) continue;
+              const name = `${prefix}:${fields[field]}`;
+              if (!known.has(key(name))) {
                 await github.rest.issues.createLabel({ owner, repo, name, color });
+                known.set(key(name), name);
               }
+              labels.push(known.get(key(name)));
             }
             if (labels.length) {
-              await github.rest.issues.addLabels({
-                owner, repo, issue_number: issue.number, labels: labels.map(l => l.name),
-              });
+              await github.rest.issues.addLabels({ owner, repo, issue_number: issue.number, labels });
             }
 
             // Fiche : une ligne par champ renseigné.
