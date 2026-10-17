@@ -1,0 +1,85 @@
+name: Encodage
+description: Suivi de l’encodage des textes de NUCMA
+projects: ["ouvroir/20"]
+type: Encoding
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de renseigner le formulaire suivant
+  - type: input
+    id: title
+    attributes:
+      label: Titre court
+    validations: 
+      required: true
+  - type: dropdown
+    id: chapter
+    attributes:
+      label: Nom du chapitre
+      description: Valeur pour l’étiquette de chapitre qui sera attribuée à la tâche
+      options:
+        - acquisition
+        - alienation
+        - circulation
+        - complements
+        - documentation
+        - mediation
+        - mise-a-vue
+    validations:
+      required: false
+  - type: input
+    id: clickup
+    attributes:
+      label: Suivi ClickUp
+      description: Fournir le lien de l’entrée ClickUp
+      placeholder: ex. https://app.clickup.com/t/14268895/86e1x5ppb
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: Date
+      description: Date de réception du fichier
+      placeholder: "2026-05-20"
+    validations:
+      required: false
+  - type: dropdown
+    id: category
+    attributes:
+      label: Catégorie d’entrée
+      description: Valeur pour l’étiquette de catégorie qui sera attribuée à la tâche
+      options:
+        - entrée
+        - encadré
+        - exposition
+        - chronologie
+        - bibliographie
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: lang
+    attributes:
+      label: Quelle est sa langue ?
+      options:
+        - fr
+        - en
+    validations:
+      required: true
+  - type: checkboxes
+    id: progress
+    attributes:
+      label: Progression
+      description: Cette zone est à laisser libre lors de la création pour intégrer un suivi de progression pour la tâche
+      options:
+        - label: Importation TEI (conversion, nommage, insertion dans l’arborescence, contrôle de la structure)
+        - label: Normalisation typographique et validation (typesetter, validation)
+        - label: Contrôle des métadonnées (titre, auteurs, identifiants, changes, indexation matière)
+        - label: Traitement bibliographique
+        - label: Indexation personnes
+        - label: Indexation œuvres
+        - label: Indexation expositions
+        - label: Indexation lieux
+        - label: Traitement des figures
+        - label: Traitement des rebonds

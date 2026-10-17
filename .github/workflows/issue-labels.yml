@@ -1,0 +1,97 @@
+name: Étiquettes et fiche
+
+# À l’ouverture d’une issue de type Encoding (posé par le formulaire d’encodage,
+# ISSUE_TEMPLATE/encoding.yml) : ajoute les étiquettes cat:…, chp:… et lang:…
+# choisies dans le formulaire, puis réécrit le corps de l’issue en fiche condensée
+# suivie de la liste de progression (champ checkboxes « Progression » du formulaire).
+# Les libellés des champs du formulaire sont repris dans labelFields et sheet :
+# les modifier aux deux endroits.
+#
+# Le type peut arriver avec l’ouverture (opened) ou juste après (typed) : les deux
+# évènements sont écoutés et traités l’un après l’autre ; une fois la fiche écrite,
+# le corps n’a plus de champs « ### … » et un second passage ne change rien.
+on:
+  issues:
+    types: [opened, typed]
+
+permissions:
+  issues: write
+
+concurrency:
+  group: issue-labels-${{ github.event.issue.number }}
+
+jobs:
+  labels:
+    if: github.event.issue.type.name == 'Encoding'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Étiquettes et fiche
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            // état actuel de l’issue, plutôt que celui de l’évènement : un passage
+            // précédent a pu réécrire le corps
+            const { data: issue } = await github.rest.issues.get({
+              owner, repo, issue_number: context.payload.issue.number,
+            });
+
+            // Réponses du formulaire : le corps de l’issue est une suite de
+            // « ### Libellé » suivis de la valeur (_No response_ si vide).
+            // Les espaces des libellés, insécables comprises (« langue ? »),
+            // deviennent des espaces ordinaires.
+            const fields = Object.fromEntries(
+              (issue.body ?? '').split(/^### /m).slice(1).map(section => {
+                const [label, ...value] = section.split('\n');
+                return [label.replace(/[\s  ]+/g, ' ').trim(), value.join('\n').trim()];
+              }).filter(([, value]) => value && value !== '_No response_')
+            );
+
+            // Étiquettes tirées des réponses (créées si elles n’existent pas encore)
+            // préfixe de l’étiquette -> [libellé du champ, couleur]
+            const labelFields = {
+              cat: ['Catégorie d’entrée', '1d76db'],
+              chp: ['Nom du chapitre', '0e8a16'],
+              lang: ['Quelle est sa langue ?', 'fbca04'],
+            };
+            const labels = Object.entries(labelFields)
+              .filter(([, [field]]) => fields[field])
+              .map(([prefix, [field, color]]) => ({ name: `${prefix}:${fields[field]}`, color }));
+            for (const { name, color } of labels) {
+              try {
+                await github.rest.issues.getLabel({ owner, repo, name });
+              } catch (error) {
+                if (error.status !== 404) throw error;
+                await github.rest.issues.createLabel({ owner, repo, name, color });
+              }
+            }
+            if (labels.length) {
+              await github.rest.issues.addLabels({
+                owner, repo, issue_number: issue.number, labels: labels.map(l => l.name),
+              });
+            }
+
+            // Fiche : une ligne par champ renseigné, puis la liste de progression.
+            // libellé du formulaire -> [libellé de la fiche, mise en forme]
+            const sheet = {
+              'Titre court': ['Titre'],
+              'Nom du chapitre': ['Chapitre'],
+              'Catégorie d’entrée': ['Catégorie'],
+              'Quelle est sa langue ?': ['Langue'],
+              'Date': ['Reçu le'],
+              'Suivi ClickUp': ['ClickUp', v => `[${v.replace(/^https?:\/\//, '')}](${v})`],
+            };
+            const progress = fields['Progression'];
+            const lines = [
+              ...Object.entries(sheet).filter(([field]) => fields[field])
+                .map(([field, [label, format = v => v]]) => `- **${label}** : ${format(fields[field])}`),
+              // champs du formulaire absents de la fiche, sous leur libellé d’origine
+              ...Object.entries(fields).filter(([field]) => !(field in sheet) && field !== 'Progression')
+                .map(([field, value]) => `- **${field}** : ${value}`),
+            ];
+            if (lines.length) {
+              await github.rest.issues.update({
+                owner, repo, issue_number: issue.number,
+                body: [lines.join('\n'), progress && `## Progression\n\n${progress}`].filter(Boolean).join('\n\n'),
+              });
+            }
