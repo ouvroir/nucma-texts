@@ -74,7 +74,6 @@ jobs:
             // Fiche : une ligne par champ renseigné, puis la liste de progression.
             // libellé du formulaire -> [libellé de la fiche, mise en forme]
             const sheet = {
-              'Titre court': ['Titre'],
               'Nom du chapitre': ['Chapitre'],
               'Catégorie d’entrée': ['Catégorie'],
               'Quelle est sa langue ?': ['Langue'],
