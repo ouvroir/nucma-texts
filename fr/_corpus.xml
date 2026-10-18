@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../schemas/nucma-text.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<teiCorpus xmlns="http://www.tei-c.org/ns/1.0" 
+   xmlns:xi="http://www.w3.org/2001/XInclude">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title xml:lang="fr" type="main">NUCMA</title>
+            <title xml:lang="fr" type="sub">L’encyclopédie Des nouveaux usages des collections dans les musées d’art</title>
+            <title xml:lang="en" type="main">NUCMA</title>
+            <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
+            <editor>
+               <persName ref="#lamoureuxJohanne">
+                  <forename>Johanne</forename>
+                  <surname>Lamoureux</surname>
+               </persName>
+            </editor>
+         </titleStmt>
+         <publicationStmt>
+            <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+            <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+            <date when="2026">2026</date>
+            <idno type="uri">https://www.nucma.ca</idno>
+            <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
+         </publicationStmt>
+         <sourceDesc xml:id="nucma-fr">
+            <p>Fichier nativement numérique</p>
+         </sourceDesc>
+      </fileDesc>
+      <revisionDesc>
+         <change when="2026-03" who="#ECD">Création du fichier</change>
+      </revisionDesc>
+   </teiHeader>
+   <!--
+   <xi:include href="./introduction.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   -->
+   <!-- chapitres -->
+   <xi:include href="./acquisition/_corpus.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   
+   
+   <!-- meta -->
+   <xi:include href="../meta/artworks.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/authors.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/bibliography.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/exhibitions.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/medias.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/names.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   <xi:include href="../meta/places.xml" parse="xml">
+      <xi:fallback>Fichier non trouvé</xi:fallback>
+   </xi:include>
+   
+</teiCorpus>

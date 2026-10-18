@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schemas/nucma-text.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="main">Collections in Shared Ownership</title>
+                <title type="sub">Co-acquisition</title>
+                <author ref="#drouinBriseboisJosee">
+                    <persName>
+                        <forename>Josée</forename>
+                        <surname>Drouin-Brisebois</surname>
+                    </persName>
+                    <affiliation>Musée des beaux-arts du Canada</affiliation>
+                    <idno type="isni">ttps://isni.org/isni/0000000073687692</idno>
+                </author>
+                <author ref="#minierJessica">
+                    <persName>
+                        <forename>Jessica</forename>
+                        <surname>Minier</surname>
+                    </persName>
+                    <affiliation>Université du Québec en Outaouais</affiliation>
+                    <idno><!-- aucun idno trouvé #RC--></idno>
+                </author>
+            </titleStmt>
+            <publicationStmt>
+                <publisher/>
+                <date><!--unknown #RC--></date>
+                <idno type="DOI"><!-- @todo--></idno>
+                <availability>
+                    <licence target="https://creativescommons.org/licenses/by/4.0/">
+                        <p>Ce contenu est mis à disposition sous license Creative Commons Attribution 4.0</p>
+                    </licence>
+                </availability>
+            </publicationStmt>
+                <seriesStmt>
+                    <title xml:lang="fr" type="main">Acquisition</title>
+                    <title xml:lang="fr" type="sub">Encyclopédie des nouveaux usages des collections
+                        dans les musées d’art</title>
+                    <title xml:lang="en" type="main">Acquisition</title>
+                    <title xml:lang="en" type="sub">Encyclopedia of New Uses of Collections</title>
+                    <idno type="URI">http://www.nucma.ca</idno>
+                </seriesStmt>
+            <sourceDesc xml:id="Coacquisition.xml">
+                <p>Fichier nativement numérique</p>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="en"/>
+            </langUsage>
+            <textClass>
+                <keywords><!-- @todo--></keywords>
+            </textClass>
+        </profileDesc>
+        <revisionDesc>
+            <change/>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p></p>
+            <div>
+                <head><anchor xml:id="heading=h.gjdgxs"/><hi style="font-size:12pt">Collections in
+                        Shared Ownership</hi></head>
+                <p><hi style="font-size:12pt" xml:space="preserve">Short Title : </hi></p>
+                <p><hi style="font-size:12pt" xml:space="preserve">Co-acquisition </hi></p>
+                <p><hi style="font-size:12pt" xml:space="preserve">Authors : </hi></p>
+                <list rend="bulleted">
+                    <item><hi style="font-size:12pt">Josée Drouin-Brisebois, Producer and Senior
+                            Management, National Outreach, National Gallery of Canada</hi></item>
+                    <item><hi style="font-size:12pt">Jessica Minier, PhD Candidate, Université du
+                            Québec en Outaouais</hi></item>
+                </list>
+                <p><hi style="font-size:12pt">Museums today are showing ingenuity in continuing to
+                        develop their collections while working with limited resources and
+                        purchasing power. As the art market is characterised by a limited supply of
+                        works, this results in strong demand, generating competition both between
+                        the private and public sectors, as well as among museums themselves. In an
+                        ‘age of access’ (Rifkin, 2000), joint acquisition is proliferating as a form
+                        of collaborative musealization. Joint acquisition is a new modality of
+                        musealization whose origins go back to the 1970s. The very first identified
+                        case occurred in 1973, when the Metropolitan Museum of Art (MET) and the
+                        Louvre jointly acquired an ivory comb depicting the Tree of Jesse, dating
+                        from the early 13th century (Shirey, 1973). In the past decade, there has
+                        been an acceleration in joint acquisitions. Since 2010, there has been a
+                        significant increase in joint acquisitions, reaching a number comparable to
+                        that recorded between 1973 and 2010. Despite this growing professional
+                        interest, joint acquisition remains a relatively unexplored subject in
+                        museological studies. Shared ownership between museums is mentioned in
+                        certain reference works (Matassa, 2010, 2011; Tobelem, 2023) and was the
+                        subject of a master's thesis (van Ravenzwaay, University of Amsterdam,
+                        2015). Since joint acquisition has not been the subject of in-depth research
+                        in the French-speaking museum community, this entry establishes its
+                        theoretical foundations.</hi></p>
+                <p><anchor xml:id="heading=h.zfdvh6bsniq0"/><hi rend="bold" style="font-size:12pt"
+                        >Terminological
+                        Inventory<lb/></hi><hi style="font-size:12pt" xml:space="preserve">To refer to this practice, museums use terms such as </hi><hi
+                        rend="italic" style="font-size:12pt">acquisition
+                        conjointe</hi><hi style="font-size:12pt" xml:space="preserve"> (Centre Pompidou, 1995), </hi><hi
+                        rend="italic" style="font-size:12pt">joint
+                        purchase</hi><hi style="font-size:12pt" xml:space="preserve"> (MET, 1974), </hi><hi
+                        rend="italic" style="font-size:12pt"
+                        >copropriété</hi><hi style="font-size:12pt" xml:space="preserve"> (National Gallery of Canada, 2018), and </hi><hi
+                        rend="italic" style="font-size:12pt"
+                        >co-acquisition</hi><hi style="font-size:12pt" xml:space="preserve"> (National Museum of African American History and Culture, 2018). In the press, we find </hi><hi
+                        rend="italic" style="font-size:12pt">acquisition
+                        conjointe</hi><hi style="font-size:12pt" xml:space="preserve"> (Lalonde, 2018), its English equivalent </hi><hi
+                        rend="italic" style="font-size:12pt">joint
+                        acquisition</hi><hi style="font-size:12pt" xml:space="preserve"> (Finkel, 2011), and </hi><hi
+                        rend="italic" style="font-size:12pt">achat
+                        conjoint</hi><hi style="font-size:12pt" xml:space="preserve"> (Demarle, 2019). To these can be added the term </hi><hi
+                        rend="italic" style="font-size:12pt">joint
+                        ownership</hi><hi style="font-size:12pt" xml:space="preserve"> (Shirey, 1973), which is also favoured in academic contexts (van Ravenzwaay, 2015), along with </hi><hi
+                        rend="italic" style="font-size:12pt">shared
+                        ownership</hi><hi style="font-size:12pt" xml:space="preserve"> (Matassa, 2011). According to Freda Matassa, </hi><hi
+                        rend="italic" style="font-size:12pt">shared
+                        ownership</hi><hi style="font-size:12pt" xml:space="preserve"> occurs when two or more parties collaborate to acquire an object (Matassa, 2011). For Jule van Ravenzwaay, the term </hi><hi
+                        rend="italic" style="font-size:12pt">joint
+                        ownership</hi><hi style="font-size:12pt" xml:space="preserve"> refers to the acquisition of artworks by museums in partnership with peer institutions under shared ownership agreements, rather than through exclusive ownership (van Ravenzwaay, 2015). In the French-language academic literature, the term </hi><hi
+                        rend="italic" style="font-size:12pt">garde
+                        négociée</hi><hi style="font-size:12pt" xml:space="preserve"> (negotiated custody) is proposed in the </hi><hi
+                        rend="italic" style="font-size:12pt">Dictionnaire de
+                    muséologie</hi><hi style="font-size:12pt" xml:space="preserve"> (2022) to describe the grouping of museums that jointly acquire works or objects deemed of particular importance (Bergeron, 2022).</hi></p>
+                <p><anchor xml:id="heading=h.6h1l9i1z5g3d"/><hi rend="bold" style="font-size:12pt"
+                        >Terminology and Concept
+                        Definition<lb/></hi><hi style="font-size:12pt" xml:space="preserve">The expressions </hi><hi
+                        rend="italic" style="font-size:12pt">acquisition
+                        conjointe</hi><hi style="font-size:12pt" xml:space="preserve"> and its synonym </hi><hi
+                        rend="italic" style="font-size:12pt"
+                        >coacquisition</hi><hi style="font-size:12pt" xml:space="preserve"> are proposed here as French-language terminology. On one hand, acquisition is the first in a series of steps that make up the life of a museum object. It consists of the receipt or acceptance of one or more objects into the collections.  According to the Société des musées du Québec, acquisition is defined as “the activity through which an object or group of objects legally becomes the property of the museum institution and is incorporated into its collections” (translated from the French; Société des musées du Québec, 2016). The addition of the qualifier </hi><hi
+                        rend="italic" style="font-size:12pt"
+                        >conjointe</hi><hi style="font-size:12pt" xml:space="preserve"> conveys the idea of a union between several parties, one that involves “common rights and obligations” (CNRTL, 2012). Based on these two definitions, </hi><hi
+                        rend="italic" style="font-size:12pt">acquisition
+                        conjointe</hi><hi style="font-size:12pt" xml:space="preserve"> may therefore be defined as a collaborative process through which a work becomes the property of two or more parties—museum or otherwise—and is simultaneously integrated into their collections. Unlike the term </hi><hi
+                        rend="italic" style="font-size:12pt"
+                        >garde</hi><hi style="font-size:12pt" xml:space="preserve"> (“custody”) used in the expression </hi><hi
+                        rend="italic" style="font-size:12pt">garde
+                        négociée</hi><hi style="font-size:12pt" xml:space="preserve"> (“negotiated custody”), the use of </hi><hi
+                        rend="italic" style="font-size:12pt"
+                        >acquisition</hi><hi style="font-size:12pt" xml:space="preserve"> grounds the terminology more firmly within the museum context, while incorporating the idea of ownership transfer. The adjective </hi><hi
+                        rend="italic" style="font-size:12pt"
+                        >conjoint</hi><hi style="font-size:12pt" xml:space="preserve"> rather than </hi><hi
+                        rend="italic" style="font-size:12pt"
+                    >négociée</hi><hi style="font-size:12pt" xml:space="preserve"> also conveys the idea of the collective, of sharing, and of collaboration.</hi></p>
+                <p><hi style="font-size:12pt">In addition to reducing acquisition costs for all
+                        partners in the case of a joint purchase, co-acquisition increases access to
+                        the work: on one hand, for the public, who can view it in different
+                        locations, and on the other hand, for the co-owners, who can each present,
+                        document, and study it (Matassa, 2011). Since works are part of more than
+                        one collection at a time, they are assigned an acquisition number in each
+                        institution (ARCS, n.d.). These institutions, which already share ownership,
+                        also share authority over decisions concerning the co-acquired work. Every
+                        joint acquisition is accompanied by a “protocol” (Bergeron, 2022) that
+                        outlines the rights and obligations of the co-owners. This agreement
+                        specifies the number of works involved, as well as the terms of purchase (if
+                        applicable), ownership and possession, conservation, loan to third parties,
+                        reproduction, sale, insurance and indemnification, documentation and
+                        research, storage, access, and transportation (ARCS, n.d.; National Gallery
+                        of Canada, 2018). If the shared work is a physical object, usage time must
+                        be divided, as well as transportation and handling costs. Additional
+                        considerations include storage, potential loans, conservation, and
+                        restoration of the work. In general, digital works, which can exist in
+                        multiple copies across various media, facilitate sharing, as insurance for
+                        transportation is not always necessary and the risks to the work are lower
+                        (Kaufman, 2004).</hi></p>
+                <p><anchor xml:id="heading=h.awm7m4anmpxe"/><hi rend="bold" style="font-size:12pt"
+                        >Forms of Joint
+                    Acquisition<lb/></hi><hi style="font-size:12pt" xml:space="preserve">Joint acquisition takes many forms: the types of partners, the methods of joint acquisition, and the sharing models are varied. While it can make several museum institutions co-owners, co-acquisition can also give rise to other types of partnerships. Joint acquisition agreements have been concluded between departments within the same museum; between museums and archives, documentation, and research centres; between museums and foundations; between museums and private collections; between museums and donors; between museums and individuals; between museums and universities; and between museums and municipal councils (or cities). </hi></p>
+                <p><hi style="font-size:12pt" xml:space="preserve">For institutions with a collection, joint acquisition allows the addition of one or more works to institutional collections through various means, such as purchase and donation. On one hand, joint purchase involves sharing the acquisition price, whether equally or not among the parties involved. In some cases, it results from collaborative exhibitions between museums or gallery initiatives. On the other hand, co-acquisition occurs when a donor chooses to give a work simultaneously to multiple institutions. If a donation is defined as “the legal act through which a donor transfers ownership of property free of charge to the museum” (translated from the French; Mairesse, 2022), a donation to more than one institution necessarily entails both transfer and shared ownership. To date, this type of donation has been made in art museums by private collectors and by an artist. The </hi><hi
+                        rend="italic" style="font-size:12pt">fractional gift</hi><hi
+                        style="font-size:12pt">, a practice popular in the United States at the
+                        beginning of the century due to a legal loophole, is another form of
+                        donation leading to shared ownership of a work between a donor and a museum.
+                        It allowed a collector to donate a work gradually, a strategy that
+                        culminated in a bequest (Follas, 2008). Alternatively, co-acquisition can be
+                        the culmination of programmes set up for commissioning contemporary works
+                        accompanied by a promise of acquisition in multiple collections.</hi></p>
+                <p><hi style="font-size:12pt">Finally, the terms of property sharing also vary from
+                        one joint acquisition to another; three models have been identified so far.
+                        The most common model is equal sharing of both acquisition costs, in the
+                        case of a joint purchase, and ultimately of the work itself. Co-owners
+                        therefore hold equal shares, which guarantees them the same type of access
+                        and the same usage time. Not only are each party’s rights symmetrical, but
+                        so are their obligations toward the work. In some cases, the sharing is
+                        based on a ratio reflecting the financial contribution of the parties
+                        involved in a joint purchase. Thus, a larger museum may pay a higher amount
+                        than its partner, which could entitle it to negotiate increased access to
+                        the work. In this specific case, the co-owners’ rights and obligations are
+                        asymmetrical. Finally, an alternative that blends the two models is also
+                        possible: a larger museum may cover a larger portion of the acquisition
+                        costs and then share the work equally with the other co-owners.</hi></p>
+                <p><anchor xml:id="heading=h.r6cko3h0vo6d"/><hi rend="bold"
+                        style="font-family:Helvetica Neue;font-size:12pt">Motivations for Joint
+                        Acquisition<lb/></hi><hi style="font-family:Helvetica Neue;font-size:12pt"
+                        >Until recently, museums were little concerned with the size of their
+                        collections or the practical aspects of their conservation (Office of Policy
+                        and Analysis, 2003). Throughout the 20th century, many museums acquired as
+                        much as possible within their collecting scope. Collections, often large,
+                        lacked cohesion and sometimes contained objects that did not meet
+                        museum-quality standards (Office of Policy and Analysis, 2003). From the
+                        last quarter of the 20th century onwards, greater attention has been paid to
+                        the consequences of collecting practices, a concern that has grown in
+                        importance since the 1990s. This shift was driven in part by declining
+                        government and philanthropic support coupled with economic slowdowns, a lack
+                        of storage space in full reserves leading to refusals, museums’ inability to
+                        catch up on collection processing, and the general shift of collection
+                        priorities toward exhibitions and public programming (Office of Policy and
+                        Analysis, 2003). As a result, museums began exploring new approaches to
+                        acquisitions (Office of Policy and Analysis, 2003). The desire to develop
+                        collections more sustainably and the need to reduce costs should encourage
+                        museum professionals to view resource sharing as an opportunity to
+                        contribute to the cultural life of a community (Matassa, 2010).</hi></p>
+                <p><hi rend="italic" style="font-size:12pt">Sharing Responsibility for
+                        Care</hi><lb/><hi style="font-size:12pt">In this respect, joint acquisition
+                        represents a sustainable avenue for developing collections while also
+                        ensuring a sharing of costs and responsibility for care, particularly
+                        regarding storage and conservation (Matassa, 2011). Indeed, when two or more
+                        museums have co-acquired a physical work, only one museum at a time needs to
+                        store and conserve the object, providing the other museum with space in its
+                        storage. This is a significant advantage, as many storage facilities are
+                        overburdened due to museums’ accumulation logic, which contrasts with
+                        deaccessioning (van Ravenzwaay, 2015).</hi></p>
+                <p><hi rend="italic" style="font-family:Helvetica Neue;font-size:12pt">Addressing
+                        Scarcity in the Art Market</hi><lb/><hi
+                        style="font-family:Helvetica Neue;font-size:12pt">Joint acquisition helps
+                        address the scarcity of works in the highly competitive markets for
+                        established and contemporary art. Firstly, the market for established art,
+                        which includes works of historical heritage, is characterised by limited
+                        supply, increasing rarity, and artistic values validated over time, history,
+                        and social consensus (Moulin, 2009). In this market of scarcity, museums do
+                        not always have the financial resources to acquire works by sought-after
+                        artists. Museum administrations are therefore compelled to structure
+                        financial arrangements involving patronage in order to maintain purchasing
+                        power (Moulin, 2009) or to pursue co-acquisitions. Secondly, scarcity
+                        operates differently in the contemporary art market. As contemporary artists
+                        are generally still alive, supply is ongoing. In addition, new technologies,
+                        which allow for the multiplication of works and challenge the very
+                        foundations of the market, stimulate mechanisms to recreate scarcity and
+                        enhance economic value (Moulin, 2009). Moreover, new media works often
+                        encourage a philosophy of sharing in their conservation rather than
+                        exclusive ownership (Park, 2017). Considering that real or perceived
+                        scarcity affects the value of works, joint acquisition allows museums that
+                        pool their resources to shape gallery sales, ensuring that art remains
+                        accessible to them (van Ravenzwaay, 2015). In a globalised art market, it
+                        also allows gallery owners to strategically distribute editions of a work
+                        across collections worldwide, providing international visibility for their
+                        artists. Through joint acquisition, museums maintain their position in the
+                        art market, preventing works from being confined solely to the private
+                        sphere (van Ravenzwaay, 2015).</hi>
+                </p>
+                <p><hi rend="italic" style="font-size:12pt">Increasing the Fundraising Capacity of
+                        the Museum</hi><lb/><hi style="font-size:12pt">Beyond competition in the art
+                        market, museums also compete for funding. Their proliferation worldwide in
+                        recent decades has put them in competition for grants, private donations,
+                        and ticket revenues (Nicolas and Ginsburgh, 2022). Once again, museum
+                        institutions benefit from collaborating on acquisitions, sharing funding
+                        rather than competing for it. Joint acquisition, which promotes responsible
+                        use of resources, cost reduction, and the retention of artworks in the
+                        public sector, can also enhance museums’ fundraising capacity (Matassa,
+                        2011; van Ravenzwaay, 2015). On one hand, museums can solicit their donors,
+                        each drawing on their network, and the funds collected are then used to
+                        acquire the desired work. On the other hand, museums engaging in joint
+                        acquisition can benefit from specific grants. For example, in the UK, the
+                        Heritage Lottery Fund and the Art Fund are both dedicated to improving
+                        access to art, and encourage co-ownership as it ensures the retention of
+                        important works within the country (van Ravenzwaay, 2015).</hi>
+                </p>
+                <p><anchor xml:id="heading=h.ua203ukg1od8"/><hi rend="italic" style="font-size:12pt"
+                        >Heritage Retention Within the Territory</hi><lb/><hi style="font-size:12pt"
+                        >Often, the threat of a work being sold into the private sphere—especially
+                        abroad—motivates a group of museums to purchase it “for the nation”
+                        (Matassa, 2011). Past cultural heritage exodus has led several countries to
+                        protect it through export control systems in a retentionist approach
+                        (Palanco, 2018). Generally, three criteria guide the granting of an export
+                        licence: (1) the work’s connection to national history or life; (2) its
+                        aesthetic importance; and (3) its significance for the study of a particular
+                        branch of art (Serota, 2005). The first criterion concerns works created
+                        within the nation or constituting a notable testimony of social, political,
+                        economic, or cultural history, based on the principle that objects have
+                        greater meaning and value when seen in the context of their creation
+                        (Serota, 2005). While there is no intention to prohibit a masterpiece by
+                        French, Italian, or British artists, for example, from leaving the country,
+                        a conservation instinct naturally arises when a work comes from a historic
+                        collection or maintains a historical link to the nation. When a work has
+                        been kept in a private house and remained unknown or little known for
+                        generations, there is a tendency to use its market availability to enrich a
+                        regional or national collection (Serota, 2005). When a work associated with
+                        a nation risks leaving its territory, joint acquisition can become a
+                        retention strategy for museums, from which an urgent action is required.
+                        Collaborative acquisition allows resources to be pooled quickly, preventing
+                        export.</hi></p>
+                <p><anchor xml:id="heading=h.k02ksbe4yd2t"/><hi rend="italic" style="font-size:12pt"
+                        >Countering Export Obstacles</hi><lb/><hi style="font-size:12pt">While
+                        national public collections reflect the identity of a community—local,
+                        regional, national, or international in the case of so-called “universal”
+                        museums (Serota, 2005)—placing artistic heritage in public collections
+                        abroad can help a nation gain international recognition. However, the
+                        logistics involved are complex, given the instinct for heritage retention.
+                        Initially, export controls aimed to protect cultural heritage by preventing
+                        illicit import, export, and transfer of ownership. States adhering to the
+                        Convention on the Means of Prohibiting and Preventing the Illicit Import,
+                        Export and Transfer of Ownership of Cultural Property (1970) had to adopt
+                        protective measures domestically and control the movement of cultural
+                        property (UNESCO, 2022). These measures include the issuance of an export
+                        certificate required for any temporary or permanent removal from the
+                        territory. In the case of a national treasure—a work belonging to public
+                        collections, classified, or of major national heritage interest—removal can
+                        only be temporary (Gouvernement de la République française [Government of
+                        the French Republic], 2022). Temporary removals are authorised for
+                        restoration, appraisal, participation in a cultural event, exhibition, or
+                        deposit in a public collection only (Gouvernement de la République française
+                        [Government of the French Republic], 2022). If a work is put up for public
+                        auction but obtaining an export certificate is not feasible, joint
+                        acquisition can serve as a workaround. Consequently, the work can maintain a
+                        connection with its country of origin through the presence of one of the
+                        co-owning museums; temporary shuttles between countries may then be
+                        organised.</hi></p>
+                <p><anchor xml:id="heading=h.dhwlx2wajghk"/><hi rend="italic" style="font-size:12pt"
+                        >Facilitating Collection Circulation</hi><lb/><hi style="font-size:12pt"
+                        >Joint acquisition contributes to the circulation of collections, evoking
+                        the notion of a network. In the 1960s, the art world and art museums shifted
+                        from a “system” ideology to a “network” one, characterised notably by the
+                        circulation and mobility of works (Relya, 2013). In this sense, joint
+                        acquisition encourages movement of collections between institutions,
+                        promoting better access as well as sharing of knowledge and expertise.
+                        Because joint acquisition involves extended display time through exhibitions
+                        in partner museums (van Ravenzwaay, 2015), works spend less time in storage.
+                        Access to the work is multiplied both by the number of display locations and
+                        by the longer exhibition period. The public benefits from joint acquisition,
+                        particularly as it meets the need for frequent renewal of collection
+                        displays (van Ravenzwaay, 2015). However, depending on the medium, joint
+                        acquisitions may require more frequent transportation, with all associated
+                        risks (van Ravenzwaay, 2015). Moreover, museums are encouraged to engage in
+                        research to understand the origins and nature of their collections, enabling
+                        enriched use (Petterson, 2010). In this respect, joint acquisition involves
+                        not one, but multiple teams, all of whom have access to the work. Joint
+                        acquisition encourages further research on collections while fostering
+                        cooperation among researchers, potentially leading to knowledge exchange
+                        (van Ravenzwaay, 2015).</hi></p>
+                <p><anchor xml:id="heading=h.2izj7d3ewenq"/><hi rend="italic" style="font-size:12pt"
+                        >Diversifying Collections</hi><lb/><hi style="font-size:12pt">The ethics of
+                        exclusion gives way to an ethics of inclusion, as equity enters the artistic
+                        tradition (Fred and Farrell, 2008). Collecting practices are being
+                        reassessed through the lens of equality, diversity, and indigeneity as art
+                        museums engage in decolonisation. This openness aims to expand the
+                        conventional artistic repertoire (Fred and Farrell, 2008), which
+                        traditionally promoted a white male identity (Pollock, 2007), and to
+                        increase diversity in collections. In this context, joint acquisition can
+                        become a strategy to acquire works at lower costs, thereby broadening the
+                        museum’s collecting scope and diversifying collections more rapidly. Joint
+                        acquisition thus allows museums to embrace cultural diversity (Grams and
+                        Farrell, 2008), address gaps in past acquisitions, and increase the
+                        representativeness of their collections. While these outcomes seem laudable,
+                        it is important to note that museums simultaneously compete for works by
+                        white male artists at very high market prices. One might assume that museums
+                        benefit from a bargain when jointly acquiring works by diverse artists.
+                        However, by recognising gaps in their collections and seeking to fill them,
+                        museums as “</hi><hi rend="italic" style="font-size:12pt"
+                        >precripteurs</hi><hi style="font-size:12pt">” (“prescribers”; Moulin, 2009)
+                        create strong demand for works by Indigenous or diverse artists, whether
+                        historical or contemporary. Given the limited supply of historical works,
+                        joint acquisition is a strategy used by museums to enable diversification of
+                        their collections.</hi>
+                </p>
+                <p><hi rend="italic" style="font-size:12pt">Increasing the “Cultural Capital” of a
+                        Smaller
+                        Institution<lb/></hi><hi style="font-size:12pt" xml:space="preserve">Although generally not perceived this way, museums can act as true “predators” in collection acquisition (Maranda and Soares, 2017). They behave this way when competing with other museums for works or seeking exclusive ownership of an object (Park, 2017). However, in joint acquisitions, museums act more as partners than rivals (Park, 2017). In some cases, larger institutions even assist smaller ones. This is notably the case with the National Gallery of Canada, which considers joint acquisition if it allows “extending its influence and assisting other institutions” (translated from the French; </hi><anchor
+                        type="commentRangeStart" n="0"/><hi style="font-size:12pt">Minier,
+                        2024</hi><anchor type="commentRangeEnd" n="0"/><note place="comment"
+                        resp="#Jessica_Minier" n="0"><date when="2025-11-04T14:15:59Z"/><hi
+                            rend="normalweight baseline" style="font-size:11pt">Cette référence n'a
+                            pas été ajoutée à la bibliographie. Ce serait également à vérifier dans
+                            la version en français. Voici le lien vers le numéro
+                            : https://praticasdahistoria.pt/issue/view/1964 (p.27-68)</hi></note><hi
+                        style="font-size:12pt">; National Gallery of Canada, 2018). Its mandate
+                        includes making art accessible to all Canadians, which it can achieve
+                        through strategic partnerships with other institutions. These joint
+                        acquisition agreements also allow smaller institutions to enrich their
+                        collections with works that would have been otherwise inaccessible without
+                        collaboration with a larger institution.</hi></p>
+                <div>
+                    <head><anchor xml:id="heading=h.5wdtd62l178b"/><hi style="font-size:12pt">In
+                            conclusion, co-acquisition, initially introduced on a case-by-case basis
+                            in museums, appears to be normalising and extending beyond purely
+                            economic or heritage motivations. The contexts in which co-ownership
+                            arises are varied: sometimes partnerships emerge from particular
+                            circumstances, sometimes from a proposal by an external actor, and other
+                            times they are carefully planned. Depending on the nature of the
+                            partnership, engagement differs regarding the sharing of resources,
+                            knowledge, and expertise. In short, the transformative potential of
+                            joint acquisition is relative: for some museums, it seems to catalyse
+                            change, while for others, it appears to support the maintenance of the
+                            status quo.</hi><pb/></head>
+                </div>
+                <div>
+                    <head><anchor xml:id="heading=h.lnxbz9"/><anchor type="commentRangeStart" n="1"
+                            /><hi rend="bold" style="font-size:12pt">Bibliographie</hi><anchor
+                            type="commentRangeEnd" n="1"/><note place="comment"
+                            resp="#Jessica_Minier" n="1"><date when="2025-11-10T01:30:15Z"/><hi
+                                rend="normalweight baseline" style="font-size:11pt">Est-ce que la
+                                bibliographie est la même pour la version anglaise et française? Ou
+                                elle doit être adaptée?</hi></note></head>
+                    <p><hi style="font-size:12pt" xml:space="preserve">ARCS – Association of Registrars and Collections Specialists (s.d.). Co-Ownership Agreement. </hi><hi rend="italic" style="font-size:12pt" xml:space="preserve">ARCS—Association of Registrars and Collections Specialists. </hi><ref
+                            target="https://www.arcsinfo.org/content/documents/12-co-ownerships-template-co-ownership-agreement.pdf"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.arcsinfo.org/content/documents/12-co-ownerships-template-co-ownership-agreement.pdf</hi></ref>
+                    </p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Bergeron, Yves (2022). </hi><hi
+                            rend="italic" style="font-size:12pt">Garde
+                            négociée</hi><hi style="font-size:12pt" xml:space="preserve">. Dans François Mairesse (dir.), </hi><hi
+                            rend="italic" style="font-size:12pt">Dictionnaire de
+                        muséologie</hi><hi style="font-size:12pt" xml:space="preserve"> (p. 285). Malakoff, Armand Colin.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Centre Georges Pompidou (1995). </hi><hi
+                            rend="italic" style="font-size:12pt">László Moholy-Nagy, Compositions
+                            lumineuses, Photogrammes, 1922 -
+                            1943</hi><hi style="font-size:12pt" xml:space="preserve">. Paris, Direction de la communication du Centre Georges Pompidou. </hi><ref
+                            target="https://www.centrepompidou.fr/media/document/28/4b/284baa4e650242210d8926376768ada7/normal.pdf"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.centrepompidou.fr/media/document/28/4b/284baa4e650242210d8926376768ada7/normal.pdf</hi></ref></p>
+                    <p><hi style="font-size:12pt">CNRTL – Centre national de ressources textuelles
+                            et lexicales. (2012). Conjoint, ointe</hi><hi rend="italic"
+                            style="font-size:12pt">. CNRTL – Centre national de ressources
+                            textuelles et lexicales.</hi>
+                        <ref target="https://www.cnrtl.fr/definition/conjoint"><hi
+                                rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.cnrtl.fr/definition/conjoint</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Demarle, Julie (25 novembre 2019). Achat conjoint d’un Van Gogh par le Drents Museum et le Van Gogh Museum. </hi><hi
+                            rend="italic" style="font-size:12pt">La tribune de
+                            l’Art</hi><hi style="font-size:12pt" xml:space="preserve">. </hi><ref
+                            target="https://www.latribunedelart.com/achat-conjoint-d-un-van-gogh-par-le-drents-museum-et-le-van-gogh-museum?lang=fr"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.latribunedelart.com/achat-conjoint-d-un-van-gogh-par-le-drents-museum-et-le-van-gogh-museum?lang=fr</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Finkel, Jori (8 février 2011). LACMA, Getty to Share Robert Mapplethorpe Artwork. </hi><hi
+                            rend="italic" style="font-size:12pt">Los Angeles
+                            Times</hi><hi style="font-size:12pt" xml:space="preserve">. </hi><ref
+                            target="https://www.latimes.com/entertainment/la-xpm-2011-feb-08-la-et-lacma-mapplethorpe-20110208-story.html"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.latimes.com/entertainment/la-xpm-2011-feb-08-la-et-lacma-mapplethorpe-20110208-story.html</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Follas, Emily J. (2008). It Belongs in a Museum: Appropriate Donor Incentives for Fractional Gifts of Art. </hi><hi
+                            rend="italic" style="font-size:12pt">Notre Dame Law
+                            Review</hi><hi style="font-size:12pt" xml:space="preserve">, </hi><hi
+                            rend="italic" style="font-size:12pt">83</hi><hi style="font-size:12pt"
+                            >(4), 1779‑1810.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Fred, Morris et Betty Farrell (2008). Diversifying the Arts: Bringing in Race and Ethnic Perspectives. Dans Diane Grams et Betty Farrell (dir.), </hi><hi
+                            rend="italic" style="font-size:12pt">Entering Cultural Communities:
+                            Diversity and Change in the Nonprofit
+                        Arts</hi><hi style="font-size:12pt" xml:space="preserve"> (p. 143‑170). New Brunswick : Rutgers University Press.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Gouvernement de la République française (2022). Peut-on envoyer une œuvre d’art à l’étranger ? </hi><hi
+                            rend="italic" style="font-size:12pt">Entreprendre, service
+                            public</hi><hi style="font-size:12pt" xml:space="preserve">. </hi><ref
+                            target="https://entreprendre.service-public.fr/vosdroits/F1277"><hi
+                                rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://entreprendre.service-public.fr/vosdroits/F1277</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Grams, Diane et Betty Farrell (dir.) (2008). </hi><hi
+                            rend="italic" style="font-size:12pt">Entering Cultural Communities:
+                            Diversity and Change in the Nonprofit Arts</hi><hi
+                            style="font-size:12pt">. New Brunswick : Rutgers University
+                        Press.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Kaufman, J. E. (2004). The Days of Single Ownership are Over. </hi><hi
+                            rend="italic" style="font-size:12pt">The Art
+                            Newspaper</hi><hi style="font-size:12pt" xml:space="preserve">, </hi><hi
+                            rend="italic" style="font-size:12pt">147</hi><hi style="font-size:12pt"
+                            >.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Lalonde, Catherine (4 mai 2018). Le MBAC renonce au </hi><hi
+                            rend="italic" style="font-size:12pt">Saint
+                            Jérôme</hi><hi style="font-size:12pt" xml:space="preserve">. </hi><hi
+                            rend="italic" style="font-size:12pt">Le
+                            Devoir</hi><hi style="font-size:12pt" xml:space="preserve">. </hi><ref
+                            target="https://www.ledevoir.com/culture/526932/musees-le-mbac-renonce-au-saint-jerome"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.ledevoir.com/culture/526932/musees-le-mbac-renonce-au-saint-jerome</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Mairesse, François. (2022). Don. Dans François Mairesse (dir.), </hi><hi
+                            rend="italic" style="font-size:12pt">Dictionnaire de
+                        muséologie</hi><hi style="font-size:12pt" xml:space="preserve"> (p. 200‑201). Malakoff : Armand Colin.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Maranda, Lynn, et Bruno B. Soares (2017). The Predatory Museum—Introduction. </hi><hi
+                            rend="italic" style="font-size:12pt">ICOFOM Study
+                            Series</hi><hi style="font-size:12pt" xml:space="preserve">, </hi><hi
+                            rend="italic" style="font-size:12pt"
+                            >45</hi><hi style="font-size:12pt" xml:space="preserve">, 13‑20. </hi><ref
+                            target="https://doi.org/10.4000/iss.290"><hi
+                                rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://doi.org/10.4000/iss.290</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Matassa, Freda (2010). Active Collections: Re-visiting our Collection for More and Better Use. Dans Susanna Petterson, Monika Hagedorn-Saupe, Teijmar Jyrkkiö et Astrid Weij (dir.), </hi><hi
+                            rend="italic" style="font-size:12pt">Encouraging Collections Mobility, A
+                            Way Forward for Museums in
+                            Europe</hi><hi style="font-size:12pt" xml:space="preserve"> (p. 107‑135). </hi><hi rend="color(202124) background(white)" style="font-size:12pt" xml:space="preserve">Helsinki : </hi><hi
+                            style="font-size:12pt">Finnish National Gallery.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Matassa, Freda (2011). </hi><hi
+                            rend="italic" style="font-size:12pt">Museum Collections Management: A
+                            Handbook</hi><hi style="font-size:12pt">. London : Facet
+                            Publishing.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">The MET Museum (1974). Plaque with the Crucifixion and the Holy Women at the Tomb. New York : MET Museum. </hi>
+                        <ref target="https://www.metmuseum.org/art/collection/search/471992"><hi
+                                rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.metmuseum.org/art/collection/search/471992</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Moulin, Raymonde (2009). </hi><hi
+                            rend="italic" style="font-size:12pt">Le marché de l’art : Mondialisation
+                            et nouvelles technologies</hi><hi style="font-size:12pt">. Montréal :
+                            Flammarion.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Musée des beaux-arts du Canada (2018). La politique d’acquisition. Ottawa : </hi><hi
+                            rend="italic" style="font-size:12pt">Musée des beaux-arts du
+                            Canada</hi><hi style="font-size:12pt" xml:space="preserve">. </hi><ref
+                            target="https://www.beaux-arts.ca/sites/default/files/upload/acquisitions_policy-fra.pdf"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.beaux-arts.ca/sites/default/files/upload/acquisitions_policy-fra.pdf</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">National Museum of African American History and Culture (2018, 8 mai). National Portrait Gallery Presents a Portrait of Henrietta Lacks, a Co-Acquisition with the National Museum of African American History and Culture. </hi><hi rend="italic" style="font-size:12pt" xml:space="preserve">National Museum of African American History and Culture </hi><ref
+                            target="https://nmaahc.si.edu/about/news/national-portrait-gallery-presents-portrait-henrietta-lacks-co-acquisition-national"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://nmaahc.si.edu/about/news/national-portrait-gallery-presents-portrait-henrietta-lacks-co-acquisition-national</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Nicolas, Yann et Victor Ginsburgh (2022). Économie muséale. Dans F. Mairesse (dir.), </hi><hi
+                            rend="italic" style="font-size:12pt">Dictionnaire de
+                        muséologie</hi><hi style="font-size:12pt" xml:space="preserve"> (p. 226‑229). Malakoff : Armand Colin.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Office of Policy and Analysis (2003). Acquisitions and Disposal of Collections. </hi><hi
+                            rend="italic" style="font-size:12pt">Office of Policy and Analysis.</hi>
+                        <ref
+                            target="https://soar.si.edu/sites/default/files/reports/05.04.concernatthecore.disposal.pdf"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://soar.si.edu/sites/default/files/reports/05.04.concernatthecore.disposal.pdf</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Palanco, Alexandre (2018, 19 octobre). Rembrandt, l’amour et le marché : Vers le dépassement du nationalisme culturel ? </hi><hi
+                            rend="italic" style="font-size:12pt">Les droits culturels fondamentaux
+                            dans l’ordre juridique de l’Union
+                            européenne.</hi><hi style="font-size:12pt" xml:space="preserve"> Nantes. </hi><ref
+                            target="https://hal.science/hal-03203204/document"><hi
+                                rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://hal.science/hal-03203204/document</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Park, Ji Eun (2017). Du musée prédateur au musée symbiotique : L’enrichissement de la collection des œuvres nouveaux médias dans les institutions muséales. </hi><hi
+                            rend="italic" style="font-size:12pt">ICOFOM Study
+                            Series</hi><hi style="font-size:12pt" xml:space="preserve">, </hi><hi
+                            rend="italic" style="font-size:12pt">45</hi><hi style="font-size:12pt">,
+                            130‑132.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Petterson, Susanna (2010). Collections Mobility—Stepping Forward. Dans S. Petterson, M. Hagedorn-Saupe, T. Jyrkkiö et A. Weij (dir.), </hi><hi
+                            rend="italic" style="font-size:12pt">Encouraging Collections Mobility, A
+                            Way Forward for Museums in
+                            Europe</hi><hi style="font-size:12pt" xml:space="preserve"> (p. 152‑160). </hi><hi rend="color(202124) background(white)" style="font-size:12pt" xml:space="preserve">Helsinki : </hi><hi
+                            style="font-size:12pt">Finnish National Gallery.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Pollock, Griselda (2007). Des canons et des guerres culturelles. </hi><hi
+                            rend="italic" style="font-size:12pt">Cahiers du
+                            Genre</hi><hi style="font-size:12pt" xml:space="preserve">, </hi><hi
+                            rend="italic" style="font-size:12pt"
+                            >43</hi><hi style="font-size:12pt" xml:space="preserve">(2), 45‑69. </hi><ref
+                            target="https://doi.org/10.3917/cdge.043.0045"><hi
+                                rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://doi.org/10.3917/cdge.043.0045</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Relya, Lane (2013). </hi><hi
+                            rend="italic" style="font-size:12pt">Your Everyday Art World</hi><hi
+                            style="font-size:12pt">. Cambridge : MIT Press.</hi></p>
+                    <p><hi style="font-size:12pt">Rifkin, Jeremy (2000). L'Âge de l'accès : Survivre
+                            à l'hypercapitalisme. Montréal et Paris : Boréal et La
+                        Découverte.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Serota, Nicholas (2005). Why Save Art for the Nation? </hi><hi
+                            rend="italic" style="font-size:12pt"
+                            >Curator</hi><hi style="font-size:12pt" xml:space="preserve">, </hi><hi
+                            rend="italic" style="font-size:12pt">48</hi><hi style="font-size:12pt"
+                            >(1), 13‑17.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Shirey, David L. (1973, 16 mars). Met and Louvre Purchase Ivory. </hi><hi rend="italic" style="font-size:12pt" xml:space="preserve">The New York Times. </hi><ref
+                            target="https://www.nytimes.com/1973/03/16/archives/met-and-louvre-purchase-ivory-56000-comb-is-held-to-be-a-first-in.html"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.nytimes.com/1973/03/16/archives/met-and-louvre-purchase-ivory-56000-comb-is-held-to-be-a-first-in.html</hi></ref></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Société des musées du Québec. (2016). Qu’est-ce qu’une politique d’acquisition. </hi><hi
+                            rend="italic" style="font-size:12pt">Société des musées du Québec.</hi>
+                        <ref
+                            target="https://www.musees.qc.ca/fr/professionnel/guidesel/acquisition/politique-acquisition/index.htm"
+                                ><hi rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.musees.qc.ca/fr/professionnel/guidesel/acquisition/politique-acquisition/index.htm</hi></ref>
+                    </p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">Tobelem, Jean-Michel (2023). </hi><hi
+                            rend="italic" style="font-size:12pt">Politique et gestion de la culture
+                            : Publics, financement, territoire,
+                            stratégie</hi><hi style="font-size:12pt" xml:space="preserve"> (4</hi><hi
+                            rend="superscript" style="font-size:12pt"
+                        >e</hi><hi style="font-size:12pt" xml:space="preserve"> éd.). Malakoff : Armand Colin.</hi></p>
+                    <p><hi style="font-size:12pt" xml:space="preserve">UNESCO (2022). </hi><hi
+                            rend="italic" style="font-size:12pt">À propos de la Convention de
+                            1970</hi><hi style="font-size:12pt" xml:space="preserve">. </hi><hi
+                            rend="italic" style="font-size:12pt"
+                            >UNESCO</hi><hi style="font-size:12pt" xml:space="preserve">. </hi><ref
+                            target="https://www.unesco.org/fr/node/66155"><hi
+                                rend="underline color(1155cc)"
+                                style="font-family:Helvetica Neue;font-size:12pt"
+                                >https://www.unesco.org/fr/node/66155</hi></ref></p>
+                    <p><hi style="font-family:Helvetica Neue;font-size:12pt" xml:space="preserve">van Ravenzwaay, J. (2015). </hi><hi
+                            rend="italic" style="font-family:Helvetica Neue;font-size:12pt"
+                            >Rethinking the Institution: Museums and Joint
+                        Ownership</hi><hi style="font-family:Helvetica Neue;font-size:12pt" xml:space="preserve"> [Mémoire de maîtrise]. Amsterdam : Université d’Amsterdam.</hi></p>
+                </div>
+            </div>
+            <div>
+                <head><anchor xml:id="heading=h.35nkun2"/><hi rend="bold" style="font-size:12pt"
+                        >Encadrés et compléments numériques :</hi></head>
+                <p><hi style="font-size:12pt">- Complément numérique « mini-expo » (multimédia) sur
+                        la vente des Rembrandt au Rijks Museum</hi>
+                </p>
+                <p><hi style="font-size:12pt" xml:space="preserve">- Complément numérique « mini-expo » (multimédia) : Entrevue sur l’acquisition </hi><hi rend="italic" style="font-size:12pt" xml:space="preserve">The Clock </hi><hi style="font-size:12pt" xml:space="preserve">de Christian Marclay </hi></p>
+            </div>
+            <div>
+                <head><anchor xml:id="heading=h.1ksv4uv"/><hi rend="bold" style="font-size:12pt"
+                        >Références à d’autres entrées de l’</hi><hi rend="italic bold"
+                        style="font-size:12pt"
+                    >Encyclopédie</hi><hi rend="bold" style="font-size:12pt" xml:space="preserve"> : </hi></head>
+            </div>
+        </body>
+    </text>
+</TEI>

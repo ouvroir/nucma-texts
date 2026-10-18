@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schemas/nucma-exhibitions.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
    <teiHeader>
       <fileDesc>
          <titleStmt>
             <title xml:lang="fr" type="main">Index des expositions</title>
-            <title xml:lang="en" type="main">Exhibitions index</title>
+            <title xml:lang="en" type="main">Exhibition Index</title>
          </titleStmt>
          <publicationStmt>
-            <publisher>CIÉCO</publisher>
-            <date when="2024">2025</date>
-            <idno type="doi"><!-- @todo 10.400/nucma/names --></idno>
+            <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+            <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+            <date when="2026">2026</date>
+            <idno type="uri">https://www.nucma.ca</idno>
+            <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
                   <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0.</p>
@@ -17,10 +20,13 @@
             </availability>
          </publicationStmt>
          <seriesStmt>
-            <title xml:lang="fr" type="main"
-               >Encyclopédie des nouveaux usages des collections dans les musées d’art</title>
-            <title xml:lang="en" type="main">Encyclopedia of New Uses of Collections</title>
-            <idno type="URI">http://www.nucma.ca</idno>
+            <title xml:lang="fr" type="main">NUCMA</title>
+            <title xml:lang="fr" type="sub"
+               >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
+            <title xml:lang="en" type="main">NUCMA</title>
+            <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
+            <idno type="uri">http://www.nucma.ca</idno>
+            <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
          <sourceDesc xml:id="nucma-authors">
             <p>Fichier nativement numérique</p>
@@ -29,15 +35,19 @@
       <profileDesc>
          <langUsage>
             <language ident="fr"/>
+            <language ident="en"/>
          </langUsage>
-         <textClass>
-            <!--may not be necessary here, only in chapters and articles-->
+         <!--<textClass>
+            <!-\-may not be necessary here, only in chapters and articles-\->
             <keywords xml:lang="fr">
-               <term><!-- @todo --></term>
-               <term><!-- @todo --></term>
+               <term>société</term>
             </keywords>
-         </textClass>
+         </textClass>-->
       </profileDesc>
+      <revisionDesc>
+         <change when="2026-03" who="#ECD">Restructuration du fichier</change>
+         <change when="2025">Création du fichier</change>
+      </revisionDesc>
    </teiHeader>
    <text>
       <body>
@@ -48,6 +58,7 @@
             
          -->
          <listEvent>
+            <!-- Liste de Julie -->
             <head xml:lang="fr">Index des expositions</head>
             <head xml:lang="en">Exhibitions index</head>
             <event>
@@ -61,8 +72,219 @@
                <idno type="uri">https://lien-page-web-si-a-trouvé</idno>
                <!-- ne pas hésiter à mettre des commentaires avec des sources pour qu’on puisse retravailler la liste -->
             </event>
+            <event xml:id="louvreLens001">
+               <eventName>La Galerie du temps</eventName>
+               <place>
+                  <orgName ref="#louvreLens">Louvre-Lens</orgName>
+                  <placeName>Lens</placeName>
+                  <country>France</country>
+               </place>
+               <date from="2012-12-04" to="2017-12-03">Du 4 décembre 2012 au 3 décembre 2017</date>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q3094671</idno>
+            </event>
+            <event xml:id="museeLudwig001">
+               <eventName>Here and Now at Museum Ludwig</eventName>
+               <place>
+                  <orgName ref="#museeLudwig">Musée Ludwig</orgName>
+                  <placeName>Cologne</placeName>
+                  <country>Allemagne</country>
+               </place>
+               <date from="2016-11">Depuis Novembre 2016</date>
+               <idno type="wikidata">https://www.wikidata.org/wiki/</idno>
+            </event>
+            <event xml:id="mbac001">
+               <eventName xml:lang="fr">Surgir de l’ombre</eventName>
+               <eventName xml:lang="en">Shine a Light</eventName>
+               <place>
+                  <orgName ref="#mbac">Musée des beaux-arts du Canada</orgName>
+                  <placeName>Ottawa(Ontario)</placeName>
+                  <country>Canada</country>
+               </place>
+               <date from="2014-10-17" to="2015-03-08">Du vendredi 17 octobre 2014 au dimanche 8
+                  mars 2015</date>
+               <idno type="uri"
+                  >https://www.beaux-arts.ca/a-laffiche/expositions-et-salles/surgir-de-lombre-la-biennale-canadienne-2014</idno>
+            </event>
+            <event xml:id="mbac002">
+               <eventName xml:lang="fr">Les bâtisseurs</eventName>
+               <eventName xml:lang="en">Builders</eventName>
+               <place>
+                  <orgName ref="#mbac">Musée des beaux-arts du Canada</orgName>
+                  <placeName>Ottawa(Ontario)</placeName>
+                  <country>Canada</country>
+               </place>
+               <date from="2012" to="2012">2012</date>
+               <idno/>
+               <!-- pas trouvé -->
+            </event>
+            <event xml:id="mnam001">
+               <eventName>Histoire(s) d’une collection</eventName>
+               <place>
+                  <orgName ref="#mnam">Musée national d’Art moderne</orgName>
+                  <placeName>Paris</placeName>
+                  <country>France</country>
+               </place>
+               <date from="2018-05-25" to="2019-04-15">Du 25 mai 2018 au 15 avril 2019</date>
+               <idno type="uri"
+                  >https://www.centrepompidou.fr/fr/programme/agenda/evenement/cBrxBdX#:~:text=du%20parcours%20moderne.-,Plus%20de%20cent%20vingt%20%C5%93uvres%2C%20accompagn%C3%A9es%20d'un%20appareil%20documentaire,mus%C3%A9e%20du%20Jeu%20de%20Paume.</idno>
+            </event>
+            <event xml:id="mkeo001">
+               <eventName>Silence</eventName>
+               <place>
+                  <orgName ref="#mkeo">Musée Karl Ernest Ostaus</orgName>
+                  <placeName>Hagen</placeName>
+                  <country>Allemagne</country>
+               </place>
+               <date from="1988" to="1988">1988</date>
+               <idno/> <!-- pas trouvé -->
+            </event>
+            <event xml:id="mkeo002">
+               <eventName>Revision</eventName>
+               <place>
+                  <orgName ref="#mkeo">Musée Karl Ernest Ostaus</orgName>
+                  <placeName>Hagen</placeName>
+                  <country>Allemagne</country>
+               </place>
+               <date from="1988" to="1988">1988</date>
+               <idno/> <!-- pas trouvé -->
+            </event>
+            <event xml:id="fracNormandieRouen001">
+               <eventName>L’inventaire</eventName>
+               <place>
+                  <orgName ref="#fracNormandieRouen">Fonds régional d'art contemporain de Normandie-Rouen</orgName>
+                  <placeName>Sotteville-lès-Rouen</placeName>
+                  <country>France</country>
+               </place>
+               <date from="2011" to="2019">exposition annuelle, de 2011 à 2019</date>
+               <idno/> <!-- #RC aucun idno trouvé, voici un lien pertinent : https://www.artpress.com/2019/07/25/le-frac-normandie-rouen-reinvente-linventaire/ -->
+            </event>
+            <event xml:id="mbam001">
+               <eventName>Les arts du Tout-Monde</eventName>
+               <place>
+                  <orgName ref="mbam">Musée des beaux-arts de Montréal</orgName>
+                  <placeName>Montréal</placeName>
+                  <region>Québec (Province)</region>
+                  <country>Canada</country>
+               </place>
+               <date from="2019-11">Depuis le 9 Novembre 2019</date>
+               <idno type="uri">https://www.mbam.qc.ca/fr/collections/arts-du-tout-monde/</idno>
+               <idno type="uri">https://www.mbam.qc.ca/fr/arts-du-tout-monde/</idno> 
+            </event>
+            <event xml:id="mnam002">
+               <eventName>elles@centrepompidou</eventName>
+               <place>
+                  <orgName ref="#mnam">Musée national d’Art moderne</orgName>
+                  <placeName>Paris</placeName>
+                  <country>France</country>
+               </place>
+               <date from="2009-05-27" to="2011-02-21">Du 27 mai 2009 au 21 février 2011</date>
+               <idno type="uri">https://www.centrepompidou.fr/fr/programme/agenda/evenement/ccBLAM</idno>
+            </event>
+            <event xml:id="macm001">
+               <eventName>Collection Lavalin</eventName>
+               <place>
+                  <orgName ref="#macm">Musée d'art contemporain de Montréal</orgName>
+                  <placeName>Montréal</placeName>
+                  <region>Québec (Province)</region>
+                  <country>Canada</country>
+               </place>
+               <date>1992</date>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q115676902</idno>
+            </event>
+            <event xml:id="vag001">
+               <eventName>Collection Brigitte et Henning Freybe</eventName>
+               <place>
+                  <orgName ref="#vag">Vancouver Art Gallery</orgName>
+                  <placeName>Vancouver (Colombie-Britannique)</placeName>
+                  <country>Canada</country>
+               </place>
+               <date>2025</date>
+               <idno/> <!-- pas trouvé -->
+            </event>
+            <event xml:id="guggenheimMuseum001">
+               <eventName>Guggenheim UBS MAP Global Art Initiative</eventName> <!-- collaboration entre deux Organisations, aussi appelé MAP -->
+               <place>
+                  <orgName ref="#guggenheimMuseum">Musée Solomon-R.-Guggenheim</orgName>
+                  <orgName>UBS</orgName>
+                  <placeName>New York</placeName>
+                  <country>États-Unis</country>
+               </place>
+               <date from="2012" to="2017">De 2012 à 2017</date>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q16975332</idno> 
+               <idno type="uri">https://www.guggenheim.org/map</idno>
+            </event>
+            <event xml:id="tateModern001">
+               <eventName>BMW Tate Live</eventName>
+               <place>
+                  <orgName ref="#tateModern">Tate Modern</orgName>
+                  <placeName>Londres</placeName>
+                  <country>Angleterre</country>
+               </place>
+               <date from="2012">Depuis 2012</date>
+               <idno type="wikidata">https://www.wikidata.org/wiki/</idno> <!-- les références sur wikidata ne correspondent pas à la date mentionnée dans le texte "2012" -->
+               <idno type="uri">https://www.tate.org.uk/whats-on/tate-modern/bmw-tate-live</idno>
+            </event>
          </listEvent>
-         
+
+         <listEvent>
+            <!-- Liste de Rosa -->
+            <head xml:lang="fr">Index des expositions</head>
+            <head xml:lang="en">Exhibitions index</head>
+            <event>
+               <eventName/>
+               <place>
+                  <orgName/>
+                  <placeName/>
+                  <country/>
+               </place>
+               <date/>
+               <idno/>
+               <!-- ne pas hésiter à mettre des commentaires avec des sources pour qu’on puisse retravailler la liste -->
+            </event>
+            <event xml:id="cnacgp001">
+               <eventName>NFT : Poétiques de l'immatériel, du certificat à la blockchain</eventName>
+               <place>
+                  <orgName ref="#cnacgp">Centre national d'art et de culture Georges
+                     Pompidou</orgName>
+                  <placeName>Paris</placeName>
+                  <country>France</country>
+               </place>
+               <date from="2023-04" to="2024-01">du 6 avril 2023 au 22 janvier 2024</date>
+               <idno><!-- pas trouvé, voir liens ci-dessous--></idno>
+               <!-- https://www.centrepompidou.fr/fr/programme/agenda/evenement/FJTaAmT -->
+               <!-- https://francefineart.com/2023/04/06/3419_nft_centre-pompidou/ -->
+            </event>
+            <event xml:id="mbam002">
+               <eventName>Deux par deux rassemblés : ajouts récents à la collection du MBAM</eventName>
+               <place>
+                  <orgName ref="#mbam">Musée des beaux-arts de Montréal</orgName>
+                  <placeName>Montréal</placeName>
+                  <region>Québec (Province)</region>
+                  <country>Canada</country>
+               </place>
+               <date from="2024-09" to="2025-10">du 11 septembre 2024 au 5 octobre 2025</date>
+               <idno type="uri">https://www.mbam.qc.ca/fr/expositions/deux-par-deux-rassembles/</idno>
+            </event>
+            <event xml:id="moma001">
+               <eventName>Recent Acquisitions : Painting and Sculpture</eventName>
+               <place>
+                  <orgName ref="#moma">Museum of Modern Art</orgName>
+                  <placeName>New-York</placeName>
+                  <country>États-Unis</country>
+               </place>
+               <date from="1965-02" to="1965-04">du 16 février au 25 avril 1965</date>
+               <idno type="uri">https://www.moma.org/calendar/exhibitions/2890</idno>
+            </event>
+            <event xml:id="sbmk001">
+               <eventName xml:lang="en">Modern Art : Who Cares?</eventName>
+               <place>
+                  <orgName>Foundation for the Conservation of Modern Art/Netherlands</orgName>
+                  <country>Pays-Bas</country>
+               </place>
+               <date from="1997-09-08" to="1997-09-10">du 8 au 10 septembre 1997</date>
+               <idno type="uri">https://www.sbhk.nl/en/activities/Modern_Art_Who_Cares</idno>
+            </event>
+         </listEvent>
       </body>
    </text>
 </TEI>

@@ -5,20 +5,39 @@
     <fileDesc>
       <titleStmt>
         <title>Schéma personnalisé pour projet NUCMA</title>
+        <!-- mention Emmanuel + Hariet -->
       </titleStmt>
       <publicationStmt>
-        <p>Publication numérique</p>
+        <publisher>Groupe de recherche et de réflexion CIÉCO</publisher>
+        <date when="2023">2023</date>
+        <!-- @todo <idno type="DOI">10.400/revuehn2355</idno> -->
+        <availability>
+          <licence target="https://creativescommons.org/licenses/by/4.0/">
+            <p>Ce contenu est mis à disposition sous license Creative Commons Attribution 4.0</p>
+          </licence>
+        </availability>
       </publicationStmt>
+      <seriesStmt>
+        <title xml:lang="fr" type="main">Chapitre Acquisition</title>
+        <title xml:lang="fr" type="sub"
+          >NUCMA, l’encyclopédie Des nouveaux usages des collections dans les musées d’art</title>
+        <idno type="URI">http://www.nucma.ca</idno>
+        <!-- @todo <idno type="DOI">...</idno> -->
+      </seriesStmt>
       <sourceDesc>
-        <p>Né numérique</p>
+        <p>Nativement numérique</p>
       </sourceDesc>
     </fileDesc>
+    <revisionDesc>
+      <change when="2026-03-02" who="#ECD">Révision de l’encodage et restructuration</change>
+      <change when="2023">Première version</change>
+    </revisionDesc>
   </teiHeader>
   <text>
     <body>
-      <div1>
+      <div>
         <head>Personnalisation du schéma de Commons Publishing OpenEdition pour le projet NUCMA</head>
-        <schemaSpec ident="Nucma" start="TEI" source="commons-publishing_compiled.odd">
+        <schemaSpec ident="Nucma" start="TEI" source="../../tei-commons-publishing/odd/commons-publishing-metopes-compiled.odd">
 
           <!-- ############################################## 
      #### moduleRef customisation              ####
@@ -62,6 +81,7 @@
           <elementRef key="title" source="tei:4.7.0"/>
           <elementRef key="objectIdentifier" source="tei:4.7.0"/>
           <elementRef key="objectName" source="tei:4.7.0"/>
+          
           <!-- ############################################## 
      #### Elements customisation               ####
      ############################################## -->
@@ -139,8 +159,18 @@
               </sequence>
             </content>
           </elementSpec>
+          
+          <elementSpec ident="persName" mode="change" module="namesdates">
+            <attList>
+              <attDef ident="ref" mode="replace" usage="opt">
+                <datatype>
+                  <dataRef key="teidata.pointer"/>
+                </datatype>
+              </attDef>
+            </attList>
+          </elementSpec>
         </schemaSpec>
-      </div1>
+      </div>
     </body>
   </text>
 </TEI>

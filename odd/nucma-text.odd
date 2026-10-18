@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title xml:lang="fr"
+          >Schéma pour NUCMA, Encyclopédie Des nouveaux usages des collections dans les musées d’art</title>
+        <principal ref="#ECD">Emmanuel Château-Dutier</principal>
+        <respStmt>
+          <resp>Première personnalisation</resp>
+          <name>Janette Mujica-Zepeda</name>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+        <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+        <date when="2023">2023</date>
+        <!-- @todo <idno type="DOI">...</idno> -->
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0</p>
+          </licence>
+        </availability>
+      </publicationStmt>
+      <seriesStmt>
+        <title xml:lang="fr" type="main">NUCMA</title>
+        <title xml:lang="fr" type="sub">L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
+        <title xml:lang="en" type="main">NUCMA</title>
+        <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
+        <idno type="URI">http://www.nucma.ca</idno>
+        <!-- @todo <idno type="DOI">...</idno> -->
+      </seriesStmt>
+      <sourceDesc xml:id="nucma.schema">
+        <p>Fichier nativement numérique</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2026-10-04" who="#ECD">Construction sur l’étage commun (nucma-common.odd) ; teiCorpus</change>
+      <change when="2026-03-02" who="#ECD">Révision de l’encodage et restructuration</change>
+      <change when="2023">Première version</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <front>
+      <div>
+        <head>Schéma pour NUCMA, l’encyclopédie Des nouveaux usages des collections dans les musées d’art</head>
+        <p>TEI commons publishing</p>
+        <p>https://git.unicaen.fr/fnso/i-fair-ir/tei-commons-publishing</p>
+        <p>https://tei-commons-publishing.readthedocs.io</p>
+      </div>
+    </front>
+    <body>
+      <div>
+        <head>Schéma des entrées de l’encyclopédie</head>
+        <p>Ce schéma contrôle les entrées (<code>fr/</code>, <code>en/</code>) et les fichiers
+          qui les assemblent (<code>_corpus.xml</code>, élément <gi>teiCorpus</gi>, dont les
+          <code>xi:include</code> sont résolus avant la validation). Il s’appuie sur l’étage
+          commun du projet (<code>nucma-common.odd</code>, compilé par
+          <code>make schemas</code>), qui personnalise Commons Publishing ; les règles
+          communes (en-tête, identifiants, renvois aux référentiels, rendu) y sont décrites.
+          Les référentiels de <code>meta/</code> ont leurs propres schémas.</p>
+        <p>Les liens et les renvois sont encodés par <gi>ref</gi>, dont <att>target</att> donne
+          la cible (<code>#id</code> dans le document, ou URL) et <att>type</att> la nature du
+          lien, dans une liste fermée :
+          <code>&lt;ref type="external" target="https://www.moma.org/"&gt;MoMA&lt;/ref&gt;</code>,
+          <code>&lt;ref type="note" target="#note01"&gt;1&lt;/ref&gt;</code>.</p>
+        <p>Le type d’une division (<att>type</att> sur <gi>div</gi>) est pris dans une liste
+          fermée : <code>bibliography</code>, <code>notes</code>, <code>appendix</code>,
+          <code>acknowledgments</code> ; les sections ordinaires n’ont pas de type. Les notes
+          n’ont pas de type (<att>type</att> sur <gi>note</gi>, dont Métopes fait une liste
+          propre à sa chaîne, est retiré).</p>
+        <p>Sont obligatoires : l’identifiant de l’entrée (<att>xml:id</att> sur
+          <gi>sourceDesc</gi>), la langue du texte (<att>xml:lang</att> sur <gi>text</gi>) et,
+          dans l’en-tête d’une entrée, au moins un auteur qui renvoie à sa notice de
+          <code>meta/authors.xml</code> (<att>ref</att> sur <gi>author</gi>). Cette dernière
+          règle, qui ne vaut ni pour les en-têtes des <code>_corpus.xml</code> ni pour les
+          auteurs des références bibliographiques, est une règle Schematron intégrée au
+          schéma : oXygen l’applique, Jing l’ignore.</p>
+        <schemaSpec ident="nucma-text" start="TEI teiCorpus" source="nucma-common.compiled.odd">
+          <moduleRef key="tei"/>
+          <moduleRef key="header" except="title"/>
+          <moduleRef key="core" except="biblStruct"/>
+          <moduleRef key="textstructure"/>
+          <moduleRef key="linking"/>
+          <moduleRef key="namesdates"/>
+          <moduleRef key="verse"/>
+          <moduleRef key="figures"/>
+          <moduleRef key="tagdocs"/>
+          <moduleRef key="dictionaries"/>
+
+          <!-- assemblage des entrées d’un chapitre -->
+          <elementRef key="teiCorpus" source="tei:4.11.0"/>
+          <!-- contenu d’un teiCorpus : la classe model.describedResource, vide dans Commons
+               Publishing, disparaît du modèle repris de la TEI ; il est donc redéfini selon
+               la TEI : un en-tête, puis des TEI ou des teiCorpus -->
+          <elementSpec ident="teiCorpus" mode="change" module="core">
+            <content>
+              <sequence>
+                <elementRef key="teiHeader"/>
+                <alternate minOccurs="1" maxOccurs="unbounded">
+                  <elementRef key="TEI"/>
+                  <elementRef key="teiCorpus"/>
+                </alternate>
+              </sequence>
+            </content>
+          </elementSpec>
+
+          <!-- nature des liens et des renvois -->
+          <elementSpec ident="ref" mode="change" module="core">
+            <attList>
+              <attDef ident="type" mode="replace" usage="opt">
+                <datatype><dataRef key="teidata.enumerated"/></datatype>
+                <valList type="closed">
+                  <valItem ident="internal"><desc>renvoi à un autre passage du même texte</desc></valItem>
+                  <valItem ident="external"><desc>lien vers une ressource extérieure (URL)</desc></valItem>
+                  <valItem ident="crossref"><desc>renvoi à une autre entrée de l’encyclopédie</desc></valItem>
+                  <valItem ident="note"><desc>appel de note</desc></valItem>
+                  <valItem ident="figure"><desc>renvoi à une figure</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </elementSpec>
+
+          <!-- nature des divisions -->
+          <elementSpec ident="div" mode="change" module="textstructure">
+            <attList>
+              <attDef ident="type" mode="replace" usage="opt">
+                <datatype><dataRef key="teidata.enumerated"/></datatype>
+                <valList type="closed">
+                  <valItem ident="bibliography"><desc>bibliographie de l’entrée</desc></valItem>
+                  <valItem ident="notes"><desc>notes de fin</desc></valItem>
+                  <valItem ident="appendix"><desc>annexe</desc></valItem>
+                  <valItem ident="acknowledgments"><desc>remerciements</desc></valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </elementSpec>
+
+          <!-- types de notes de Métopes (aut, biography, pbl, trl), sans usage dans les entrées -->
+          <elementSpec ident="note" mode="change" module="core">
+            <attList>
+              <attDef ident="type" mode="delete"/>
+            </attList>
+          </elementSpec>
+
+          <!-- identifiant de l’entrée ou du chapitre (nucma.fr.acquisition.variabilite) -->
+          <elementSpec ident="sourceDesc" mode="change" module="header">
+            <attList>
+              <attDef ident="xml:id" mode="change" usage="req"/>
+            </attList>
+          </elementSpec>
+          <!-- langue du texte -->
+          <elementSpec ident="text" mode="change" module="textstructure">
+            <attList>
+              <attDef ident="xml:lang" mode="change" usage="req"/>
+            </attList>
+          </elementSpec>
+          <!-- au moins un auteur par entrée, qui renvoie à meta/authors.xml ; author/@ref
+               reste facultatif ailleurs (références bibliographiques) -->
+          <elementSpec ident="titleStmt" mode="change" module="header">
+            <constraintSpec ident="entry-author" scheme="schematron">
+              <constraint>
+                <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  context="tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt">
+                  <sch:assert test="tei:author[@ref]">Une entrée doit avoir au moins un auteur qui renvoie à sa notice de meta/authors.xml (author/@ref).</sch:assert>
+                </sch:rule>
+              </constraint>
+            </constraintSpec>
+          </elementSpec>
+        </schemaSpec>
+      </div>
+    </body>
+  </text>
+</TEI>

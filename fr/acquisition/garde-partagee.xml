@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../schemas/nucma-text.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Garde partagée</title>
+            <author ref="#uzelJean-Philippe">
+               <persName>
+                  <forename>Jean-Philippe</forename>
+                  <surname>Uzel</surname>
+               </persName>
+               <roleName>professeur</roleName>
+               <affiliation>Université du Québec à Montréal</affiliation>
+               <idno type="orcid">https://orcid.org/0009-0006-7951-1998</idno>
+            </author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>Groupe de recherche et de réflexion CIÉCO</publisher>
+            <date when="2026">2026</date>
+            <!-- @todo <idno type="doi">…</idno> -->
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0.</p>
+               </licence>
+            </availability>
+         </publicationStmt>
+         <seriesStmt>
+            <title xml:lang="fr" type="main">Chapitre Acquisition</title>
+            <title xml:lang="fr" type="sub"
+               >NUCMA, l’encyclopédie Des nouveaux usages des collections dans les musées d’art</title>
+            <idno type="uri">http://www.nucma.ca</idno>
+            <!-- @todo <idno type="doi">…</idno> -->
+         </seriesStmt>
+         <sourceDesc xml:id="nucma.fr.acquisition.garde-partagee">
+            <p>Fichier nativement numérique</p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <appInfo>
+            <application xml:id="docxtotei" ident="TEI_fromDOCX" version="7.62.0a">
+               <label>DOCX to TEI</label>
+            </application>
+         </appInfo>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="fr"/>
+         </langUsage>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2026-05" who="#ECD">Conversion depuis Word (profil nucma)</change>
+         <change when="2026-03-09">Réception du fichier</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:lang="fr">
+      <body>
+         <div>
+            <p>Inscrite dans un chapitre consacré à l’acquisition, cette entrée <hi rend="italic"
+               >Garde partagée</hi><!-- @todo Aux erncodeur·euses : lien vers le complément Garde partagée : précisions terminologiques [Josée Desforges, 2026-02-25, sur « Garde partagée »] -->  mettra l’accent sur les nouvelles œuvres qui entrent dans les collections sous ce régime particulier<ref
+               type="note" target="#note01"
+               >1</ref>. Nous n’évoquerons donc pas ce que l’on appelle <soCalled>garde partagée</soCalled> dans le cadre des politiques de restitution où celle-ci est envisagée pour répondre aux différends entre des parties qui revendiquent chacune la propriété de l’objet <bibl>(Hakoun 2020, SERWG 2022)</bibl>. Ces types d’intendance partagée sont très différents des cas que nous évoquerons, puisqu’ils se présentent comme des pis-aller pour régler des problèmes de propriété revendiquée par plusieurs parties, ou parfois même pour contourner des législations nationales interdisant la restitution d’œuvres spoliées à leur propriétaire légitime<!-- @todo Note aux encodeuses:Ajouter le lien à l'entrée « Éthique de provenance » qui est à venir. [myriam merette, 2025-12-09, sur « légitime »] -->. Ils ne supposent ni un partage de responsabilité ni un soin particulier apporté à l’objet<ref
+               type="note" target="#note02"
+               >2</ref>. Les cas de garde partagée présentés ici, loin d’être pensés pour tenter de surmonter des conflits sont, au contraire, le fruit d’une étroite collaboration entre d’un côté l’artiste et sa communauté et, de l’autre, le musée.</p>
+         </div>
+         <div>
+            <head>La garde partagée des <soCalled>trésors culturels</soCalled></head>
+            <p>Avant même que le qualificatif <q>partagée</q> fasse son apparition, la notion de <soCalled>garde</soCalled> muséale a été développée par l’anthropologue Haidy Geismar <bibl>(2008)</bibl> à partir de la notion maorie de <foreign xml:lang="mi">taonga</foreign><ref type="note" target="#note03"
+                  >3</ref> ou <soCalled>trésors culturels</soCalled>. Pour les diverses nations maories, chaque <foreign xml:lang="mi">taonga</foreign> possède une puissance, une présence et une autorité cumulatives (<foreign xml:lang="mi">mana</foreign>) qui lui sont propres. Or, la garde va consister précisément à partager cette <foreign xml:lang="mi">mana taonga</foreign>, cette autorité propre aux trésors culturels, entre la communauté et le musée. Le <orgName>musée national de l’Aotearoa Nouvelle-Zélande Te Papa Tongarewa</orgName> situé à <placeName>Te Whanganui-ā-Tara Wellington</placeName>, musée biculturel consacré à la fois à l’histoire culturelle des nations maories et à celle des descendants et descendantes des colons d’Angleterre, d’Écosse et d’Irlande<ref
+                     type="note" target="#note04">4</ref>, a placé la reconnaissance de la <foreign xml:lang="mi">mana taonga</foreign> au cœur de sa mission et a acquis de nombreux <soCalled>trésors culturels</soCalled> depuis son ouverture en 1998. Sa collection compte aujourd’hui plus de 30 000 <foreign xml:lang="mi">taonga</foreign> qui englobe une très grande diversité d’objets qui vont des <foreign xml:lang="mi">taonga</foreign> ancestraux très prisés (sculptures et ornements ancestraux) à des objets contemporains, comme un tambour fabriqué à partir d’un pot de peinture recyclé ou une paire de souliers de course ayant été portée pour une occasion importante<ref
+               type="note" target="#note05"
+                        >5</ref>. Comme l’explique Sean Mallon, conservateur principal de la collection Histoires et cultures océaniennes au Papa Tongarewa, le partage d’autorité des <foreign xml:lang="mi">taonga</foreign> conservés par le Musée est initié par le donateur ou la donatrice et commence avec l’acte de donation. En effet, la plupart des <foreign xml:lang="mi">taonga</foreign>, qui peuvent parfois être de peu de valeur matérielle d’un point de vue occidental, ont été donnés par des personnes autochtones qui jugeaient que ces objets avaient une signification suffisamment importante pour figurer dans les collections du Musée <bibl>(Mallon 2019)</bibl>. L’acte de donation est donc ici essentiel, puisqu’il consiste à offrir le partage d’autorité (<foreign xml:lang="mi">mana</foreign>) qui accompagne l’objet. L’acte d’acquisition revient, quant à lui, à accepter cette responsabilité et à reconnaître la relation de partenariat qui se noue à cette occasion entre le musée et la communauté.</p>
+            <p>Ce modèle d’acquisition des « trésors culturels » du Papa Tongarewa a contribué à une profonde réflexion dans le monde muséal sur la finalité des collections composées d’œuvres et d’objets appartenant à des communautés existantes. Ceci s’est manifesté, entre autres, par la révision en 2004 du <title>Code de déontologie de l’ICOM pour les musées</title><ref type="note"
+               target="#note06"
+               >6</ref> qui intègre désormais une nouvelle section portant sur les relations entre les musées et les communautés existantes d’où sont issues les collections <bibl>(ICOM 2017, 31–34)</bibl>. Ce nouveau principe insiste sur la collaboration pleine et entière avec les communautés existantes dans l’acquisition des objets : <q>les acquisitions ne doivent s’effectuer que sur la base d’un accord éclairé et mutuel […] [et] le respect des vœux de la communauté concernée doit prévaloir</q> (art. 6.5). Il est en outre précisé que les collections issues des communautés existantes doivent être mues par un objectif de bien-être et de justice sociale : <q>l’utilisation de collections de communautés existantes doit […] promouvoir le bien-être, le développement social, la tolérance et le respect</q> (art. 6.7). Enfin, le nouveau principe précise, et ceci est tout particulièrement important pour les acquisitions en garde partagée, que les objets issus de communautés existantes <q>ont un caractère dépassant la propriété normale, pouvant aller jusqu’à de fortes affinités avec l’identité nationale, régionale, locale, ethnique, religieuse ou politique</q> <bibl>(<hi
+                     rend="italic">ibid.</hi>, 32)</bibl>. On notera que la révision actuelle du <title>Code de déontologie de l’ICOM pour les musées</title> – dont le texte devrait être adopté en juin 2026 à la réunion annuelle de l’ICOM –, accorde désormais une place centrale à la question des communautés : <q>La responsabilité première d’un musée est celle qu’il a envers ses communautés – passées, présentes et futures.</q> <bibl>(ICOM 2023)</bibl></p>
+            <p>Ce recentrement de la mission muséale sur les communautés donne lieu à une nouvelle éthique de l’acquisition dans laquelle la relation générée par l’objet collectionné devient aussi, sinon plus, importante que l’objet lui-même <bibl>(Marstine, Dodd et Jones 2015)</bibl>. La politique d’acquisition des <foreign xml:lang="mi">taonga</foreign> du musée national Te Papa Tongarewa a joué ici un rôle pionnier, et on ne s’étonnera pas que plusieurs musées d’art à travers le monde aient acquis des œuvres contemporaines d’artistes autochtones selon des principes de garde partagée s’inscrivant dans le sillage de cette nouvelle éthique d’acquisition qui donne une place de premier plan à la dimension <soCalled>relationnelle</soCalled> de la collection.</p>
+         </div>
+         <div>
+            <head>L’acquisition d’œuvres contemporaines en garde partagée : deux exemples récents</head>
+            <p>Parmi les cas récents d’acquisition en garde partagée, qui ont impliqué des artistes et des communautés autochtones, nous avons choisi deux exemples qui nous semblent particulièrement significatifs des formes que peut prendre aujourd’hui ce nouveau mode d’acquisition des œuvres<ref
+               type="note" target="#note07"
+               >7</ref>. Dans les deux cas, les musées ont signé des accords de garde partagée qui engagent l’artiste, mais également la communauté autochtone à laquelle appartient ce dernier ou dont il est le porte-parole.</p>
+            <p>Le premier exemple est celui de l’œuvre <objectName rend="italic">Ru k’ox k’ob’el jun ojer etemab’el (L’écho d’une forme ancienne de savoir)</objectName> (2021) de l’artiste <persName>kaqchikel</persName> (maya de l’ouest du Guatemala), Edgar Calel, acquise par la <orgName>Tate</orgName><ref
+               type="note" target="#note08">8</ref> en garde partagée pour une période de 13 ans<ref
+               type="note" target="#note09"
+               >9</ref>. L’œuvre se présente comme une installation composée d’une trentaine de grosses roches, sur lesquelles sont disposés des légumes et des fruits frais tranchés ou entiers (ananas, poireaux, raisins, maïs…). Chaque œuvre est un autel dont les offrandes sont offertes aux ancêtres mayas. L’accord de garde partagée a été conçu par l’artiste et <persName>Proyectos Ultravioleta</persName>, un centre d’artistes autogéré situé à Ciudad de Guatemala, afin de refléter la vision du monde et le mode de pensée de la communauté des Kaqchikel <hi
+               rend="italic"
+               >. </hi>La garde muséale porte donc à la fois sur la partie matérielle de l’œuvre (les roches, les fruits et les légumes), mais également sur la connaissance, « la forme ancienne de savoir » comme le précise son titre, qui s’incarne dans cet objet et que la communauté kaqchikel a accepté de partager avec le Musée. Par exemple, le nombre 13, correspondant au nombre d’années de l’accord, a une valeur centrale dans la cosmologie et le calendrier maya. Remarquons également que si l’œuvre rend hommage à la vision du monde maya, elle possède une dimension engagée qui cherche à attirer l’attention du public européen sur la situation difficile du peuple maya qui lutte depuis des décennies  <ref
+               type="note" target="#note10"
+               >10</ref> pour sa survie, au Guatemala et dans les pays adjacents.</p>
+            <p>L’acquisition en garde partagée de <title>Ru k’ox k’ob’el jun ojer etemab’el</title> est un cas exemplaire qui met en évidence le fait que le partage ne porte pas sur la propriété de la chose, comme dans le cas d’une coacquisition, mais bien sur l’autorité, ou plus exactement sur la responsabilité que confère la garde de l’œuvre ainsi que le précise l’artiste : <q>En tant que peuple Maya Kaqchikel, nous sommes heureux de pouvoir partager notre responsabilité d’être les gardiens de ces connaissances.</q> <bibl>(Calel cité dans Abrams 2021)</bibl><ref
+               type="note" target="#note11"
+                  >11</ref>. Ces propos de <persName>Calel</persName> sont particulièrement importants pour comprendre la philosophie de la garde partagée, car ils mettent en évidence que la communauté n’est elle-même pas <soCalled>propriétaire</soCalled> de l’œuvre au sens légal du terme, mais bien sa <soCalled>gardienne</soCalled> et que c’est cette <soCalled>garde</soCalled> qu’elle accepte de partager avec le musée. Ce <soCalled>partage</soCalled> n’est en rien une <soCalled>cession</soCalled> et la communauté continue d’être investie d’une responsabilité par rapport à l’œuvre. Par exemple, lors de sa première exposition publique dans le contexte de la <objectName>Biennale de Liverpool en 2023</objectName>, un aîné maya a performé un rituel marquant ainsi le début de la garde partagée. L’acquisition de <title>Ru k’ox k’ob’el jun ojer etemab’el</title> était une première pour <orgName>la Tate</orgName> et aura des conséquences à long terme sur la façon dont l’institution conçoit sa politique d’acquisition comme le précise<hi
+               rend="italic">, </hi>Gregor Muir, responsable de la collection Art international :<cit><quote>L’œuvre nous demande délibérément de redéfinir l’acte de collectionner par le biais d’un accord de garde selon lequel la Tate conserve une ligne directe avec l’artiste et la communauté maya. Bien que nous ne puissions jamais posséder l’installation de Calel, nous avons beaucoup à apprendre des questions essentielles qu’elle soulève.</quote><bibl>(Tate 2023)</bibl></cit></p>
+            <p>Le second exemple d’œuvre d’art acquise en garde partagée est celui de la <objectName><title>Couverture des témoins</title> (2010)</objectName> initiée par l’artiste <persName xml:lang="kwk">kwakwa̱ka̱ʼwakw</persName> et <foreign xml:lang="hur">stó:lō</foreign> <persName>Carey Newman-Hayalthkin’geme</persName> et conservée par le <orgName>Musée canadien pour les droits de la personne de Winnipeg (MCDP)</orgName>. L’œuvre a été conçue comme une réponse à l’appel à la création de projets commémoratifs lancé par la <orgName>Commission de vérité et réconciliation du Canada en 2010 (CVR 2010)</orgName> afin de témoigner du système des pensionnats autochtones et transmettre la mémoire du <soCalled>génocide culturel</soCalled><ref
+               type="note" target="#note12"
+               >12</ref> aux futures générations. L’œuvre se présente comme une installation à grande échelle, prenant la forme d’une couverture faite selon la technique de la courtepointe, qui contient des centaines d’objets récupérés dans les pensionnats autochtones et d’autres bâtiments coloniaux ayant contribué à l’assimilation des populations autochtones du Canada.</p>
+            <p>Le protocole de garde partagée signé en avril 2019, accessible en ligne (MCDP 2019), offre plusieurs enseignements. Si le contexte de création de la <title>Couverture des témoins</title>, conçue dans un contexte de justice transitionnelle, est très différent de celui qui a présidé à l’œuvre de <persName>Ru k’ox k’ob’el jun ojer etemab’el</persName>, qui se présente avant tout comme un hommage à la culture maya, les éléments de la garde partagée des deux œuvres offrent de nombreux points communs. Tout comme pour l’œuvre de <persName>Calel</persName>, l’accord signé entre <persName>Carey Newman</persName> et le directeur du MCDP inclut une troisième partie évoquée dans l’accord comme <q>la Communauté</q>. Celle-ci ne renvoie pas, comme pour <persName>Ru k’ox k’ob’el jun ojer etemab’el</persName>, à la communauté de l’artiste, mais à celle des <soCalled>survivant·e·s</soCalled> et plus largement des témoins du système des pensionnats, qualifiés de <seg>gardien·ne·s d’histoire</seg> (<foreign xml:lang="en">Story Keepers</foreign>). En signant cet accord de garde partagée, le Musée s’est engagé non seulement à assurer la conservation et la préservation de la <title>Couverture</title>, mais également <q>à en prendre soin</q> et à <q>respecter les protocoles culturels</q> qui lui sont associés. Le Musée s’est également engagé à rendre accessible l’œuvre sous différents formats, entre autres par la <q>reproduction de la Couverture des témoins</q> destinée à circuler dans différents lieux d’exposition, cette reproduction ne se voulant toutefois ni une copie, ni un double, mais une <soCalled>recréation</soCalled> de l’œuvre.</p>
+            <p>L’acquisition en garde partagée de l’œuvre de <persName>Carey Newman</persName> par le <orgName>MCDP</orgName>, permet de faire ressortir un certain nombre d’éléments similaires avec celle de l’œuvre d’<persName>Edgar Calel</persName> par la <orgName>Tate</orgName>, au premier rang desquels le fait que la responsabilité partagée des signataires est centrale et prime toutes considérations touchant un quelconque partage de propriété. Notons toutefois que, dans le cas de la <title>Couverture</title>, le partage de la responsabilité vise l’intérêt même de l’œuvre : « […] en tant que co-gardiens [<foreign xml:lang="en">collaborative stewards</foreign>], le Musée et l’Artiste partagent la responsabilité de prendre les décisions qui sont dans l’intérêt supérieur de la <title>Couverture des témoins</title> ». Déclaration qui résonne fortement avec le droit de la famille où les protocoles de garde partagée entre parents séparés sont toujours rédigés en tenant compte de <q>l’intérêt supérieur de l’enfant</q> <bibl>(Jurigo s.d.)</bibl>.</p>
+            <p>Cette prise en compte de la part intangible des <soCalled xml:lang="fr"
+               >belongings</soCalled> (que l’on peut traduire par <soCalled>appartenances</soCalled> ou <soCalled>biens</soCalled>) <bibl>(Wilson 2016)</bibl> se situe au cœur des acquisitions en garde partagée et se trouve de plus en plus présente dans les acquisitions d’œuvres autochtones. Ceci a pour conséquence de remettre en question la définition occidentale de la collection muséale en dissociant la conservation des œuvres de leur propriété et à faire du musée le <soCalled>gardien</soCalled> d’œuvres qu’il conserve et expose, mais qui ne lui appartiennent pas – ou que partiellement et pour une durée plus ou moins limitée<ref
+               type="note" target="#note13"
+               >13</ref>. En fin de compte, la garde partagée pose une question ontologique au musée : est-ce que sa raison d’être est la collection et l’acte de collectionner ou est-ce la relation qu’il entretient avec son public et avec les communautés qui l’environnent ? C’est cette question que rappelle <persName>Janet Marstine</persName>, spécialiste de l’éthique muséale, lorsqu’elle souligne que les principes de la garde partagée ont des répercussions profondes sur la raison d’être des musées : <q>La garde partagée peut être douloureuse. Il peut en résulter une perte d’identité institutionnelle alors qu’historiquement, un musée construit son identité sur les collections qu’il détient. Mais surtout, la garde partagée sert à rappeler aux musées qu’ils deviennent les propriétaires des collections au service de leurs publics. La garde, en tant que concept éthique, donne la priorité à l’accès partagé plutôt qu’au caractère sacré de l’institution.</q> <bibl>(Marstine 2017, 47)</bibl>. C’est précisément cette révolution copernicienne, celle d’un musée centré non plus sur la pérennité de sa collection, mais sur les préoccupations des communautés qu’il représente, qui s’annonce comme un des effets les plus durables de l’acquisition en garde partagée.</p>
+         </div>
+      </body>
+      <back>
+         <div type="notes">
+            <note place="foot" n="1" xml:id="note01">
+               <p>J’aimerais remercier <persName>Léuli Eshrāghi</persName>, conservateurice des arts autochtones au <orgName>Musée des beaux-arts de Montréal</orgName>, pour sa relecture attentive et ses suggestions.</p>
+            </note>
+            <note place="foot" n="2" xml:id="note02">
+               <p>L’intendance partagée peut également s’imposer pour faire face à des situations exceptionnelles, comme dans le cas des biens yéménites volés et conservés actuellement au <orgName>National Museum of Asian Art à Washington</orgName> en attendant la fin de la guerre civile <bibl>(Voon 2023)</bibl>.</p>
+            </note>
+            <note place="foot" n="3" xml:id="note03">
+               <p>Si le concept de <foreign xml:lang="mi">mana taonga</foreign> provient de la langue et de la culture maorie, il concerne l’ensemble des communautés qui interagissent avec <orgName>le musée Te Papa</orgName> <bibl>(Te Papa s.d.)</bibl>.</p>
+            </note>
+            <note place="foot" n="4" xml:id="note04">
+               <p>Cette collaboration biculturelle suit les principes du Traité de Waitangi (<foreign xml:lang="mi">Te Tiriti o Waitangi</foreign>, en maori) signé en 1840 par la Couronne britannique et les Maoris.</p>
+            </note>
+            <note place="foot" n="5" xml:id="note05">
+               <p>Le site internet du <orgName>musée Te Papa</orgName> offre de l’information sur 800 000 objets dont 13 000 issus de la collection Histoires et cultures du Pacifique :<ref
+                     type="external" target="https://collections.tepapa.govt.nz">https://collections.tepapa.govt.nz</ref></p>
+            </note>
+            <note place="foot" n="6" xml:id="note06">
+               <p>Le <title>Code de déontologie de l’ICOM </title>a été adopté pour la première fois en 1986 <bibl>(ICOM 1996)</bibl>, et amendé en 2004 <bibl>(ICOM 2017)</bibl>.</p>
+            </note>
+            <note place="foot" n="7" xml:id="note07">
+               <p>Nous tenons à remercier <persName>Jessica Minier</persName> qui prépare une thèse de doctorat sur la coacquisition et la garde partagée à l’<orgName>Université du Québec en Outaouais</orgName> et qui a attiré notre attention sur ces deux exemples.</p>
+            </note>
+            <note place="foot" n="8" xml:id="note08">
+               <p><orgName>La Tate</orgName> regroupe quatre institutions muséales : la <orgName>Tate Britain</orgName>, la <orgName>Tate Modern</orgName>, la Tate St Ives et <orgName>la Tate Liverpool</orgName> + <orgName>RIBA North</orgName>.</p>
+            </note>
+            <note place="foot" n="9" xml:id="note09">
+               <p><orgName>CIÉCO</orgName> a invité <persName>Catherine Wood</persName>, conservatrice principale de l’art international (performance) à la <orgName>Tate Modern</orgName>, en 2022, dans le cadre de son cycle de conférences annuelles. À l’occasion de cette conférence, Catherine Wood a présenté l’acquisition de <title>Ru k’ox k’ob’el jun ojer etemab’el</title> <bibl>(Wood, 2022)</bibl>. L’enregistrement de cette conférence est disponible sur la <ref
+                  type="external" target="https://www.youtube.com/watch?v=LFcgmorAaJI&amp;t=12s">chaîne YouTube de CIÉCO</ref>. </p>
+            </note>
+            <note place="foot" n="10" xml:id="note10">
+               <p> Rappelons que l’ancien président guatémaltèque <persName>Rios Montt</persName> et ses généraux ont été reconnus coupables en 2012 de génocide envers la population maya durant les mois qui suivirent leur prise du pouvoir en mars 1982. On estime que l’<soCalled>Holocauste silencieux</soCalled> a fait plus de 200 000 victimes <bibl>(Center for Justice and Accountability s.d.)</bibl>.</p>
+            </note>
+            <note place="foot" n="11" xml:id="note11">
+               <p> Toutes les traductions de l’anglais sont personnelles.</p>
+            </note>
+            <note place="foot" n="12" xml:id="note12">
+               <p> Le terme de <soCalled>génocide culturel</soCalled> est défini dans le sommaire du rapport final de la CVR, intitulé <title>Honorer la vérité, réconcilier pour l’avenir</title>, dans les termes suivants : <cit><quote>Un <soCalled>génocide culturel</soCalled> est la destruction des structures et des pratiques qui permettent au groupe de continuer à vivre en tant que groupe. […] Et pour la question qui nous occupe, des familles à qui on a empêché de transmettre leurs valeurs culturelles et leur identité d’une génération à la suivante. »</quote><bibl>(CVR 2015, 1)</bibl></cit>.</p>
+            </note>
+            <note place="foot" n="13" xml:id="note13">
+               <p> Dans la section <soCalled>Initiatives autochtones</soCalled> du site internet du <orgName>Musée des beaux-arts de Montréal</orgName>, il est précisé que <q>le Musée est gardien d’une collection d’arts autochtones</q> et que les œuvres qui constituent cette collection <q>lui sont confiées</q><bibl>(MBAM sd)</bibl>.</p>
+            </note>
+         </div>
+         <div type="bibliography">
+            <head>Bibliographie</head>
+            <p>Abrams, A.-R. 2021. ’Tate Has Brokered Its First-Ever Deal to Acquire ’Custodianship’ of an Artwork in a Novel Agreement With a Mayan Artist and His People’, artnet.com,<ref type="external"
+               target="https://news.artnet.com/art-world/tate-first-custodianship-mayan-2023933">https://news.artnet.com/art-world/tate-first-custodianship-mayan-2023933</ref>, consulté le 10 août 2022</p>
+            <p>Center for Justice and Accountability (s.d.) « Genocide of Mayan Ixil Community</p>
+            <p>Guatemala. Genocide Case ». Center for Justice and Accountability. En ligne, <ref
+               type="external"
+               target="https://cja.org/what-we-do/litigation/the-guatemala-genocide-case/">https://cja.org/what-we-do/litigation/the-guatemala-genocide-case/</ref>. </p>
+            <p>CVR – Commission de vérité et réconciliation. 2010. <hi rend="italic"
+               >Open Call for Artistic Submissions</hi>, <ref type="external"
+               target="https://www.artstno.com/sites/nwtarts/files/TRC_Art_Submissions_en_p6.pdf"
+               >https://www.artstno.com/sites/nwtarts/files/TRC_Art_Submissions_en_p6.pdf</ref>,  consulté le 11 novembre 2020</p>
+            <p>CVR – Commission de vérité et réconciliation. 2015. <hi rend="italic"
+               >La réconciliation :  Rapport Final de la Commission de Vérité et Réconciliation du Canada : volume 6</hi>, (McGill-Queen’s University Press)</p>
+            <p>Geismar, H. 2008. ’Cultural Property, Museums, and the Pacific : Reframing the Debates’, <hi
+               rend="italic">International Journal of Cultural Property</hi>, 15 : 109–122.</p>
+            <p>Jurigo (s.d.). « Garde partagée – Ce qu’il faut comprendre au Québec ! ». Jurigo.ca. En ligne.<ref
+               type="external" target="https://jurigo.ca/garde-partagee-quebec/">https://jurigo.ca/garde-partagee-quebec/</ref></p>
+            <p>Hakoun, A. 2020. ’Spoliation nazie : vers la donation d’un Pissarro au musée d’Orsay ?’. <hi
+               rend="italic">Connaissance des arts</hi>,<ref type="external"
+               target="https://www.connaissancedesarts.com/arts-expositions/spoliation-nazie-vers-la-donation-dun-pissarro-au-musee-dorsay-11148343/"
+               >https://www.connaissancedesarts.com/arts-expositions/spoliation-nazie-vers-la-donation-dun-pissarro-au-musee-dorsay-11148343/</ref>, consulté le 21 septembre 2022</p>
+            <p>ICOM – Conseil international des musées. 1996. <hi rend="italic"
+               >Code de déontologie professionnelle de l’ICOM. </hi>version du code adopté à l’unanimité par la 15<hi
+               rend="sup"
+               >e</hi> assemblée générale de l’ICOM à Buenos Aires, Argentine, le 4 novembre 1986, 22–25, <ref
+               type="external"
+               target="http://icom.jlbinfo.info/bibliotheque/jlbWeb?html=Bur&amp;base=documentation&amp;ref=46277&amp;file=2630.pdf&amp;path=ICOM_Code-ethics_1996_FR.pdf">http://icom.jlbinfo.info/bibliotheque/jlbWeb?html=Bur&amp;base=documentation&amp;ref=46277&amp;file=2630.pdf&amp;path=ICOM_Code-ethics_1996_FR.pdf</ref>, consulté le 27 décembre 2023</p>
+            <p>ICOM – Conseil international des musées. 2017. <hi rend="italic"
+               >Code de déontologie de l’ICOM pour les musées</hi>, version du code révisée par la 21<hi
+               rend="sup">e</hi> assemblée générale de l’ICOM à Séoul, le 8 octobre 2004,<ref
+               type="external"
+               target="https://icom.museum/wp-content/uploads/2018/07/ICOM-code-Fr-web-1.pdf">https://icom.museum/wp-content/uploads/2018/07/ICOM-code-Fr-web-1.pdf</ref>, consulté le 27 décembre 2023</p>
+            <p>ICOM – Conseil international des musées. 2023.<ref type="external"
+               target="https://icom.museum/wp-content/uploads/2023/10/Revision-du-Code-de-deontologie-de-lICOM-pour-les-musees.pdf"
+               >https://icom.museum/wp-content/uploads/2023/10/Revision-du-Code-de-deontologie-de-lICOM-pour-les-musees.pdf</ref>, consulté le 11 novembre 2023.</p>
+            <p>Mallon, S. 2019. ‘Agency and authority the politics of co-collecting’, dans P. Schorch and C. McCarthy (eds.), <hi
+               rend="italic">Curatopia</hi> (Manchester University Press), 279–295</p>
+            <p>MBAM – Musée des beaux-arts de Montréal. sd. <hi rend="italic"
+               >Initiatives autochtones</hi>, page web,<ref type="external"
+               target="https://www.mbam.qc.ca/fr/initiatives-autochtones/">https://www.mbam.qc.ca/fr/initiatives-autochtones/</ref>, consulté le 7 février 2024</p>
+            <p>MCDP – Musée canadien des droits de la personne. 2019. <hi rend="italic"
+                  >Stewardship Agreement</hi>, <ref type="external" target="https://humanrights.ca/story/caring-witness-blanket/">https://humanrights.ca/story/caring-witness-blanket/</ref>, consulté le 13 janvier 2023.</p>
+            <p>Marstine, J., Dodd, J. and Jones, C. 2015. ’Twenty-first century museum ethics : a view from the field’, dans C. McCarthy (ed.), <hi
+               rend="italic"
+               >Museum Practice : Critical debates in the muse </hi>(Blackwell), 69–96</p>
+            <p>Marstine, J. 2017. <hi rend="italic"
+               >Critical practice : artists, museums, ethics</hi> (Routledge, Taylor &amp; Francis Group)</p>
+            <p>Savoy, B. 2024. <hi rend="italic"
+               >À qui appartient la beauté ?</hi> (La Découverte)</p>
+            <p>SERWG – Smithsonian Ethical Returns Working Group. 2022. ’Shared Stewardship and Ethical Returns Policy’,<ref
+               type="external"
+               target="https://ncp.si.edu/sites/default/files/files/Ethical%20Return%20Docs/shared-stewardship-ethical-returns-policy_4.29.2022.pdf"
+               >https://ncp.si.edu/sites/default/files/files/Ethical%20Return%20Docs/shared-stewardship-ethical-returns-policy_4.29.2022.pdf</ref>, consulté le 7 février 2023</p>
+            <p>Tate. 2023. ’Tate Liverpool exhibition showcases radical new approach to collecting art’, communiqué de presse,<ref
+               type="external"
+               target="https://www.tate.org.uk/press/press-releases/tate-liverpool-exhibition-showcases-radical-new-approach-to-collecting-art/"
+               >https://www.tate.org.uk/press/press-releases/tate-liverpool-exhibition-showcases-radical-new-approach-to-collecting-art/</ref>, consulté le 13 septembre 2023.</p>
+            <p>Te Papa.sd. <hi rend="italic">Taonga Māori at Te Papa</hi>, page web,<ref
+               type="external" target="https://collections.tepapa.govt.nz/topic/1702/">https://collections.tepapa.govt.nz/topic/1702/</ref>, consulté le 13 septembre 2023</p>
+            <p>Von Bismarck, B. 2022. <hi rend="italic"
+               >The curatorial condition</hi> (Sternberg Press)</p>
+            <p>Voon, C. 2023. , « Smithsonian to display 77 looted artefacts from Yemen in shared stewardship agreement », <ref
+               type="external"
+               target="https://www.theartnewspaper.com/2023/02/22/smithsonian-national-museum-asian-art-yemen-repatriation-loot/"
+               >https://www.theartnewspaper.com/2023/02/22/smithsonian-national-museum-asian-art-yemen-repatriation-loot/</ref>, consulté le 27 juin 2023</p>
+            <p>Wilson, J. 2016. « ’Belongings’ in c̓əsnaʔəm : the City before the City.“<hi
+               rend="italic">Intellectual Property Issues in Cultural Heritage,</hi><ref
+               type="external"
+               target="http://www.sfu.ca/ipinch/outputs/blog/citybeforecitybelongings/">http://www.sfu.ca/ipinch/outputs/blog/citybeforecitybelongings/</ref>, consulté le 06 Jan. 2019</p>
+            <p>Wood, Catherine, « Have We Ever Been Modern ? Things Performance Does to the Museum ». Conférence organisée par l’Université du Québec en Outaouais et la Galerie UQO dans le cadre du Partenariat <hi
+               rend="italic"
+               >Des nouveaux usages des collections dans les musées d’art</hi>. En ligne, 30 mars 2022. En ligne, <ref
+               type="external" target="https://www.youtube.com/watch?v=LFcgmorAaJI&amp;t=1s">https://www.youtube.com/watch?v=LFcgmorAaJI&amp;t=1s</ref>. </p>
+         </div>
+         <div>
+            <head>Encadrés et compléments numériques :</head>
+            <p>
+               <hi rend="color(444746) background(white)"
+                  >L’encadré sera sur les détails d’une convention de garde partagée au MBAC et sera probablement rédigé par Michelle LaVallee.</hi>
+            </p>
+         </div>
+      </back>
+   </text>
+</TEI>

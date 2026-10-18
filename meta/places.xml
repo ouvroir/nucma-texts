@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schemas/nucma-places.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title xml:lang="fr" type="main">Index des noms</title>
-            <title xml:lang="en" type="main">Name index</title>
+            <title xml:lang="fr" type="main">Index des lieux</title>
+            <title xml:lang="en" type="main">Index of Places</title>
          </titleStmt>
          <publicationStmt>
-            <publisher>CIÉCO</publisher>
-            <date when="2024">2025</date>
-            <idno type="doi"><!-- @todo 10.400/nucma/names --></idno>
+            <publisher xml:lang="fr">Groupe de recherche et de réflexion CIÉCO</publisher>
+            <publisher xml:lang="en">CIÉCO Research and Inquiry Group</publisher>
+            <date when="2026">2026</date>
+            <idno type="uri">https://www.nucma.ca</idno>
+            <!-- <idno type="DOI">10.400/revuehn2355</idno> -->
             <availability>
                <licence target="https://creativecommons.org/licenses/by/4.0/">
                   <p>Ce contenu est mis à disposition sous licence Creative Commons Attribution 4.0.</p>
@@ -17,27 +20,34 @@
             </availability>
          </publicationStmt>
          <seriesStmt>
-            <title xml:lang="fr" type="main"
-               >Encyclopédie des nouveaux usages des collections dans les musées d’art</title>
-            <title xml:lang="en" type="main">Encyclopedia of New Uses of Collections</title>
-            <idno type="URI">http://www.nucma.ca</idno>
+            <title xml:lang="fr" type="main">NUCMA</title>
+            <title xml:lang="fr" type="sub"
+               >L’encyclopédie des Nouveaux usages des collections dans les musées d’art</title>
+            <title xml:lang="en" type="main">NUCMA</title>
+            <title xml:lang="en" type="sub">The encyclopedia of New Uses of Collections</title>
+            <idno type="uri">http://www.nucma.ca</idno>
+            <!-- @todo <idno type="DOI">...</idno> -->
          </seriesStmt>
-         <sourceDesc xml:id="nucma-authors">
+         <sourceDesc xml:id="nucma-places">
             <p>Fichier nativement numérique</p>
          </sourceDesc>
       </fileDesc>
       <profileDesc>
          <langUsage>
             <language ident="fr"/>
+            <language ident="en"/>
          </langUsage>
-         <textClass>
-            <!--may not be necessary here, only in chapters and articles-->
+         <!--<textClass>
+            <!-\-may not be necessary here, only in chapters and articles-\->
             <keywords xml:lang="fr">
-               <term><!-- @todo --></term>
-               <term><!-- @todo --></term>
+               <term>société</term>
             </keywords>
-         </textClass>
+         </textClass>-->
       </profileDesc>
+      <revisionDesc>
+         <change when="2026-03" who="#ECD">Restructuration du fichier</change>
+         <change when="2025">Création du fichier</change>
+      </revisionDesc>
    </teiHeader>
    <text>
       <body>
@@ -57,18 +67,301 @@
             
             Créer une notice avec un identifiant xml:id en suivant le modèle ci-dessous
             Pour faciliter le référencement dans les textes, on suggère d’utiliser le nom, prénom avec la notation lowerCamelCase pour les identifiants. 
-            Insérer dans le texte une balise <ref> avec l’atribut @target et la cible (utiliser un dièse).
+            Insérer dans le texte une balise <placeName> avec l’atribut @ref et la cible (utiliser un dièse).
             
             Exemple : Avec l’xml:id xml:id="paris"
-            La ville de <placeName>Paris</placeName> constitue une capitale artistique de...
+            La ville de <placeName ref="#paris">Paris</placeName> constitue une capitale artistique de...
          -->
          <listPlace>
+            <!-- Rosalie -->
             <place xml:id="paris-France">
+               <!-- exemple d'Emmanuel-->
                <placeName>Paris (France)</placeName>
                <region>[si province ou état : ex: québec, état américain</region>
                <country>France</country>
-               <idno type="wikidata">...</idno>
-               <idno type="bnf">...</idno>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q90</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb152821567</idno>
+            </place>
+            <place xml:id="etats-Unis">
+               <placeName xml:lang="en">United States</placeName>
+               <placeName xml:lang="fr">États-Unis</placeName>
+               <!-- USA, US -->
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q30</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb12182520r</idno>
+            </place>
+            <place xml:id="royaume-Uni">
+               <placeName xml:lang="en">United Kingdom</placeName>
+               <placeName xml:lang="fr">Royaume-Uni</placeName>
+               <!-- UK -->
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q145</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb15238574p</idno>
+            </place>
+            <place xml:id="canada">
+               <placeName>Canada</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q16</idno>
+               <idno type="loc">http://id.loc.gov/vocabulary/geographicAreas/n-cn</idno>
+               <idno type="isni">https://isni.org/isni/0000000122385050</idno>
+            </place>
+            <place xml:id="grenoble-France">
+               <placeName>Grenoble (France)</placeName>
+               <!-- notice bnf "Grenoble (Isère, France)" / notice Loc "Grenoble (France)"-->
+               <region>Isère, département français</region>
+               <country>France</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q1289</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119342062</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n79091186</idno>
+            </place>
+            <place xml:id="kyoto-Japon">
+               <placeName>Kyoto (Japon)</placeName>
+               <country>Japon</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q34600</idno>
+               <idno type="loc">https://id.loc.gov/authorities/names/n80024170.html</idno>
+               <idno type="isni">https://isni.org/isni/0000000403889925</idno>
+            </place>
+            <place xml:id="santiago-Chili">
+               <placeName>Santiago de Chile</placeName>
+               <country>Chili</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q2887</idno>
+               <idno type="loc">https://id.loc.gov/authorities/names/n79077402</idno>
+               <idno type="isni">https://isni.org/isni/0000000121627820</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb120000849</idno>
+            </place>
+            <place xml:id="chili">
+               <placeName xml:lang="fr">Chili</placeName>
+               <placeName xml:lang="en">Chile</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q298</idno>
+               <idno type="loc">https://id.loc.gov/authorities/names/n79061242</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb15238523s</idno>
+               <idno type="isni">https://isni.org/isni/0000000121695380</idno>
+            </place>
+            <place xml:id="washington-DC">
+               <!-- la capitale - ne pas confondre avec l'état de Washington-->
+               <placeName>Washington D.C.</placeName>
+               <country>États-Unis</country>
+               <!-- pas de balise region parce que ne fait officiellement partie d'aucun état-->
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q61</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb11881081d</idno>
+               <idno type="loc">https://id.loc.gov/authorities/names/n79018774</idno>
+               <idno type="isni">https://isni.org/isni/0000000122968205</idno>
+            </place>
+            <place xml:id="prague-RépubliqueTchèque">
+               <placeName>Prague (République tchèque)</placeName>
+               <country>République tchèque</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q1085</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb15239961p</idno>
+               <idno type="loc">https://id.loc.gov/authorities/names/n79055764</idno>
+               <idno type="isni">https://isni.org/isni/0000000406102462</idno>
+            </place>
+            <place xml:id="australie">
+               <placeName xml:lang="fr">Australie</placeName>
+               <placeName xml:lang="en">Australia</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q408</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb15238526t</idno>
+               <idno type="loc">https://id.loc.gov/authorities/names/n79021326</idno>
+               <idno type="isni">https://isni.org/isni/0000000120969976</idno>
+            </place>
+            <place xml:id="québec-Province">
+               <!-- j'ai mis province et non canada dans le id pour éviter la confusion avec la ville #RC-->
+               <placeName xml:lang="fr">Québec (Province)</placeName>
+               <placeName xml:lang="en">Quebec (Province)</placeName>
+               <country>Canada</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q176</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119396489</idno>
+               <idno type="loc">https://id.loc.gov/authorities/names/n80001244</idno>
+               <idno type="isni">https://isni.org/isni/0000000121928834</idno>
+            </place>
+            <place xml:id="montréal-Canada">
+               <placeName xml:lang="fr">Montréal (Canada)</placeName>
+               <placeName xml:lang="en">Montreal (Canada)</placeName>
+               <!-- identifiant Library of Congress = Montréal (Québec) / identifiant bnf = Montréal (Canada)-->
+               <country>Canada</country>
+               <region>Québec (Province)</region>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q340</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb118804980</idno>
+               <idno type="loc">https://id.loc.gov/authorities/names/n80132975</idno>
+               <idno type="isni">https://isni.org/isni/0000000121501478</idno>
+            </place>
+            <place xml:id="europe">
+               <placeName>Europe</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q46</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb11931301w</idno>
+               <idno type="loc">https://id.loc.gov/authorities/subjects/sh85045631</idno>
+            </place>
+            <place xml:id="nouvelle-Zélande">
+               <placeName xml:lang="fr">Nouvelle-Zélande</placeName>
+               <placeName xml:lang="en">New Zealand</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q664</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb12581707j</idno>
+               <idno type="isni">https://isni.org/isni/000000012156951X</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n79021322</idno>
+            </place>
+            <place xml:id="wellington-Nouvelle-Zélande">
+               <placeName xml:lang="fr">Wellington (Nouvelle-Zélande)</placeName>
+               <placeName xml:lang="en">Wellington (New Zealand)</placeName>
+               <country>Nouvelle-Zélande</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q23661</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n79029791</idno>
+            </place>
+            <place xml:id="guatemala">
+               <placeName>Guatemala</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q774</idno>
+               <idno type="isni">https://isni.org/isni/0000000122709190</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb11880756w</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n79054016</idno>
+            </place>
+            <place xml:id="ciudadDeGuatemala">
+               <placeName xml:lang="fr">Ciudad de Guatemala</placeName>
+               <placeName xml:lang="en">Guatemala City</placeName>
+               <country>Guatemala</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q1555</idno>
+               <idno type="isni">https://isni.org/isni/0000000122996433</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb137419904</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n81019995</idno>
+            </place>
+            <place xml:id="winnipeg-Canada">
+               <placeName>Winnipeg (Canada)</placeName>
+               <country>Canada</country>
+               <region>Manitoba</region>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q2135</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119565957</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n79079425</idno>
+            </place>
+            <place xml:id="rotterdam-Pays-Bas">
+               <placeName xml:lang="fr">Rotterdam (Pays-Bas)</placeName>
+               <placeName xml:lang="en">Rotterdam (Netherlands)</placeName>
+               <country>Pays-Bas</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q34370</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n79015636</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119620984</idno>
+            </place>
+            <place xml:id="amsterdam-Pays-Bas">
+               <placeName xml:lang="fr">Amsterdam (Pays-Bas)</placeName>
+               <placeName xml:lang="en">Amsterdam (Netherlands)</placeName>
+               <country>Pays-Bas</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q727</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n78095634</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119430472</idno>
+            </place>
+            <place xml:id="ljubljana">
+               <placeName xml:lang="fr">Ljubljana (Slovénie)</placeName>
+               <placeName xml:lang="en">Ljubljana (Slovenia)</placeName>
+               <country>Slovénie</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q437</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n50052801</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb122718867</idno>
+            </place>
+            <place xml:id="cologne">
+               <placeName xml:lang="fr">Cologne (Allemagne)</placeName>
+               <placeName xml:lang="en">Cologne (Germany)</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q365</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb11931745m</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n80050882</idno>
+            </place>
+            <place xml:id="asieDuSud">
+               <placeName xml:lang="fr">Asie du Sud</placeName>
+               <placeName xml:lang="en">South Asia</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q771405</idno>
+            </place>
+         <place xml:id="asieDuSudEst">
+            <placeName xml:lang="fr">Asie du Sud-Est</placeName>
+            <placeName xml:lang="en">Southeast Asia</placeName>
+            <idno type="wikidata">https://www.wikidata.org/wiki/Q11708</idno>
+            <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119528059</idno>
+            <idno type="loc">https://id.loc.gov/authorities/subjects/sh85008627</idno>
+         </place>
+         <place xml:id="ameriqueLatine">
+            <placeName xml:lang="fr">Amérique latine</placeName>
+            <placeName xml:lang="en">Latin America</placeName>
+            <idno type="wikidata">https://www.wikidata.org/wiki/Q12585</idno>
+            <idno type="loc">http://id.loc.gov/authorities/subjects/sh85074879</idno>
+         </place>
+            <place xml:id="afriqueDuNord">
+               <placeName xml:lang="fr">Afrique du Nord</placeName>
+               <placeName xml:lang="en">North Africa</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q27381</idno>
+               <idno type="loc">http://id.loc.gov/authorities/subjects/sh85001631</idno>
+            </place>
+         </listPlace>
+         <!-- Julie -->
+         <listPlace>
+            <place xml:id="essen-Allemagne">
+               <placeName xml:lang="fr">Essen (Allemagne)</placeName>
+               <placeName xml:lang="en">Essen (Germany)</placeName>
+               <country>Allemagne</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q2066</idno>
+               <idno type="loc">https://id.loc.gov/authorities/names/n80089415.html</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119636772</idno>
+            </place>
+            <place xml:id="maghreb">
+               <placeName>Maghreb</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q28227</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb15324044c</idno>
+            </place>
+            <place xml:id="moyenOrient">
+               <placeName xml:lang="fr">Moyen-Orient</placeName>
+               <placeName xml:lang="en">Middle East</placeName>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q7204</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb11941591f</idno>
+               <idno type="loc">http://id.loc.gov/authorities/subjects/sh85090501</idno>
+            </place>
+            <place xml:id="nyc">
+               <!-- la ville -->
+               <placeName xml:lang="fr">New York (N.Y.)</placeName>
+               <placeName xml:lang="en">New York City</placeName>
+               <country>États-Unis</country>
+               <region>New York</region>
+               <!-- l'état -->
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q60</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb11880105b</idno>
+               <idno type="isni">https://isni.org/isni/0000000121966726</idno>
+            </place>
+            <place xml:id="hk">
+               <placeName xml:lang="fr">Hong Kong (Chine)</placeName>
+               <placeName xml:lang="en">Hong Kong (China)</placeName>
+               <country>Chine</country>
+               <region/>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q8646</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb11940411f</idno>
+               <idno type="loc">http://id.loc.gov/vocabulary/geographicAreas/a-cc-hk</idno>
+               <idno type="isni">https://isni.org/isni/0000000121793140</idno>
+            </place>
+            <place xml:id="sgp">
+               <placeName xml:lang="fr">Singapour</placeName>
+               <placeName xml:lang="en">Singapore</placeName>
+               <country>Singapour</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q334</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119478504</idno>
+               <!-- la notice est la même pour la ville et l'état -->
+               <idno type="loc">http://id.loc.gov/vocabulary/geographicAreas/a-si</idno>
+               <idno type="isni">https://isni.org/isni/0000000121851814</idno>
+            </place>
+            <place xml:id="mexico-Mexique">
+               <placeName xml:lang="fr">Mexico (Mexique)</placeName>
+               <placeName xml:lang="en">Mexico City</placeName>
+               <country>Mexique</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q1489</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119335179</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n79093328</idno>
+               <idno type="isni">https://isni.org/isni/0000000122985048</idno>
+            </place>
+            <place xml:id="londonUk">
+               <placeName xml:lang="fr">Londres (GB)</placeName>
+               <placeName xml:lang="en">London (GB)</placeName>
+               <country>Angleterre</country>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q84</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb119323045</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n79005665</idno>
+               <idno type="isni">https://isni.org/isni/0000000404278528</idno>
+            </place>
+            <place xml:id="milan-Italie">
+               <placeName xml:lang="fr">Milan (Italie)</placeName>
+               <placeName xml:lang="en">Milan (Italia)</placeName>
+               <country>Italie</country>
+               <region>Lombardie</region>
+               <idno type="wikidata">https://www.wikidata.org/wiki/Q490</idno>
+               <idno type="bnf">https://catalogue.bnf.fr/ark:/12148/cb11936471j</idno>
+               <idno type="loc">http://id.loc.gov/authorities/names/n80060867</idno>
+               <idno type="isni">https://isni.org/isni/0000000417562173</idno>
             </place>
          </listPlace>
       </body>

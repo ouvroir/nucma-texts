@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Valeurs proposées en autocomplétion pour les renvois, calculées à chaque appel
+     par ref-values.xsl (useCache="false" : les registres sont relus à chaque fois).
+     Ce fichier remplace celui du framework TEI P5, qui n’en a pas. -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.oxygenxml.com/ns/ccfilter/config http://www.oxygenxml.com/ns/ccfilter/config/ccConfigSchemaFilter.xsd"
+    xmlns="http://www.oxygenxml.com/ns/ccfilter/config"
+    xmlns:tei="http://www.tei-c.org/ns/1.0">
+    <valueProposals path="tei:persName/@ref">
+        <xslt href="ref-values.xsl" useCache="false" action="replace"/>
+    </valueProposals>
+    <valueProposals path="tei:author/@ref">
+        <xslt href="ref-values.xsl" useCache="false" action="replace"/>
+    </valueProposals>
+    <valueProposals path="tei:placeName/@ref">
+        <xslt href="ref-values.xsl" useCache="false" action="replace"/>
+    </valueProposals>
+    <valueProposals path="tei:orgName/@ref">
+        <xslt href="ref-values.xsl" useCache="false" action="replace"/>
+    </valueProposals>
+    <valueProposals path="tei:objectName/@ref">
+        <xslt href="ref-values.xsl" useCache="false" action="replace"/>
+    </valueProposals>
+    <valueProposals path="tei:title/@ref">
+        <xslt href="ref-values.xsl" useCache="false" action="replace"/>
+    </valueProposals>
+    <valueProposals path="tei:bibl/@ref">
+        <xslt href="ref-values.xsl" useCache="false" action="replace"/>
+    </valueProposals>
+    <valueProposals path="tei:ref/@target">
+        <xslt href="ref-values.xsl" useCache="false" action="replace"/>
+    </valueProposals>
+    <valueProposals path="tei:ptr/@target">
+        <xslt href="ref-values.xsl" useCache="false" action="replace"/>
+    </valueProposals>
+</config>

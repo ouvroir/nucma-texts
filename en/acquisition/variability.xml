@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../schemas/nucma-text.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../schemas/nucma-quality.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../factoton/typesetter/schematron/typography.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Negotiating Variability</title>
+            <author ref="#benichouAnne">
+               <persName>
+                  <forename>Anne</forename>
+                  <surname>Bénichou</surname>
+               </persName>
+               <roleName>Professor</roleName>
+               <affiliation>Université du Québec à Montréal</affiliation>
+            </author>
+            <author ref="#gagnierRichardB">
+               <persName>
+                  <forename>Richard</forename>
+                  <surname>Gagnier</surname>
+               </persName>
+               <roleName>Head of Conservation</roleName>
+               <affiliation>Montréal Museum of Fine Arts</affiliation>
+            </author>
+            <author ref="#gagnonAnnMarlene">
+               <persName>
+                  <forename>Ann Marlène</forename>
+                  <surname>Gagnon</surname>
+               </persName>
+               <roleName>PhD Candidate</roleName>
+               <affiliation>Université du Québec à Montréal</affiliation>
+            </author>
+            <author ref="#oBrienMariah">
+               <persName>
+                  <forename>Mariah</forename>
+                  <surname>Pelham O’Brien</surname>
+               </persName>
+               <roleName>PhD Candidate</roleName>
+               <affiliation>Université de Montréal</affiliation>
+            </author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>CIÉCO Research and Inquiry Group</publisher>
+            <date when="2026">2026</date>
+            <!-- @todo <idno type="DOI">…</idno> -->
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This content is made available under a Creative Commons Attribution 4.0 licence.</p>
+               </licence>
+            </availability>
+         </publicationStmt>
+         <seriesStmt>
+            <title xml:lang="en" type="main">Chapter: Acquisition</title>
+            <title xml:lang="en" type="sub"
+               >NUCMA, the encyclopedia of New Uses of Collections</title>
+            <idno type="URI">http://www.nucma.ca</idno>
+            <!-- @todo <idno type="DOI">…</idno> -->
+         </seriesStmt>
+         <sourceDesc xml:id="nucma.en.acquisition.variability">
+            <p>Born-digital file</p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <appInfo>
+            <application xml:id="docxtotei" ident="TEI_fromDOCX" version="7.62.0a">
+               <label>DOCX to TEI</label>
+            </application>
+         </appInfo>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="en"/>
+         </langUsage>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2026-10-01" who="#ECD">Conversion from Word (nucma profile)</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:lang="en">
+      <body>
+         <div>
+            <p>There is no consensus on how to characterise the variability of artworks. The literature presents several terms that appear similar but convey nuanced differences and vary in their generality: “variable artworks,” “evolving artworks,” and, more rarely, “changing artworks.<!-- @todo Note aux encodeuses-encodeurs:Ajouter le lien à la « Chronologie des initiatives en conservation-restauration des œuvres variables » qui est à venir. [myriam merette, 2026-01-28, sur « “changing artworks. »] -->”  The term <hi
+               rend="italic"
+               >variable artwork</hi> is the most widely used and the most general. It encompasses a broad range of artistic strategies, including, but not limited to, conceptual art, body-based performance practices, installations, and media arts. In the late 1960s, museums gradually incorporated all of these practices into their collections, according to atypical acquisition modalities : first conceptual art as well as the earliest installations, in the early 1970s ; then, during the 1980s, the acquisition of installations became more widespread in response to the prominent role they occupied in biennales ; multimedia works employing new technologies followed in the 1990s. Despite their popularity in temporary exhibitions and event-based programming, performance works were not included in collections until around 2010. The acquisition of these works has prompted significant transformations in the approaches, methods, and certain ethical principles of conservation and restoration. Challenges include the dematerialisation of works, their adaptation to exhibition spaces, their interactivity with audiences, the ephemeral nature of many pieces, and the rapid obsolescence of certain materials.</p>
+            <p>In order to develop new approaches at the international level, a series of conferences and conservation networks were established in the 1990s<!-- @todo Note aux encodeuses-encodeurs:Ajouter le lien à la « Chronologie des initiatives en conservation-restauration des œuvres variables » qui est à venir. [myriam merette, 2026-01-22, sur « 1990s »] -->. In 1997, the symposium <hi
+               rend="italic"
+               >Modern Art: Who Cares?</hi> (Hummelen and Sillé, 2005) notably acknowledged the need to preserve immaterial data, building on the Nara Conference (1994), during which the notion of authenticity based exclusively on the original materiality of artefacts was strongly criticised and deemed Eurocentric. In 2001, <hi
+               rend="italic"
+               >The Variable Media Approach/L’approche de médias variables</hi> (Depocas et al., 2003) sought, for its part, to dissociate the definition of the artwork from its original material components, in order to enable the migration of works to newer technological media. A shift was notably identified from the traditional autographic regime (a work made by the artist’s own hand) to an allographic regime (a work existing in the form of notations and successive performances undertaken by interpreters) (Goodman, 2022; Laurenson, 2006 and 2009). These initiatives triggered numerous research projects addressing questions of authenticity, variability, and authorial authority. Thus,  <hi
+               rend="italic"
+               >Tate Papers</hi>, the online journal published by the Tate, as well as several research groups – DOCAM, led by the Daniel Langlois Foundation for Art, Science and Technology, and <hi
+               rend="italic">Variations et Pérennité </hi>(<hi rend="italic"
+               >Variations and Continuity)</hi>, directed at the Université du Québec à Montréal (UQAM) by Francine Couture – contributed to producing documentation models, glossaries, and conservation guides still in use today. The 2010s were marked by further initiatives based on case studies, such as <hi
+               rend="italic">Inside Installations</hi>, VoCA, INCCA, and <hi rend="italic"
+               >Matters in Media Art</hi>. While traditional museum conservation theory emphasises the fixity of artworks over time and adheres to the principles of minimal intervention, reversibility, universality, and objectivity, these initiatives have, over the past thirty years, given rise to new approaches focusing on the identification of conceptual properties of works and the management of their change.</p>
+            <p>Is the notion of variability in artworks a specificity of contemporary art? Can manifestations of it be identified in premodern and modern periods? What forms do these variations take? How does the notion of variability relate to the values of authenticity and integrity? In what ways do museums conceive of the variation of works during and after their acquisition? </p>
+            <div>
+               <head>Is the Variability of Artworks a Contemporary Phenomenon ?</head>
+               <p>It would be mistaken to attribute such changes solely to the contemporary period. Artworks have always been objects of use and function. Scientific analysis laboratories attest to material mutations undergone by artefacts over the centuries. Several medieval Black Madonnas bear witness to frequent changes in appearance over time to reflect religious history (Cassagnes-Brouquet, 2000). Art histories report numerous cases of transformation of works to suit contemporary tastes and the intentions of their owners. In 1559, the nudes in Michelangelo’s <hi
+                  rend="italic"
+                  >Last Judgment</hi> were “clothed” by decree of Pope Paul IV. In eighteenth-century Europe, mural paintings and frescoes, including those belonging to the Crown, were removed, and ensembles were dismantled (Étienne, 2012); sections of paintings were extracted and their original dimensions altered in order to adapt them to new spaces. <hi
+                  rend="italic"
+                  >The Night Watch</hi> was trimmed in 1715 when it was transferred to Amsterdam’s City Hall (Rijksmuseum). These material transformations responded to the demands of political, religious, and societal changes that required new uses for the artworks. For these premodern periods, it is more accurate to speak of successive variations of states of the works rather than of variability, a notion that implies the artwork carries within it, from the moment of its creation, a potential for variation.</p>
+               <p>Respect for the material integrity of artworks only became imperative with the Enlightenment, when a new awareness granted a preeminent place to the concept of authenticity and conservation began to take precedence over restoration (Étienne, 2012). With modernity, the new conservation-restoration paradigm emerged, officially adopted in 1932 based on the resolutions of experts from the International Office of Museums (renamed ICOM in 1948).</p>
+               <p>However, the avant-gardes resisted this valorisation of the unique and enduring artwork. New materials arising from nascent industrialisation offered artists unprecedented possibilities for exploration. The works of Russian Constructivists, Dadaists, and members of the Bauhaus attest to this development. Industrial materials, which enabled the creation of new forms, could embody an unstable nature, sometimes necessitating invasive restoration or the complete replacement of works with more stable materials (Lodder, 2007). Industrialisation also led some artists to explore standardised and serial modes of production, such as mechanised reproduction delegated to others (Marck, 2014).  These explorations challenged the notion of the autographic work, a unique object made by the artist’s own hand, to be preserved in its original state, upon which the ethics of museum conservation-restoration had been built.</p>
+               <p>Variable sculptural practices can also be observed during modernity, foreshadowing contemporary environments and installations. Constantin Brancusi conceived of his sculptures as “mobile groups” (Penders, 1995). In his studio, he arranged them in relation to one another, according to configurations that were regularly reconfigured, taking on the status of works in progress. Around 1923, Kurt Schwitters began his <hi
+                  rend="italic"
+                  >Merzbau</hi>, a sculpture assembled from found materials that invaded the rooms and floors of his studio and home in Hanover, and which was never completed. Forced into exile in 1937, the artist resumed its construction in different locations, according to differing configurations (Orchard, 2007). In 1932, Alexander Calder exhibited his first mobiles set in motion by the turbulence of the surrounding space. These experiments raised questions concerning the activation of works, their adaptation, and their behaviour (Depocas et al., 2003).</p>
+               <p>Despite the multiple forms of variation observed in premodern and modern artworks, it was only with the entry of conceptual art, installations, and media works into museum collections in the early 1970s that museums began to take the notion of variability into account in their conservation-restoration methods and practices. Variability now influences how the authenticity and integrity of artworks are conceived and plays an important role at the time of acquisition. Modern works made from industrialised and unstable materials, or produced through mechanised, serial, or process-based methods, are more readily integrated into museum collections, even when the originals have been destroyed, and fully contribute to debates surrounding the new ethical values of the museum collection (Rubio, 2020).</p>
+            </div>
+            <div>
+               <head>The Authenticity–Integrity–Variability Dialectic</head>
+               <p>The acquisition of variable artworks can now be understood as the moment at which artists, museum professionals, and any communities involved collaboratively determine the variability of the works, that is, the transformations that will be considered acceptable in their future iterations. This variability is established in relation to two values: authenticity and integrity (Cometti, 2016) (fig. 1).</p>
+               <figure>
+                  <graphic url="media/image1.png"/>
+                  <graphic url="media/image2.png"/>
+               </figure>
+               <p>Fig. 1: The authenticity–integrity–variability dialectic. Modified and expanded version (2023) of the diagram proposed by Richard Gagnier in 2009, within the framework of DOCAM.<!-- @todo Aux encodeur·euses : version anglais AI :  https://drive.google.com/file/d/17zLzTczGuj-6_1UUxvjxoRCOpq7rq8VL/view?usp=drive_link Version anglais eps https://drive.google.com/file/d/1OgnJt93FGC6BaVZbwxNK8aMICXcbfCye/view?usp=drive_link [Josée Desforges, 2026-02-23, sur « Fig. 1: The authenticity–integrity–variability dialectic. Modified and expanded version (2023) of the diagram proposed by Richard Gagnier in 2009, within the framework of DOCAM. »] --></p>
+               <p>The first of these values, authenticity, privileges original materiality and the historical anchoring of collected works, based on the idea that an artwork bears witness to a historical period and should therefore be preserved in its original material state. The second, integrity, is developed on the basis of a plurality of information and characteristics that make it possible to understand how a work functions and the effects it is intended to produce. Thus, the concept and intentions of the artist, the skills and know-how involved, and the symbolic values of the materials, or again the behaviour of the work and the experience of viewers, are all to be considered (Saaze, 2013). From the perspective of integrity, the historical value of a work takes into account the history of its different iterations and the ways in which it has been transformed through its various uses. The cultural contexts of creation and reception also play an important role. This involves understanding the cultural, technological, political and social context in which the work was created and which it embodies, while also considering the context of reception, that is, the way in which the reference cultural universe is viewed today, as well as contemporary conceptions of the experience of artworks in the museum.</p>
+               <p>Among the features that serve to define the integrity of a work, some are constitutive (they establish the work’s integrity), while others are contingent (they are subject to variation without altering that integrity) (Goodman, 2022). Operability, functioning, the behaviour of the work, the effects it is intended to produce, as well as the experience of viewers or third parties in relation to the work, may vary across different iterations. These are the elements that make it possible to delineate the variability of a work and to determine the type of variation to which it may be subject.</p>
+               <p>In the diagram illustrating the authenticity–integrity–variability dialectic (fig. 1), inspired by set theory, the two values of authenticity and integrity are embedded within one another, indicating that the notion of authenticity is now understood from a broader and more complex perspective, both material and conceptual. This expanded authenticity encompasses integrity, upon which variability depends. Authenticity is grounded not only in material and intangible features, but also takes effects and experience into account. It is therefore modifiable.</p>
+               <p>At the time of acquisition, those involved use a variety of loosely codified methods and tools, largely dictated by the singularities of artistic practices, to identify, negotiate, and record the constitutive and contingent traits of the work. Thus understood, an acquisition seeks neither to fix works nor to restrict their variations, but rather to delineate their variability. It can also broaden the scope for variation of a work.</p>
+            </div>
+            <div>
+               <head>The Different Modalities of Variation in Artworks</head>
+               <p>Delineating the variability of artworks at the time of acquisition relies on informal and tacit knowledge. There is no controlled vocabulary, but rather a conventional terminology that differs according to institutional, professional, and linguistic contexts. Instability, adaptation, activation, actualisation, and work in progress are among the main modalities of variation, with most works combining several. More radical and less common, reworking will be discussed at the end of this article. Such a typology, however, is not part of the formal tools used by museum professionals, who generally prefer to describe the changes that can be applied to works. Within the scope of this article, this terminology is intended to facilitate the identification and explanation of complex phenomena. </p>
+               <p>Instability is the most common form of variation. The deterioration of materials or the obsolescence of certain technological components leads to a material transformation of the work, which may or may not be mitigated. Sometimes, this is even desired by the artist, with ageing and loss thereby contributing to the integrity of the work. This type of variation raises the question of the acceptable threshold of alteration. At what point does a work cease to function, and what should then be done? Should an exhibition copy be produced? Should the work no longer be displayed, and, in that case, does it become a document? Should restoration measures be undertaken that do not preserve its original materiality, such as emulation, migration, or reinterpretation (Depocas et al., 2003)? At the time of acquisition, the museum, in collaboration with the artists, anticipates these questions and the possible solutions they may propose. Thus, during the acquisition of <hi
+                  rend="italic">Invaders</hi> (2019) by Hannah Claus by the <hi
+                  rend="background(yellow)"
+                  >Montréal Museum of Fine Arts (MMFA)</hi>, it was decided to control the progressive tarnishing of the needles inserted into the wool covers.</p>
+               <p>Adaptation involves making changes to a work at the time of display in order to adjust it to new settings, contexts, and situations. This may include reducing its size to present it in a smaller space, adding elements, or replacing others with more appropriate ones for the new exhibition context or current circumstances. Although primarily concerned with the materiality of the work, this type of variation, which is very common for large-scale installations, requires a thorough understanding of the work’s functioning, the effects it is intended to produce, and the qualities of the desired experience. How far can the number of elements in an installation be reduced without obliterating its meaning? What effects should the addition of contextual elements produce? For instance, during the acquisition of Serge Murphy’s installation <hi
+                  rend="italic"
+                  >La forme des jours</hi> (2011) by the MMFA, the minimum number of stelae to be displayed was determined out of the 160 that constitute the work. </p>
+               <p>Activation involves setting certain elements of a work into motion or engaging them in actions or events defined and organised in advance. These actions may be carried out by the artists, the public, other individuals, or may arise from the work’s own operational properties. At times, the materiality of the work is affected, and the actions leave traces that the work retains and accumulates over successive presentations. At the time of acquisition, the challenge is to understand and record the processes and intended effects of activation, the quality of the experiences it affords, as well as to acquire the skills necessary to activate the work, anticipate impacts on its material components, and establish their limits so as not to compromise the authenticity of the work as understood in its broadened sense. Thus, the instructions established when  <hi
+                  rend="italic"
+                  >Darboral</hi> (2000–2005) by Massimo Guerrera was acquired by the <hi
+                  rend="background(yellow)"
+                  >Musée national des beaux-arts du Québec (MNBAQ)</hi> provide for periods during which the objects may be handled, while ensuring that the resulting traces are preserved. </p>
+               <p>Because contemporary audiences now expect to “have an experience” in museums, the activation of works, including those in collections, is an increasingly valued and prioritised modality of variation. It offers opportunities to programme participatory, playful, or festive activities within the collections. In some cases, activation can challenge traditional modes of collecting. This is the case for <hi
+                  rend="italic"
+                  >Plafond suspendu (B-F-G)</hi> (2019), a set of works executed in fluorescent paint commissioned by the Musée d’art contemporain des Laurentides from artists in its community for acquisition, inviting audiences to discover the works when illuminated under black light. </p>
+               <p>Actualisation<ref type="note" target="#note01"
+                  >1</ref> involves the partial or total rematerialisation of a work for each presentation, which requires the documentation of procedures, the acquisition of skills by museum staff, and the designation of individuals responsible for future iterations. Conceptual works that have entered museum collections in the form of protocols since the 1970s are paradigmatic in this regard. The actualisation of works that require unique manual skills can be much more complex. Museums must ensure that artists transmit these skills to their technical and conservation teams, and must then put in place the  means to document these learnings so that they can be passed on to successive generations of staff. This is the case with <ref
+                  type="external"
+                  target="https://curatednow.ca/jana-sterbak-vanitas-flesh-dress-for-an-albino-anorectic-1987/"
+                  ><hi rend="italic underline color(1155cc)"
+                  >Vanitas: Flesh Dress for an Albino Anorexic</hi></ref><ref type="external"
+                  target="https://curatednow.ca/jana-sterbak-vanitas-flesh-dress-for-an-albino-anorectic-1987/"
+                  >
+                  </ref>(1987) by Jana Sterbak, held in the collections of the Walker Art Center (Minneapolis) and the Musée national d’Art Moderne – Centre Georges Pompidou (Paris): a dress made of steaks that must be remade for each presentation. </p>
+               <p>Performative works, which museums began to acquire in the mid-2000s in live forms, introduce further complexities: the delegation of the work’s execution to new performers; the use of oral and embodied modes of transmission, which complements written protocols and other forms of stabilisation. While these iterative procedures are common in the performing arts, particularly dance, they remain largely unfamiliar within the museum context. Art museums therefore engage specialists from other artistic disciplines, especially dance and theatre. For example, Yvonne Rainer’s choreographic piece <hi
+                  rend="italic"
+                  >Trio A</hi>(1966), collected by the Museum of Modern Art (New York), requires transmission by a <hi
+                  rend="italic">répétitrice</hi>, supplemented by Sally Banes’s film <hi
+                  rend="italic"
+                  >Yvonne Rainer. Trio A</hi> (1978). At the time of acquisition, the modalities of these long-term collaborations and the allocation of responsibilities must be established. The inclusion of performative works in museum collections also promotes the emergence of new forms of work stabilisation and novel types of contractual documentation (McClean 2014; Finbow 2021).</p>
+               <p>Decolonisation and Indigenization in museums have brought into collections works whose actualisation involves rituals performed by, and/or within communities and which are not necessarily intended for public viewing. Rather than claiming ownership of such works, some museums adopt a temporary guardianship role, with a mandate to care for and facilitate them.</p>
+               <p>Finally, the work in progress modality is linked to the paradoxical fact that the entry of a work into a museum collection does not interrupt its creative process. The artist, or a third party designated by him or her, continues to develop the work. The process concludes at a date determined by the artist and the museum, at the death of the creator, or, more rarely, continues posthumously. This mode of variation requires close and privileged collaborations between artists and institutions. The inclusion of such works in collections sometimes entails new modes of working for artists within the museum (such as the establishment of workshops or creative spaces), as well as the adaptation of certain collection management tools and methods (for instance, the increasing complexity of dating systems and accession numbers). <hi
+                  rend="italic"
+                  >Darboral</hi> by Massimo Guerrera once again illustrates this phenomenon: the MNBAQ decided that artefacts resulting from the artist’s experiments after the 2005 acquisition would complement the initial corpus.</p>
+            </div>
+            <div>
+               <head>Methods and Tools for Establishing the Variability of Works at the Time of Acquisition</head>
+               <p>Museums have developed  methods and tools to establish the variability of works at the time of acquisition: expanded and collaborative documentation, the reference iteration, and the artist questionnaire.</p>
+               <p>The reference iteration refers to a specific manifestation of a work that the museum selects and documents so that it can act as a model for defining the future uses of the new acquisition. This may be the iteration of the work presented to the acquisition committee, or one exhibited in the context of a past or current exhibition. Although it functions as an anchor point, this iteration does not prevent future variations; on the contrary, it allows them to be better anticipated and supported.</p>
+               <p>The moment of acquisition represents a particular opportunity for the acquiring institution to define and formalise the work it intends to preserve, exhibit, and circulate. Reviewed before committees composed of members representing a range of institutional interests, the works under consideration are evaluated based on their singular, symbolic, aesthetic, and historical value, in addition to their material stability. The establishment of a reference iteration enables the anticipation of resources necessary to ensure the work’s longevity and allows the museum to develop an in-depth understanding of its material and conceptual properties. </p>
+               <p>The development of a script (Semin, 2001) entails a transfer of knowledge, skills, and responsibilities from the artist to the institution. Challenges and risks are identified, while planning for future interventions and sharing decision-making responsibilities are established. Through this process, which prioritizes experimentation and collaboration, the museum delineates the work’s variability and adapts its own standards and practices accordingly. This study period also allows the museum to establish the work’s biography, trace its various manifestations, and situate it within a genealogy. By establishing a reference iteration, the museum enriches its understanding of past iterations and broadens its comprehension of the work’s possible futures.</p>
+               <p>The artist questionnaire is another important tool that museums have adopted to establish the variability of works at the time of acquisition. The emergence of this type of document, concurrent with that of certificates of authenticity, dates back to the 1960s. Such documents are developed in order to avoid compromising the original concept or the aesthetic intended by the artist, particularly when the re-exhibition of the works requires partial or complete reconstruction due to their fragility or the obsolescence of certain components.</p>
+               <p>These questionnaires were initially intended to collect precise information regarding the materiality of the works, in order to establish conservation and restoration protocols consistent with the practitioner’s deontological framework, including the principle of reversibility of interventions. Their evolution subsequently allowed for more detailed recording of the specific conditions necessary for presentation. As this documentation proved insufficient, since the artist could not always articulate their approach through a form, it was supplemented with interviews and video recordings. The conditions for the sensory experience and reception of the work thus became increasingly important. Together, these sources provide researchers and practitioners with valuable data that enable the creation of a precise iteration script, essential for the recreation or exhibition of the works.</p>
+               <p>The artist questionnaire, completed at the time of acquisition, thus contributes to defining the singular and original identity of the work to be preserved, while also facilitating the negotiation of responsibilities and the uses associated with possible variations of the work in subsequent presentations.</p>
+            </div>
+            <div>
+               <head>The Limits of Variability</head>
+               <p>Defining the variability of a work at the time of acquisition, according to the authenticity–integrity–variability dialectic, is a complex process that is neither definitive nor infallible. It remains open and fluid. It is important to always be able to reassess or renegotiate a work’s variability after its entry into a collection. For example, the activation of a work may be limited if it results in more significant alterations than initially anticipated, or a work in progress may be brought to an end before the originally agreed date if the artist is no longer sufficiently motivated to pursue it. Such adjustments to the variability of works in a collection, in response to their uses, are common and must be documented. They aim to enhance one or more contingent traits (fig. 1): the work’s operability, functioning, behaviour, the effects it is intended to produce, and the experience it offers to the public.</p>
+               <p>For various reasons, often linked to the desire to reinsert a past work into the contemporary artistic context on the occasion of an exhibition, an artist may decide to introduce a very substantial modification to one of his or her works, exceeding the possibilities for variation established at the time of acquisition, for example by removing a central element of the work (Couture and Gagnier, 2010). Such modifications can create the impression that the work is no longer the same and may give rise to tensions between artists and museum curators. Indeed, these changes, which fall more within the scope of reworking than of variation, undermine the integrity of the work. The intervention is no longer limited to contingent traits, but extends to the constitutive properties (fig. 1). In such cases, concept and intentions, as well as aesthetics are reconsidered through the process of reworking, giving rise to new versions of the work or, more rarely, to the creation of entirely new works. </p>
+               <p>Some artists even require that the museum refrain from presenting the work in its original configuration and seek to limit the circulation of photographs documenting its earlier state. As a result, the establishment of a history of manifestations, upon which the integrity of the work is built, is partially hindered. This is the case with Jeff Wall’s <hi
+                  rend="italic">Stereo</hi>(1980), acquired in 1982 by the <hi
+                  rend="background(yellow)"
+                  >National Gallery of Canada</hi>. Originally composed of two lightboxes, the work has, since 1990, been reduced to a single element at the artist’s request.</p>
+               <p>A reworking carried out by an artist on their work after its acquisition may nevertheless constitute a positive solution when the museum is no longer able to exhibit the work due to obsolescence, damage, or the loss of one of its components. In such cases, the modifications introduced by the artist and endorsed by the institution contribute to the creation of a new version of the work, which acquires a life of its own.</p>
+               <p>These examples of adjustments to variability and of reworking demonstrate that acquisition does not definitively fix the variability of works. Rather, it remains open to renegotiation, a process in which the respective prerogatives of the actors involved may come into conflict or, conversely, foster collaborative forms of co-creation.</p>
+            </div>
+            <div/>
+            <div/>
+            <div>
+               <head>Bibliographie</head>
+               <p>ACCR/ACRP (3<hi rend="superscript">e</hi> éd., 2000). <hi rend="italic"
+                  >Code de déontologie et guide du patricien</hi>. Ottawa : Association Canadienne pour la Conservation et la Restauration des biens culturels et de l’Association Canadienne des Restaurateurs Professionnels. </p>
+               <p>Bénichou, A. (dir.) (2015). <hi rend="italic"
+                  >Recréer/Scripter : mémoires et transmissions des œuvres performatives et chorégraphiques contemporaines. </hi>Dijon : Les presses du réel.</p>
+               <p>Bénichou, A. (dir.). (2010). <hi rend="italic"
+                  >Ouvrir le document: enjeux et pratiques de la documentation dans les arts visuels contemporains</hi>. Dijon : Les presses du réel.</p>
+               <p>Bernard, E. et al. (2003). <hi rend="italic"
+                  >Histoire de l’art: du Moyen Âge à nos jours</hi>. Paris : Larousse.</p>
+               <p>Brandi, C. ([1963], 2007). <hi rend="italic"
+                  >Théorie de la Restauration</hi>. Paris : Éditions du Patrimoine, Centre des Monuments Nationaux. </p>
+               <p>Calonje, T. (dir). (2014). <hi rend="italic"
+                  >Live Forever. Collecting Live Art</hi>. Londres : Koenig Books.</p>
+               <p>Cassagnes-Brouquet, S. (2000). <hi rend="italic"
+                  >Vierges noires</hi>. Rodez : Éditions du Rouergue.</p>
+               <p>Clavir, Miriam (1998). The Social and Historic Construction of Professional Values in Conservation. <hi
+                  rend="italic">Studies in Conservation,</hi> 43(1), 1–8. <ref type="external"
+                  target="https://doi.org/10.2307/1506631"><hi rend="underline color(0000ff)"
+                  >https://doi.org/10.2307/1506631</hi></ref>.</p>
+               <p>———. (2011). Preserving Conceptual Integrity: Ethics and Theory in Preventive Conservation. Dans Chris Caple (dir.).  <hi
+                  rend="italic"
+                  >Preventive Conservation in Museums</hi>, (p. 435-44). Leicester Readers in Museum Studies. Abingdon, Oxon : Routledge.</p>
+               <p>Cometti, J.-P. (2016). <hi rend="italic">Conserver / </hi>Restaurer<hi
+                  rend="italic"
+                  >. L'œuvre d'art à l'époque de sa préservation technique</hi>, Paris : Gallimard.</p>
+               <p>Conti, Alessandro. (2007). <hi rend="italic"
+                  >A History of the Restoration and Conservation of Works of Art</hi>. Translated by Helen Glanville. Oxford : Butterworth-Heinemann.</p>
+               <p>Couture, F. (2012). La restauration, un acte de collaboration entre l’artiste et le restaurateur in <hi
+                  rend="italic">Espace culture</hi> (102), 17-20.</p>
+               <p>Couture, F. (2010). Réexposition et pérennité de l’art contemporain, Dans  <hi
+                  rend="italic"
+                  >Culture &amp; Musées, La Révolution des musées d’art </hi>(sous la dir. De Gob.A., et R.,Montpetit) n°16, p.137-156.</p>
+               <p>Couture, F. et Gagnier, R. (2010). Les valeurs de la documentation muséologique : entre l’intégrité et les usages de l’œuvre d’art. <hi
+                  rend="italic"
+                  >Ouvrir le document. Enjeux et pratiques de la documentation dans les arts visuels contemporains</hi> (dir. A. Bénichou), 323-348. Dijon : Les presses du réel.</p>
+               <p>Dazord, C. (2008). L’art Contemporain Confronté Aux Phénomènes d’obsolescence Technologique – Ou l’impact Des Évolutions Technologiques Sur La Préservation Des Œuvres d’art Contemporain. Dans <hi
+                  rend="italic"
+                  >Restauration et Non-Restauration En Art Contemporain. Actes de Journées d’études Des 14 Février et 6 Avril 2007</hi>, edited by Marie-Hélène Breuil, 51–63. Tours: École des Beaux-Arts de Tours.</p>
+               <p>Depocas, A. Ippolito, J., Jones, C. et Daniel Langlois Foundation for Art, Science and Technology (dir.). (2003). <hi
+                  rend="italic"
+                  >Permanence Through Change: the Variable Media Approach/La permanence par le changement : l’approche des médias variables</hi>. Montréal : Fondation Daniel Langlois pour l’art, la Science et la technologie. New York : Guggenheim Museum Publications.</p>
+               <p>Déotte, J.L. (2012), <hi rend="italic"
+                  >L’Appareil artistique de Schwitters</hi>, <ref type="external"
+                  target="http://journals.openedition.org/appareil/961"><hi
+                  rend="underline color(0000ff)"
+                  >http://journals.openedition.org/appareil/961</hi></ref></p>
+               <p>Derrida, J. (1988). Limited Inc a b c… Dans <hi rend="italic"
+                  >Limited Inc</hi>, (29-110). Evanston : Northwestern University Press.</p>
+               <p>Documentation et conservation du patrimoine des arts médiatiques (DOCAM, n.d.). Questionnaire pour les œuvres nouveaux médias. Montréal : Fondation Daniel Langlois pour l’art, la science et la technologie. <ref
+                  type="external"
+                  target="https://www.docam.ca/fr/outils/questionnaire-de-conservation.html"><hi
+                  rend="underline color(1155cc)"
+                  >https://www.docam.ca/fr/outils/questionnaire-de-conservation.html</hi></ref></p>
+               <p>Rubio, D. F. (2020). <hi rend="italic"
+                  >Still Life. Ecologies of the Modern Imagination at the Art Museum</hi>. Chicago, Londres : The University of Chicago Press.</p>
+               <p>Emile-Mâle, G. (2008).<hi rend="italic"
+                  > Pour une histoire de la restauration des peintures en France. </hi>Paris : Somogy éditions d’art.</p>
+               <p>Étienne, N. (2012). <hi rend="italic"
+                  >La restauration des peintures à Paris (1750-1815). Pratiques et discours sur la matérialité des œuvres d’art.</hi> Rennes : Presses Universitaires. </p>
+               <p>Étienne, N. et Hénaut, L. (2012). <hi rend="italic"
+                  >L’histoire à l’atelier : Restaurer les œuvres d’art, XVIIIe-XXIe siècles</hi>. Lyon : Presses Universitaires.</p>
+               <p>Finbow, A. (2021). New Approaches to Documenting Performance in the Museum: Value, History, and Strategy. <hi
+                  rend="italic"
+                  >Moving Spaces. Enacting Dance, Performance, and the Digital in the Museum</hi> (dir. S. Franco, G. Giannachi), 139-152. Venise : Ca’Foscari.</p>
+               <p>Fraser, M. (2015), L’exposition<hi rend="superscript"
+                  >2</hi> : Qu’est-ce qui fait exposition dans l’exposition ? <hi rend="italic"
+                  >Esse art + opinions</hi> (84), 4-13.</p>
+               <p>Gagnier, R. (2004). L’œuvre à refaire : existence de l’oeuvre en tant qu’exposée et attitude de l’artiste face à sa reconstruction/Re-Making Artwork: Its existence as an exhibition and the artist's attitude concerning its<lb/>reconstruction. <hi
+                  rend="italic">Espace Sculpture</hi> (69), 10–17.</p>
+               <p>Genette, G. ([1994 et 1997], 2010). <hi rend="italic"
+                  >L’œuvre de l’art</hi>. Paris : Seuil.</p>
+               <p>Glendinning, Simon. (2011). ‘Iterability’. Dans <hi rend="italic"
+                  >Derrida: A Very Short Introduction</hi> (p. 68–77). Oxford : Oxford University Press. <ref
+                  type="external"
+                  target="https://www.veryshortintroductions.com/view/10.1093/actrade/9780192803450.001.0001/actrade-9780192803450-chapter-6"
+                  ><hi rend="underline color(0000ff)"
+                  >https://www.veryshortintroductions.com/view/10.1093/actrade/9780192803450.001.0001/actrade-9780192803450-chapter-6</hi></ref>. </p>
+               <p>Goodman, N. et Morizot, J. ([1990],2022). <hi rend="italic"
+                  >Langages de l’art: une approche de la théorie des symboles</hi>. Fayard-Pluriel. Nîmes : Éditions Jacqueline Chambon.</p>
+               <p>Gimpel, J. (1968). <hi rend="italic"
+                  >Contre l’art et les artistes ou la naissance d’une religion</hi>. Paris : Seuil.</p>
+               <p>Guillerme, J. (1964).<hi rend="italic"
+                  > L’Atelier du Temps ; essai sur l’altération des peintures</hi>. Paris : Hermann.</p>
+               <p>Hölling, H. B., F. G. Bewer et K. Ammann (dir.) (2019). <hi rend="italic"
+                  >The Explicit Material: Inquiries on the Intersection of Curatorial and Conservation Cultures</hi>, 1. Studies in Art &amp; Materiality. Leiden et Boston : Brill. <ref
+                  type="external"
+                  target="https://ebookcentral.proquest.com/lib/umontreal-ebooks/detail.action?docID=5842466"
+                  ><hi rend="underline color(0000ff)"
+                  >https://ebookcentral.proquest.com/lib/umontreal-ebooks/detail.action?docID=5842466</hi></ref>.</p>
+               <p>Hölling, H.B., Feldman, J.P., Magnin, E. (dir.) (2023). <hi rend="italic"
+                  >Performance. The Ethics and the Politics of Conservation and Care</hi>. Londres : Routledge.</p>
+               <p>Hummelen, IJsbrand M. C, and Dionne Sillé (dir.) (2005). <hi rend="italic"
+                  >Modern Art, Who Cares?: An Interdisciplinary Research Project and an International Symposium on the Conservation of Modern and Contemporary Art</hi>. London : Archetype Publications.</p>
+               <p>Lebeau.J (automne 2010). De l’intégrité de l’œuvre d’Art afin d’assurer sa juste pérennité : un entretien mené par Justine Lebeau avec Richard Gagnier, restaurateur en art contemporain, <hi
+                  rend="italic"
+                  >Muséologies les cahiers d’études supérieures</hi>, 5(1), 180-209.</p>
+               <p>Laurenson, P. (automne 2006). Authenticity, Change and Loss in the Conservation of Time-Based Media Installations<hi
+                  rend="italic">. Tate Papers, </hi>6, pages ? </p>
+               <p>Laurenson, P. (2011). Vulnerabilities and Contingencies in the Conservation of Time-based Media Works of Art in Inside Installations.Theory and Practice. Dans <hi
+                  rend="italic"
+                  >The Care of Complex Artworks</hi> (p. ?). Amsterdam : Amsterdam University Press. </p>
+               <p>Lodder, C. (automne 2007). Naum Gabo and the Quandaries of the Replica in <hi
+                  rend="italic"
+                  >Tate Papers</hi>, 8. En ligne : https://www.tate.org.uk/research/tate-papers/08/naum-gabo-and-the-quandaries-of-the-replica</p>
+               <p>Marck van der, J. (2014). László Moholy-Nagy. Konstruktion in Emaille 1. <hi
+                  rend="italic"
+                  >Art by Telephone Recalled</hi> (dir. S. Pluot, F. Vallos), 225-237. Paris : Éditions Mix. </p>
+               <p>McClean, D. (2014). Collecting Live Art: Performance and the Law. <hi
+                  rend="italic"
+                  >Live Forever. Collecting Live Art</hi> (dir. T. Calonje), 85-112. Londres : Koenig Books.</p>
+               <p>Mohen, J.-P. ([1999] 2005). <hi rend="italic"
+                  >Les sciences du patrimoine: identifier, conserver, restaurer</hi>. Paris : Editions Odile Jacob.</p>
+               <p>Mundici, M. C., et A. Rava (dir.) (2013). <hi rend="italic"
+                  >What’s Changing: Theories and Practices in the Restoration of Contemporary Art</hi>. Milan : Skira.</p>
+               <p>Muñoz Viñas, S. (2004). <hi rend="italic"
+                  >Contemporary Theory of Conservation</hi>. Oxford : Elsevier Butterworth-Heinemann.</p>
+            </div>
+         </div>
+         <div>
+            <head>Orchard, K. (2007). Kurt Schwitters: Reconstructions of the <hi rend="italic"
+               >Merzbau. Tate Papers, 8. https://www.tate.org.uk/research/tate-papers/08/kurt-schwitters-reconstructions-of-the-merzbau</hi></head>
+            <p>Penders, A.-F. (1995). <hi rend="italic"
+               >Brancusi, la photographie ou l'atelier comme groupe mobile</hi>. Bruxelles : La lettre volée.</p>
+            <p>Poinsot, J.M. ([1999], 2008). <hi rend="italic"
+               >Quand l’œuvre a lieu : l’art exposé et ses récits autorisés,</hi> Dijon : Les Presses du Réel.</p>
+            <p>Reiss, J. H. (1999). Spaces. Dans <hi rend="italic"
+               >From Margin to Center: The Spaces of Installation Art</hi> (p. 69–106). Cambridge, Mass. : MIT Press.</p>
+            <p>Scholte, T., et G. Wharton. (2011). <hi rend="italic"
+               >Inside Installations: Theory and Practice in the Care of Complex Artworks</hi>. Amsterdam: Amsterdam University Press.</p>
+            <p>Saaze van, V. (2013). <hi rend="italic"
+               >Installation Art and the Museum. Presentation and Conservation of Changing Artworks</hi>. Amsterdam : Amsterdam University Press.</p>
+            <p>Semin, D. (2001). <hi rend="italic"
+               >Le peintre et le modèle déposé</hi>, Genève : Mamco.</p>
+         </div>
+         <div>
+            <head>
+               <hi rend="bold">Encadrés</hi>
+            </head>
+            <list rend="bulleted">
+               <item>Chronologie des initiatives en conservation-restauration des œuvres variables</item>
+               <item>Acquisition d’œuvres variables : études de cas (à choisir).</item>
+            </list>
+         </div>
+         <div>
+            <head>
+               <hi rend="bold">Références à d’autres entrées de l’</hi>
+               <hi rend="italic bold">Encyclopédie</hi>
+            </head>
+            <list rend="bulleted">
+               <item>Acquisition et production de protocoles</item>
+            </list>
+         </div>
+      </body>
+      <back>
+         <div type="notes">
+            <note place="foot" n="1" xml:id="note01">
+               <p> [Free translation.] The term “activation” is sometimes preferred over “actualisation”, for example in expressions such as “activation of a protocol-based work” or “to activate a protocol”. We distinguish between two different terms, activation and actualisation, in order to describe two modes of variation that are worth differentiating. In everyday usage, “to activate” means “to make something operate, to set it in motion”, whereas “to actualise” means “to bring something from a virtual state into a real state” (Dictionnaire Antidote 11, 2024).</p>
+            </note>
+         </div>
+      </back>
+   </text>
+</TEI>
